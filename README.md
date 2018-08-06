@@ -1,2 +1,9 @@
 # blogs
-blogs keeping my mind continuous
+
+## 博客计划
+
+### 1. 出发点
+- 
+
+### 2. 计划
+- 
