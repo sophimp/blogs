@@ -111,9 +111,31 @@
 6. BOOTP
 - bootstrap protocol
 - The BOOTP protocol was originally developed as a mechanism to enable diskless host to be remotely booted over a network as workstations, routers, terminal connectors, and so on.
-- 
+- the steps of the BOOTP process involves
+- BOOTP message format
+- BOOTP forwarding
+    * BOOTP forwarding is mechanism for routers to forward BOOTP requests across subnets.
+    * BOOTP relay agent
+- The use of BOOTP allows centralized configuration of multiple clients.
 
 7. DHCP
+- Dynamic Host Configuration Protocol
+- DHCP is based on the BOOTP protocol, adding the capability of automatic allocation of reusable network addresses and additional configuration options.
+- Three mechanism for IP address allocation:
+    * Automatic allocation
+    * Dynamic allocation
+    * manual allocation
+- The DHCP message format
+- Allocating a new network address
+    * the client/server interaction if the client does not konw its network address.
+- DHCP lease renewal process
+    * the interaction between DHCP servers and clients that have been already configured and the process that ensures lease expiration and renewal.
+- Reusing a previously allocated network address
+- DHCP considerations
+    * is built on UDP
+    * relieve the network administrator of a great deal of manual configuration work.
+    * client/server, use in everywhere. 
+- 
 
 ## 问题
 - 写完上面的几个协议, 就解决了之前的疑问, IP 是属于网络层的
