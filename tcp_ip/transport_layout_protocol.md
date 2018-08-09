@@ -28,14 +28,30 @@
     * The socket model provides a process with a full-duplex byte stream connection to another process.
 
 2. udp (User Datagram Protocol)
+> Its status is standard and almost every TCP/IP implementation intended for small units transfer or those which can afford to lose a litter amount of data will include UDP.
+> extremely thin, consequently, efficent
 - UDP datagram format
-
+    * no need to concern until used it.
 - UDP application progamming interface
+    * Be aware that UDP and IP do not provide guaranteed delivery, flow-control, or error recovery, so these must be provided by the application.
+    * Trivail File Transfer Protocol (TFTP)
+    * Dynamic Domain Name System (DDNS)
+    * Remote Procedure Call(RPC)
+    * Simple Network Management Protocol (SNMP)
+    * Lightweight Directory Access Protocol (LDAP)
 
 3. tcp (Transmission Control Protocl)
-- 从名字看, tcp 是基于udp
+> 从名字看, tcp 是基于udp, 准备说是基于 IP, 干得事比UDP多一些, 但不是包含关系
+    connection-oriented Protocol
 - tcp concept
-
+    * Stream data transfer
+    * Reliability
+    * Flow Control
+    * Multiplex
+    * Logical connections
+        + The combination of this status, including sockets, sequence numbers, and window size, is called logical connection.
+    * Full duplex
+    * window principle
 - tcp appliction programming inteface
 
 - tcp congestion control algorithm
