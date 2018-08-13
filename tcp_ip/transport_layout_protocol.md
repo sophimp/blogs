@@ -53,9 +53,23 @@
     * Full duplex
     * window principle
 - tcp appliction programming inteface
-
+    * The TCP application programming interface is not fully defined. A great digree of freedom is left to the implementers 
+    * Open, Send, Receive, Close, Status, Abort.
 - tcp congestion control algorithm
+    basic internet standards
+    * Slow start 
+    * Congestion Avoidance
+    * Fast retransmit
+    * Fast recoveryy
+- 直接看英文书是值得的, 虽然进度很慢, 但是就这些知识, 看中文的进度一样很慢, 且更静不下心来, 因为还挂念着学英语, 特别是在看到陌生的concept时, 就会怀疑是不是翻译错了` 
 
 ## Summarize after reading
 1. ports 确是用来标识 processes(server/client, local/remote) communication
-2. 
+2. 关于tcp/udp, 根面试的时候, 背的知识点大差不差, 粗略过了一遍, 见个脸熟, 这一遍的作用也主要就是这了
+3. 所谓零基础, 真是的零基础, 没听说过, 见识也少, 怎么去凭空想象, 或看到名词都能想到工作原理, 光是弄计算机怎么工作这一回事, 就是曲折回环 
+4. 得, 不要再不平衡了
+5. 我是该将计算机的学习, 归结为习惯, 而不是强迫太用力, 不然确实不会长久, 这3周的周末, 基本上又是都浪费了, 可能也是对平时的一点放松, 但是, 我的时间确实很紧, 不能只找放松这个借口, 因为就算没有学习, 我还是不放松, 而且我知道那种不学习的状态, 看电影 看节目, 那种心态, 也只是呵呵一笑, 并没有形成自己的文字, 所以, 看完了, 依然很空虚
+6. 也不尽然, 看了还是有一些收获, 思考问题的方向, 他们的生活局部, 他们的部分思想, 都很有意思, 从这些也能看到他们优秀的一面, 所以也算是长了见识, 到于将见识, 所想, 输出, 这又是另一个能力, 这个能力也一直没有得到锻炼, 所以痛苦也是必然的, 不能说, 还像年轻的时候, 不计成果, 按兴趣来, 要考虑的多, 必须得强迫自己一些
+7. 靠兴趣支撑, 也不是说就不做了, 也得那么多时间去积累, 去踩坑, 只是在这个过程中, 心态更好, 效率更高, 思维更集中, 所以, 关键点是在思想状态, 怎么去将那种痛苦减轻, 而不是靠不做来减轻
+8. 这些逻辑还是有些绕, 找到问题的关键点, 而不是给偷懒找借口, 需要放松, 人肯定需要放松, 但是放松, 不是以自己不喜欢的方式去放松, 我喜欢什么样的方式去放松呢? 
+9. 要承受的代码太多了, 现在何止是12年, 15年的落后于人啦 
