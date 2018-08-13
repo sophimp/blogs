@@ -5,8 +5,11 @@
 ## 计划
 1. 搞环境
 - c++开发环境
+    clion, mingw
 
 - openGL 开发环境
+    freeglut, 
+    cmake 一直找不到定义的方法
 
 2. 明确宗旨
 - new concept, 先通知大概, 不深究细节
@@ -19,4 +22,6 @@
 
 - 改变三角形颜色
 
-- 
+- 画点, 画线, strip, pan
+
+- 易经转轮
