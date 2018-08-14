@@ -25,3 +25,5 @@
 - 画点, 画线, strip, pan
 
 - 易经转轮
+
+- dump memory for debugging
