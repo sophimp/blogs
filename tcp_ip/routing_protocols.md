@@ -88,11 +88,35 @@
         + the associated cost (distance)
         + the IP address of the next-hop device
     * Convergence and counting to infinity
-
+        + Each device claims to be able to reach the target network through the partner device.
+        + counting to infinity.
+        + In a RIP environment, any path exceeding 15 hops is considered invalid.
+        > There are two enhancements to the basic distance vector algorithm that can minimize the counting to infinity problem:
+        + Split horizon with poison revese
+            Whit poison reverse, when a routing updaate indicates that a network is unreachable, routes are immediately removed from the routing table.
+            This approach differs from the basic split horizon rule where routes are eliminated through timeouts.
+            It might significantly increase the size of routing annoucements exchanged between neighbors.
+        + Triggered updates
+            With triggered updates, whenever a router changes the cost of a route, it immediately sends the modified distance vector table to the neighboring devices.
     * RIP limitations
+        + Path cost limits
+        + Network-intensive table updates
+        + Relatively slow convergence
+        + No support for variable length subnet masking
 
 4. Routing Information Protocol version 2
+    > It was developed to extend RIP-1 functionality in small networks.
+        + Support for CIDR and VLSM (variable length subnet masking)
+        + Support for multicasting
+        + Support for authentication
+        + Support for RIP-1
+    * RIP-2 packet format
+    * RIP-2 limitations
+        + However, the path cost limits and slow convergence inherent in RIP-1 networks are also concerns in RIP-2 environment.
+        + It is transmitted in clear text. This makes the network vulnerable to attack by anyone with direct physical access to the environment.
+
 5. RIPng for IPv6
+    * 
 6. Openg Shortest Path First
 7. Enhanced Interior Gateway Routing Protocol
 8. Exterior Gateway Protocol
