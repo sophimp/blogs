@@ -78,46 +78,68 @@
     * These protocols attempt to combine the positive attributes of both distance vector and link state protocols.
 
 3. Routing Information Protocol
-    * RIP packet types
-    * RIP packet format
-    * RIP Modes of operation
-        + active mode, passive(silent) mode
-    * Calculating distance vectors
-        > The distance vector table entries:
-        + the desination network (vector)
-        + the associated cost (distance)
-        + the IP address of the next-hop device
-    * Convergence and counting to infinity
-        + Each device claims to be able to reach the target network through the partner device.
-        + counting to infinity.
-        + In a RIP environment, any path exceeding 15 hops is considered invalid.
-        > There are two enhancements to the basic distance vector algorithm that can minimize the counting to infinity problem:
-        + Split horizon with poison revese
-            Whit poison reverse, when a routing updaate indicates that a network is unreachable, routes are immediately removed from the routing table.
-            This approach differs from the basic split horizon rule where routes are eliminated through timeouts.
-            It might significantly increase the size of routing annoucements exchanged between neighbors.
-        + Triggered updates
-            With triggered updates, whenever a router changes the cost of a route, it immediately sends the modified distance vector table to the neighboring devices.
-    * RIP limitations
-        + Path cost limits
-        + Network-intensive table updates
-        + Relatively slow convergence
-        + No support for variable length subnet masking
+- RIP packet types
+- RIP packet format
+- RIP Modes of operation
+    * active mode, passive(silent) mode
+- Calculating distance vectors
+    > The distance vector table entries:
+    * the desination network (vector)
+    * the associated cost (distance)
+    * the IP address of the next-hop device
+- Convergence and counting to infinity
+    * Each device claims to be able to reach the target network through the partner device.
+    * counting to infinity.
+    * In a RIP environment, any path exceeding 15 hops is considered invalid.
+    > There are two enhancements to the basic distance vector algorithm that can minimize the counting to infinity problem:
+    * Split horizon with poison revese
+        Whit poison reverse, when a routing updaate indicates that a network is unreachable, routes are immediately removed from the routing table.
+        This approach differs from the basic split horizon rule where routes are eliminated through timeouts.
+        It might significantly increase the size of routing annoucements exchanged between neighbors.
+    * Triggered updates
+        With triggered updates, whenever a router changes the cost of a route, it immediately sends the modified distance vector table to the neighboring devices.
+- RIP limitations
+    * Path cost limits
+    * Network-intensive table updates
+    * Relatively slow convergence
+    * No support for variable length subnet masking
 
 4. Routing Information Protocol version 2
-    > It was developed to extend RIP-1 functionality in small networks.
-        + Support for CIDR and VLSM (variable length subnet masking)
-        + Support for multicasting
-        + Support for authentication
-        + Support for RIP-1
-    * RIP-2 packet format
-    * RIP-2 limitations
-        + However, the path cost limits and slow convergence inherent in RIP-1 networks are also concerns in RIP-2 environment.
-        + It is transmitted in clear text. This makes the network vulnerable to attack by anyone with direct physical access to the environment.
+> It was developed to extend RIP-1 functionality in small networks.
+- Support for CIDR and VLSM (variable length subnet masking)
+- Support for multicasting
+- Support for authentication
+- Support for RIP-1
+- RIP-2 packet format
+- RIP-2 limitations
+    * However, the path cost limits and slow convergence inherent in RIP-1 networks are also concerns in RIP-2 environment.
+    * It is transmitted in clear text. This makes the network vulnerable to attack by anyone with direct physical access to the environment.
 
 5. RIPng for IPv6
-    * 
+- RIPng was developed to allow routers within an IPv6-based network to exchange information used to computer routes.
+- RIPng is in RIP family, used the same algorithm, timers, and logic used in RIP-2
+- RIPng has many of the same limitations inherent in other distance vector protocols.
+- Differences between RIPng and RIP-2:
+    > Support for authentication: RIP-2 has, RIPng not. RIPng uses the security features inherent in IPv6.
+    > Support for IPv6 addressing format: RIPng does.
+- RIPng packet format
+    RIPng are transmitted using UDP datagrams.
+    
 6. Openg Shortest Path First
+> OSPF is a link state protocol,interior gateway protocol, provides a number of features not found in distance vector protocols.
+    * Equal cost load balancing
+    * Logical partioning of the network
+    * Support for authentication
+    * Faster convergence time
+    * Support for CIDR(无类别域间路由, Classless Inter-Domain Routing) and VLSM
+- OSPF teminology
+    * 
+- Neighbor communication
+- OSPF neighnor state machine
+- OSPF route redistribution
+- OSPF stub areas
+- OSPF route summarization
+
 7. Enhanced Interior Gateway Routing Protocol
 8. Exterior Gateway Protocol
 9. Border Gateway Protocol
