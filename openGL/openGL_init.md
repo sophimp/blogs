@@ -33,14 +33,19 @@
 3. 找项目
 - 渲染出一个三角形
     * 初始的api
-    * 
+    glBegin(GL_TRIANGLES);
 
 - 渲染出一个正方形
+    glBegin(GL_QUADS);
 
 - 改变三角形颜色
+    glColor3f(1.0f,0.0f, 0.0f);
 
-- 画点, 画线, strip, pan
+- glPrimitives: 画点, 画线, strip, fan 
+    GL_POINTS, GL_LINES, GL_LINE_LOOP, GL_LINE_STRIP, GL_TRIANGLES, GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, GL_QUADS, GL_QUAD_STRIP, GL_POLYGON
 
 - 易经转轮
+    * 并不需要多么高深的图形学知识, 使用上面的知识, 基本上就能解决了
+    * 
 
 - dump memory for debugging
