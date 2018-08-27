@@ -1,0 +1,48 @@
+
+## OpenGL's Programmable Pipeline
+// 先不刻意追求要记录出多么优秀的笔记, 先主要是学习, 记录一些知识点, 反应出思路, 最后再整理成可看的文章
+
+1. vertext shading stage
+2. tesselation shading stage
+3. geometry shading stage
+4. fragment shading stage
+5. compute shading stage
+
+6. 着色阶段之间的数据传输方式
+    通过特殊的全局变量, 但是跟程序中的全局变量没关系 
+
+## grammar
+1. 数据类型 
+- 透明
+    float, double, int, uint, bool
+- 不透明
+    sampler, image, atomic counter
+
+2. 向量与矩阵类型
+- float -> vec2, vec3, vec4 -> mat2, mat3, mat4, mat2x2, mat2x3 ... mat4x4
+- double -> dvec2, dvec3, dvec4 -> dmat2, 类比float
+- int -> ivec2, ivec3, ivec4
+- uint -> uvec2, uvce3, uvec4
+- bool -> bvec2, bvec3, bvec4
+
+3. 结构体
+- 类C语言
+
+4. 数组
+- 类似脚本语言, dsl还是脚本语言? 
+- length() 是编译时已知的常量
+
+5. 存储限制符
+- const, in, out, uniform, buffer, shared
+
+6. 语句
+- 算术操作符
+- 操作重载
+    * 矩阵,向量
+- 流控制
+- break, continue, return, discard
+- discard 只适用于 fragment shader 中, 丢弃当前的fragment, 终止着色器的执行 
+
+7. 函数
+
+8. 声明

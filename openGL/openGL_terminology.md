@@ -1,70 +1,70 @@
 ### afﬁne transformation:      
-    A transformation that preserves straight lines and the ratio of distances of points lying on lines. 
+      A transformation that preserves straight lines and the ratio of distances of points lying on lines. 
 
 ### aliasing:
-    Artifacts created by undersampling a scene, typically caused by assigning one point sample per pixel, where there are edges or patterns in the scene of higher frequency than the pixels. This results in jagged edges (jaggies), moiré patterns, and scintillation. See antialiasing. 
+      Artifacts created by undersampling a scene, typically caused by assigning one point sample per pixel, where there are edges or patterns in the scene of higher frequency than the pixels. This results in jagged edges (jaggies), moiré patterns, and scintillation. See antialiasing. 
 
 ### alpha:
-    The fourth color component. The alpha component is never displayed directly, and is typically used to control blending of colors. By convention, OpenGL alpha corresponds to the notion of opacity, rather than transparency, meaning that an alpha value of 1.0 implies complete opacity, and an alpha value of 0.0 complete transparency. 
+      The fourth color component. The alpha component is never displayed directly, and is typically used to control blending of colors. By convention, OpenGL alpha corresponds to the notion of opacity, rather than transparency, meaning that an alpha value of 1.0 implies complete opacity, and an alpha value of 0.0 complete transparency. 
 
 ### ambient:    
-    Ambient light is light not directly associated with a light source, and is distributed uniformly throughout space, with light falling upon a surface approaching from all directions. The light is reflected from the object independent of surface location and orientation, with equal intensity in all directions. 
+      Ambient light is light not directly associated with a light source, and is distributed uniformly throughout space, with light falling upon a surface approaching from all directions. The light is reflected from the object independent of surface location and orientation, with equal intensity in all directions. 
 
 ### amplication:    
-    The process of a geometry shader creating more geometry than was passed to it. 
+      The process of a geometry shader creating more geometry than was passed to it. 
 
 ### animation:     
-    Generating repeated renderings of a scene, with smoothly changing viewpoint and object positions, quickly enough so that the illusion of motion is achieved. OpenGL animation is almost always done using double-buffering. 
+      Generating repeated renderings of a scene, with smoothly changing viewpoint and object positions, quickly enough so that the illusion of motion is achieved. OpenGL animation is almost always done using double-buffering. 
 
 ### anisotropic ﬁltering:
-    A texture-filtering technique that improves image quality by sampling the texture using independent texture-interpolation rates for each texture dimension. 
+      A texture-filtering technique that improves image quality by sampling the texture using independent texture-interpolation rates for each texture dimension. 
 
 ### antialiasing:   
-Rendering techniques that reduce aliasing. These techniques include sampling at a higher frequency, assigning pixel colors based on the fraction of the pixel’s area covered by the primitive being rendered, removing high-frequency components in the scene, and integrating or averaging the area of the scene covered by a pixel, as in area sampling. See antialiasing. 
+      Rendering techniques that reduce aliasing. These techniques include sampling at a higher frequency, assigning pixel colors based on the fraction of the pixel’s area covered by the primitive being rendered, removing high-frequency components in the scene, and integrating or averaging the area of the scene covered by a pixel, as in area sampling. See antialiasing. 
 
 ### API:
-   See application programming interface. 
+      See application programming interface. 
 
 ### application programming interface:
-    A library of functions and subroutines that an application makes calls into. OpenGL is an example of an application programming interface. 
+      A library of functions and subroutines that an application makes calls into. OpenGL is an example of an application programming interface. 
 
 ### area sampling:
-Deciding what color to color a pixel based on looking at the entire content of the scene covered by the pixel. This is as opposed to point sampling . 
+      Deciding what color to color a pixel based on looking at the entire content of the scene covered by the pixel. This is as opposed to point sampling . 
 
 ### array textures:
-    Array textures are texture objects that contain multiple layers or slices that are treated as one associated block of data. 
+      Array textures are texture objects that contain multiple layers or slices that are treated as one associated block of data. 
 
 ### atomic counter:
-    A counter object usable in all of OpenGL’s shader stages that is updated atomically. See atomic operation. 
+      A counter object usable in all of OpenGL’s shader stages that is updated atomically. See atomic operation. 
 
 ### atomic operation:
-    In the context of concurrent (multithreaded) programming, an operation that is always completed without interruption. 
+      In the context of concurrent (multithreaded) programming, an operation that is always completed without interruption. 
 
 ### attenuation:
-    The property of light that describes how a light’s intensity diminishes over distance. 
+      The property of light that describes how a light’s intensity diminishes over distance. 
 
 ### back faces:
-    See faces. 
+      See faces. 
 
 ### barycentric coordinates:
-    A coordinate system where a point is represented as a weighted sum of two or more reference points. Varying a barycentric coordinate between zero and one in each component moves it within its domain. 
+      A coordinate system where a point is represented as a weighted sum of two or more reference points. Varying a barycentric coordinate between zero and one in each component moves it within its domain. 
 
 ### Bernstein polynomials:
-    A family of polynomial equations named after Sergei Natanovich Bernstein that are used in evaluating Bézier curves. The polynomials are defined as follows: 
-    bn,m (x) =  n 	xn  (1 − x)n−m 
-            m 
-    where  n  is a binomial coefficient. 
-            m 
+      A family of polynomial equations named after Sergei Natanovich Bernstein that are used in evaluating Bézier curves. The polynomials are defined as follows: 
+      bn,m (x) =  n 	xn  (1 − x)n−m 
+                  m 
+      where  n  is a binomial coefficient. 
+                  m 
 
 ### billboard:
-    Usually a texture-mapped quadrilateral that is oriented to be perpendicular to the viewer. Often billboards are used to approximate complex geometry at a distance. 
+      Usually a texture-mapped quadrilateral that is oriented to be perpendicular to the viewer. Often billboards are used to approximate complex geometry at a distance. 
 
 
 ### binding an object:
-    Attaching an object to the OpenGL context, commonly through a function that starts with the word bind, such as glBindTexture(), glBindBuffer(), or glBindSampler(). 
+      Attaching an object to the OpenGL context, commonly through a function that starts with the word bind, such as glBindTexture(), glBindBuffer(), or glBindSampler(). 
 
 ### binomial coefﬁcient:
-    The coefficients of the terms in the expansion of the polynomial (1 + x)n . Binomial coefficients are often described using 
+      The coefficients of the terms in the expansion of the polynomial (1 + x)n . Binomial coefficients are often described using 
                         
       the notation     n , where 
                        k 
@@ -76,120 +76,88 @@ Deciding what color to color a pixel based on looking at the entire content of t
       where n! is the factorial of n. 
 
 ### binormal:
-    A vector perpendicular to both a surface tangent vector and the surface normal vector. These three mutually orthogonal vectors can form the basis of a local coordinate system, including a surface-local coordinate space. 
+      A vector perpendicular to both a surface tangent vector and the surface normal vector. These three mutually orthogonal vectors can form the basis of a local coordinate system, including a surface-local coordinate space. 
 
 ### bit:
-    A short form for ‘‘binary digit’’. A state variable having only two possible values: 0 or 1. Binary numbers are constructions of one or more bits. 
+      A short form for ‘‘binary digit’’. A state variable having only two possible values: 0 or 1. Binary numbers are constructions of one or more bits. 
 
 ### bit depth:
-    The number of bits available for a particular component, limiting the set of values that can be stored in the component. 
+      The number of bits available for a particular component, limiting the set of values that can be stored in the component. 
 
-bitplane    A rectangular array of bits mapped one-to-one with pixels. The 
-      framebuffer can be considered a stack of bitplanes. 
+### bitplane:
+      A rectangular array of bits mapped one-to-one with pixels. The framebuffer can be considered a stack of bitplanes. 
 
-blending     Reduction of two color components to one component, usually 
-      as a linear interpolation between the two components. 
+### blending:     
+      Reduction of two color components to one component, usually as a linear interpolation between the two components. 
 
-buffer   A group of bitplanes that store a single component, such as depth 
-      or green. Sometimes the red, green, blue, and alpha buffers together 
-      are referred to as the color buffer, rather than the color buffers. 
+### buffer:
+      A group of bitplanes that store a single component, such as depth or green. Sometimes the red, green, blue, and alpha buffers together are referred to as the color buffer, rather than the color buffers. 
 
-buffer object    A buffer located in the OpenGL’s server memory. Vertex 
-      and pixel data, uniform variables, and element-array indices may be 
-      stored in buffer objects. 
+### buffer object:
+      A buffer located in the OpenGL’s server memory. Vertex and pixel data, uniform variables, and element-array indices may be stored in buffer objects. 
 
-buffer objects     Objects representing linear allocations of memory that 
-      may be used to store data. 
+### buffer objects:
+      Objects representing linear allocations of memory that may be used to store data. 
 
-buffer ping-ponging       A technique---mostly used for GPGPU---where two 
-      equally sized buffers are used accumulating results. For a particular 
-      frame, one buffer holds current results and is read from, and the 
-      other buffer is written to updating those results. For the next frame, 
-      the buffers’ roles are swapped (ping-ponged). 
+### buffer ping-ponging:
+      A technique---mostly used for GPGPU---where two equally sized buffers are used accumulating results. For a particular frame, one buffer holds current results and is read from, and the other buffer is written to updating those results. For the next frame, the buffers’ roles are swapped (ping-ponged). 
 
-bump map       See normal map. 
+### bump map:
+      See normal map. 
 
-         bump mapping       Broadly, this is adding the appearance of bumps through 
-              lighting effects even though the surface being rendered is flat. This is 
-              commonly done using a normal map to light a flat surface as if it were 
-              shaped as dictated by the normal map, giving lighting as if bumps 
-              existed on the surface, even though there is no geometry describing 
-              the bumps. 
+### bump mapping:
+      Broadly, this is adding the appearance of bumps through lighting effects even though the surface being rendered is flat. This is commonly done using a normal map to light a flat surface as if it were shaped as dictated by the normal map, giving lighting as if bumps existed on the surface, even though there is no geometry describing the bumps. 
 
-         byte swapping     The process of exchanging the ordering of bytes in a 
-               (usually integer) variable type (i.e., int, short, etc.). 
+### byte swapping:
+      The process of exchanging the ordering of bytes in a (usually integer) variable type (i.e., int, short, etc.). 
 
-         C   The programming language of Unix kernel hackers. 
+### C:
+      The programming language of Unix kernel hackers. 
 
-         C++   Most common programming language for programming computer 
-              graphics. 
+### C++:
+      Most common programming language for programming computer graphics. 
 
-         cascading style sheet     A presentation mechanism for specifying the look 
-              and layout of Web pages. 
+### cascading style sheet:
+      A presentation mechanism for specifying the look and layout of Web pages. 
 
-         client  The computer from which OpenGL commands are issued. The 
-              client may be the same computer that the OpenGL server is running 
-              on (see server), or it may be a different machine connected via a 
-              network (assuming the OpenGL implementation supports network 
-              rendering). 
+### client:
+      The computer from which OpenGL commands are issued. The client may be the same computer that the OpenGL server is running on (see server), or it may be a different machine connected via a network (assuming the OpenGL implementation supports network rendering). 
 
-         clip  See clipping. 
+### clip:
+      See clipping. 
 
-         clip coordinates    The coordinate system that follows transformation by 
-              the projection matrix and precedes perspective division. View- 
-              volume clipping is done in clip coordinates. 
+### clip coordinates:
+      The coordinate system that follows transformation by the projection matrix and precedes perspective division. View- volume clipping is done in clip coordinates. 
 
-         clipping   Elimination of the portion of a geometric primitive that’s 
-              outside the half-space defined by a clipping plane. Points are simply 
-              rejected if outside. The portion of a line or triangle that’s outside the 
-              half-space is eliminated, and additional vertices are generated as 
-              necessary to complete the primitive within the clipping half-space. 
-              Geometric primitives are always clipped against the six half-spaces 
-              defined by the left, right, bottom, top, near, and far planes of the view 
-              volume. Applications can optionally perform application-specific 
-              clipping through use of clip distances, gl_ClipDistance[]. 
+### clipping:
+      Elimination of the portion of a geometric primitive that’s outside the half-space defined by a clipping plane. Points are simply rejected if outside. The portion of a line or triangle that’s outside the half-space is eliminated, and additional vertices are generated as necessary to complete the primitive within the clipping half-space. Geometric primitives are always clipped against the six half-spaces defined by the left, right, bottom, top, near, and far planes of the view volume. Applications can optionally perform application-specific clipping through use of clip distances, gl_ClipDistance[]. 
 
-         clipping region    The intersection of all the half-spaces defined by the 
-              clipping planes. See clipping. 
+### clipping region:
+      The intersection of all the half-spaces defined by the clipping planes. See clipping. 
 
-         CMYK     Cyan, Magenta, Yellow, Black. A color space often used in printing. 
+### CMYK:
+      Cyan, Magenta, Yellow, Black. A color space often used in printing. 
 
-         color space    A model for describing colors, often as vectors within a 
-              three- or four-dimensional domain such as the RGB color space . 
+### color space:
+      A model for describing colors, often as vectors within a three- or four-dimensional domain such as the RGB color space . 
 
-compatibility proﬁle    The profile of OpenGL that still supports all legacy 
-      functionality. It is primarily intended to allow the continued 
-      development of older applications. See also core profile. 
+### compatibility proﬁle:
+      The profile of OpenGL that still supports all legacy functionality. It is primarily intended to allow the continued development of older applications. See also core profile. 
 
-components      Individual scalar values in a color or direction vector. They 
-      can be integer or floating-point values. Usually, for colors, a 
-      component value of zero represents the minimum value or intensity, 
-      and a component value of one represents the maximum value or 
-      intensity, although other ranges are sometimes used. Because 
-      component values are interpreted in a normalized range, they are 
-      specified independent of actual resolution. For example, the RGB 
-      triple (1,1,1) is white, regardless of whether the color buffers store 4, 
-      8, or 12 bits each. Out-of-range components are typically clamped to 
-      the normalized range, not truncated or otherwise interpreted. For 
-      example, the RGB triple (1.4,1.5,0.9) is clamped to (1.0,1.0,0.9) before 
-      it’s used to update the color buffer. Red, green, blue, alpha, and depth 
-      are always treated as components, never as indices. 
+### components:
+      Individual scalar values in a color or direction vector. They can be integer or floating-point values. Usually, for colors, a component value of zero represents the minimum value or intensity, and a component value of one represents the maximum value or intensity, although other ranges are sometimes used. Because component values are interpreted in a normalized range, they are specified independent of actual resolution. For example, the RGB triple (1,1,1) is white, regardless of whether the color buffers store 4, 8, or 12 bits each. Out-of-range components are typically clamped to the normalized range, not truncated or otherwise interpreted. For example, the RGB triple (1.4,1.5,0.9) is clamped to (1.0,1.0,0.9) before it’s used to update the color buffer. Red, green, blue, alpha, and depth are always treated as components, never as indices. 
 
-compressed texture      A texture image which is stored in a compressed 
-      form. Compressed textures benefit from requiring less memory, and 
-      using texture-cache memory more efficiently. 
+### compressed texture:
+      A texture image which is stored in a compressed form. Compressed textures benefit from requiring less memory, and using texture-cache memory more efficiently. 
 
-compression      Reducing the storage requirements of data by changing its 
-      representation in memory. 
+### compression:
+      Reducing the storage requirements of data by changing its representation in memory. 
 
-compression ratio     The ratio of the amount of storage required for some 
-      compressed data relative to the size of the original, uncompressed 
-      data. 
+### compression ratio:
+      The ratio of the amount of storage required for some compressed data relative to the size of the original, uncompressed data. 
 
-compute shader      A shader that is executed as the result of a compute 
-      dispatch command. A single invocation of a compute shader 
-      represents one work item and a group of invocations forms a local 
-      workgroup. A number of local workgroups form a global workgroup . 
+### compute shader:
+      A shader that is executed as the result of a compute dispatch command. A single invocation of a compute shader represents one work item and a group of invocations forms a local workgroup. A number of local workgroups form a global workgroup . 
 
 concave    A polygon that is not convex. See convex. 
 
