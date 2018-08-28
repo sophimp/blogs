@@ -44,5 +44,87 @@
 - discard 只适用于 fragment shader 中, 丢弃当前的fragment, 终止着色器的执行 
 
 7. 函数
+- 函数原型, c/c++是基本的概念, 但是真正理解, 还是在学java过程中, 多敲了代码, 理解了, 在λ表达式中实用性最高
 
-8. 声明
+8. 参数限制符
+- in 默认形式
+- const in 将只读数据拷贝到函数中
+- out 从函数中获取数据
+- inout 将数据拷贝到函数中, 并且返回函数中修饰的数据
+
+9. 计算不变性
+- float, double 在不同的硬件上, 表示会有细微的差异, 所以尽量不使用这两个类型的值来判断相等作为执行条件
+    const float 在编译器阶段由宿主机计算出来, float 在着色器阶段, 由图形硬件算出来
+- invariant
+    调试过程中可能需要将着色器中的所有变量都设置了invariant
+    #pragma STDGL invariant(all)
+    只能影响在图形设备阶段, 保证同样的表达式, 同样的参数值, 出的结果肯定是一样的
+- precise
+    * 混合乘加运算 fused multiply-and-add, fma
+     precise 告诉编译器, 使用同一种乘法命令来计算所有的乘法表达式, 避免不同乘法指令运算所带来的微小差异
+
+## 预处理
+1. 预处理命令
+- #define, #undef
+- #if, #ifdef, #ifndef, #else, #elif, #endif
+- #error text 强制将text文字插入到着色器信息日志中, 可用作调试
+- #pragma options
+- #extension options
+- # version number
+- #line options 设置诊断行号
+
+2. 宏定义
+- 只可定义一些单一的值, 不支持字符串替换以及预编译连接符 
+- __LINE__ 行号, 默认已处理的所有换行符的个数加一
+- __FILE__ 当前处理的源字符串编号
+- __VERSION__ 着色语言版本的整数表示形式
+
+3. 编译器控制
+- 默认所有的着色器都开启了优化选项
+#pragma optimize(on)
+
+- 额外诊断信息输出, 默认禁用
+#pragma debug(off)
+
+4. 扩展功能处理
+- #extension extension_name : <diretive>
+  #extension all : <directive>
+
+- <directive> 选项
+    * require
+    * enable
+    * warn
+    * disable
+
+##　数据块接口
+- uniform 块, 类似于struct语法
+    * uniform 变量的地址是在着色器链接的时候产生的, 且同时存在于着色器与应用程序中, 因此需要两边都更新
+    * uniform 块必须在全局作用域声明
+    * 访问一组uniform变量 glMapBuffer()
+- uniform 布局控制 
+    * shared 默认布局方式, 程序间共享
+    * packed 占用最小内存, 但会禁止程序间共享
+    * std140, std430, 标准方式设置 uniform, buffer
+    * row_major 行主序
+      layout(shared, row_major) uniform{...};
+    * column_major 列主序
+
+- buffer块
+    * 类似于uniform 块, 比uniform块更强大
+    * 着色器可写入buffer块
+    * 在渲染之前决定其大小
+
+- in/out块
+    * 输入,输出的布局是匹配的
+
+## 着色器编译
+- 着色器的编译和链接是使用OpenGL API, 相当于内置编译器, 跟c/c++编译的流程同理
+- 着色器的代码同样可以复用, 所以有链接过程
+- 编写, 关联, 编译链接, 错误检查, 使用
+- 链接成功, 新的着色程序才会替代旧的, 否则, 旧的依旧可用
+- 得到着色器对象, 可以删除文件的关联, 直到下一次再编译
+    * glDeleteShader
+    * shader 和 program
+    > shader 是与file关联的? program 是最终要使用的?
+- 了程序设置
+    * subroutine
