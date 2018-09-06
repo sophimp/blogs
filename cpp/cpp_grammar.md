@@ -48,3 +48,28 @@
 
 7. float
 - 1.0f 必须带小数点, f可选
+
+8. cpp 对象模型
+- COFF: Common Object File Format
+- Inside the C++ Object Model
+- 对象模式
+> class data members: static, nonstatic
+  class member functions: static, nonstatic , virtual
+    * 简单对象模型 A Simple Object Model
+        每个 data member 和 member function 都对应一个 slot 索引
+    * 表格驱动对象模型 A Table-driven Object Model
+        class object 本身包含 data member table 和 member function table 的指针
+        data member table 和 member function table 对应每个 slot
+    * The C++ Object Model
+        + Nonstatic data 置于每一个 class object 之内
+        + static data 存放在所有的class object之外
+        + static 和 nonstatic funtion member 放在所有的 class object 之外
+        + Virtual Function 由有class 产生出指针, 存放在 virtual table (vtbl) 中, 每个class 添加了一个的指针, 指向 virtual table, 这个指针称为 vptr, vptr 的 setting 和 reseeting, 放在 constructor, deconstructor 或 copy assignment 运算符自动完成
+        + 每个class 所关联的 type_info object (用以支持 RTTI: runtime type identification) 也经由 virtual table 指出来, 通常放在表格的第一个slot处, (多态的由来?!)
+    * 加上继承(Adding Inheritance), 多继承
+        * base class 唯一
+        
+- 对象模型如何影响程序
+    * stuct 和 class, 最小哲学
+        "一致性的用法" 只不过是一种风格上的问题而已
+    * 
