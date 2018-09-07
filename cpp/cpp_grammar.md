@@ -72,4 +72,32 @@
 - 对象模型如何影响程序
     * stuct 和 class, 最小哲学
         "一致性的用法" 只不过是一种风格上的问题而已
+    * pointer 和 reference
+        + 本质上, 一个reference 通常是以一个指针来实现
+        + 指针类型 会教导编译器如何解释某个特定地址中的内存内容及其大小
+        + cast 是一个编译器指令, 大部分情况下它并不改变一个指针所含的真正地址, 它只影响被指出之内存的大小和其内容
+    * OO(Oriented Object), OB(Object Based)
+        OO 更有弹性, OB 效率更高(String 就是一个OB设计思想)
+
+9. 构造函数语义学 (The Semantics of Constructors)
+- C++ 对象模型看得好爽, 有了对象模型的基础, 速度很快, 书的内容都是干货, 但是篇幅少
+- conversion operator
+- default constructor, 当编译器需要的时候, 才会合成一个, 若是程序需要初始化, 那是程序员的事情
+    * trivial constructor
+        实际并不会被合成出山来
+    * nontrivial constructor
+        + 如果一个class中含有一个 member object(有 default constructor), 那么这个class由编译合成的constructor 是 nontrivial 的
+        > 如何避免合成多个default constructor:
+        defaultu constructor, copy constructor, destructor, assignment copy operator 以inline方式
+        如果不适合inline, 会合成一个  explicit non-inline static
+        > 被合成的default constructor 只满足编译器的需要, 而不是程序的需要
+        >. 如果class 已声明default constructor, 且含有多个 member object, 编译器会扩张default constructor, 调用所以member object的 default constructor, java中是显示调用super
+        + 带有Default Constructor 的 BaseClass
+        + 带有一个 Virtual Function 的 class
+        > 编译器必须为每一个class object 的 vptr 设定初始值, 旋转适当的 virtual table 地址
+        + 带有一个 Virtual Base Class 的 Class 
+        > 每种编译器实现有极大的差异, 但是共通的点在于: 必须使用virtual base class 在其中每一个derived class object 中的位置
+    * java对类中的基本类型, 都会初始化
+
+- Copy Constructor
     * 
