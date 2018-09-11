@@ -100,4 +100,19 @@
     * java对类中的基本类型, 都会初始化
 
 - Copy Constructor
-    * 
+    * 有一个参数的类型是其class type, 此种形式是其定义 
+        > X::X(const X& x);
+        > Y::Y(const Y& y, int = 0);
+    * 当一个class object 以另一个同类实体作为初值时, copy construct 会被调用 
+    * Default Memberwise Initialization
+        > 在必要的时候才由编译器产生出来, 跟default constructor 一样, 对象成员有explicit copy constructor, 或者基类, 继承链上有 virtual function
+        > 递归实施 memberwise initialization
+            nonclass member 也会被复制
+    * Bitwise Copy Semantics (位逐次拷贝)
+        > 这样的语法是跟编译器的约定
+        > 编译器跟语法也是相辅相承
+    * Bitwise Copy Semantics  失效情况
+        > 这个失效是 trivial 的意思? 怎么是跟 default constructor反着来, 但是看描述又不是反的
+
+- 程序转化语意学 (Program Transformation Semantics)
+
