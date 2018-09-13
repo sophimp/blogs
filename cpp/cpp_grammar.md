@@ -6,6 +6,12 @@
 1. 指针
 - 内存地址
 - 指针与引用
+    * 指针是内存地址的变量
+    * 引用是对象在内存中的地址
+    * 指针的值是对象的引用
+    * 但是并不是说它们就是一回事
+    * 编译器实现, 将引用对待一个对象, 而指针只是一个固长的地址值 
+
 - 赋值: 
     * 指针与类型变量之间的赋值: 值拷贝, 引用拷贝
     * 指针变量间赋值: 默认是赋值变量所存储的内容(所指变量的地址), 如果强迫取指针变量的地址&, 理论上被赋值变量的类型是int* 型, 是可以的, 人工将指针变成二级指针, 但是在编译器里还是一级指针的形式
@@ -115,4 +121,23 @@
         > 这个失效是 trivial 的意思? 怎么是跟 default constructor反着来, 但是看描述又不是反的
 
 - 程序转化语意学 (Program Transformation Semantics)
+    * copy constructor 与 define constructor, 在java中是 clone(), define constructor, 也可以像普通函数一样被调用, 只不过是编译器多了一层保障, 在没明确写的时候, 补充上
+    * 明确的初始化操作 (Explicit Initialization)
+    * 参数的初始化操作 (Argument Initialization)
+    * 返回值的初始化操作 ( Return Value Initialization ) 
+        > NRV (Name Return Value), 此优化很大提高的效率, 编译义不容辞的优化操作
+    * 在使用者层面做优化 (Optimization at the User Level)
+    * 在编译器层面做优化 (Optimization at the Compiler Level)
+    * Copy Constructor 是要还是不要
+
+- 成员们的初始化队伍 (Member Initialization list)
+    * 必须使用 member initialization list
+        > initiate reference member
+        > initiate const member
+        > base class 中的 constructor 有一组参数
+        > member class 中的 constructor 中有一组参数
+    * member initialization list 安插在任何中 explicit user code 之前
+
+10. Data 语意学 (The Semantics of Data) 
+- 
 
