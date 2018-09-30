@@ -129,4 +129,14 @@
 - 了程序设置
     * subroutine
 
+## vertex shader, fragment shader, OpenGL中没有默认的, 必须写, geometry shader 也可以配置
+1. vertext buffer
+- 在 vertex shader处理过程中, 会将坐标转成标准化形式
+- 坐标转成Uniform形式, 有没有明确的指令操作
+- glGenVertex(), glBindVertex, glBufferData()
+
+2. fragment shader
+- 确定每个像素点最终的颜色值 attribute fragment, (全局光照, 阴影, 光的颜色)
+- 
+
 ## 
