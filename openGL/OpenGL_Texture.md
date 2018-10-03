@@ -22,3 +22,7 @@
 4. 生成纹理
 5. 应用纹理
 6. 纹理单元
+
+7. GL_ARRAY_BUFFER, GL_VERTEX_BUFFER
+- 有区别
+- 
