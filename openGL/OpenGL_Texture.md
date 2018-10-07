@@ -47,5 +47,8 @@
     * 将4D剪裁空间坐标转换为3D标准化设备坐标, 在每个顶点着色器运行后被自动执行
     * 
 - 每一步都是一个固定的矩阵可以解决的， 如里有必要， 还可以将多个矩阵综合成一个矩阵来计算
+- ZBuffer
+    * glEnable(GL_DEPTH_TEST);
+    * glClear(GL_DEPTH_BUFFER_BIT);
 
 10. 
