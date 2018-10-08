@@ -139,7 +139,19 @@
     * member initialization list 安插在任何中 explicit user code 之前
 
 10. Data 语意学 (The Semantics of Data) 
-- 
+- Data Member 的绑定
+    * 语言本身所造成的额外负担 (overhead) 
+    * 编译器对特殊情况所提供的优化处理
+    * Alignment 的限制
+- Data Member 的布局
+- Data Member 的存取
+    * static data member, 在class之外, data segment
+    * nonstatic data member
+    * implicit class object 
+- 继承与 Data Member
+- 对象成员的效率(Object Member Effective)
+- 指向Data Member的指针 (Pointer to Data Member)
+- 看完还是有些云里雾里, 留一个大概印象吧
 
 
 11. 没有返回值, 编译不会报错? 
