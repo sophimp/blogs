@@ -51,4 +51,33 @@
     * glEnable(GL_DEPTH_TEST);
     * glClear(GL_DEPTH_BUFFER_BIT);
 
-10. 
+10. frustum
+- GL_PROJECTION
+    eye coordinate -> clip coordinate -> NDC
+    * eye coordinate, 跟world coordinate 有何区别
+    * clip coordinate, 屏蔽坐标系的齐次表示, 实际是二维的？
+        是三维的齐次坐标表示， NDC也是三维的, Normalize Device Coordinate
+    * integrate both clipping(frustum culling) and NDC transformations
+
+- Homogeneous Coordinate
+    * Euclidean space, Cartesian space, projective space
+    * infinity, meaningless
+    * 奇次坐标特性：
+        > 1. 使用 N+1 维表示 N 维, 反之将到 N 维， 只需除以 w
+        > 2. w 等0， 代表无穷远点
+        > 3. scale invariant
+        > 4. 经过矩阵乘法后， w 值是会变的
+
+- world space --- translate, rotate ---> eye space
+    * eye space --- projection matrix ---> clip space
+        > projection matrix 是如何求得?
+            1. In OpenGL, a 3D point in eye space is projected onto the near plane
+            2. using ratio of similar triangles, 可以得到 x,y可以用z表示， 且是除以Z关系, 这与齐次坐标定义吻合
+            3. 
+
+    * clip space ---> divide w ---> NDC
+        为何除以w 就可以了， 这个w 是怎么选的, w不是选的， 最开始 object space 时是1， 经过一系列transformation， 矩阵乘法是会改变其值
+        将其降到三维， 同样是除以 W
+    * NDC ---> divide z ---> screen space, 又降一维, 确实很奇妙
+
+- 
