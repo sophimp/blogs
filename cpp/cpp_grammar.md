@@ -153,7 +153,6 @@
 - 指向Data Member的指针 (Pointer to Data Member)
 - 看完还是有些云里雾里, 留一个大概印象吧
 
-
 11. 没有返回值, 编译不会报错? 
 - 不会报错, 从汇编中了解到, 所谓的返回值, 只是从exa寄存器中读数, 所以不管有没有返回值, 理论上是都可以读到数, 但是不一定是想要的数据
 - 无参的函数也可以传参, 但是后面的参数获取不到值
@@ -168,3 +167,20 @@
 - 内存泄漏一般是指大进程层面
 - 一个进程挂掉了, 会由制作系统来负责回收该进程的所有资源
 - 但是写代码最好还是按照 RAII(Resource Acquisition Is Initialization)原则 
+
+14. Function 语义学
+- Member 的各种调用方式
+    * member function
+    * nonmember function
+    * nonstatic member function
+    * static member functions
+- Virtual Member Functions
+    * passive polymophism
+    * active polymophism
+    * RTTI: (runtime type identification)
+    * 不要在一个virtual base class中声明 nonstatic data members
+- 函数的效能
+- 指向Member Functions的指针
+- Inline Functions
+
+15. 
