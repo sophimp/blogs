@@ -181,6 +181,31 @@
     * 不要在一个virtual base class中声明 nonstatic data members
 - 函数的效能
 - 指向Member Functions的指针
+    * 各种语言的通性, 很多都是从c++ 的设计中借鉴来的, 看着很熟悉
+    * 多重继承, 虚函数, 额外开销
+    * 编译器, 真是一个大工程, 那么多特性要分析, 也很烧脑
+    * 
 - Inline Functions
+    * #define 的安全替代品
+    * 可能会引起代码大小暴涨
+    * 多层嵌套, 局部变量, 编译器的优化
 
-15. 
+15. 构造, 解构, 拷贝语义学 (Semantics of constuction, destruction, and Copy)
+- 纯虚函数的存在
+    * 可以被静态调用
+    * 继承体系中每一个 class object 的 destructors 都会被调用, 所以编译器不能够压抑这个操作
+- 虚拟规格的存在
+    * 
+- 虚拟规格中const的存在
+- 重新考虑class的声明
+- 无继承情况下的对象构造
+- 继承体系下的对象构造
+- 对象复制语义学
+- 对象的功能
+- 解构的语意学
+
+16. 执行期语意学
+- 
+
+17. 站在对象模型的类端
+- 
