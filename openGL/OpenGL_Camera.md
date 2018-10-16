@@ -33,4 +33,15 @@
 - 时间回调可以解决暂时的动画系统
     * 键盘控制camera不够精细
 
-4. 
+4. 欧拉角
+- 如何求得方向变量
+    * pitch, yaw, roll 与 direction 
+- 万向锁    
+- 改变 cameraPos 与 perspective fov 
+    都会改变 frustum 大小
+
+5. quaternion
+- 
+
+6. Camera 类封装
+- 
