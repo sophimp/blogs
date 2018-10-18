@@ -3,6 +3,8 @@
 - C的标准库, 要怎么系统的学习呢?
 - 写3sum算法的时候, 只会 malloc, 所以, 动态分配与释放的时候, 搞不转了, 有了这个函数, 就容易得多
 - calloc, malloc, realloc
+    * 堆上配置的struct数组指针, 指向 函数内的struct对象, 会在函数执行完出栈的时候弹出吗?
+    * 需要不需要每个struct指针所指对象也要在堆上分配一下?
 
 ## ++, --, while
 - c 与 java 的编译规则不一样, 在3sum算法中试验出来的
@@ -19,3 +21,22 @@
 - 双层for循环, 变量初始化的问题
 - ++, -- 虽然对有些编译器表现不一样, 但是大致功能还是一样的
 - 二维数组与 int** 这个还是有些区别, 如何将二维数组传入 int** 有待解决
+
+## typedef
+- type
+    * 取一个别名
+- struct
+    * 在C++中当类处理, 与 typedef一起跟C的作用一样, struct <qualifier> 一起作为一个类型
+- function
+    * typedef <return type> <(*funcName)>(<argument...>)
+- arry
+    typdef baseType newType[arraySize] 
+- pointer
+    typedef int *Ptr;   
+    Ptr p; <==>  int* p;
+
+## 二级指针如何赋值
+1. int**p 与 int*pt
+- *p = &pt;
+
+2. 
