@@ -17,4 +17,11 @@
 2. 位运算
 3. for循环是搞不定的
 
-## 
+## remove k digits
+1. 
+
+## design circular queue
+1. 
+
+## cheapest flight within k stops
+1. Dijkstra 
