@@ -38,3 +38,5 @@
 
 9. 纹理是如何插值的？
 - 有些纹理不够的地方， 怎么重复的
+
+10. index attribute of vertex
