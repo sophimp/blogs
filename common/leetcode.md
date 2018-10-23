@@ -25,3 +25,13 @@
 
 ## cheapest flight within k stops
 1. Dijkstra 
+- 贪心算法
+- 图
+    * 图有什么性质
+- BFS, DFS, BF
+    * Broad First Search
+    * Deep First Search
+    * Binary Find
+    
+2. Bellman
+- 

@@ -40,3 +40,12 @@
 - 有些纹理不够的地方， 怎么重复的
 
 10. index attribute of vertex
+- generic vertex attribute arrays
+- glEnableVertexAttibArray, glEnableVertexArrayAttrib
+    * use current bound vertex array object to operation
+- attribute 与 glBindAttribLocation 
+等同于 layout() in
+- 一般最大属性值是16个, 可复用 
+- 
+
+11. 
