@@ -9,4 +9,7 @@
 2. 法线矩阵 (Normal Matrix)
 - 
 
-3. 
+3. 光照模型
+- Gourand Shading, 在vertex shader中处理
+- Phong Shading, 在fragment shader中处理
+- fragment shader中会插值处理, 还有什么其他处理
