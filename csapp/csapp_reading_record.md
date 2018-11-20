@@ -406,12 +406,51 @@
     函数指针的值是该函数机器代码表示中第一条指令的地址
 
 2. 内存越界引用和缓冲区溢出
+- 练习题346(p233)看不太明白, 理解缓冲区溢出攻击大概是个什么意思
 - 栈随机化
+    * 栈的位置在程序每次运行时都有变化 
+    * 程序开始时, 在栈上分配指定字节数量的空间
+    * 地址空间布局随机化(ASLR)
+    * 空操作雪橇 (nop sled), nop 只会让程序计数器加一, 没有其他效果
+
 - 栈破坏检测
+    * 设置canary
+    * %fs:40 段地址读取
+
+- 限制可执行代码区域
+    * 已经硬件支持, NX(No-Execute)
+
+- 三种最常见的机制, 不需要程序员做任何特殊努力, 带来的性能代价都非常小, 甚至没有
+
+3. 支持变长帧
+- %rbp, base pointer, 帧指针
+- leave指令, 将帧指针恢复到它之前的值
+    等价于 movq %rbp, %rsp
+          popq %rbp
 
 #### 浮点代码
-#### 小结
+ 浮点相关, 暂时只作了解
+1. 寄存器 
+- YMM寄存器: %ymm0 ~ %ymm15
+- XMM寄存器: %xmm0 ~ %xmm15
 
+2. 浮点传送和转换操作
+- 单精度: vmovss, vmovsd, vmovaps, vmovapd
+    Single, Double, Aligned P(?) Single, Aligned P(?) Double
+- 双精度: vcvttss2si, vcvttsd2si, vcvttss2siq, vcvttsd2siq
+         vcvtsi2ss, vcvtsi2sd, vcvtsi2ssq, vcvtsi2sdq
+3. 浮点运算   
+- vaddss, vaddsd
+- 
+
+4. 在浮点代码中使用位级操作
+- vxorps, vandps
+
+5. 比较操作
+- ucomiss, ucomisd
+
+
+#### 小结
 ## 
 #### 
 #### 
