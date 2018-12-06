@@ -28,7 +28,7 @@
     怎么升级显卡驱动
     VGA 与 Display controller 各是什么
 - numpy
-    他们自己的开源工具， 还未研究
+    他们自己的开源工具
 - libepoxy
 - libpng
 - dejavu font
@@ -49,4 +49,3 @@
 - pylint
 - qt5 >= 5.9
 - vulkan
--
