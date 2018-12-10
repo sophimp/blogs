@@ -10,7 +10,7 @@
 - 过程有记录的价值, 故此记录之
 - 如何消化之后， 写一个逻辑完备（有完整逻辑线）的教程
 
-2. 编译
+2. 环境配置
 - gcc >=7 or clang >= 4 
     apt install 
 - python >= 3.4
@@ -43,24 +43,69 @@
 
 - eigen >= 3
     这个artsy 库， 还真难搞， 初步判断是搞素材的工具
+    还真不是搞素材的， C++的数学计算库
+    那就是我下载错了， Objective-C的库
+    源码安装
 
 - freetype2
+    font engine
+    源码安装
+    看来在linux上安装， 最通用的还是源码安装
+    真正的安装过程， 也不过是将动态库, 二进制库和状文件， copy或link到path 中
+
 - fontconfig
+   configuring and customizing font access
+   源码安装
+   与freetype（渲染字体）结合使用
+
 - harfbuzz >= 1.0.0
+    a text shaping library
+    源码安装
+
 - nyan
     他们自己的开源工具
+    源码安装
+
 - ncurses
+    一个通用库， 很早就在apt中安装了
 - jinja2
+    templete engine
+    python library, pip安装
+
 - sdl2
+    在github上搜索， 找到了scrcpy，android device controller, 通过apt 安装了ffmpeg, libsdl2
+, libsdl2-dev
+
 - sdl2_image
-- opusfile
-- opus
+    这应试也可以直接用apt安装
+    需要源码安装
+
 - ogg
+- opus
+- opusfile
+- opus-tools
+    opus 依赖ogg
+    我去， 下载错误了文件， opus, opusfile, opus-tools
+    opus-tools 先不安装了
+
 - pycodestyle
 - pygments
 - pylint
+    pip install,  pip2 install  
+
 - qt5 >= 5.9
+    安装了5.9 但是需要收费？ 
+
 - vulkan
+    也是用mesa管理? 先编译试试吧
+    果断涉及到OpenGL, Vulkan， 就是一堆的问题
+
+3. 编译
+- Qt5Core, Qt5Quick 都选择了Qt的安装目录
+- 除了上面两的的Path未设， 竟然很安危地编译过了
+- 运行也没那么容易， 资源共用官方的资源， 得下载官方游戏
+- 通过wine, proton, 暂时先停止， 明天继续
+- 一天的工作都耗在这上面了
 
 ## OpenGL 如何升级
 0. 只能从驱动升级吗？
