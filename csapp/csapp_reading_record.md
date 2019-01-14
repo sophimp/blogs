@@ -1082,19 +1082,79 @@
 - 有时除了使用Unix I/O外， 无其他选择
 - 要理解I/O， 必须要了解进程， 反之易然
 - 所有的I/O设备都被模型化为文件， 而所有的输入， 输出都被当作相对应的文件的读和写来执行。
--
+- 对于每个打开的文件， 内核会保持着一个文件位置k. 无论任何一进程因为何种原因终止时， 内核都会关闭所有打开的文件并释放它们的内存资源.
+- 打开文件, linux shell 创建的每个进程开始时都有三个打开的文件， 改变当前文件位置， 读写文件， 关闭文件。
 
 2. 文件
-3. 打开和关闭文件
+- 普通文件
+- 目录
+- 套接字
+
+3. 打开和关闭文件 
+- 三个打开的文件(描述符)：stdin(0), stdout(1), stderr(2)
+
 4. 读和写文件
+- 不足值(short count): read, write 传送的字节比应用要求的要少。
+- 读时遇到EOF
+- 从终端读文本行
+- 读和写网络套接字
+- 通过反复read, write处理不足值
+
 5. 用RIO包健壮地读写
+- Robust I/O
+- 无缓冲的输入输出函数
+    * 二进制数据 <-> 网络
+- 带缓冲的输入函数
+
 6. 读取文件元数据
+- Metadata returned by the stat  and fstat functions
+    struct stat{
+        dev_t           st_dev;     /* Device */
+        ino_t           st_ino;     /* inode  */
+        mode_t          st_mode;    /* Protection and file type */
+        nlink_t         st_nlink;   /* Number of hard links */
+        uid_t           st_uid;     /* User ID of owner */
+        gid_t           st_gid;     /* Group ID of owner */
+        dev_t           st_rdev;    /* Device type (if inode device) */
+        off_t           st_size;    /* Total size, in bytes */
+        unsigned long   st_blksize; /* Block size for filesytem I/O */
+        unsigned long   st_blocks;  /* Number of blocks allocated */
+        time_t          st_atime;   /* Time of last access */
+        time_t          st_mtime;   /* Time of last modificateion */
+        time_t          st_ctime;   /* Time of last change */
+    }
+
 7. 读取目录和内容
+- 目录流(directory stream)
+- opendir, readdir, closedir
+
 8. 共享文件
+- 内核使用三个相关的数据结构来表示打开的文件
+    * 描述符表(descrition table), 每个打开的描述符表项指向文件表中的一个表项
+    * 文件表(file table), 打开的文件的集合是由一张文件表来表示的， 所有的进程共享这张表。
+        文件位置， 引用计数， v-node指针
+    * v-node表， 所有进程共享这张表
+        包含stat结构中的大多数信息
+
 9. I/O重定向
+- int dup2(int oldfd, int newfd);
+
 10. 标准I/O
+- 标准I/O库将一个打开的文件模型化为一个流。 对于程序员而言， 一个流就是一个打向FILE类型结构的指针。 
+
 11. 我该使用哪些I/O
+- 只要有可能就使用标准I/O
+- 不要使用scanf或 rio_readlineb 来读二进制文件
+- 对网络套接字的I/O使用RIO函数
+
 12. 小结
+- 本章介绍的并不多，标准库的函数解释
+- 不足值要处理， 建议使用RIO， 记住使用哪个I/O的选择 i
+- 文件共享，涉及到三个概念: 文件描述符， 文件表， v-node表 
+    v-node表只有一个实例，文件表是每个进程在创建一个文件的时候在内核中注册的， 可以有多个文件表项指向同一个v-node表项, 代表文件共享 ， 文件描述符就是对应文件表项的索引.
+
 ## 网络编程
+1. 
+
 ## 并发编程
 
