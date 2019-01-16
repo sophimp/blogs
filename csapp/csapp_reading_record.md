@@ -1173,16 +1173,51 @@
     * IP地址被映射为一组因特网名(Internet domain name)的标识符
     * 因特网主机上的进程能够通过连接和任何其他因特网主机通信。
 - 网络字节序
-    * 大端, big-endian, 网络字节序统一大端， 不管主机是否是小端
-    * 小端, little-endian
+    * 大端, big-endian, 网络字节序统一大端， 不管主机是否是小端,  和阅读顺序一致
+    * 小端, little-endian, 有效地将地址的高低和数据位权结合起来。
 - 因特网连接
     * 连接是点对点的, 全双工的
     * 一个套接字是连接的一个端点， 一个连接是由它两端的套接字地址唯一确定的。
     * 一个套接字对表示一个连接， 意味着， 只要两端的套接字对不一样， 就是不同的连接？
--   
+
 4. 套接字接口
+- 客户端: getaddrinfo, socket, connect, rio_written, rio_readlineb, close
+- 服务端: getaddrinfo, socket, bind, listen, accept, rio_readlineb, rio_written, rio_readlineb, close
+``
+/* IP socket address structure */
+struct sockaddr_in  {
+    uint16_t        sin_family; /* Protocol family (always AF_INET) */
+    uint16_t        sin_port;   /* Port number in network byte order */
+    struct in_addr  sin_addr;   /* IP address in network byte order */
+    unsigned char   sin_zero;   /* Pad to sizeof(struct sockaddr) */
+};
+
+/* Generic socket address structure (for connect, bind, and accept) */
+struct sockaddr {
+    uint16_t sa_family;     /* Protocol family */
+    char sa_data[14];     /* Address data */
+}
+``
+- 监听描述符 listenfd, 已连接描述符 connfd
+- int getaddrinfo(const char *host, const char *service, const struct addrinfo *hints, struct addrinfo `**result)
+    函数将主机名， 主机地址， 服务名和端口号的字符串表示转化成套接字地址结构。
+    为何得到的是 addrinfo 链表, char * host, char *service, 可以一次性传多个？
+- int getnameinfo(const struct sockaddr *sa, socklen_t salen, char *host, size_t hostlen, char *service, size_t servlen, int flags);
+    与getaddrinfo 功能相反， 将一个套接字地址结构转换成相应的主机和服务名字符串.
+- 迭代服务器: echo客户端和服务端
+- 并发服务器: 能够同时处理多个客户端
+- EOF
+    并没有像EOF字符这样的一个东西, 其实是由内核检测到的一种条件。
+    read函数返回的零返回码时
+    当前文件位置超出文件长度时
+    一个进程关闭连接它的那一端时
+    连接另一端的进程在试图读取流中最后一个字节之后的字节时
 
 5. Web 服务器
+- HTTP, 超文件传输协议
+- MIME, Multipurpose Internet Mail Extensions, 多用途的网际邮件扩充协议
+- CGI, Common Gateway Interface, 通用网关接口
+    遵循CGI标准的程序都是CGI程序。
 
 6. 综合： TINY Web 服务器
 
