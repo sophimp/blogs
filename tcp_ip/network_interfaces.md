@@ -69,12 +69,11 @@
 - big endian 也是网络字节序
 
 - SLIP 不是一个网络标准,  是一个 de facto standard, 也被记录在 RFC上
-    仅仅是一个 packet framing protocol, 提供如下能力
-        > Addressing
-        > Packet type identification
-        > Error detection/correction
-        > Compression
-        > 
+仅仅是一个 packet framing protocol, 提供如下能力
+    > Addressing
+    > Packet type identification
+    > Error detection/correction
+    > Compression
 
 ## 网络问题:
 - 真正想要知道解决了什么问题, 还是要先总结一下有什么问题
