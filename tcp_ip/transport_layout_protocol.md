@@ -61,7 +61,7 @@
     * Congestion Avoidance
     * Fast retransmit
     * Fast recoveryy
-- 直接看英文书是值得的, 虽然进度很慢, 但是就这些知识, 看中文的进度一样很慢, 且更静不下心来, 因为还挂念着学英语, 特别是在看到陌生的concept时, 就会怀疑是不是翻译错了` 
+- 直接看英文书是值得的, 虽然进度很慢, 但是就这些知识, 看中文的进度一样很慢, 且更静不下心来, 因为还挂念着学英语, 特别是在看到陌生的concept时, 就会怀疑是不是翻译错了
 
 ## Summarize after reading
 1. ports 确是用来标识 processes(server/client, local/remote) communication
