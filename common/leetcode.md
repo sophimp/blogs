@@ -1,29 +1,30 @@
 
 ## 说明
-1. leetcode 也刷了55道, 除掉easy 也还有20道
-2. 刷了终究是有用的, 后面再捡起来, 还是会接着以前的战绩 
-3. 有时间就刷吧, 现在先从medium开始刷, 以兔派方式刷
+- leetcode 也刷了55道, 除掉easy 也还有20道
+- 刷了终究是有用的, 后面再捡起来, 还是会接着以前的战绩 
+- 有时间就刷吧, 现在先从medium开始刷, 以兔派方式刷
+- 突破80道题， 说出去的话
 
-## Container with most water
+### Container with most water
 1. 这个算法, 今天一下子就搞明白了, 按水的流动来理解
 2. 加深了暴力枚举的作用的认识
 
-## 3sum
+### 3sum
 1. 跟container with most water 有类似的思想, 枚举是过不了关的
 2. 还未通关, 去除重复有点麻烦
 
-## power(x, n)
+### power(x, n)
 1. 递归与循环是可以互换的
 2. 位运算
 3. for循环是搞不定的
 
-## remove k digits
+### remove k digits
 1. 
 
-## design circular queue
+### design circular queue
 1. 
 
-## cheapest flight within k stops
+### cheapest flight within k stops
 1. Dijkstra 
 - 思路:
     1. 必须有一个起点, 初始化起点到各个城市的花费
@@ -55,10 +56,34 @@
     * 循环提前跳出, 当某次循环不再松弛时, 直接退出循环, 进入负权环的判定
     * 队列记录松弛过的点
 
-## 120. Traingle
+### Traingle
 1. 思路
 - 广度优先搜索， 遍历出每一条路径的最小值
 2. 实现
 - 确实实现了， 还是需要调试信息才可， 直接记事本写代码， 人脑调试有些难度
+
+### Perfect Squares
+0. 描述
+
+    给定一个正整数, 找到最少的平方数(1,4,9,16...)和的个数
+
+        example：
+
+        input: 13
+        export: 2
+        explain: 13 = 4 + 9
+     
+        input: 12
+        export: 3
+        explain: 12 = 4 + 4 + 4
+- 思路
+    1. 数学理论: Legendre's three-square theorem <br>
+    一个整数可以分解成 4\*k(8\*m + 7)的形式， 就一定是4个完美平方数之和, 如果不能分解成， 再判断 n-i*i 是不是平方数， 如果是， 答案就2, 如果不是，答案就是3
+
+    数学方法更高效， 也更难一些， 最主要的方法还是要学会计算机思维的算法， 才可能解决更普遍的问题
+    2. 动态规划: 一直不得其法， 有纠错能力
+    3. 广度优先搜索: Breadth-First Search
+
+- 实现
 
 ## 后续直接转移到git/algorithm仓库下， 在代码中注释
