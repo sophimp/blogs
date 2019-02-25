@@ -145,12 +145,31 @@
 
 ## Maximum length of Pair Chain
 - 描述
-    给一个数组对集合， 每个数组对[a,b]都满足 a<b, 现规定数组对[a,b], [c,d]， 当且仅当 b<c时， 才可以组成一个链, 求这个集合中最大的链的长度. 不可能使用得上所有的集合数据， You can select pairs in any order(可的将集合排序)
+
+    给一个数组对集合， 每个数组对[a,b]都满足 a`<`b, 现规定数组对[a,b], [c,d]， 当且仅当 b`<`c时， 才可以组成一个链, 求这个集合中最大的链的长度. 不可能使用得上所有的集合数据， You can select pairs in any order(可的将集合排序)
 
 - 思路
     1. 先将数组对排序， 按左数需要降序， 右数需升序
     2. 如果是以左数排序， 比对右数, 记录当前最小的左数
-    3. if(curStart > pairs[i][1])为更新长度条件
+    3. if(curStart `>` pairs[i][1])为更新长度条件
+
+## Subarrays with K Different Integers
+- 描述
+    > 一个非负的数组(连续可重复) A, 给定一个K, 由K 个连续且不同的数字组成的子数组， 称为good subarray, 求数组 A 的good subarrary 个数
+    子数组中的数字为为原数组连续且可重复的， k 只是要求组组中的不同数字的个数
+
+        example:
+        input: [1,2,1,2,3], k=2
+        output: 7
+        explanation: [1,2] [2,1] [1,2] [2,3] [1,2,1] [2,1,2] [1,2,1,2]
+
+        input: [1,2,1,3,4] k=3
+        output: 3
+        explanation: [1,2,1,3]  [2,1,3] [1,3,4] 
+
+- 思路
+    > 理解题设， 有点难度， 
+    slide window, 好像是做过类似的题, 关键的点是连续，不同， 所以才可以使用slide window
 
 ## 后续直接转移到git/algorithm仓库下， 在代码中注释
 - 

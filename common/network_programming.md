@@ -55,10 +55,25 @@
     - 线程的生命周期控制
     - 线程如何实现sleep的， 如何实现阻塞的
     - timer 坑点
+    - HashMap 源码， 实现原理, 为何是以2的幂扩容
+    - HashMap, HashTable, ConcurrentHashMap 的区别， 在极高并发下， 哪个性能更好， 如何实现的
+    - 动态代理的两种方式， 区别
+    - B+树， 八大排序
+    - 一致性Hash算法
+    - Lock 接口有哪些实现类， 使用场景是什么 
+    - 可重入锁， 用处及实现原理, 写时复制过程， 读写锁， 分段锁(ConncurrentHashMap中的segment)
+    - 悲观锁， 乐观锁, CAS有什么缺陷
+    - abc三个线程如何保证顺序执行
+    - ThreadLocal 实现原理
+    -
 
 3. java nio
     - 阻塞I/O
     - 非阻塞I/O
+
+- jvm 
+    - 逃逸分析技术
+    - 双亲委派模型的过程及优势
 
 ## blog
 ### 学到了什么？
