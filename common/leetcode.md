@@ -5,6 +5,8 @@
 - 有时间就刷吧, 现在先从medium开始刷, 以兔派方式刷
 - 突破80道题， 说出去的话
 
+## question
+
 ### Container with most water
 1. 这个算法, 今天一下子就搞明白了, 按水的流动来理解
 2. 加深了暴力枚举的作用的认识
@@ -90,7 +92,7 @@
 
 - 实现
 
-## Valid Parethensis String
+### Valid Parethensis String
 
 0. 描述
     给定一个字符串， 只包含三种字符 '(', ')', '*' <br>
@@ -125,7 +127,7 @@
     分别遍历两次， 先将`*`当成 ( 处理, 如果此是时 balence == 0 ， 说明合法
     再将 * 当成')'处理， 最终结果是 bal == 0, 说明合法, 这个思想是将上面的实现拆分
 
-## Maximum Frequency Stack
+### Maximum Frequency Stack
 - 描述
     设计一个可以存入， 弹出栈中最多个数的值
 - 思路
@@ -136,14 +138,14 @@
 
     因此在pop的时候, 当前频点的stack.empty()时， 最大频点更新减1
 
-## Pascal's Triangle
+### Pascal's Triangle
 - 描述
     杨辉三角，刷一刷， 凑个数吧, 一天一道easy， 一道medium
 - 思路
     边界问题的判断
     看看最高效的算法
 
-## Maximum length of Pair Chain
+### Maximum length of Pair Chain
 - 描述
 
     给一个数组对集合， 每个数组对[a,b]都满足 a`<`b, 现规定数组对[a,b], [c,d]， 当且仅当 b`<`c时， 才可以组成一个链, 求这个集合中最大的链的长度. 不可能使用得上所有的集合数据， You can select pairs in any order(可的将集合排序)
@@ -153,7 +155,7 @@
     2. 如果是以左数排序， 比对右数, 记录当前最小的左数
     3. if(curStart `>` pairs[i][1])为更新长度条件
 
-## Subarrays with K Different Integers
+### Subarrays with K Different Integers
 - 描述
     > 一个非负的数组(连续可重复) A, 给定一个K, 由K 个连续且不同的数字组成的子数组， 称为good subarray, 求数组 A 的good subarrary 个数
     子数组中的数字为为原数组连续且可重复的， k 只是要求组组中的不同数字的个数
@@ -170,6 +172,50 @@
 - 思路
     > 理解题设， 有点难度， 
     slide window, 好像是做过类似的题, 关键的点是连续，不同， 所以才可以使用slide window
+    虽然是一个hard难度的题， 但是这两天的表现也有些太搓了。难吗？ 代码量并不大， 就是思维想不到那一层面。而且没有立下目标， 想着一天刷着一道题就够了， 这样容易产生惰性。要考虑的事情很多。 
+
+    这样的问题， 该从什么方向考虑呢？ 
+    总结人脑去查找的过程， 这是所有的算法最根本之道。 
+    再者，看着别人的答案， 从过程来推理， 刷得多了， 有创新能力。 
+    猜测， 那些第一次想到这些算法的人， 有些算法肯定不是说真得就几分钟就搞定了，那也是有相着领域的长时间浸淫, 这一点也毋庸置疑, 也无须再怀疑， 就算是靠天赋， 我也只能靠这一种方式去习得了。
+
+    按人脑思路去思考: O(nlogn) <br>
+    1. 两个指针l, r, 使用while循环，动态更新l,r,  使用map 缓存每个数出现的次数， 同时map 的大小可以标识当前的window中different integer 的个数
+    2. 当map.size() `>` K 时， l++， 重置r = l, map.clear()
+    3. r++ 从l 开始遍历，当r == A.length - 1 时， l++, 重置r=l, map.clear(), 开始新一轮的遍历
+    4. 当l `>` A.length - K 时， 整个查找结束。这相当于穷举法
+
+    slide window, 如果只用数组来缓存， 每个数字重复的次数与K来限制循环， 再加上数学证明，可以将算法优化到 O(n) 
+    1. 使用count 记录slide window 中的 Different Integer 个数, 使用prefix 记录上一次window中的 good subarray 个数， 在`count > K`时清零进行下一次window统计, 使用res记录总结果, l,r为左右指针 
+    2.  统计`s[A[l++]]>1` 每重复一次，就多一种可能 ，这里使用l++ 是因为要subarray need continus, 统计A[l] 在slide window中的个数， 有多少个， 当前window的结果就+1, 
+    3. count == K 时， 统计res
+    4. 由于l, r 可以并行统计， 所以可以将两层循环放在一层
+
+### Longest Substring without Repeating Characters
+- 描述
+    统计一个字符串中最大不重复子串
+- 思路
+    这个思想是只需要更新重复字母的最大索引值即可
+
+### 4Sum
+- 描述
+    给定一个数组，和一个target值， 找出数组出所有不重复的quadruplet(四元组)
+- 思路
+    遍历法， 遍历前两个数， 后面两个数使用首尾指针, 可简化成 2Sum问题了
+
+### Remove Nth Node From End of List
+- 描述
+
+    给定一个链表， 从链尾开始删除第N个元素，返回链表头
+- 思路
+ 
+    先遍历一次求出链表长度， 再遍历一次， 根据索引找出待删除的node <br>
+    或者 先翻转一次链表， 再遍历出第N个元素，顺便再翻转一次链表
+
+##summarize
+1. 所有的算法， 最根本的思想就是穷举， 因为计算机只能干穷举的事. 
+2. 算法优化就是剔除掉不必要的穷举， 减少穷举的次数, 这里就涉及到证明
+3. 证明有从经验出发的， 人为根据算法的每一步， 去优化， 也有从数学公式着手， 只需要按公式编程即可。还有的就是一些奇淫巧技， 这就是考验天赋的。
 
 ## 后续直接转移到git/algorithm仓库下， 在代码中注释
 - 
