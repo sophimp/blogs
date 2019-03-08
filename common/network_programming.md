@@ -51,11 +51,16 @@
 
 2. java 多线程
     - 线程池的使用， 没啥问题， 进一步的控制能力欠缺
+        线程池如果有一个线程抛出异常， 其他的线程并不会影响，但是在android 中如果没有处理这个异常，app 就会崩溃, 想进一步精细控制线程就不OK了
     - 如何实现自己的线程池？ 线程保活待命
         线程池做了保活， 而且还有等待的机制，在线程池的所有线程都在工作的情况下， 后续的任务
     - 各种锁的触发条件及解决办法
+        ReentrantLock, 目前也就发现了一个可重入锁
     - 线程的生命周期控制
+        创建，运行，等待阻塞，中止, 结束
+        interrupt 并不会停止线程，只是对interrupt标志位处理，需要线程自身配合是否停止线程 而且在中断过程中如果线程处理wait(), join(), slee() 抛出异常并清理中断状态， select(), blocking in I/O channel 抛出异常, 关闭channel，并设置为中断状态
     - 线程如何实现sleep的， 如何实现阻塞的
+        sleep, wait, 都是native级别， 这里需要研究操作系统的实现， 实现阻塞就是while(ture) + wait() 组合， 即可以保证线程不死， 也可以让出cpu 的时间片
     - timer 坑点
     - HashMap 源码， 实现原理, 为何是以2的幂扩容
     - HashMap, HashTable, ConcurrentHashMap 的区别， 在极高并发下， 哪个性能更好， 如何实现的
@@ -66,6 +71,10 @@
     - 可重入锁， 用处及实现原理, 写时复制过程， 读写锁， 分段锁(ConncurrentHashMap中的segment)
     - 悲观锁， 乐观锁, CAS有什么缺陷
     - 多个线程如何保证有序执行
+        在共享数据源头加锁，可以保证数据是依次使用的
+        如何让线程1打印1, 线程2打印2呢？两个线程好控制， 多个线程使用线程池也不容易控制了， 需要使用Thread 单独实现, 而且还需要分先后顺序依次启动
+        wait() 让线程进入等待， 失去锁, 不再占用cpu时间片, 所以， 维护自己的线程池， 也需要while(true) + wait() 来等待 
+        nofity() 是针对具体的对象notify, 所以synchronized() 的参数必须是一个对象，才会有nofity, wait() 方法,  对于obj 的选择， 也封装了Condition类，使代码更容易阅读
     - ThreadLocal 实现原理
     - CountDownLaunch, CyclicBarrier 异同点
     - JMM中原子操作
