@@ -13,10 +13,8 @@
 
 3. java 多线程
     - ScheduledThreadPoolExecutor
-    - recyclerview 没那么简单, 卡得很
-    - 复用的不对?
-    - ListView 用处大得很
-    - 越复杂越容易出问题
+        不是线程池发生异常会停止， 而是ScheduleThreadPoolExecutor, 发生异常就会中止计时
+    - recyclerview 没那么简单, 卡得很, ListView 还有其用武之地, 越复杂越容易出问题
     - 线程池的使用， 没啥问题， 进一步的控制能力欠缺
         线程池如果有一个线程抛出异常， 其他的线程并不会影响，但是在android 中如果没有处理这个异常，app 就会崩溃, 想进一步精细控制线程就不OK了
     - 如何实现自己的线程池？ 线程保活待命
@@ -29,21 +27,32 @@
     - 线程如何实现sleep的， 如何实现阻塞的
         sleep, wait, 都是native级别， 这里需要研究操作系统的实现， 实现阻塞就是while(ture) + wait() 组合， 即可以保证线程不死， 也可以让出cpu 的时间片
     - timer 坑点
+        目前使用并没有发现什么坑点， 容易内存泄露？
+        对系统时间比较敏感， 也容易出现执行一会就挂死的现象, ScheduledThreadPoolExecutor 也同样会出现， 包括使用线程结合Thread.sleep(), 仔细想想也是，应该都是开一个线程来实现的， 如果有异常，没有做异常处理， 线程肯定要挂掉， 这个又是虚拟机层面的处理
     - HashMap 源码， 实现原理, 为何是以2的幂扩容
     - HashMap, HashTable, ConcurrentHashMap 的区别， 在极高并发下， 哪个性能更好， 如何实现的
     - 动态代理的两种方式， 区别
+        代理存在的意义？ 
     - B+树， 八大排序
+
     - 一致性Hash算法
+
     - Lock 接口有哪些实现类， 使用场景是什么 
+        ReentrantLock
     - 可重入锁， 用处及实现原理, 写时复制过程， 读写锁， 分段锁(ConncurrentHashMap中的segment)
+
     - 悲观锁， 乐观锁, CAS有什么缺陷
+
     - 多个线程如何保证有序执行
         在共享数据源头加锁，可以保证数据是依次使用的
         如何让线程1打印1, 线程2打印2呢？两个线程好控制， 多个线程使用线程池也不容易控制了， 需要使用Thread 单独实现, 而且还需要分先后顺序依次启动
         wait() 让线程进入等待， 失去锁, 不再占用cpu时间片, 所以， 维护自己的线程池， 也需要while(true) + wait() 来等待 
         nofity() 是针对具体的对象notify, 所以synchronized() 的参数必须是一个对象，才会有nofity, wait() 方法,  对于obj 的选择， 也封装了Condition类，使代码更容易阅读
+
     - ThreadLocal 实现原理
+
     - CountDownLaunch, CyclicBarrier 异同点
+
     - JMM中原子操作
 
 3. java nio
@@ -55,5 +64,15 @@
     - 双亲委派模型的过程及优势
 
 
-4. c
--  
+4. Java concurrency in practice
+
+    与其这一点，那一点的看， 不如看一看java 并的的圣经
+
+    -
+
+5. 深入理解java虚拟机
+
+    jvm 也是时候学习一下了， 有了csapp的经验， 这个应该会比较快
+
+6. 
+
