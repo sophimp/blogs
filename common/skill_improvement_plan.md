@@ -79,7 +79,8 @@
 
 - 视频研发
 
-    ffmpeg, x264, x265
+    ffmpeg
+    x264, x265
     视频编解码， 流媒体
     windows, linux, android/iOS 跨平台开发
 
