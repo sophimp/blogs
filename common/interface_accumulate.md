@@ -9,18 +9,33 @@
 1. 原生技术
 - activity, broadcast, fragment, view, ViewGroup都没什么问题, 需要更进一步源码分析
 - service, ContentProvider, 这些主要是跟数据库和多线程相关， 可以开发， 但是应用场景，不能保证高效
-- 
 
 ## language 
 - java, kotlin
 - c/c++
 - c#, python
+- lua
 
 ## architecture
+1. android framework
+2. mvp, mvc, mvvm
+3. eventbus
+4. rxjava
+5. 
 
 ## operate system
+1. csapp
+2. linux 内核
+3. unix 下高级编程
+4. jvm
+5. 游戏引擎架构
+    育碧游戏公司， Yilo Yip
+6. window 编程艺术
 
 ## computer graphics
+1. demo
+
+    作品很重要， 但也不能因为没有作品， 就踏不出这一步吧？ 
 
 ## refactor, optimization
 - 重构是什么？ 已有的重构经验， 不过是将更垃圾的代码改到现有的水平， 改成这样有没有更好，哪里更好？ 有何量化标准?
