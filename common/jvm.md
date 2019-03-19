@@ -20,7 +20,23 @@
     - 自编译jdk, java develop kit, java 语言, api, 虚拟机, java se 与虚拟机统称为 jre
 
 2. 自动内存管理
-    - 
+    - 方法区，堆， 虚拟机栈， 本地方法栈， 程序计数器, 执行引擎， 本地库接口
+    - 分代年龄, 偏向锁，
+    - OOM, Stack OOM, Perm OOM
+    - jhat, 引用与直接地址
+    - Garbage Collection
+        引用计数器
+        可达性
+        强引用，软引用， 弱引用， 虚引用
+        finalize 是对C/C++ 程序员的一种妥协， 历史遗留问题
+        标记清理， 标记整理， 分代收集， 复制算法
+        枚举根节点， 安全点, 安全区域
+        Stop-The-World
+        最短回收停顿时间
+        浮动垃圾
+        Serial, Serial Old, ParNew, Parallel scavenge, parallel old, cms, g1
+    - 虚拟机性能监控与故障处理工具
+        jstat, jstack, jhat, jps, jinfo, jmap, jconsole, visualvm
 
 3. 虚拟机执行子系统
     -
