@@ -126,3 +126,59 @@
     大中型特效客户端
     机器学习算法， 利用机器学习解决图形学问题的经验
 
+- android 高级工程师
+
+    java 语言进阶: 
+
+        虚拟机技术, dalvik
+        反射机制与hook原理
+        注解原理与retrofit
+        多线程, 泛型, I/O
+
+    Android高级UI:
+
+        职业生涯规划
+        framework 层内核
+        高级自定义控件
+        android 逆向
+        组件通信方案专题
+
+    android 性能优化:
+
+        高性能代码编写实战
+        用户体验优化实战
+        资源消耗优化实战
+        系统稳定的优化实战
+
+    Android NDK 开发模块
+
+        c/c++, jni, linux
+        图像处理与热修复
+        音视频ffmpeg
+        人工智能项目
+        内核，驱动编程
+
+    Android前沿技术:
+    
+        热修复, 热升级
+        组件化路由架构实战
+        网络,图片,数据库
+        Google I,O大会
+
+    Android 架构搭建实战
+
+        MVx架构项目实战
+        模块化项目实战
+        组件化项目实战
+
+    小程序与kotlin
+
+        小程序开发， kotlin
+
+    Hybrid混合开发之flutter
+
+        Flutter编程语言与Dart
+        Flutter架构原理
+        Flutter架构知识落地
+        Flutter开发内核拔高
+

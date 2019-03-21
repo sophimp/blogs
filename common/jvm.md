@@ -25,6 +25,7 @@
     - OOM, Stack OOM, Perm OOM
     - jhat, 引用与直接地址
     - Garbage Collection
+
         引用计数器
         可达性
         强引用，软引用， 弱引用， 虚引用
@@ -36,7 +37,29 @@
         浮动垃圾
         Serial, Serial Old, ParNew, Parallel scavenge, parallel old, cms, g1
     - 虚拟机性能监控与故障处理工具
+
         jstat, jstack, jhat, jps, jinfo, jmap, jconsole, visualvm
+    - 调优案例分析与实战
+
+        高性能硬件上的程序部署策略
+            1. 选用64位jdk使用更大内存
+            2. 部署多个32位虚拟机，构建集群，在前端搭一个负载均衡
+        集群间同步导致的内存溢出
+            登陆信息需要同步到集群， 保证用户在同一段时间内不能重复登陆， 这个时候如果同步信息可能发生重发较多, 而且在每次登陆可能就需要发送十几或数十次
+        堆外内存导致的溢出错误, 有哪些堆外内存呢？
+            jni是调用本地库
+            虚拟机运行和GC
+            线程分配堆栈
+            Socket缓冲区
+            Direct Memory
+        外部命令导致系统缓慢
+            通过Runtime.getRuntime().exec() 执行shell命令， 虚拟机首先会克隆一个进程拥有和当前虚拟机同样的变量， 然后再执行shell命令， 最后再退出这个进程。 所以这是一个创建进程和销毁进程的操作, 当然比较消耗系统资源
+        服务器jvm进程崩溃
+            产生hs_err_pid###.lgo, 在android studio 编译的时候就会经验出现这个错误
+        不恰当的数据结构导致内存占用过大
+            eden, survivor, 新生代，老年代(tenured), 永久代(PermGen)
+            HashMap 的内存使用率才为 16/80 = 18%
+
 
 3. 虚拟机执行子系统
     -
