@@ -62,7 +62,16 @@
 
 
 3. 虚拟机执行子系统
-    -
+    - 类文件结构
+        * attribute, field, property, variable
+
+            attribute 模糊的描述， 在xml有有描述标签量
+            field 类的成员变量， 除非有特殊说明，否则是指非静态
+            property 有set方法的
+            variable 常量，本地变量，成员变量
+    - 虚拟机类加载机制
+    - 虚拟机字节码执行引擎
+    - 类加载及执行子系统的案例与实战
 
 4. 程序编译与代码优化
     - 
