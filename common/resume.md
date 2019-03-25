@@ -8,7 +8,7 @@
     熟悉Android, iOS开发, 自评在app领域，符合高级工程师资格。
     有编译android 9.0源码并分析部分源码经验，目前在研习android 系统层源码。 
     熟悉常用的设计模式及框架模式, 了解服务端， 前端开发。
-    关键词: NDK, 网络(wifi，蓝牙), 多线程， 播放器， OpenGL, 直播, xposed模块， 刷机, linux, 短信安全诱发
+    关键词: NDK, 网络(wifi，蓝牙), 多线程， 播放器， OpenGL, 直播, xposed模块， 刷机, linux, 短信安全诱发, 组件式开发
 
 - 语言 
     java, python, c/c++, c#, objective-c, kotlin
