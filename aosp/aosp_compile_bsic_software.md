@@ -21,6 +21,27 @@ sudo apt-get install libgl1-mesa-dev libxml2-utils xsltproc unzip m4
     [源码编译教程](https://blog.csdn.net/fuchaosz/article/details/51487585)
 
 
+## 切换分支
+
+    [aosp切换源码分支](https://blog.csdn.net/fengxingzhe001/article/details/64921578)
+
+    查看可切换分支
+    cd .repo/manifests
+    git branch -a | cut -d / -f 3
+
+    切换分支
+    清华镜像 https://aosp.tuna.tsinghua.edu.cn/
+    repo init -u https://android.googlesource.com/platform/manifest -b android-7.0.0_r1
+    repo init -u https://android.googlesource.com/platform/manifest -b android-8.1.0_r18
+    repo init -u https://aosp.tuna.tsinghua.edu.cn/platform/manifest -b android-8.1.0_r18
+    repo sync
+
+    不同版本， 文件结构会有不一致， 切换完成仍需
+    repo forall -c git reset --hard
+    repo init -u https://android.googlesource.com/platform/manifest -b android-7.0.0_r1
+    repo sync
+
+
 ## 编译报错
 > 04:21:56 ninja failed with: exit status 1
 build/make/core/main.mk:21: recipe for target 'run_soong_ui' failed
