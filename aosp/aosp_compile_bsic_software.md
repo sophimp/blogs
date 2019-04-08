@@ -43,14 +43,21 @@ sudo apt-get install libgl1-mesa-dev libxml2-utils xsltproc unzip m4
 
 
 ## 编译报错
-> 04:21:56 ninja failed with: exit status 1
-build/make/core/main.mk:21: recipe for target 'run_soong_ui' failed
+1.  04:21:56 ninja failed with: exit status 1
+
+`build/make/core/main.mk:21: recipe for target 'run_soong_ui' failed
 make: *** [run_soong_ui] Error 1
 
 > 解决办法：
 
     重新安装 libstdc6++:i386
+`
+2. /bin/bash out/target/common/obj/JAVA_LIBRARIES/framework_intermediates/with-local/classes.dex.rsp
+java.lang.IllegalArgumentException: Self-suppression not permitted
 
+3. jack server out of memory error
+
+[解决办法](https://blog.csdn.net/yasin_lee/article/details/53330457)
 
 ## 编译结果
 - 在ubuntu 16.04 上， 第二次编译9.0的代码， 通过了， 在8G的I3笔记本上， 编译了一天
