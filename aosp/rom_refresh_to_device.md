@@ -8,7 +8,7 @@
 
 ## 替换launcher
 
-[修改system.img](https://blog.csdn.net/u010164190/article/details/70432642)
+[修改system.img](https://www.cnblogs.com/l2rf/p/4229157.html)
 
 生成oat文件 
 
@@ -17,6 +17,10 @@
 还是没有成功
     launcher 需要系统签名，系统可设置安装的时候动态编译oat
     明天下载一个小米的img, 搞到Launcher试一试
+
+## 生成系统函数签名
+
+[生成系统函数签名](https://www.jianshu.com/p/63d699cffa1a)
 
 ## 遇到问题
 1. fastboot device
