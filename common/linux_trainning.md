@@ -89,7 +89,7 @@
         磁盘的挂载和卸载操作
 
 ## 文本处理
-cat, touch, xargs, 
+cat, touch, xargs
 
 ## 网络工具
 
