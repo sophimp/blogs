@@ -92,7 +92,21 @@ no permissions (user in plugdev group; are your udev rules wrong?); see [http://
 
 [解决办法, 修改.rules文件](https://cxuef.github.io/android/Nexus-5X-%E5%88%B7%E5%85%A5Android-N-Preview%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/)
 
- 
+## 定制rom
+1. 如何定制其他机型的rom
+
+    组装驱动, 真得可以安装成功吗? 
+    编译原码要选哪一个平台呢?
+
+2. wifi, 蓝牙, 通话, 短信功能会不会受到影响
+
+3. Lineageos 和 mokee
+
+    又一次的刷新了新的知识面, 关于刷机, 还是懂得太少啊. 
+    这一下子又打开了一扇门, 是可以学习的方向
+    清华的, 网络的开源组织们, 果然高人都很多, 也仅需要那几个高人就可以维护一个第三方的rom版本
+    为何我动起了歪心思? 打起黑产的主意, 良心的拷问
+
 ## 参考资源
 
 [源码编译, 模块编译，sdk 编译](https://www.jianshu.com/p/9605f895d153)
