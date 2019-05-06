@@ -1,4 +1,5 @@
 
+# aosp
 ## 源码下载
 
 [`国内镜像及教程: https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/`](https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/)
@@ -108,3 +109,6 @@ java.lang.IllegalArgumentException: Self-suppression not permitted
 - 配置好环境后， 编译源码不是问题， linux也不是问题, 按照教程， 没出什么问题， 在环境配置和源码下载上耗费了些时间
 - 环境配置出现问题， 直接在google上搜索也都能解决
 
+# mokee
+
+[源码下载](https://bbs.mokeedev.com/t/topic/21)
