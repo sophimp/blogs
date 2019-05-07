@@ -111,4 +111,15 @@ java.lang.IllegalArgumentException: Self-suppression not permitted
 
 # mokee
 
+[官方网站](https://www.mokeedev.com/)
+
+## 源码下载
 [源码下载](https://bbs.mokeedev.com/t/topic/21)
+
+## 环境配置
+如上
+
+## 编译
+
+## 编译结果
+
