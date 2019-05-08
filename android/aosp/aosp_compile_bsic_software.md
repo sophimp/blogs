@@ -117,9 +117,18 @@ java.lang.IllegalArgumentException: Self-suppression not permitted
 [源码下载](https://bbs.mokeedev.com/t/topic/21)
 
 ## 环境配置
-如上
+如上, 其他的 linux 系统也可以编译, 关键是看怎么配置
 
 ## 编译
+1. 切换分支
+    * mk8.1
+
+        repo init -u https://github.com/Mokee/android -b mko-mr1
+        repo sync --force-sync # 降版本用
+2. 分支
+    * mkp 是主线最新版本
+    * mko 是8.0版本, 后面的字符应该是跟谷歌官方对应的
+    * 不同版本对makefile作了适配, 不支持的版本想要自支持, 应该也是可以这样干的?
 
 ## 编译结果
 
