@@ -92,6 +92,9 @@ no permissions (user in plugdev group; are your udev rules wrong?); see [http://
 
 [解决办法, 修改.rules文件](https://cxuef.github.io/android/Nexus-5X-%E5%88%B7%E5%85%A5Android-N-Preview%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5/)
 
+    - 设置usb权限
+    - sudo vim /etc/udev/rules.d/99-vmware-scsi-udev.rules
+
 ## 定制rom
 1. 如何定制其他机型的rom
 
@@ -107,6 +110,11 @@ no permissions (user in plugdev group; are your udev rules wrong?); see [http://
     清华的, 网络的开源组织们, 果然高人都很多, 也仅需要那几个高人就可以维护一个第三方的rom版本
     为何我动起了歪心思? 打起黑产的主意, 良心的拷问
 
+4. magisk 与 xposed都与rom 有关, 是需要开发者相互支持的
+
+5. 如何去自己定制vendor 中的文件呢? 
+
+6. 一个系统, 都包括了哪些东西
 ## 参考资源
 
 [源码编译, 模块编译，sdk 编译](https://www.jianshu.com/p/9605f895d153)
