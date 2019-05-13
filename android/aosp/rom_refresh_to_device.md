@@ -115,6 +115,31 @@ no permissions (user in plugdev group; are your udev rules wrong?); see [http://
 5. 如何去自己定制vendor 中的文件呢? 
 
 6. 一个系统, 都包括了哪些东西
+
+## linux 刷机
+
+所谓的刷机工具也是用了脚本而已, 所以可以直接运行脚本即可.
+
+### 遇到问题:
+
+1. 不能识别
+
+重新添加一下/etc/udev/rules.d/***.rules 和adb.ini 就好了
+[mi8-adb-linux](https://rachpt.cn/2018/07/06/adb-linux-and-mi8/)
+
+rules.d 文件重新生效命令
+
+```
+    sudo service udev reload
+```
+2. ubuntu 上进入fastboot 就会重启
+
+重启adb
+
+按说目前的adb, fastboot都是最新的
+
+3. 
+
 ## 参考资源
 
 [源码编译, 模块编译，sdk 编译](https://www.jianshu.com/p/9605f895d153)
