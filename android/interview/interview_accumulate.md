@@ -143,7 +143,46 @@
     View: dispatchTouchEVent -> onTouchEvent -> performClick -> onClick
     核心方法 dispatchTouchEvent, onInterceptTouchEvent, onTouchEvent
 
-2. 
+- java 基础
+    - 集合
+    - 多线程
+    - 算法, 数据结构
+    - java 8 特性, lambda 表达式
+    - 泛型, 类型擦除
+    - 
+
+- android 四大组件
+    - Activity
+        窗口, 事件管理器
+    - Service
+    - Broadcast
+        > 静态, 动态, 有序, 粘性, 本地, 
+        > LocalBroadcastReceiver 将exported设置为false, 增加相应的权限, 指定包名
+    - ContentProvider
+        > 内容提供者, 可跨进程数据通信, 底层是采用binder机制, 使访问数据更安全, 简洁, 高效, 统一了数据访问形式
+
+- 自定义控件, 布局, 资源管理
+    * 有了四大组件, 加上java基础, 会些控件, 布局, 基本上就可以写android 应用了
+    * 这样就算是初始级程序员了吧.
+
+- Binder机制
+
+    跨进程通信机制, 也可以理解成是一种内核驱动, 具体实现, 系统层层已经实现了, IBinder 主要是通过内存映射实现只拷贝一次数据实现进程间数据共享, 具体到应用层实现, Service 端需实现业务接口继承至IInterface, 实现Stub实例,通过queryLocalInterface()调用业务能力, 然后将结果写回replay, onBind方法中初始化Stub, 业务接口, 并绑定bind.attachInterface, 返回binder实例, client通过bindService, 在serviceConnection 回调中获得 service端的binder 实例, 通过命令字, transact 调用业务能力. 
+
+    引用接口是为了让业务更清晰, 客户端与服务端直接通过命令字, 将参数,以及返回值都传入, 所以还要定义一套业务接口
+
+- AIDL机制
+
+    基于Binder机制, 实现IPC通信
+    具体使用方法, 服务端定义 aidl 接口文件, 编译, 会自动生成对应的java 接口文件继承IInterface, 并生成两个内部类Stub 继承Binder, 实现AIDL接口, Proxy 实现AIDL接口, 在AndroidManifest.xml文件中注册服务, 声明为remote(取个名字而已). 
+
+    客户端拷贝aidl文件, 注意包名保持一致, 编译生成AIDL文件, 绑定远程服务, 在ServiceConnection 回调中, 能过aidl.stub.asInterface()获取到AIDL远程实例
+
+- tcp/ip 三次握手, 四次挥手
+
+    三手握手是保证数据的安全, 有序, 可靠.  首先客户端发送一次 sync_num, 状态变了 SYN_SEND, 客户端回一次sync_num+1, 并携带一次ack, 客户端收到后, 再一次回ack+1, 此时通信建立,  状态变为established
+
+    四次挥手, 客户端发送结束传输指令, 服务端收到后, 先回ack, 但是会保持接收数据,(由于网络延时, 重发机制造成的包滞后), 客户端收到后, 回一个ack, 服务端收到后, 再加一次ack, 关闭连接
 
 ## IM方向
 1. 
