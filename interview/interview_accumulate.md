@@ -147,6 +147,7 @@
 
 - java 基础
     - 集合
+        TreeMap, TreeSet, 底层是二叉查找树与hash表共, 有序, 不重复, 所以判断对象需要重写compareTo(), 不用重写eaqual与hashCode
     - 多线程
     - 算法, 数据结构
     - java 8 特性, lambda 表达式
