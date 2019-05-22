@@ -3,7 +3,7 @@
 
 1. 前情回顾
 
-公司任务, 需要研究系统级诱发, aosp 的编译已经没有问题了,  在ubuntu环境下, 按照步骤, 基本上没有意外问题.  
+公司任务, 需要研究系统级诱发, aosp 的编译已经没有问题了,  在ubuntu环境下, 按照步骤, 基本上没有意外问题. 
 
 编译mokee 系统就遇到了不少问题:
     - 首先同步源代码问题, 稀里糊涂过了, 这里对default.xml 存在疑问, 换代理的方式为何与aosp 的不太一样呢? 对repo 管理存在疑问, 切换分支, 查看分支, 都是按照指令来做, 但是不清楚还有没有其他的方法呢? 
@@ -21,10 +21,46 @@
 
 直接将官方的驱动分解出来, 这也得要一定的时间, 首先要搞清楚整个工程架构, 至少与研究相关的模块. 那么多文件.  工作量是不小的.
 
-手写驱动, 短时间内是难以搞定的了.
+手写驱动: 短时间内是难以搞定的了.
 
-3. 切换到mko-mr1 分支, 明天先编译pixel 的代码, 确保当前分支代码除了驱动问题, 其他都是OK的
+## 任务列表
+1. 选择谷歌官方的, 看是否可以编译过, 
 
-4. 失误呀
+    切换到mko-mr1 分支, nexus 5x 可以编译过.
+
+    中间切换过几次mko-mr1-dev, mkp 的版本, lunch过几次不同的平台, 编译废掉了, 然后删除掉所有的文件, 重新同步, 可正常通过
+
+        repo init -u https://github.com/Mokee/android -b mko-mr1
+        repo sync
+        lunch bullhead
+        mka bacon
+
+2. 对比工程文件夹的异同
+
+    具体比较移致 [Mokee与aosp工程分件夹的分析](mokee_aosp_directory_analysis.md)
+
+3. 下载了pixel3 sargo 的驱动
+
+    `extract-google_devices-sargo.sh` 和 `extract-qcom-sargo.sh`
+
+    [谷歌内核驱动脚本做了什么](extract_google_devices_qcom_sargo_analysis.md)
+
+    source build/envsetup.sh
+
+    [envsetup 又做了什么](envsetup_analysis.md)
+
+4. repo 工具
+
+5. 定制一款机型
+
+除了对文件夹的差异, 还有哪些地方可以学习一个aosp的源码编译呢?
+
+上面的工作做完了, 对定制一款机型有思路吗? 现在来说, 除了去查找内核驱动(还不清楚是不是这么叫), 也就不清楚其他的了
+
+想进行开发工作如何开展呢?
+
+6. makefile 语法, mk 语法
+
+7. 
 
 

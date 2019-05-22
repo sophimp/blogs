@@ -93,6 +93,6 @@ cat, touch, xargs
 ## 网络工具
 
 ## shell编程
-1. 软件安装脚本, 用于换系统快速安装
 
+[linux shell script study](linux_shell_script.md)
 
