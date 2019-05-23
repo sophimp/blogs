@@ -43,7 +43,7 @@ echo
  fi
  exit 0
   
-  # 加密内容
+# 加密内容
 ```
 
 ## extract-qcom-sargo.sh
@@ -86,5 +86,3 @@ if test $? != 0
 
  # 加密内容
 ```
-
-## 

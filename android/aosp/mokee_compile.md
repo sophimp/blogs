@@ -39,19 +39,32 @@
 
     具体比较移致 [Mokee与aosp工程分件夹的分析](mokee_aosp_directory_analysis.md)
 
+    基本上了解了各个文件夹的作用, 但是对于定制适配 mokee 还是无从下手.
+
+    `source build/envsetup.sh`
+    lunch n595j-userdebug, 在 `build/core/product_config.mk` :238 行报错
+
+    看来只能从 `envsetup.sh` 入手看看做了哪些事, lunch 又是从哪里来的 
+    搞明白 `Android.mk` 语法, 看看238行为何报错
+    搞明白 Makefile 语法, 看看整个工程从哪里开始编译, 哪里是入口
+
 3. 下载了pixel3 sargo 的驱动
 
     `extract-google_devices-sargo.sh` 和 `extract-qcom-sargo.sh`
 
     [谷歌内核驱动脚本做了什么](extract_google_devices_qcom_sargo_analysis.md)
 
-    source build/envsetup.sh
+    `source build/envsetup.sh`
 
     [envsetup 又做了什么](envsetup_analysis.md)
 
-4. repo 工具
+- Android.mk 语法, Makefile语法
 
-5. 定制一款机型
+    就以`product_config.sh` 和 aosp 的 make文件为例, 开始学习 makefile
+
+- repo 工具
+
+- 定制一款机型
 
 除了对文件夹的差异, 还有哪些地方可以学习一个aosp的源码编译呢?
 
@@ -62,5 +75,4 @@
 6. makefile 语法, mk 语法
 
 7. 
-
 

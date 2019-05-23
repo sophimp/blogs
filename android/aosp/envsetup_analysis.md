@@ -4,6 +4,7 @@
 脚本语法总结放在 [linux的脚本语言学习总结](../../linux/linus_shell_script.md)
 
 ```shell
+
 function hmm() {
 cat <<EOF
 Invoke ". build/envsetup.sh" from your shell to add the following functions to your environment:
