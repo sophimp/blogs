@@ -5,6 +5,7 @@
 
 ```shell
 
+# 这里没地方调用, 可以当作注释
 function hmm() {
 cat <<EOF
 Invoke ". build/envsetup.sh" from your shell to add the following functions to your environment:
