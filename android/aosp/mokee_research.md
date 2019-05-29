@@ -58,19 +58,25 @@
 
     [envsetup 又做了什么](envsetup_analysis.md)
 
+    evesetup 主要是提供一些临时命令, 用于编译, 查看源码, 配置环境, 快速跳转
+    所以接下来makefile 才是关键, shell 的学习, 暂时先放一放, 能看明白代码就行, 忘掉的语法再补上
+
 - Android.mk 语法, Makefile语法
 
     就以`product_config.sh` 和 aosp 的 make文件为例, 开始学习 makefile
 
-- repo 工具
-
 - 适配一款机型要做的工作
+
+    参考资料:
+
     [shim和blob](https://toby.moe/android-shim/)
     [mokee适配一款机型我们做了什么](https://bbs.mokeedev.com/t/topic/1073/33)
-    [适配一款机型要做的工作参考3]()
+    [How to port CyanogenMode/LineageOS android to your own device](https://fat-tire.github.io/porting-intro.html)
     [适配一款机型要做的工作参考4]()
     [适配一款机型要做的工作参考5]()
     [适配一款机型要做的工作参考6]()
+
+- repo 工具
 
 除了对文件夹的差异, 还有哪些地方可以学习一个aosp的源码编译呢?
 
