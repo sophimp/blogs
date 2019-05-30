@@ -72,11 +72,20 @@
     [shim和blob](https://toby.moe/android-shim/)
     [mokee适配一款机型我们做了什么](https://bbs.mokeedev.com/t/topic/1073/33)
     [How to port CyanogenMode/LineageOS android to your own device](https://fat-tire.github.io/porting-intro.html)
-    [适配一款机型要做的工作参考4]()
-    [适配一款机型要做的工作参考5]()
-    [适配一款机型要做的工作参考6]()
+    [添加一款新的机型 官方教程](https://source.android.google.cn/setup/develop/new-device)
+    []()
+    []()
+
+- 内核编译
+
+    不同的手机厂商使用的内核是一样的吗? 
+    内核是开源, 内核的驱动层要做哪些功能呢?
 
 - repo 工具
+
+    repo command options
+    repo help
+    repo help command
 
 除了对文件夹的差异, 还有哪些地方可以学习一个aosp的源码编译呢?
 

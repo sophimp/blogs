@@ -120,6 +120,10 @@ no permissions (user in plugdev group; are your udev rules wrong?); see [http://
 
 所谓的刷机工具也是用了脚本而已, 所以可以直接运行脚本即可.
 
+解锁oem
+
+    fastboot oem nubia_unlock NUBIA_NX589J
+
 ### 遇到问题:
 
 1. 不能识别

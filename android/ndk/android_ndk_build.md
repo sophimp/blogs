@@ -1,4 +1,20 @@
 
+## android ndk
+
+NDK 存在的原由:
+
+- 进一步提升设备性能, 以降低延迟, 或进行密集型应用,  如游戏物理引擎
+- 重复使用自己或其他开发者的C/C++库
+
+NDK编程目前有三个编译系统
+
+- 传统GNU makefile 的nkd-build
+- cmake
+- 独立工具链,用于其他编译系统集成, 或基于 configure 的项目搭配使用
+
+
+先学习 ndk-build:
+
 ## Android.mk 
 
 Android.mk 用于描述向编译系统描述源文件和共享库, 实际上是编译系统解析一次或多次的微小GNU makefile片段. 
@@ -76,15 +92,53 @@ NDK提供的函数宏
     my-dir 
         返回系统系统解析脚本时包含的最后一个makefile的路径, 因此, 包含其他文件后就不应该调用 my-dir
     all-subdir-makefiles
+        返回当前 my-dir 路径所有子目录中的Android.mk的文件列表, 默认情况下, ndk 只在Android.mk的文件所在目录查找文件, 此函数可以为编译系统提供深度嵌套的源目录层次结构.
     this-makefile
+        返回当前makefile 的路径
     parent-makefile
+        返回包含树中父makefile的路径(包含makefile的makefile路径)
     grand-parent-makefile
+        返回包含树中祖父makefile的路径(包含父makefile的makefile路径)
     import-module
+        用于按模块名称查找和包含模块的Android.mk文件, 如 $(call import-module,<name>)
 
 
 共享库和静态库的区别
+
 local_ldlibs 额外链接器? 类似于class loader 不同的链接器负责加载的库也不一样? 
+
+
 ## Application.mk 
+
+指定了 ndk-build 的项目范围设置. 其中许多参数也具有模块等效项, 如 APP_CFLAGS 对应于 LOCAL_CFLAGS. 无论何种情况下, 特定于模块的选项都将优先于应用范围选项. 
+
+变量 
+
+    APP_ABI : armeabi-v7a, armeabi-v8a, x86, x86_64, all
+    APP_ASFLAGS: 要传递项目中每个汇编文件(.s, .S文件) 的汇编器标记
+    APP_ASMFLAGS: 对于所有YASM 源文件(.asm, 仅限于 x86/x86_64), 要传递给 YASM 的标记
+    APP_BUILD_SCRIPT: 默认情况下, 是与Application.mk同目录(根目录)下的Android.mk文件, 若要从其他位置加载, 需设置为绝对路径
+    APP_CFLAGS: 为项目中所有的c/c++编译传递的标记
+    APP_CLANG_TIDY: 为项目中所有模块启用clang-tidy, 默认处于停用状态
+    APP_CLANG_TIDY_FLAGS: 为项目中所有clang-tidy要传递的标记
+    APP_CONLYFLAGS: 只为c编译传递标记, 不作用于c++
+    APP_CPPFLAGS: 只为c++编译传递标记, 不作用于c
+    APP_CXXFLAGS: cpp_cppflags 优先于 cpp_cxxflags
+    APP_DEBUG: 要编译可调试的应用, 设为true
+    APP_LDFLAGS: 关联可执行文件和共享库时要传递的标记
+    APP_MANIFEST: AndroidManifest.xml 的绝对路径, 默认情况下, $(APP_PROJECT_PATH)/AndroidManifest.xml
+    APP_MODULES: 要编译的模块显式列表, 默认情况下, ndk-build 将编译所有模拟的共享库, 可执行文件和依赖项, 仅当项目使用静态库, 项目仅包含静态库,或在app_modules 中指定了静态库时, 才会编译静态库
+    APP_OPTIM: 变量定义为release 或 debug, 默认是release, 发布模式会启用优化, 并可能生成无法与调试程序一起使用的文件. 
+    APP_PLATFORM: 声明编译此应用所面向的Android API级别, 并对应于应用的minSdkVersion, NDK不包含Android每个api 级别的库, 省略了不包含新的原生API版本以节省ndk中的空间, 以下列优先级降序使用api: 匹配app_platform 版本, 低于app_platform 的下一个可用级别, ndk支持的最低级别
+    APP_PROJECT_PATH: 项目根目录的绝对路径
+    APP_SHORT_COMMANDS: 等效Android.mk的 APP_SHORT_COMMANDS
+    APP_STL: 应用于c++的标准库
+    APP_STRIP_MODE: 传递给strip 的参数
+    APP_THIN_ARCHIVE: 等效于Android.mk的参数
+    APP_WRAP_SH: 要包含此应用中的wrap.sh 文件路径, 每个abi存在此变量的变体, warp_sh_armeabi-v7a ...
+
+什么时clang-tidy
+什么是strip
 
 ## android.bp
 
