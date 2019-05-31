@@ -73,8 +73,20 @@
     [mokee适配一款机型我们做了什么](https://bbs.mokeedev.com/t/topic/1073/33)
     [How to port CyanogenMode/LineageOS android to your own device](https://fat-tire.github.io/porting-intro.html)
     [添加一款新的机型 官方教程](https://source.android.google.cn/setup/develop/new-device)
+    [编译一款新机型记录](https://kotlintc.com/articles/4343?fr=sidebar)
     []()
-    []()
+
+    看出了点头绪, 在mokee上说的, 先就是下载内核, 然后就是编写device库, 然后编译, 烧写手机, 看日志修改
+
+    根据编译流程的命令, 分析完envsetup, 看完lunch 函数, lunch 就是根据vendorsetup来添加combo, 然后准备好环境, 那么就进行下一步, mka bacon, 这一步调用的是 m() 函数, 而m()函数的入口就是 build/soong/`soong_ui.bash`
+    soong 才是整个系统的编译框架, 因此浏览了一下整个build下的文件, kali, blueprint, soong, go, ninja, `roomservice.py`
+    roomservice算是一个突破, 突然想起来了选择 combo 的时候,提示错误里就有roomservice 的错误, 这里<project>是github的仓库, 所以在Mokee的仓库下搜索一下, 发现是有msm8976的库, kernel, vendor, devices 都包括, 而且明确支持 z17 mini, z17 lite, z17minis的, 这样一来, 甜酸z17minis的难度一下子就小了很多, 接下来是如何指令下载呢? 要分析 `buildconfig.mk` 238 行了
+
+    下载一个已有的, 先根据combo 名称来查找Mokee库下载devices库, 这一步如果手动下载呢? 然后解析devices库的依赖, 再下载kernel库, packages-resource库, vendor库
+
+    入口还是从lunch函数开始, combo添加不是必须的, 可以直接lunch combo, 然后会从本地device库中查找, 解析.dependencies 添加到./repo/local_manifests/roomservice.xml 中, 然后自行下载
+
+    所以, 下一步是要读懂, lunch函数是怎么解析本地的文件夹查找的.
 
 - 内核编译
 
