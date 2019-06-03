@@ -74,7 +74,8 @@
     [How to port CyanogenMode/LineageOS android to your own device](https://fat-tire.github.io/porting-intro.html)
     [添加一款新的机型 官方教程](https://source.android.google.cn/setup/develop/new-device)
     [编译一款新机型记录](https://kotlintc.com/articles/4343?fr=sidebar)
-    []()
+    [为何msm8974不能运行Nougat](https://www.xda-developers.com/in-depth-capitulation-of-why-msm8974-devices-are-excluded-from-nougat/)
+    [如何在没有源码的情况下让硬件工作](https://www.xda-developers.com/cameras-custom-roms-developers-make-hardware-work-without-source-code/)
 
     看出了点头绪, 在mokee上说的, 先就是下载内核, 然后就是编写device库, 然后编译, 烧写手机, 看日志修改
 
@@ -87,6 +88,14 @@
     入口还是从lunch函数开始, combo添加不是必须的, 可以直接lunch combo, 然后会从本地device库中查找, 解析.dependencies 添加到./repo/local_manifests/roomservice.xml 中, 然后自行下载
 
     所以, 下一步是要读懂, lunch函数是怎么解析本地的文件夹查找的.
+
+    - 当一个aosp新版本发布时, 背后都发生了什么? 
+
+        upstream update: 谷歌内部的更新, 只支持有限的机型, 接着OEM 设备商将开始一系列更新, 制造设备, 向芯片商购买SoC
+        Chipset Makeer: BSP 包括驱动和HALs, 是保密的, BSP 包括必须的代码让OEMs为自己的设备编译Android和必要的驱动, OEM根据芯片商的能力, 再加上谷歌提供的接口, 就可以应用新的能力, 一旦更新后, 虽然是同一样接口, 但是控制的能力不同, 但是旧的芯片没有这个能力, 所以就出问题了. 
+
+        
+
 
 - 内核编译
 
