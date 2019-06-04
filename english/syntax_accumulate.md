@@ -19,7 +19,10 @@
 - bloatware, 扁平餐具
 - horrific, 感到恐惧的
 - comply, 依从
-- bulletin, 
-- annoyance,
+- bulletin, 公告, 布告
+- annoyance, 烦恼
+- rare, 稀有的
+- stock, 常用的
+- scratch, 起跑线, 抓痕, 擦伤
 
 

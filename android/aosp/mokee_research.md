@@ -94,8 +94,10 @@
         upstream update: 谷歌内部的更新, 只支持有限的机型, 接着OEM 设备商将开始一系列更新, 制造设备, 向芯片商购买SoC
         Chipset Makeer: BSP 包括驱动和HALs, 是保密的, BSP 包括必须的代码让OEMs为自己的设备编译Android和必要的驱动, OEM根据芯片商的能力, 再加上谷歌提供的接口, 就可以应用新的能力, 一旦更新后, 虽然是同一样接口, 但是控制的能力不同, 但是旧的芯片没有这个能力, 所以就出问题了. 
 
-        
-
+    cm.mk, device_code.mk 都要手动编写吗? extract_files.sh, setup-makefiles.sh 这几个也是关键, 
+    联系lunch 与机型的配置是 mk_product_device变量?
+    recovery.fstab, 与/etc/fstab 的作用是一样的, 用于配置设备挂载的
+    GPIO, 想得那么清晰的方法, 到自己实施又是另一番景象, 节点完全可以抽象成一个关键词, 然后再概括这个关键词
 
 - 内核编译
 
