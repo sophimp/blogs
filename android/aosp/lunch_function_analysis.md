@@ -24,9 +24,10 @@
 
     product_config.mk 是什么时候调用的? 
 
-        envsetup.sh -> envsetup.mk -> product_config.mk, BoardConfig.mk
+        envsetup.sh -> envsetup.mk -> product_config.mk, BoardConfig.mk -> node_fns.mk, product.mk, device.mk
 
-        还是有点迷, 有点晕, 绝望
+
+    定义AndroidProducts.mk
 
     build_build_var_cache
 

@@ -99,19 +99,25 @@
     recovery.fstab, 与/etc/fstab 的作用是一样的, 用于配置设备挂载的
     GPIO, 想得那么清晰的方法, 到自己实施又是另一番景象, 节点完全可以抽象成一个关键词, 然后再概括这个关键词
 
+- repo 工具
+
+    repo command options
+    repo help
+    repo help command
+
+    repo 不仅仅是工具的使用, 还需研究一下.repo下的配置, git 的高级用法
+    从github上下载库, 自动配置到 local_manifests/roomservice.xml 中应该也是在repo 下的配置里
+
 - 如何将下载下来的msm8976 kernel, devices, vendor 与combo nx589j 联系起来
     [lunch 函数分析](./lunch_function_analysis.md)
+
+    api.github.com/search, 学习一下github 的RESTful search 接口调用, 那们上传之后, 还要自行维护api 还是github 自动生成
 
 - 内核编译
 
     不同的手机厂商使用的内核是一样的吗? 
     内核是开源, 内核的驱动层要做哪些功能呢?
 
-- repo 工具
-
-    repo command options
-    repo help
-    repo help command
 
 除了对文件夹的差异, 还有哪些地方可以学习一个aosp的源码编译呢?
 
