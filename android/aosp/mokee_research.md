@@ -106,12 +106,19 @@
     repo help command
 
     repo 不仅仅是工具的使用, 还需研究一下.repo下的配置, git 的高级用法
-    从github上下载库, 自动配置到 local_manifests/roomservice.xml 中应该也是在repo 下的配置里
+    从github上下载库, 自动配置到 `local_manifests/roomservice.xml` 中应该也是在repo 下的配置里
 
 - 如何将下载下来的msm8976 kernel, devices, vendor 与combo nx589j 联系起来
+
     [lunch 函数分析](./lunch_function_analysis.md)
 
     api.github.com/search, 学习一下github 的RESTful search 接口调用, 那们上传之后, 还要自行维护api 还是github 自动生成
+
+    lunch 命令, 查找不到 combo 对应的库时, 就从roomservice.py 下载, roomservice.py 下载是使用github api 来实现的, 这里也可以修改下载的路径到自己的仓库. 
+
+    roomservice.py 只负责下载相关的库, 这个过程也可以手动下载, 配置`.repo/local_manifests/roomservice.xml` 然后直接 repo sync, 这里有一个revision 不对应的问题, 还未搞明白, 应该是mk 文件中检查combo 与当前的版本适配问题吧. 
+
+    然后直接可以lunch combo, 这里面如何衔接的流程, 还比较模糊. 编译完nx569j 仔细研究, 适配一套nx589j 练手
 
 - 内核编译
 

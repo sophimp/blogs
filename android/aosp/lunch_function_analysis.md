@@ -20,14 +20,18 @@
 
     如果有的话, 通过 `vendor/mk/build/tools/roomservice.py` 将$product 设置为 true
 
-    rooservice 通过分析product_name 向Mokee/product_name 下载相应的资源
+    rooservice 通过分析product_name 向Mokee/product_name 下载相应的资源, 可以手动修改相应的配置, 各个工程是独立的git, 可以删除重新下载
+
+    local_manifest/roomservice.xml 是在sync的时候会下载, roomservice.py 只会动态写入搜索到github仓库下的库
 
     product_config.mk 是什么时候调用的? 
 
         envsetup.sh -> envsetup.mk -> product_config.mk, BoardConfig.mk -> node_fns.mk, product.mk, device.mk
 
-
     定义AndroidProducts.mk
+
+    在 mkn-mr1 分支, mk_nx569j-userdebug 是可以跑了, 这一版本也正在支持nx589j 但是相关的makefile 没有写
+    接下来适配新的机型, 总体流程知道的差不多了, 剩下的就是时间问题, 那么多新的知识点
 
     build_build_var_cache
 
