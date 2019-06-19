@@ -130,6 +130,10 @@
     * 这是一个不确定结果的行动
     * init.rc: android init language, 启动脚本 
 
+- init.rc 语法
+
+    [语法分析见](./init_rc_syntax.md)
+
 - 内核编译
     不同的手机厂商使用的内核是一样的吗? 
     内核是开源, 内核的驱动层要做哪些功能呢?
