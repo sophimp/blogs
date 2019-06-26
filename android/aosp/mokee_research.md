@@ -145,4 +145,8 @@
 
 	找已有的类型系列的机型, 先按已适配的操作系统搞出一款可编译通过的版本, 再修改刷机配置文件 
 
+	继续参考 [How to port CyanogenMod/LineageOs to your own devices](https://fat-tire.github.io/porting-intro.html#Prerequisites)
+
+	/proc/partitions信息: major, minor, blocks, name 是何信息
+	/proc/devices 信息: 可查看当前挂载了哪些磁盘, 但是并不能计算出boot, system 要分区多少
 
