@@ -149,4 +149,16 @@
 
 	/proc/partitions信息: major, minor, blocks, name 是何信息
 	/proc/devices 信息: 可查看当前挂载了哪些磁盘, 但是并不能计算出boot, system 要分区多少
+	这个根据装系统分配磁盘是一样的逻辑吧, 可以多分一些, 根据手机存储来确定
+
+	packages/apps/Bluetooth/Android.mk: error: "Bluetooth (APPS android-arm) missing libbluetooth_jni (SHARED_LIBRARIES android-arm)"
+Available variants:
+		libbluetooth_jni (SHARED_LIBRARIES android-arm64)
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+
+	将packages/apps/Bluetooth/robottests/Android.mk 复制到packages/apps/Bluetooth/ 下
+
+在编译过程中, 缺什么, 少什么, 有编译日志可看, 关键是刷机后, 黑屏, 这个过程要靠什么来查看缺少什么呢?
+
+
 
