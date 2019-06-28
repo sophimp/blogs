@@ -23,56 +23,160 @@ vim 哲学, emacs 工具, 更加强大, 可以制作一个操作系统, 暂时�
 	上一步骤, 花个一周的时间, 快捷键熟悉完后, 再研究那些一眼看不出来的操作, 再逐步提高效率. 
 
 	
-插件管理 
+plug.vim
 --------
 
-plug.vim
+	插件管理 
 
-按照github 上的readme 配置， 插件管理， 暂时就先学一个 PlugInstall 命令， 插件安装的依赖， 也先按教程来搞，先学其他插件的使用
+	按照github 上的readme 配置， 插件管理， 暂时就先学一个 PlugInstall 命令， 插件安装的依赖， 也先按教程来搞，先学其他插件的使用
 
-代码格式化
+'junegunn/vim-easy-align'
 ----------
 
-    'junegunn/vim-easy-align'
-    
+	代码格式化
     简单使用, 使用nmap, xmap gaip *=
     vim 有四种模式, visual, normal, insert, 还有一个interactive mode
 
-快捷菜单
+'skywind3000/quickmenu.vim'
 --------
+    
+	快捷菜单
+    安装上了, 但是还没有真正得明白什么用, 用来帮助快速查看快捷键命令? 要怎么配置? 
 
-    'skywind3000/quickmenu.vim'
-    安装上了, 但是还没有真正得明白什么用, 用来帮助快速查看快捷键命令? 要怎么配置? 暂时用处不大? 
-
-文件树
+'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 ------
 
-    'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
+	文件目录树
     怎么将文件树放在左边呢? 放在右边也挺好
     延时加载, 打开vim 会变得更快一点
     
     采用了韦易笑的配置, 按模块加载, bundle, 这些思想也都是共通的
 
-代码动态检查
+w0rp/ale
 ------------
 
-	w0rp/ale
+	代码动态检查
 	
+	暂时是直接安装插件配置, 已可满足基本需求, 待有错误时再研究
 
-'tpope/vim-fireplace', { 'for': 'clojure' }
+Raimondi/delimitMate: 
+------
 
-'rdnetto/YCM-Generator', { 'branch': 'stable' }
+	用来自动补全括号, 引号等需要成对出现的闭合区间
+	看了文档, 配置是默认开启的? 目前看到的效果是还需要手打, 但是会自动对齐, 自动对齐功能还不清楚是不是此插件的
 
-'fatih/vim-go', { 'tag': '*' }
+terryma/vim-expand-region: 
+------
 
-'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' }
+	在visual模式下, 用来快速选择text-object 区域的内容, + 扩大选择范围, - 减小选择范围, 可以自行配置text-object, 此脚本里的配置貌似也没怎么起作用, {}, () 这里面的内容都不能识别 
 
-'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+mattn/webapi-vim: 
+------
 
-'iamcco/mathjax-support-for-mkdp'
-'iamcco/markdown-preview.vim'
+	提供解析xml, html, json, Base64, Sha1, HMAC 的库
+	支持协议有 BasicHttp, OAuth, SOAP, Autopub, XMLRPC
+	用来提供给vim 脚本使用
 
-'udalov/kotlin-vim'
+PProvost/vim-ps1: 
+------
 
+	用来支持powershell, 这个暂时可以先不用, 也是按需加载的, 所以不用感知 
 
+LeaderF: 
+------
+	 是一个python 库脚本, 需要vim 支持python/python3, 适用于大型项目
+	 功能: 异步模糊查找, 快速定位文件, buffers, mrus, tags 等等
+	 mrus 是vim 的最近缓存功能, 还是别的插件的?
+
+	 使用起来得费一番功夫, 很多选项和功能
+
+fzf: 
+------
+vim-snippets: 
+------
+vim-cycle: 
+------
+rust.vim: 
+------
+echodoc.vim: 
+------
+vim-fugitive: 
+------
+vim-notes: 
+------
+vim-nerdtree-syntax-highlight: 
+------
+calendar.vim: 
+------
+OmniCppComplete: 
+------
+ctrlsf.vim: 
+------
+vim-syntax-extra: 
+------
+vim-cpp-enhanced-highlight: 
+------
+vim-eunuch: 
+------
+tlib_vim: 
+------
+vim-snipmate: 
+------
+vim-orgmode: 
+------
+oceanic-next: 
+------
+vim-sneak: 
+------
+nerdtree: 
+------
+vim-dict: 
+------
+vim-colorschemes: 
+------
+vim-lua: 
+------
+vim-gista: 
+------
+vim-unimpaired: 
+------
+gist-vim: 
+------
+vim-dirvish: 
+------
+vim-misc: 
+------
+tabular: 
+------
+soft-era-vim: 
+------
+vim-speeddating: 
+------
+vim-easymotion: 
+------
+phpcomplete.vim: 
+------
+vimoutliner: 
+------
+vim-startify: 
+------
+ale: 
+------
+python-syntax: 
+------
+html5.vim: 
+------
+L9: 
+------
+FuzzyFinder: 
+------
+vim-abolish: 
+------
+vim-gutentags: 
+------
+vim-surround: 
+------
+vim-fish: 
+------
+vim-addon-mw-utils: 
+------
