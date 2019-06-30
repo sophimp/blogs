@@ -90,6 +90,9 @@ LeaderF:
 
 	 使用起来得费一番功夫, 很多选项和功能
 
+	 在deepin 上的映射ctrl+p 键有冲突
+
+
 fzf: 
 ------
 vim-snippets: 
