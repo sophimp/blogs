@@ -82,7 +82,7 @@ PProvost/vim-ps1:
 
 	用来支持powershell, 这个暂时可以先不用, 也是按需加载的, 所以不用感知 
 
-LeaderF: 
+yggdroot/LeaderF: 
 ------
 	 是一个python 库脚本, 需要vim 支持python/python3, 适用于大型项目
 	 功能: 异步模糊查找, 快速定位文件, buffers, mrus, tags 等等
@@ -90,59 +90,152 @@ LeaderF:
 
 	 使用起来得费一番功夫, 很多选项和功能
 
-	 在deepin 上的映射ctrl+p 键有冲突
+	 在deepin 上的映射ctrl+p 键有冲突, 是因为,vim 同时支持了python2 和3, 导致加载LeaderF 失败
+
+	 自编译的git 不能访问https 来下载
 
 
-fzf: 
+junegunn/fzf: 
 ------
-vim-snippets: 
+	是一个fuzzy finder, leaderF 的fuzzy finder 功能是这一个插件功能吗? 简单地从leaderf.vim, lfmru.vim 中看, 与fzf 没有什么关系
+
+	但是在本环境里没有用到, 后续有需求再看吧, 高效率查找还是需要的, 可以同时在shell, vim 中使用, 很强大
+
+honza/vim-snippets: 
 ------
-vim-cycle: 
+
+	可以插入片段的, 相当于片段模板, 不同的引擎可以针对不同的语言, 只关注参数, 自动添加注释与打印格式信息
+	用好了, 确实是一个高效的手段, 前提是敲的代码量够.
+
+	snippets 的语法书写
+
+bootleq/vim-cycle: 
 ------
-rust.vim: 
+
+	按照预定义列表, 循环候选字列表
+
+	可快捷替换 <> "' <></> false ture
+	是一个小功能, 快捷键 nmap <c-a> <c-x>
+
+rust-lang/rust.vim: 
 ------
-echodoc.vim: 
+
+	rust 语法高亮, 文件检测, 格式化, 语法分析等等, 需要vim 8 支持全部功能
+
+shougo/echodoc.vim: 
 ------
-vim-fugitive: 
+
+	在状态栏/命令栏 显示方法签名
+
+	在输入模式下可以显示
+	
+tpope/vim-fugitive: 
 ------
-vim-notes: 
+
+	fugitive a./n. 逃亡者, 短暂者, 难以捉摸的
+
+	git 封装, 可以直接在vim 下使用git 命令, 并更完美展示
+
+	Gedit, Gdiff, Gstatus, Gblame, Gmove, Gdelete, Ggrep, Glog, Gread, Gwrite, 
+
+	使用频繁的: Gstatus, 与Gdiff
+
+xolox/vim-notes: 
 ------
-vim-nerdtree-syntax-highlight: 
+
+	用来记笔记, 可以快速查找
+	具体使用方法放在后面再学习, 现在用不上
+	
+tiagofumo/vim-nerdtree-syntax-highlight: 
 ------
-calendar.vim: 
+	
+	看字面意思就是nerdtree的目录语法高亮, 将文件夹, 不同文件, 都作为图标, 还有不同风格?
+
+itchyny/calendar.vim: 
 ------
-OmniCppComplete: 
+
+	可以安排日程
+
+vim-script/OmniCppComplete: 
 ------
-ctrlsf.vim: 
+	
+	我靠, 很古老的一个插件了, 9年都没有更新了, 暂时可以去掉了, 一时间还没找到去掉的方法, 已安装的插件要直接删除文件?
+
+	使用起YouCompleteMe
+
+dyng/ctrlsf.vim: 
 ------
-vim-syntax-extra: 
+
+	异步搜索单词, sublime-like, sublime 这个没接触过
+	搜索完后,另开一个窗口显示
+
+justinmk/vim-syntax-extra: 
 ------
-vim-cpp-enhanced-highlight: 
+
+	vim syntax highlighting for c, bison, flex
+
+octol/vim-cpp-enhanced-highlight: 
 ------
-vim-eunuch: 
+
+	加强的cpp 语法高亮, 支持c++11/14/17
+
+tpope/vim-eunuch: 
 ------
-tlib_vim: 
+	为 Unix shell 命令包装的sugar
+	
+	暂时也可以不用管
+	
+tomtom/tlib_vim: 
 ------
-vim-snipmate: 
+	提供一些vim 功能函数, 具体功能, 需要翻墙看, 用作脚本编写用, 暂不管
+
+honza/vim-snipmate: 
 ------
-vim-orgmode: 
+
+	vim-snippets 引擎, 具体使用后续有需求再看
+
+jceb/vim-orgmode: 
 ------
-oceanic-next: 
+
+	Emacs orgmode, 不明所以, 有时间了解Emacs再看这个
+
+mhartington/oceanic-next: 
 ------
-vim-sneak: 
+
+	Neovim 的 Oceanic Next 主题
+
+justinmk/vim-sneak: 
+-----
+
+	使用两个字符, 快速跳转文档路径, 本环境中换成了gz
+
+asins/vim-dict: 
 ------
-nerdtree: 
+
+	vim 下的语言字典(关键字?), 暂时用不上, 也是放在opt group中的
+
+flazz/vim-colorschemes: 
 ------
-vim-dict: 
+
+	配置vim 主题
+
+tbastos/vim-lua: 
 ------
-vim-colorschemes: 
+
+	lua5.3 语法支持
+
+lambdalisue/vim-gista: 
 ------
-vim-lua: 
-------
-vim-gista: 
-------
+	Manipulating Gist in Vim
+
+	Gist 是啥?  github 有一个gist 服务, 可以当作云仓库, 像有道云笔记一样? 但是不翻墙不能访问!
+
+	暂时先不研究这个, 集成到vim 中, 倒是完成了有道云的功能
+
 vim-unimpaired: 
 ------
+
+
 gist-vim: 
 ------
 vim-dirvish: 

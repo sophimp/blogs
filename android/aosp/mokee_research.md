@@ -158,7 +158,9 @@ You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is inten
 
 	将packages/apps/Bluetooth/robottests/Android.mk 复制到packages/apps/Bluetooth/ 下
 
-在编译过程中, 缺什么, 少什么, 有编译日志可看, 关键是刷机后, 黑屏, 这个过程要靠什么来查看缺少什么呢?
+在编译过程中, 缺什么, 少什么, 有编译日志可看, 根据日志还有一些是因为多出来的文件, 同步的时候未能删除, 这个时候需要手动删除, 进入文件夹, 查看一下是否被git 跟踪 
+
+关键是刷机后, 黑屏, 这个过程要靠什么来查看缺少什么呢?
 
 
 
