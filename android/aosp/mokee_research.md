@@ -141,7 +141,7 @@
 
 
 
-上面的工作做完了, 对定制一款机型有思路吗? 
+- 上面的工作做完了, 对定制一款机型有思路吗? 
 
 	找已有的类型系列的机型, 先按已适配的操作系统搞出一款可编译通过的版本, 再修改刷机配置文件 
 
@@ -160,7 +160,26 @@ You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is inten
 
 在编译过程中, 缺什么, 少什么, 有编译日志可看, 根据日志还有一些是因为多出来的文件, 同步的时候未能删除, 这个时候需要手动删除, 进入文件夹, 查看一下是否被git 跟踪 
 
-关键是刷机后, 黑屏, 这个过程要靠什么来查看缺少什么呢?
+- oneplus 6 与 6T 共用一套代码
+	
+	从这里不是可以看出, 手机厂商的套路, 两种机型, 并没有多大差别
+	
+	可以刷在oneplus 6T 上, 但是安装不了应用, 有几种可能的原因:
 
+	1. 调用了系统函数, 不让装
+	2. 签名不合法
+	3. sdk 的api 不同, 得合入mokee sdk 28 
+	4. 系统可以装一般应用, 为何就不能装系统应用?
+	使用adb 安装有这个错误, 
+	Package com.android.safesms has no signatures that match those in shared user android.uid.phone;
+	可以确认是签名的问题, 编译系统与应用的签名不一致 
+[Android权限之sharedUserId和签名](https://blog.csdn.net/hmg25/article/details/6447067)
+[Android系统中权限和签名问题](https://www.cnblogs.com/vampirejt/p/4168120.html)
+	那么如何修改系统编译使用哪一套签名? 
+	
+	在 build/core/config 里搜索 local_certificate 修改 product_default_dev_certificate := build/target/product/security/platform
+	target_build_type 是变成了release
+
+- 关键是刷机后, 黑屏, 这个过程要靠什么来查看缺少什么呢?
 
 

@@ -35,6 +35,8 @@
 
 [生成系统函数签名](https://www.jianshu.com/p/63d699cffa1a)
 
+[android 系统签名](https://blog.csdn.net/csh86277516/article/details/73549824)
+
     找到平台签名文件“platform.pk8”和“platform.x509.pem”
 
     文件位置 android/build/target/product/security/

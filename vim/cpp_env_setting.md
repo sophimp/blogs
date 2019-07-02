@@ -226,53 +226,135 @@ tbastos/vim-lua:
 
 lambdalisue/vim-gista: 
 ------
+
 	Manipulating Gist in Vim
 
 	Gist 是啥?  github 有一个gist 服务, 可以当作云仓库, 像有道云笔记一样? 但是不翻墙不能访问!
 
 	暂时先不研究这个, 集成到vim 中, 倒是完成了有道云的功能
 
-vim-unimpaired: 
+tpope/vim-unimpaired: 
 ------
 
+	用来匹配括号的? 
+	看readme 也没读太懂, 使用过程中也没感受到, 后面再研究吧, 这里面有些插件也是被淘汰掉的, 并不一定实用
 
 gist-vim: 
 ------
-vim-dirvish: 
+
+	也是用来支持gist的, 还是一个比较火爆的功能.
+
+justinmk/vim-dirvish: 
 ------
-vim-misc: 
+
+	justinmk 开源了很多vim 好用的脚本
+
+	vim 快速查看目录, 比netrw 快, 但是有了nerdtree, 这个貌似是被淘汰掉的
+
+xolox/vim-misc: 
 ------
-tabular: 
+	Miscelleaneous 各种的, 多样的, Miscelleaneous auto-load Vim scripts, 
+	自动加载各种的vim script, (这里可以理解为同时?) 因为是异步加载的, 放在basic group 中, 算是必用的一个插件
+
+godlygeek/tabular: 
 ------
-soft-era-vim: 
+
+	过滤text, 格式化, 放在simple group 里, 看来simple 也是可选的, 是比较简单但是功能好用的插件
+
+	vim-easy-align 也有此功能, simple 可不用
+
+soft-aesthetic/soft-era-vim: 
 ------
-vim-speeddating: 
+
+	Light pastel syntax theme for cozy, cute coding & typing
+
+	轻量柔和的语法主题, 舒适的, 可爱的 编码和输入
+
+tpope/vim-speeddating: 
 ------
-vim-easymotion: 
+	
+	tpope 也是一个vim script 贡献较多的人
+
+	ctrl-a/ctrl-x 增加日期, 时间
+
+	date, time 函数都可以添加, 有点用, 可选
+
+easymotion/vim-easymotion: 
 ------
-phpcomplete.vim: 
+
+	快捷地操作vim 的一些 行为: 高亮所有可能的选择, 一键选择
+	star 数挺多, 具体应用再体会
+
+shawncplus/phpcomplete.vim: 
 ------
-vimoutliner: 
+
+	提高omnicompletion php 的补全效果
+
+skywind3000/vimoutliner: 
 ------
-vim-startify: 
+
+	只找到了vimoutliner/vimoutliner, 到skywind3000 仓库下也没找到, 应该是fork的吧...
+
+	工作高效, 思考流畅
+
+	outline processor 大纲处理器, 功能类似于 GrandView
+
+	放在inter group 里, inter vt. 埋葬; prep, 在中间, 取埋葬之意? 还是中间之意
+
+
+mhinz/vim-startify: 
 ------
-ale: 
+
+	一个精选的 vim 启动屏幕, 最近打开页, 永恒的session
+
+vim-python/python-syntax: 
 ------
-python-syntax: 
+
+	python 语法支持
+
+othree/html5.vim: 
 ------
-html5.vim: 
+
+	html5 语法支持
+
+vim-script/L9: 
 ------
-L9: 
+
+	Vim script library
+
+vim-script/FuzzyFinder: 
 ------
-FuzzyFinder: 
+
+	模糊查找, 放在inter组, 看来inter 是取中间之意, 上不上, 下不下, 有用, 但不好用
+
+	上面已有一个fzf, 同功能
+
+tpope/vim-abolish: 
 ------
-vim-abolish: 
+	
+	简单搜索, 替代, 缩写一个变量, 放在inter group, 看来inter group 的插件也不必加载
+	不过加载了, 即使没有用上, 也没什么冲突 
+
+ludovicchabant/vim-gutentags: 
 ------
-vim-gutentags: 
+	
+	自动管理ctags, 结合使用universal-ctags, --outformat 生成兼容的exuberant
+
+tpope/vim-surround: 
 ------
-vim-surround: 
+
+	快捷补充, 改变, 删除 ", ( , {, xml label 等成对出现的符号, 
+	使用方法在github readme 有
+
+dag/vim-fish: 
 ------
-vim-fish: 
+
+	用来支持 fish-shell/fish-shell 语法高亮, 语法检查及编写, 放在basic, 看来fish-shell 也是一个很好用的shell
+
+	回去折腾用一用试试 
+
+MarcWeber/vim-addon-mw-utils: 
 ------
-vim-addon-mw-utils: 
-------
+
+	也是一个历史久远的插件, 没有readme 说明, 简介: vim : interpret a file by function and cache file automatically
+	按函数来解析一个文件, 并自动缓存, 也是放在inter group, inter group 里放了很多久远的插件
