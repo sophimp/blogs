@@ -358,3 +358,21 @@ MarcWeber/vim-addon-mw-utils:
 
 	也是一个历史久远的插件, 没有readme 说明, 简介: vim : interpret a file by function and cache file automatically
 	按函数来解析一个文件, 并自动缓存, 也是放在inter group, inter group 里放了很多久远的插件
+
+ycm-core/YouCompleteMe
+---------
+
+	先将这个插件学会用, 至于不高效的时候, 再寻替代品, 后面的学习还是按需学习, 整体学习, 效率不高, 看完了解个大概, 用不到的内容, 都会忘掉. 不过有了总体的思想后, 有一个指导作用, 基本上一直使用的.
+	已经是异步机制的, 目前是vim下的最高效的, 最全面的自动补全插件
+
+	再次看readme, 已经能顺畅地看懂了,  git clone, git submoudle update --init --recursive
+
+	支持c/cpp, java
+	python3 install.py --clang-completer --java-completer
+
+	更多的配置, 本库已经加了, 先用着, 更深入的研究按需学习
+
+	gtags
+
+	www.gnu.org/software/global/download.html
+
