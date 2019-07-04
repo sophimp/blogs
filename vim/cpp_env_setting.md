@@ -376,3 +376,8 @@ ycm-core/YouCompleteMe
 
 	www.gnu.org/software/global/download.html
 
+vim + global tags
+----------
+	可以代替原有的 vim + cscope + ctags
+	具体如何使用呢? 
+	
