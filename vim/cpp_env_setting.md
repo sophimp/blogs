@@ -92,7 +92,9 @@ yggdroot/LeaderF:
 
 	 在deepin 上的映射ctrl+p 键有冲突, 是因为,vim 同时支持了python2 和3, 导致加载LeaderF 失败
 
-	 自编译的git 不能访问https 来下载
+	 自编译的git 不能访问https 来下载, 还是要安装 git-core, 为何自编译出来的git-core下面没git-common-https
+
+	 此插件可以取代 fzf, ctrlP, 所以opt下的插件真得可以不用了
 
 
 junegunn/fzf: 
@@ -251,6 +253,8 @@ justinmk/vim-dirvish:
 
 	vim 快速查看目录, 比netrw 快, 但是有了nerdtree, 这个貌似是被淘汰掉的
 
+	不是淘汰了, 而是更快了, 现在的状态是nerdtree 没有加载, 使用的一直是dirvish
+
 xolox/vim-misc: 
 ------
 	Miscelleaneous 各种的, 多样的, Miscelleaneous auto-load Vim scripts, 
@@ -380,4 +384,60 @@ vim + global tags
 ----------
 	可以代替原有的 vim + cscope + ctags
 	具体如何使用呢? 
+	下载GNU GLOBAL 6.6.0 以上的版本,这个只有在gnu freesource 网站上有, 源码安装
+	下载Universal ctags, 这个在github就有, 源码安装
+	cscope 理论上是不用再加载了, 
+
+	gutentags 已经自动在运行, 只不过生成的tags是当前工程中的, 并不会生成, include 库的的符号表, 
+	想要看链接库的源码, 当然需要下载源码并生成tags, 将tags路径加入vim 中, 或者将多个tags 合并生成一个大的tags
 	
+	如何使用呢? 
+		查看函数,类定义, 是使用方式一
+		直接搜索, 根据结果, 跳转到定义处, 使用方式二
+
+操作习惯
+-------- 
+
+	装了别人的插件, 当然得学会使用
+
+* 查找类定义函数定义
+	c-w ] 另开一个窗口
+	c-w } 另开一个预览窗口, 可通过 m-u/d 上下滚动
+	m-; 可以在preview中切换多个符号定义
+	m+shift+; 关闭预览窗口
+
+* 快捷键
+	F4: 使用cmake 生成makefile
+	F5: 单文件: 运行
+	F6: 项目: 测试
+	F7: 项目: 编译
+	F8: 项目: 运行
+	F9: 单文件: 编译
+	F10: 打开/关闭 quickfix 窗口
+
+* 快速搜索
+	leaderF 插件, 支持模糊搜索
+	c-p: 在当前打开文件的路径下
+	c-n: 打开MRU搜索
+	m-p: 搜索当前文件下的函数列表
+	m-n: 打开Buffer搜索
+
+	dirvish:
+	-: 跳转上一级
+	<tab>7: split
+	<tab>8: vsplit
+	<tab>9: tabnew 
+	
+* 源文件头文件跳转
+	a.vim 插件
+	本配置通过代码可以做到, 目前通过<tab>789 也可以做到,
+	后面看源码再研究
+
+* 智能提示
+	YouCompleteMe 已经可以完成
+
+* 代码格式化
+* 查找函数被调用地方
+* 快速查找字符串
+* 全局查找, grep, sed, awk 这些工具的使用
+
