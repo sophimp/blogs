@@ -437,7 +437,13 @@ vim + global tags
 	YouCompleteMe 已经可以完成
 
 * 代码格式化
+	neoformat 安装完了， 但是还未使用成功，  ValueError: still no compile flags
+	格式化的问题， 后面再看
+
 * 查找函数被调用地方
+
+	查找当前类的函数 有leaderF, alt+p
+
 * 快速查找字符串
 * 全局查找, grep, sed, awk 这些工具的使用
 
