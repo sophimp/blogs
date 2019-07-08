@@ -445,5 +445,6 @@ vim + global tags
 	查找当前类的函数 有leaderF, alt+p
 
 * 快速查找字符串
-* 全局查找, grep, sed, awk 这些工具的使用
+
+	全局查找, grep, sed, awk 这些工具的使用
 
