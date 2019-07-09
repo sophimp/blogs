@@ -134,6 +134,20 @@ operators and special symbols
 
 	* * 可以将Array(out String) 转换成 String ...
 
+- 位操作
+	shl(bits)
+	shr(bits)
+	ushr(bits)
+	and(bits)
+	or(bits)
+	xor(bits)
+	inv()
+	
+- companion object
+	* 在jvm run time 还是一个实例对象, 可以实现接口
+	* 在使用形式上类似于static, 可以加上@JvmStatic 实现java 的 static 功能
+	* object 表达式 在通信类加载的时候就会初始化, 这个性质也跟static 一样
+	
 ## 感悟
 
     得, 又一次高估了自己的能力, 只是记录上述的语法基础, (我)真得很难学会kotlin, 虽然有一定的基础, 但是那么多语法糖, 就出现了选择困难障碍
