@@ -9,3 +9,12 @@
 	为了确保文件的完整性，将现有系统下的所有可能的文件都copy 下来，但是有些bin 文件没有权限, 己经是root用户了
 
 
+## 查看cpu 信息
+
+	adb shell
+	cat /proc/cpuinfo
+	nubia z18mini 是 sdm660, 宣传称骁龙855+
+	直接搜索 sdm660, 能得到什么信息
+
+	vendor 资源，kernel 源码， 哪里去拿？
+	
