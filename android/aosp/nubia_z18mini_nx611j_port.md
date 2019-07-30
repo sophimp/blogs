@@ -14,7 +14,8 @@
 	adb shell
 	cat /proc/cpuinfo
 	nubia z18mini 是 sdm660, 宣传称骁龙855+
-	直接搜索 sdm660, 能得到什么信息
+	直接搜索 sdm660, 能得到什么信
 
 	vendor 资源，kernel 源码， 哪里去拿？
 	
+	mokee 传的内核源码都是 3.8 版本的， 而原本的源码都 4.4.78 了, 如休增⢒新的源码
