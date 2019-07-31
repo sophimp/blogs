@@ -137,5 +137,8 @@ java.lang.IllegalArgumentException: Self-suppression not permitted
 
 出错的原因是什么呢? 切换分支, 残留了文件, git 的信息也有残留, 而不同版本支持的机型不一样, 所以有的第三方的东西就会下载不到.
 
-## 编译结果
+进入 .repo/manifests/ 下git查看当前分支是否有未提交的文件， 或者git文件损坏,  如果已有完整工程，可以将 manifests.git .git 全部删除，重新copy一份
 
+## 编译结果
+	
+直接 lunch mk_combo-userdebug, mka bacon 编译，没有问题
