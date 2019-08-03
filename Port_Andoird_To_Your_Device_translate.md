@@ -174,189 +174,205 @@ device/文件夹中有许多文件。我们将首先关注四个文件BoardConfi
 必须在BoardConfig中正确设置以下参数才能编译工作恢复映像：
 
 TARGET_ARCH：这是设备的架构，它通常类似于arm或omap3。
-BOARD_KERNEL_CMDLINE：并非所有设备都传递启动参数，但是如果您的设备执行此操作，则必须正确填写以便成功启动。您可以在ramdisk.img中找到此信息。 （您可以在此处了解有关配置集成内核源代码的更多信息。）
-BOARD_KERNEL_PAGESIZE：库存boot.img的页面大小，必须正确设置才能启动。这个的典型值是2048和4096，这些信息可以从库存内核中提取。
-BOARD_BOOTIMAGE_PARTITION_SIZE：分配给内核映像分区的字节数。
-BOARD_RECOVERYIMAGE_PARTITION_SIZE：分配给恢复映像分区的字节数。
-BOARD_SYSTEMIMAGE_PARTITION_SIZE：分配给Android系统文件系统分区的字节数。
-BOARD_USERDATAIMAGE_PARTITION_SIZE：分配给Android数据文件系统分区的字节数。
-注意：
 
-上述信息可以通过将/ proc / partitions或/ proc / mtd的大小乘以块大小（通常为1024）来获得。
+BOARD_KERNEL_CMDLINE：并非所有设备都传递启动参数，但是如果您的设备执行此操作，则必须正确填写以便成功启动。
+	您可以在ramdisk.img中找到此信息。 （您可以在此处了解有关配置集成内核源代码的更多信息。）
+
+BOARD_KERNEL_PAGESIZE：库存boot.img的页面大小，必须正确设置才能启动。这个的典型值是2048和4096，这些信息可以从库存内核中提取。
+
+BOARD_BOOTIMAGE_PARTITION_SIZE：分配给内核映像分区的字节数。
+
+BOARD_RECOVERYIMAGE_PARTITION_SIZE：分配给恢复映像分区的字节数。
+
+BOARD_SYSTEMIMAGE_PARTITION_SIZE：分配给Android系统文件系统分区的字节数。
+
+BOARD_USERDATAIMAGE_PARTITION_SIZE：分配给Android数据文件系统分区的字节数。
+
+	注意：
+
+	上述信息可以通过将/proc/partitions或/proc/mtd的大小乘以块大小（通常为1024）来获得。
 
 BOARD_HAS_NO_SELECT_BUTTON :(可选），如果您的设备需要使用其“电源”按钮确认恢复中的选择，请使用此选项。
-BOARD_FORCE_RAMDISK_ADDRESS / BOARD_MKBOOTIMG_ARGS :(可选），使用这些来强制ramdisk的特定地址。这通常需要在较大的分区上，以便在预期存在的位置正确加载ramdisk。该值可以从库存内核获得。前者从Android 4.2.x开始被弃用，后者现在将在4.2.x及更高版本中使用。
-设备_ [代号] .mk
+
+BOARD_FORCE_RAMDISK_ADDRESS/BOARD_MKBOOTIMG_ARGS :(可选），使用这些来强制ramdisk的特定地址。这通常需要在较大的分区上，
+	以便在预期存在的位置正确加载ramdisk。该值可以从库存内核获得。前者从Android 4.2.x开始被弃用，后者现在将在4.2.x及更高版本中使用。
 
 #### 5.2 device_codename.mk
-#### 5.3 kernel
-#### 5.4 cm.mk
-#### 5.5 recovery.fstab
-#### 5.6 vendorsetup.sh
+
 device_codename.mk makefile包含有关要构建的Android软件包以及在何处复制特定文件和软件包或在编译期间设置的特定属性的说明。
 
 此文件可用于在编译时将重要文件复制到ramdisk中。
 
-PRODUCT_COPY_FILES：用于在编译期间将文件复制到ramdisk中，该文件位于$ OUT / recovery / root。
-例：
+	* PRODUCT_COPY_FILES：用于在编译期间将文件复制到ramdisk中，该文件位于$ OUT/recovery/root。
 
-$（LOCAL_PATH）/ sbin / offmode_charging：recovery / root / sbin / offmode_charging \
+	例：
+
+	$（LOCAL_PATH/sbin/offmode_charging：recovery/root/sbin/offmode_charging\
+
 这会将文件offmode_charging二进制文件复制到ramdisk中的sbin文件夹中。
 
-PRODUCT_NAME / PRODUCT_DEVICE：用于设置代号的值。这是您使用Lunch加载的设备的名称。
-核心
-这只是预构建的内核映像或您自己用于引导设备的内核。内核的格式可以是zImage或uImage，具体取决于设备体系结构的要求。
-cm.mk
-您需要对此文件进行一些更改以与午餐，早午餐和早餐命令集成，以便您的设备显示在列表中并正确构建。您还将设置一些变量（请参阅其他设备）以指示应使用的启动动画大小，无论是平板电脑还是手机等。
+	* PRODUCT_NAME / PRODUCT_DEVICE：用于设置代号的值。这是您使用Lunch加载的设备的名称。
+
+#### 5.3 kernel
+
+这只是预构建的内核映像或您自己构建的用于引导设备的内核。内核的格式可以是zImage或uImage，具体取决于设备体系结构的要求。
+
+#### 5.4 cm.mk
+
+您需要对此文件进行一些更改用来集成 lunch, brunch, 和 breakfast 命令，以便您的设备显示在列表中并正确构建。您还将设置一些变量（请参阅其他设备）以指示应使用的开机动画的大小，无论是平板电脑还是手机等。
 
 其中一些设置不仅用于构建恢复，但您现在也可以设置它们，因为一旦恢复完成并正常工作，此处的设置将非常重要。
 
 再次，看看你的类似设备，以了解这里的设置应该是什么。这很直观。
 
-recovery.fstab
-recovery.fstab为设备中的每个分区定义文件系统装入点，文件系统类型和块设备。它的工作方式与标准Linux操作系统中的/ etc / fstab几乎完全相同。
+#### 5.5 recovery.fstab
 
-例：
+recovery.fstab为设备中的每个分区定义文件系统装入点，文件系统类型和块设备。它的工作方式与标准Linux操作系统中的/etc/fstab几乎完全相同。
 
-/系统EXT4的/ dev /块/ mmcblk0p32
-这将mmcblk0p32的块设备设置为/ system作为文件系统类型ext4
+	例：
 
-所有挂载点都应存在于此文件中，并且此信息的正确性至关重要，否则可能会发生非常糟糕的事情，例如恢复闪存写入错误的位置。
+	/system		ext4	/dev/block/mmcblk0p32
+	这将mmcblk0p32的块设备设置为/system 作为文件系统类型 ext4
 
-注意：
+所有挂载点都应存在于此文件中，并且此信息的正确性至关重要，否则可能会发生非常糟糕的事情，例如 recovery flash 写入错误的位置。
 
-文件系统类型datamedia可用于内部sdcards以及将块设备设置为/ dev / null。
+	注意：
 
-vendorsetup.sh
-vendorsetup.sh is called when setupenv.sh is run. It is used to add non-standard lunch combos to the lunch menu.
+	文件系统类型datamedia可用于内部sdcards以及将块设备设置为 /dev/null。
 
-To add your device to the lunch menu:
+#### 5.6 vendorsetup.sh
 
-add_lunch_combo cm_<codename>-userdebug
-Then build a test recovery image
-To build only the recovery, set up lunch as with a regular build, and say make recoveryimage
+在运行setupenv.sh时调用vendorsetup.sh。它用于在lunch menu 中添加非标准 lunch combos。
 
-If things break (and they will break), have a look at these tips for dealing with build errors.
+要将您的设备添加到 lunch menu：
 
-Helpful Tip
+	add_lunch_combo cm_<codename>-userdebug
 
-If you have fastboot, you can try it to install the recovery image to the recovery partition. There are other methods for installing the recovery, such as using dd from a rooted system to flash it into place.
-
-Not much needs to be said here, but make sure the recovery is working before you move on to getting CyanogenMod working. A 100%-working and reliable recovery mode is absolutely necessary before you start testing experimental Android builds.
-
-Adjust recovery_ui.cpp if necessary
-You may discover that although the recovery image runs, some of the hardware buttons, such as the volume buttons or power buttons, which would normally be used to scroll through the options, don't work.
-
-You may need to adjust the GPIO values to get the buttons to be recognized. Similarly, you may wish to include/exclude options or modify other UI elements.
-
-To do this, you may wish to create and edit the /device/[vendor]/[codename]/recovery/recovery_ui.cpp. You can find ample examples of this file, the associated recovery/Android.mk file that builds it, and how it is used.
-
-Helpful Tip
-
-The GPIO values for your device may be found in the kernel source.
-
-
-Put your device folder in github, and use a local manifest to automatically sync it with repo sync
-Once you've started your device folder, create your own GitHub account and set up your folder as a public GitHub repository. This is a great opportunity to learn about git, and also your source can be accessible to others who can collaborate with you.
-
-When naming your repository, use the format android_device_VENDOR_CODENAME, where VENDOR and CODENAME use the new device's values. So, let's say your GitHub account name is "fat-tire" and your device codename is "encore", manufactured by Barnes and Noble. You should call your repository android_device_bn_encore. It would be accessible at https://github.com/fat-tire/android_device_bn_encore. Similarly, the kernel repository would be called android_kernel_bn_encore. It would be accessible at https://github.com/fat-tire/android_kernel_bn_encore.
-
-The last thing to do is create a local manifest for other people to use to automatically download and their keep up-to-date with your changes. Here's an example, using the above scenario:
-
-<?xml version="1.0" encoding="UTF-8"?>
-<manifest>
-  <project name="fat-tire/android_device_bn_encore" path="device/bn/encore" remote="github" revision="cm-10.1" />
-  <project name="fat-tire/android_kernel_bn_encore" path="kernel/bn/encore" remote="github" revision="cm-10.1" />
-</manifest>
-Note:
-
-The revision attribute is optional. If it is omitted, repo sync will use the revision specified by the <default ... /> tag in the default manifest.
-
-Once you've tested that the local manifest file works, you can pass it on to others, who can then try out your work. At that point you can continue to push your changes to GitHub, and even give other users commit access so that you can work on the device together.
-
-Helpful Tip – Using other repositories
-
-If you find that for some reason you need to replace or supplement other repositories provided by CyanogenMod, you can add additional repositories using the local manifest. Once you've got everything working, you can use Gerrit to submit stuff found in those repositories back upstream to CyanogenMod.
-
-Add the blobs to the vendor/ directory
-Once you have a working recovery, it's now time to get CyanogenMod building and working.
-
-The first thing to do is to get all the proprietary, binary blobs into the vendor/ folder, along with a .mk file that will include them in the final build.
-
-This requires three steps:
-
-Create extract-files.sh and setup-makefiles.sh scripts to pull those blob files from the device using adb and put them in the right /vendor/ directory. There are plenty of examples available for other devices.
-Create an .mk Makefile to copy those files to the $OUT folder during the build process and put them in the right place. Again, use other devices as a guide for what this Makefile should look like. An example filename might be BoardConfigVendor.mk
-Make sure that the Makefile you just created is included from your main BoardConfig.mk via a command such as -include vendor/[vendor]/[codename]/BoardConfigVendor.mk. Again, existing devices can illustrate how this is done.
-Now revise the device/ directory
-Since you have a working recovery, go back and start modifying the files in the device/ folder. As always, use other similar devices as a reference.
-
-You now have a easy means to do backups and test your builds. So start tweaking the device folder itself, and see if you get it to boot... Once you do, from there its a matter of building and supporting the various parts and peripherals, one-by-one.
-
-Getting help from the manufacturers & vendors
-Many of the OEMs (Original Equipment Manufacturers) who make the underlying platform used by your device frequently provide wikis, documentation, and sample code that can assist you in completing your port. You'll find that some companies are more friendly to the development community than others. Here are some of the more common OEMs and vendors, along with web sites and repositories that may help.
 
 ### 6. 编译一个测试的 recovery image
 
+要仅构建 recovery，请按照常规构建设置lunch，然后输入命令 make recoveryimage
+
+如果发生错误（肯定会发生错误），请查看这些处理构建[错误的提示]()。
+
+	提示:
+
+	如果您有fastboot，则可以尝试将recovery.img安装到recovery分区。
+	还有其他方法可以安装recovery，例如使用来自root系统的dd 将其刷新到其分区。
+
+这里不需要说太多，但在继续让CyanogenMod工作之前确保recovery 正常工作。在开始测试实验性Android版本之前，绝对需要100％工作且可靠的recovery。
+
 #### 6.1 如有必要适配 recovery_ui.cpp
+
+您可能会发现虽然 recovery 运行，但通常用于滚动选项的某些硬件按钮（如音量按钮或电源按钮）不起作用。
+
+您可能需要调整GPIO值才能识别按钮。同样，您可能希望包含/排除选项或修改其他UI元素。
+
+为此，您可能希望创建和编辑/device/[vendor]/[codename]/recovery/recovery_ui.cpp。您可以找到此文件的大量示例，构建它的关联recovery/Android.mk文件以及如何使用它。
+
+	提示:
+
+	您可以在内核源代码中找到设备的GPIO值。
 
 ### 7. 上传device 文件夹到github, 并使用本地的 localmanifes 通过 repo sync 自动同步
 
-### 8. 添加 blobs 到vendor文件夹
+启动设备文件夹后，创建自己的GitHub帐户并将文件夹设置为公共GitHub存储库。这是了解git的绝佳机会，而且您可以与可以与您协作的其他人访问您的仓库。
+
+命名存储库时，请使用android_device_VENDOR_CODENAME格式，其中VENDOR和CODENAME使用新设备的值。因此，假设您的GitHub帐户名称为`fat-fire`，而您的设备代号为`encore`，由Barnes and Noble制造。你应该调用你的存储库android_device_bn_encore。可以通过 https://github.com/fat-tire/android_device_bn_encore 访问它。同样，内核存储库将被称为android_kernel_bn_encore。它可以通过 https://github.com/fat-tire/android_kernel_bn_encore 访问。
+
+最后要做的是为其他人创建一个本地清单，用于自动下载并随时了解您的更改。这是一个使用上面的场景的例子：
+
+```
+<？xml version =“1.0”encoding =“UTF-8”？>
+<manifest>
+  <project name =“fat-tire / android_device_bn_encore”path =“device / bn / encore”remote =“github”revision =“cm-10.1”/>
+  <project name =“fat-tire / android_kernel_bn_encore”path =“kernel / bn / encore”remote =“github”revision =“cm-10.1”/>
+</manifest>
+```
+
+	注意：
+
+	revision属性是可选的。如果省略，则repo sync将使用默认清单中<default ... /> tag 指定的修订。
+
+一旦您验证了本地清单文件的工作流程，您就可以将其分享给其他人，然后他们可以验证您的工作成果。此时，您可以继续将更改推送到GitHub，甚至可以给其他用户开通访问权限，以便你们可以一起移植此设备。
+
+	提示 -- 使用其他存储库
+
+	如果您发现由于某种原因需要替换或补充CyanogenMod提供的其他存储库，则可以使用本地清单添加其他存储库。一旦你完成所有工作，你就可以使用Gerrit将这些存储库中找到的东西提交回上游CyanogenMod。
+
+### 8. 添加 blobs 到 vendor 文件夹
+
+一旦你有一个可正常工作的recovery，现在是时候让CyanogenMod建立和工作了。
+
+首先要做的是将所有 proprietary, 二进制blob, 放入vendor/ 文件夹，以及将在最终版本中包含它们的.mk文件。
+
+这需要三个步骤：
+
+	1. 创建extract-files.sh和setup-makefiles.sh脚本，使用adb从设备中提取这些blob文件，并将它们放在正确的/vendor/目录中。其他设备有很多可用的示例。
+	2. 创建一个.mk Makefile，在构建过程中将这些文件复制到$OUT文件夹，并将它们放在正确的位置。再次，使用其他设备作为此Makefile应该是什么样的指南。示例文件名可能是BoardConfigVendor.mk
+	3. 确保您刚刚创建的Makefile包含在主BoardConfig.mk中，通过命令如-include vendor/[vendor]/[codename]/BoardConfigVendor.mk。同样，现有设备可以说明这是如何完成的。
+
 
 ### 9. 重新修改校正device/ 目录
 
+由于您的recovery 可正常工作，请返回并开始修改devices/ 文件夹中的文件。与往常一样，使用其他类似的设备作为参考。
+
+您现在可以轻松地进行备份和测试构建。 因此，开始调整设备文件夹本身，看看你是否可以启动它... 从那里开始就是一个接一个构建和支持各种部件和外围设备.
+
 ### 10. 从制造厂/第三方厂商 获取帮助
+
+许多制造设备使用的底层平台的OEM（原始设备制造商）经常提供维基，文档和示例代码，可以帮助您完成移植。 您会发现一些公司对开发社区比其他公司更友好。 以下是一些更常见的OEM和供应商，以及可能有用的网站和存储库。
+
+（此列表不完整。请帮忙添加）
+
+
+| OEM | Platform | Repositories/Resources |
+|--|--|--|
+|Google	|various	|Google's Git Repository , Nexus binary blobs|
+|HTC	|various	|Dev Center|
+|HP	|various	|HP Open Source|
+|Lenovo	|various	|Lenovo Smartphones (Search your device)|
+|LG	|various	|LG Open Source Code Distribution|
+|Motorola	|various	|Motorola Open Source Center|
+|Nvidia	|Tegra	|Tegra's GitWeb|
+|Qualcomm	|MSM/QSD	|Code Aurora Forum|
+|Samsung	|various	|Samsung Open Source Release Center|
+|Texas Instruments	|OMAP	|www.omapzoom.com , Omappedia|
+
+有时如果有你问题， 可以通过email或者论坛向开发者寻求帮助
 
 ### 11. 添加 xml 叠加层
 
-### 12. 编译 kernel 源码及内核模块
+它很可能出现在你的device_[codename].mk文件中，有一行看起来像这样：
 
-### 13. 最后
+	DEVICE_PACKAGE_OVERLAYS：= \
+	    device/[vendor]/[codename]/overlay
 
-### 14. 参考文献
-（此列表不完整。请帮忙添加）
+这样做是设置 overlay/ 文件夹，以允许您覆盖Android框架或应用程序使用的任何XML文件，仅适用于此设备。为此，请创建一个目录结构，该结构相对于源码根目录，映射于xml文件的一个镜像。然后替换要叠加的文件。
 
-OEM平台资料库/资源
-谷歌各种Google的Git Repository，Nexus二进制blob
-HTC各种开发中心
-惠普各种惠普开源软件
-联想各种联想智能手机（搜索你的设备）
-LG各种LG开源代码分发
-摩托罗拉各种摩托罗拉开源中心
-Nvidia Tegra Tegra的GitWeb
-Qualcomm MSM / QSD代码Aurora论坛
-三星各种三星开源发布中心
-德州仪器OMAP www.omapzoom.com，Omappedia
-有时，如果您有疑问，甚至可以通过电子邮件或支持论坛与开发人员联系。
-
-添加XML叠加层
-它很可能出现在你的device_ [codename] .mk文件中，有一行看起来像这样：
-
-DEVICE_PACKAGE_OVERLAYS：= \
-    设备/ [供应商] / [代号] /重叠
-这样做是设置overlay /文件夹，以允许您覆盖Android框架或应用程序使用的任何XML文件，仅适用于此设备。为此，请创建一个目录结构，该结构将镜像从源根目录开始的XML文件的路径。然后替换要叠加的文件。
-
-示例：假设您要覆盖某些标准的Android设置。查看frameworks / base / core / res / res / values / config.xml中的文件。然后将其复制到设备/ [vendor] / [codename] /overlay/frameworks/base/core/res/res/values/config.xml。现在你的版本将被用来代替另一个版本。您只需要包含您希望覆盖的设置 - 而不是所有设置，这样您就可以将文件削减为默认情况下更改的那些设置。
+示例：假设您要覆盖某些标准的Android设置。查看frameworks/base/core/res/res/values/config.xml中的文件。然后将其复制到设备/[vendor]/[codename]/overlay/frameworks/base/core/res/res/values/config.xml。现在你的版本将被用来代替另一个版本。您只需要包含您希望覆盖的设置 -- 而不是所有设置，这样您就可以将文件削减为默认情况下更改的那些设置。
 
 您可以覆盖任何XML文件，影响布局，设置，首选项，翻译等。
 
-从源代码构建内核和内核模块
+### 12. 编译 kernel 源码及内核模块
+
 如果您以前使用过预构建的内核，那么您可能希望从头开始构建内核。
 
-请参阅有关如何更改BoardConfig.mk文件的说明，以使CyanogenMod自动构建内核和任何所需的内核模块。
+请参阅有关如何更改BoardConfig.mk文件的指令来构建CyanogenMod [build the kernel and any required kernel modules automatically]()。
 
-结论
-单个维基页面无法告诉您从头到尾执行端口所需的所有信息。但是，希望您现在了解事情的设置方式以及您需要采取的步骤。你总是在论坛或IRC上寻求帮助。拥有相同设备的其他人也可以参与其中。
+### 13. 最后
+
+不可能只用一个维基页面告诉您从头到尾执行移植所需的所有信息。但是，希望您现在了解如何去的配置以及您需要采取的步骤。你总是在[论坛]()或[IRC]()上寻求帮助。拥有相同设备的其他人也可以参与其中。
 
 希望你会发现这个过程有益而且具有教育意义。它也会让你获得一些街头信誉。
 
-当你完成所有的工作，你的港口比股票更好...当它稳定，有光泽，奇妙而美妙......
+当你完成所有的工作，你的移植ROM比现有的系统更好...当它稳定，闪闪发光，奇妙而美妙......
 
-您可能希望在上游贡献您的工作。以下是如何做到这一点的说明。
+您可能希望在上游贡献您的工作。以下是[如何做到这一点]()的说明。
 
 祝好运！
 
-也可以看看
-Android-Porting  - 关于此主题的官方Google群组
-一般CyanogenMod移植讨论 - 关于移植的论坛帖子
+### 14. 参考文献
+
+[Android-Porting](https://groups.google.com/forum/?fromgroups#!forum/android-porting)  -- 关于此主题的官方Google群组
+[General CyanogenMod Porting Discussion](https://forum.cyanogenmod.org/topic/15492-general-cyanogenmod-porting-discussion/) -- 关于移植的论坛帖子
