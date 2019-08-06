@@ -82,5 +82,26 @@ device/qcom/sepolicy 用来配置 SELinux, SELinux 的作用, 具体的型号也
 上述操作并不能解决root 用户下, operation not permitted的问题, 改改分组试试呢？仍然不行
 在 /vendor/rfs/msm/下还是有很多firmware 的，是否有用？ 怎么拿出来？
 
+propiretary-files.txt 直接查找vendor下的proprietary 目录的文件， 暂不要jar, apk 文件
+
+lunch mk_nx611j-userdebug 过不去，之前已经遇到过的问题， 又有些忘记了. 回顾了下[mokee_research]() 当初适配 nx589j,在网上下载了相关的库，脚本都是自动写好的， 
+那时候直接 lunch mk_nx589j-userdebug 就可以直接通过了， 也没有去细细研究脚本的衔接点，留着以后再研究，现在这个以后的时候就到了。
+关键是这个以后基本上都是"临危受命" 的时机， 压力都是自己给自己的。
+
+调试makefile 按逻辑走也没有那么困难, $(warning "") 可以打印相关变量信息, 确定是在build/core/product_config.mk 报错行数中看一看逻辑,
+	mokee也修改了build 下的脚本，查找 device/nubia/nx611j/ 下的 mokee.mk 或者mokee_nx611j.mk 来编译, 所以此问题得解，衔接处找到了.
+
+接下来，按此方法，打印调试信息, 按编译日志修改脚本配置， 使编译通过应该不成问题了! 
+
+nx589j 分为了两个文件夹 msm8976 和 nx589j， 那么 nx611j 就将这device, vendor 下对应的这两个文件夹的mk 合二为一，
+	看相关配置，还是可以看出一些眉目来的
+
+export MK_BUILD
+	...
+
+这样算什么语法呢, 最后报错是在哪里， 为何没有行号
+
+其他文件夹的用法
+
 - 硬件层移植, shim编写
 [为何msm8974不能移移android 8.0 系统](https://www.xda-developers.com/in-depth-capitulation-of-why-msm8974-devices-are-excluded-from-nougat/)
