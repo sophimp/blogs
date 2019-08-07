@@ -103,5 +103,10 @@ export MK_BUILD
 
 其他文件夹的用法
 
+先使用 xiaomi sdm 660 相关的配置， 结合 n589j device, vendor的配置，试一试，真不行， 
+再着重看一下小米的配置，对比一下，就差不多可以看到区别, 只不过是有些文件要重新再配置一次了
+解决了一个问题check_product是通过了，又遇到了下一个问题, 怎么会去加载aosp_arm.mk呢
+
+
 - 硬件层移植, shim编写
 [为何msm8974不能移移android 8.0 系统](https://www.xda-developers.com/in-depth-capitulation-of-why-msm8974-devices-are-excluded-from-nougat/)
