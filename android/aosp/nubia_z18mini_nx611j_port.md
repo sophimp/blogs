@@ -107,6 +107,7 @@ export MK_BUILD
 再着重看一下小米的配置，对比一下，就差不多可以看到区别, 只不过是有些文件要重新再配置一次了
 解决了一个问题check_product是通过了，又遇到了下一个问题, 怎么会去加载aosp_arm.mk呢
 
+$(call inherit-product ) call 是异步调用的,不管放在当前文件哪个地方
 
 - 硬件层移植, shim编写
 [为何msm8974不能移移android 8.0 系统](https://www.xda-developers.com/in-depth-capitulation-of-why-msm8974-devices-are-excluded-from-nougat/)
