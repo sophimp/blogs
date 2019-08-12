@@ -109,5 +109,21 @@ export MK_BUILD
 
 $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个地方
 
+对比nx589j的配置文件, 结合错误日志
+	> build/core/combo/TARGET_linux-arm64.mk:38: *** Unknown ARM architecture version: arm64.  Stop.
+最终在 sdm660-common 中找到了相关配置, TARGET_2ND_ARCH_VAR, 按 nx589j 中的msm8996-common 中的相关配置, 添加上就可以lunch 通过了
+
+接下来就是编译 mka bacon 调试
+
+###  编译调试xiaomi_sdm660-common相关的配置到 nx611j, 是否可以移植通过
+
+1. ninja: error: '/home/hrst/aosp/mokee_mko/out/target/common/obj/JAVA_LIBRARIES/WfdCommon_intermediates/javalib.jar', needed by '/home/hrst/aosp/mokee_mko/out/target/product/nx611j/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
+17:34:21 ninja failed with: exit status 1
+
+
+
+	
+
+
 - 硬件层移植, shim编写
 [为何msm8974不能移移android 8.0 系统](https://www.xda-developers.com/in-depth-capitulation-of-why-msm8974-devices-are-excluded-from-nougat/)
