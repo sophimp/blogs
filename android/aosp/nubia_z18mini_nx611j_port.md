@@ -120,10 +120,69 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 1. ninja: error: '/home/hrst/aosp/mokee_mko/out/target/common/obj/JAVA_LIBRARIES/WfdCommon_intermediates/javalib.jar', needed by '/home/hrst/aosp/mokee_mko/out/target/product/nx611j/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
 17:34:21 ninja failed with: exit status 1
 
+	此类错误, 主要还是在copy proprietary 的文件时, 找不到对应的文件
+	解决此类问题, 还是直接从官方运行的系统中拿相应的文件, 当然官方的ROM 得先root, 
+	如果当前系统中也找不到相关的文件, 那就删除配置文件中此文件的copy
 
+2. 编译阶段, 遇到的问题也只是1类问题, 编译内核的源码, 努比亚官方有公布, 在github 上 [nubia_public](https://github.com/ztemt)
 
+	可见, 真正要写的代码, 主要还是在shim 层, device 相关的配置文件, 适配相关的硬件工作
+	对了, 还有系统启动的配置还未涉及, 这肯定也是个难点,需要学习, .te, .rc
+
+3. 源码编译错误
+
+	ninja: build stopped: subcommand failed.
+	21:04:36 ninja failed with: exit status 1
+
+	编译工作远远没有结束, 这不是源码错误, 但也没有其他提示, google 了一下, 
+	1. 修改jack 配置, 增加参数 -Xmx8g 但是并未起作用
+	2. 服务器进程打开文件数受限制, [使用ulimit 来修改配置](https://blog.csdn.net/touxiong/article/details/86233805)
+	3. 这样的错误信息远远不足, 网上搜索, 能改的都改一下, bison 库切到mokee/mko-mr1分支试试
+
+- kernel, vendor, device
 	
+kernel 主要还是找开源的, 基本上不用修改什么
+
+vendor 主要还是搞 file copy, 使用现有的资源, 注意文件结构, proprietary 相当于根目录/, 下面还有一层
+	vendor可能还有定制的内容, 暂时先不管
+
+device 主要的配置工作主要还是在此文件夹, 连结kernel, vendor, 使用的qcom 库, 都要与kernel 的版本一致
+	着重分析完此文件下的各种文件的作用, 不然此路还是打不通啊, 要配置哪些变量? 
+
+	device 下的配置, 也需要结合 build 下的定制, lunch 函数, make 命令. 命名规则, 总体调试起来. 
+	
+###  device 文件分析
+	
+有一个与kernel 对应的common 
+
+	从名字上看, common 肯定是想与同类机型共用起来, 所以, 理论上是common 是可以共用的. 
+	当然还得分析不同平台特定的设置
+
+与特定机型相关的配置 
+
+	overlay 一些资源文件, 这个不影响使用, 顶多UI丑一些. audio
+	shim 层的适配, 这个相对来说是机型特有的, bluetooth, liblight, mkhw, 
+	启动脚本的配置, rootdir, selinux 的脚本配置 sepolicy
+	全局编译脚本的编写 mk_combo.mk: 对接kernel, vendor 资源, 配置全局变量(只能通过编译日志来补充, 网上相关教程并不多)
+	在 [Port_android_to_your_own_device]() 中有相关最基本的几个变量配置需要
+
+	其实这些所有的功能, 还是需要查看相应的脚本文件, 即可了然, 但是脚本文件那么多, 还是要靠实战调试来看代码, 否则整体的时序流程还是摸不着头脑.
+	跑 CTS 测试框架, 又该如何配置呢? 
+	插桩的技术, 看似很高深, 其实只要有一些全局的思想, 从整体入手, 反射插桩而已
+
+对比nx589j 与 xiaomi-wanye 的配置 
+
+	先从官网上再读一读 [android 架构](https://source.android.google.cn/devices/architecture/hal-types.html)
+	从android 8.0 后, hal 更加模块化, 采用hidl 语言编写了hal 层, 使移植更加方便一些, 前提是厂商要支持
+	国内的厂商大都还是定制UI rom, 组装硬件, 然后按hal 层编写自身的rom, 所以既然接口是通用的, 移植应该更简单一些. 
+	当然涉及到特有的部分, 还是要写shim层. 
+	android 8.0 系统, 分为升级与搭载, 升级到8.0 的HAL使用直通式(使用hidl 封装了旧有的HAL), 直接出厂的机器搭载8.0 系统, 就直接使用绑定式(全新使用hidl的实现hal层)
+	有一些特有的功能, 不管是升级还是搭载, 都使用直通式, 反复读, 收获还是有的.
+
+	HIDL的设计, 新旧都得了解一番. 看了个大概, 现在的局面不允许仔细研读, 还是先进行文件比对, 实战中学习吧. 
+	看完HIDL HAL层那么多东西, 感觉这个月想完成任务有些难. 
 
 
 - 硬件层移植, shim编写
 [为何msm8974不能移移android 8.0 系统](https://www.xda-developers.com/in-depth-capitulation-of-why-msm8974-devices-are-excluded-from-nougat/)
+
