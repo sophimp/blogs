@@ -139,6 +139,11 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 	2. 服务器进程打开文件数受限制, [使用ulimit 来修改配置](https://blog.csdn.net/touxiong/article/details/86233805)
 	3. 这样的错误信息远远不足, 网上搜索, 能改的都改一下, bison 库切到mokee/mko-mr1分支试试
 
+	ninja: error: '/home/hrst/aosp/mokee_mko/out/target/common/obj/JAVA_LIBRARIES/libstagefright_wfd_intermediates/javalib.jar', needed by '/home/hrst/aosp/mokee_mko/out/target/product/nx611j/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
+
+	这个问题也一直卡在这里, 看日志意思是 生成boot.art 的时候, 缺少 javalib.jar, 在 build/core/java_common_lib 脚本中, 是有copy 的, 根据 intermediate.COMMON 来copy, 那个这个 变量是如何定义的?  搜索的时候要等好久, 而且tag乱了, 串工程了
+	
+
 - kernel, vendor, device
 	
 kernel 主要还是找开源的, 基本上不用修改什么
@@ -181,6 +186,8 @@ device 主要的配置工作主要还是在此文件夹, 连结kernel, vendor, �
 
 	HIDL的设计, 新旧都得了解一番. 看了个大概, 现在的局面不允许仔细研读, 还是先进行文件比对, 实战中学习吧. 
 	看完HIDL HAL层那么多东西, 感觉这个月想完成任务有些难. 
+
+	非得每一行, 每条配置都搞明白不可达编译通过之目的. 
 
 
 - 硬件层移植, shim编写
