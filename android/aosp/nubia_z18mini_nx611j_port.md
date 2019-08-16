@@ -141,8 +141,22 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 
 	ninja: error: '/home/hrst/aosp/mokee_mko/out/target/common/obj/JAVA_LIBRARIES/libstagefright_wfd_intermediates/javalib.jar', needed by '/home/hrst/aosp/mokee_mko/out/target/product/nx611j/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
 
-	这个问题也一直卡在这里, 看日志意思是 生成boot.art 的时候, 缺少 javalib.jar, 在 build/core/java_common_lib 脚本中, 是有copy 的, 根据 intermediate.COMMON 来copy, 那个这个 变量是如何定义的?  搜索的时候要等好久, 而且tag乱了, 串工程了
+	这个问题也一直卡在这里, 看日志意思是 生成boot.art 的时候, 缺少 javalib.jar, 在 build/core/java_common_lib 脚本中, 是有copy 的, 根据 intermediate.COMMON 来copy, 那个这个 变量是如何定义的? 需要什么样的规则来命名, 搜索的时候要等好久, 而且tag乱了, 串工程了
 	
+	真不行, 每个mk 文件, 都找一找, 看一看,  这也是没有办法的事. makefile 的依赖规则, 也就那回事, 克服畏难心理.
+
+	突然想到了, libstagefright_wfd 这个库在 /system/lib  /system/lib64中,可在 product_copy_file 里配置, 并没有起作用
+
+	再次查找, 在device下 PRODUCT_BOOT_JAR 里也有配置, 再结合日志, 应该问题就在这里了, 那么接下来就搞明白 product_boot_jar 这个参数是用来干嘛的. 本来配置文件中的内容本就不多, 再有不明的, 先将每个字段搞明白. 
+
+	PRODUCT_BOOT_JAR 作为 jvm 的系统库, 在android 中 build/core/dex_preopt.mk 中有描述, 用来将 该字段中的jar 都打包成boot.jar 在开机时加载启动. 
+
+	PRODUCT_PACKAGES 将app so 文件打包到system.img 下
+
+	ipacm, ipanet 这两个库都可以直接拿, 不用现编译, 因为发现, 编译的源码也是从linux那里拿的, 当然这里可能会有问题, 留坑. 
+	搞明白上述两个变量, 基本上写配置问题不大了, 想要编译通过, 写配置文件的内容并不多, 主要的工作还是在shim层, init.* 脚本, 内核移植 
+
+	打通了mka 的前期, 终于可以进入内核编译了,  但编译源码又出错了, 直接使用脚本是没有问题的, 下周再来研究源码编译脚本吧.
 
 - kernel, vendor, device
 	
