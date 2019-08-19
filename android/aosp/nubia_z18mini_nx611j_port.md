@@ -131,6 +131,8 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 
 3. 源码编译错误
 
+误误1: 
+
 	ninja: build stopped: subcommand failed.
 	21:04:36 ninja failed with: exit status 1
 
@@ -138,6 +140,8 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 	1. 修改jack 配置, 增加参数 -Xmx8g 但是并未起作用
 	2. 服务器进程打开文件数受限制, [使用ulimit 来修改配置](https://blog.csdn.net/touxiong/article/details/86233805)
 	3. 这样的错误信息远远不足, 网上搜索, 能改的都改一下, bison 库切到mokee/mko-mr1分支试试
+
+错误2:
 
 	ninja: error: '/home/hrst/aosp/mokee_mko/out/target/common/obj/JAVA_LIBRARIES/libstagefright_wfd_intermediates/javalib.jar', needed by '/home/hrst/aosp/mokee_mko/out/target/product/nx611j/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
 
@@ -158,9 +162,46 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 
 	打通了mka 的前期, 终于可以进入内核编译了,  但编译源码又出错了, 直接使用脚本是没有问题的, 下周再来研究源码编译脚本吧.
 
+错误3:
+
+	ninja: error: 'INSTALLED_KERNEL_HEADERS', needed by '/home/hrst/aosp/mokee_mko/out/target/product/NX611J/obj/SHARED_LIBRARIES/libcryptfs_hw_intermediates/cryptfs_hw.o', missing and no known rule to make it
+	17:00:26 ninja failed with: exit status 1
+	
+	将所有的nx611j 换成 NX611J, 因为将内核中的文件夹换成上nx611j 后出问题了. 按kernel/NX611J/AndroidProduct.mk脚本配置PlatformBoadConfig.mk 中的kernel 相关配置参数, 就出现了上述问题, 目前一点思路都没有, 与nx589j的内核文件对比,也没有发现什么问题. 
+
+	shared_librarys 应该还是device 下配置的问题, 但是Installed_kernel_headers 又是啥玩意
+
+	这个错误还是与Crpto: target_hw_disk_encryption := true 配置有关
+
+错误4:
+
+	ninja: error: 'INSTALLED_KERNEL_HEADERS', needed by '/home/hrst/aosp/mokee_mko/out/target/product/NX611J/obj/EXECUTABLES/ebtables_intermediates/getethertype.o', missing and no known rule to make it
+	17:20:47 ninja failed with: exit status 1
+
+	与ettable 库相关, 上面这些库基本上都与 product_packages 中的库中的库相关, 这些库, 是整个工程中的所有makefile 中定义的, 并不只是vendor, device 下, 还有system, framework
+
+	最后是因为 按官方的脚本配置 kernel_defconfigs, 而mokee 中要配置成 target_kernel_config
+
+	靠GrepCode 搜索错误相关的代码, 在编译库中添加上 
+	LOCAL_MODULE_CLASS := SHARED_LIBRARIES
+	LOCAL_MODULE_SUFFIX := .so
+
+	可以解决so 库不存在, 但是有 include
+
+	嗯, 看样子, 是可以将内核编译通过了, 但是编译完刷机和开机还成问题. 
+
+	又想多了, 并没有编译通过, 出现的问题不一样了.  
+	明天再确定是对着 kernel.mk 的变量移植内核编译脚本, 而不是kernel下的AndroidKernel.mk
+	
 - kernel, vendor, device
 	
-kernel 主要还是找开源的, 基本上不用修改什么
+kernel 
+
+	主要还是找开源的, 基本上不用修改什么 
+	这是大错特错, 当然还要脚本对接. 
+	kernel 下的AndroidKernel.mk 并没有起到作用, 直接是Makefile 来编译的. 
+
+	与kernel 相关的编译放在 vendor/mk/build/tasks/kernel.mk 中, 所有的配置变量都在这里
 
 vendor 主要还是搞 file copy, 使用现有的资源, 注意文件结构, proprietary 相当于根目录/, 下面还有一层
 	vendor可能还有定制的内容, 暂时先不管
