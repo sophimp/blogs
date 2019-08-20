@@ -191,7 +191,9 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 	嗯, 看样子, 是可以将内核编译通过了, 但是编译完刷机和开机还成问题. 
 
 	又想多了, 并没有编译通过, 出现的问题不一样了.  
-	明天再确定是对着 kernel.mk 的变量移植内核编译脚本, 而不是kernel下的AndroidKernel.mk
+	明天再确定是对着 kernel.mk 的变量移植内核编译脚本, 而不是kernel下的KernelAndroid.mk
+
+	还是要参考KernelAndroid.mk 和 sh 来修改 kernel.mk 脚本, 现在可确定是dst 没有找到. 很多文件也没有copy 
 	
 - kernel, vendor, device
 	
