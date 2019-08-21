@@ -194,6 +194,24 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 	明天再确定是对着 kernel.mk 的变量移植内核编译脚本, 而不是kernel下的KernelAndroid.mk
 
 	还是要参考KernelAndroid.mk 和 sh 来修改 kernel.mk 脚本, 现在可确定是dst 没有找到. 很多文件也没有copy 
+
+	主要还是device 中的配置文件, 影响到了内核的编译, 但愿这一次可以编译通过吧. 
+	呵呵, 这是真得来不得半点虚假的, 问题的根源所在就是kernel.mk 的编译脚本问题, 
+
+	卡在这里, 不知道要改哪里, 直接 make bootimage 是可以内核编译通过的. 先使make 单线程编译, 还能看到一点不一样的错误...
+
+错误 5:
+
+	[  6% 6803/108031] target  C++: vdc <= system/vold/vdc.cpp
+	6 warnings generated.
+	Suppressed 6 warnings (5 in non-user code, 1 with check filters).
+	Use -header-filter=.* to display errors from all non-system headers. Use -system-headers to display errors from system headers as well.
+	ninja: build stopped: subcommand failed.
+	20:37:37 ninja failed with: exit status 1
+
+	上一个问题都忘记了怎么解决的, 是否解决了, 这个问题只有在重新编的时候才会显示, 再编译就只显示ninja的错误, 这样改错不是个办法..
+	效率太低了, 怎么看ninja的错误日志. 
+	
 	
 - kernel, vendor, device
 	
@@ -249,4 +267,11 @@ device 主要的配置工作主要还是在此文件夹, 连结kernel, vendor, �
 
 - 硬件层移植, shim编写
 [为何msm8974不能移移android 8.0 系统](https://www.xda-developers.com/in-depth-capitulation-of-why-msm8974-devices-are-excluded-from-nougat/)
+
+
+- bootlaoder 解锁
+
+	努比亚z18mini 的 bootloader 解锁 fastboot oem nubia_unlock NUBIA_NX611J
+	不同版本的fastboot还不一样, 有的可解锁, 有的不行
+
 
