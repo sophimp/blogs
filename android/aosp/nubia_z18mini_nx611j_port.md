@@ -118,7 +118,7 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 ###  编译调试xiaomi_sdm660-common相关的配置到 nx611j, 是否可以移植通过
 
 1. ninja: error: '/home/hrst/aosp/mokee_mko/out/target/common/obj/JAVA_LIBRARIES/WfdCommon_intermediates/javalib.jar', needed by '/home/hrst/aosp/mokee_mko/out/target/product/nx611j/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
-17:34:21 ninja failed with: exit status 1
+	17:34:21 ninja failed with: exit status 1
 
 	此类错误, 主要还是在copy proprietary 的文件时, 找不到对应的文件
 	解决此类问题, 还是直接从官方运行的系统中拿相应的文件, 当然官方的ROM 得先root, 
@@ -136,7 +136,8 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 	ninja: build stopped: subcommand failed.
 	21:04:36 ninja failed with: exit status 1
 
-	编译工作远远没有结束, 这不是源码错误, 但也没有其他提示, google 了一下, 
+	编译工作远远没有结束, 这不是源码错误, 但也没有其他提示, google 了一下
+
 	1. 修改jack 配置, 增加参数 -Xmx8g 但是并未起作用
 	2. 服务器进程打开文件数受限制, [使用ulimit 来修改配置](https://blog.csdn.net/touxiong/article/details/86233805)
 	3. 这样的错误信息远远不足, 网上搜索, 能改的都改一下, bison 库切到mokee/mko-mr1分支试试
@@ -159,6 +160,8 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 
 	ipacm, ipanet 这两个库都可以直接拿, 不用现编译, 因为发现, 编译的源码也是从linux那里拿的, 当然这里可能会有问题, 留坑. 
 	搞明白上述两个变量, 基本上写配置问题不大了, 想要编译通过, 写配置文件的内容并不多, 主要的工作还是在shim层, init.* 脚本, 内核移植 
+
+	在vendor 下 Android.mk 中#include 声明路径库路径, 或者是在 nx611j-vendor.mk 中文件路径或名字不对
 
 	打通了mka 的前期, 终于可以进入内核编译了,  但编译源码又出错了, 直接使用脚本是没有问题的, 下周再来研究源码编译脚本吧.
 
@@ -212,6 +215,13 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 	上一个问题都忘记了怎么解决的, 是否解决了, 这个问题只有在重新编的时候才会显示, 再编译就只显示ninja的错误, 这样改错不是个办法..
 	效率太低了, 怎么看ninja的错误日志. 
 	
+	卡在这里走不下去了, 要等待, 但是一天的时间就这样过去了, 明天就周末了, 我要该怎么办, 就是编译过去了, 还有开机启动不起来的问题. 
+	开机启动不了, 无非就是开机脚本的问题, 此时能想些什么? 还能做些什么? 内核的编译肯定要懂, init.rc 的作用, 绕不过去这个坎的. 
+
+	repo status 查看本地源码是否齐全, 不齐全的想办法补全, 本来就是一个编译工作, 没有什么高智商的东本, 主要是学会, 心里畏惧什么呢? 
+
+	上述这些错误, 大都是因为本地库不对, 想想也是, 报错在本地代码, 那只能是本地环境出问题了
+	每天这样加班, 我也烦了. 
 	
 - kernel, vendor, device
 	
@@ -224,11 +234,13 @@ kernel
 	与kernel 相关的编译放在 vendor/mk/build/tasks/kernel.mk 中, 所有的配置变量都在这里
 
 vendor 主要还是搞 file copy, 使用现有的资源, 注意文件结构, proprietary 相当于根目录/, 下面还有一层
+
 	vendor可能还有定制的内容, 暂时先不管
+	可以直接使用device 下的脚本生成, 真牛逼, 这才是自动化
 
 device 主要的配置工作主要还是在此文件夹, 连结kernel, vendor, 使用的qcom 库, 都要与kernel 的版本一致
-	着重分析完此文件下的各种文件的作用, 不然此路还是打不通啊, 要配置哪些变量? 
 
+	着重分析完此文件下的各种文件的作用, 不然此路还是打不通啊, 要配置哪些变量? 
 	device 下的配置, 也需要结合 build 下的定制, lunch 函数, make 命令. 命名规则, 总体调试起来. 
 	
 ###  device 文件分析
@@ -273,5 +285,7 @@ device 主要的配置工作主要还是在此文件夹, 连结kernel, vendor, �
 
 	努比亚z18mini 的 bootloader 解锁 fastboot oem nubia_unlock NUBIA_NX611J
 	不同版本的fastboot还不一样, 有的可解锁, 有的不行
+
+- 
 
 
