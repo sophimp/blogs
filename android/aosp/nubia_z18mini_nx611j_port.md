@@ -221,7 +221,6 @@ $(call inherit-product ) call 是异步调用的,不管放在当前文件哪个�
 	repo status 查看本地源码是否齐全, 不齐全的想办法补全, 本来就是一个编译工作, 没有什么高智商的东本, 主要是学会, 心里畏惧什么呢? 
 
 	上述这些错误, 大都是因为本地库不对, 想想也是, 报错在本地代码, 那只能是本地环境出问题了
-	每天这样加班, 我也烦了. 
 	
 - kernel, vendor, device
 	
@@ -286,6 +285,19 @@ device 主要的配置工作主要还是在此文件夹, 连结kernel, vendor, �
 	努比亚z18mini 的 bootloader 解锁 fastboot oem nubia_unlock NUBIA_NX611J
 	不同版本的fastboot还不一样, 有的可解锁, 有的不行
 
-- 
+- 编译通过 
+
+	编译通过, 也仅仅是走了三分之一的路
+	没有system.img, 刷机包不可通过recovery 刷入, 配置不一定对
+	make systemimage 可生成image, 但是刷机成问题
+
+	fastboot 不能用, 增加了刷机的时间, 即使在windows上写system 仍然会失败. 
+
+	下一步该如何走:
+	
+	尝试制作recovery? 
+	启动是跟哪个相关的? bootimage?  
+	
+	先理清启动流程, 再根据 nx589j, 一加六的配置来改写, 不能参考wayne, 因为这个有可能就是错的. 
 
 
