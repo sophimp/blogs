@@ -357,4 +357,37 @@ device 主要的配置工作主要还是在此文件夹, 连结kernel, vendor, �
 	[user space] 执行各系统与应用程序
 
 
+- vndk, avb
+
+是什么, 做什么, 匹配规则
+	
+必须得从宏观来学习, 别人不会编程, 也一样可以完成适配工作, 就是宏观思想很强. 先从上层搞明白, 然后再深入到细节定制. 
+
+	vndk 是为了约事vendor 的本地开发, 之前aosp 框架模块开发, 制约于vendor商, 现在想解耦这个限制, 通过vndk, hidl, hwbinder 体系架构, 约束vendor 开发, 可保证android 框架升级, 而vendor库不必升级, 且vendor库修改, 不影响框架修改.
+	hidl 与hwbinder, 可使系统进程与vendor进程通信, 当然, 系统也保留了一些库, 可供vendor直接调用, 保证高效率. 
+	硬件接口定义语言, 硬件binder机制. 
+	avb, android verity boot, 机制, 验证系统启动时system, vendor分区. 这些很明显也影响系统的启动
+
+android 8.0 是一个过渡版本, 努比亚选择了不用vndk, avb, 使用的还是之前的verified boot, 所以, 这个就有些坑了. 
+
+[verified boot](http://luomingmao.com/2016/08/29/Verified-Boot/)
+
+而vndk, avb 在9.0 都默认使用了, 移植也不涉及此方面的配置, 后续遇到再加强学习...
+
+更具体术语:
+	
+	ota, a/b更新, dtbo
+
+	dtbo 设备树, 8.0 是一个过渡的产品, 坑太多了.
+
+	avb 在8.0 可以不用, 但是boot.img. system.img 签的过程得恢复
+
+	vndk 避免不了要配置, 但是dump 下来的vndk 中版本为0.0.0 这样岂不是一直配不成功? 
+
+
+匹配规则:
+
+	原始开发的匹配规则暂且放置, 主要关注定制的配置. 这个
+
+
 

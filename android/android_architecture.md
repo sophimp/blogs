@@ -45,3 +45,14 @@ Soc (System on a Chip),
 9. SELinux for Android 8.0
 
     提供了关于 SELinux 变更和自定义的详情。
+
+## 自定义构建嵌入式android 系统
+
+将自己的修改添加到aosp 中
+
+根文件布局系统
+
+自定义的init
+
+android 框加是如何启动的
+
