@@ -450,4 +450,13 @@ revoery.img 是正常的, 可以说明, 进入不了系统, 和system source 源
 
 能落地应用, 拿什么保证呢? 主功能都不出问题, 但是其他功能影响系统运行的话, 也难落地实用. 首先保证, 系统的其他操作不会导致挂死. 
 
+## Encryption Unsuccessful
+
+清 Dalvik Cache, Cache, data, persistent, 都不能解决, 按说官方的出厂设置, 格式化是可以解决的, 点击此步骤, 需经过 recovery, 那么就只能是recovery 的格式化算法不致了. 
+
+最终是恢复官方的recovery 解决了此问题, 但是原理性的东西还是不清楚. 待移植recovery 时再研究
+
+解决此问题, mokee 也得以正式进入了系统UI, 接下来查看他们的提交记录, 修复问题. 
+
+屏幕亮度问题, wifi, 蓝牙, 通话, camera保证不崩溃就行. 剩下的就是验证系统级诱发问题. 
 
