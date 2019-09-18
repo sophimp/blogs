@@ -183,3 +183,10 @@ make -j# bootimage
 大多数三星设备的recovery 使用包括ramdisk 的boot.img 替代其他设备上的分开的recovery分区
 
 旧教程地址: http://forum.xda-developers.com/show...postcount=1471
+
+## 编译出recovery 支持adb
+
+[recovery 下支持Adb](https://www.jianshu.com/p/a0bdcce0a5e1)
+
+[adb 下支持shell](https://blog.csdn.net/c_hnie/article/details/80756568)
+
