@@ -190,3 +190,5 @@ make -j# bootimage
 
 [adb 下支持shell](https://blog.csdn.net/c_hnie/article/details/80756568)
 
+[USB端口对adb, download, mass_message的支持](https://blog.cofface.com/archives/2647.html)
+
