@@ -192,3 +192,11 @@ make -j# bootimage
 
 [USB端口对adb, download, mass_message的支持](https://blog.cofface.com/archives/2647.html)
 
+
+## 编译中出的问题
+
+1. frameworks 下 undefined module "libskia" ...
+
+export ALLOW_MISSING_DEPENDENCIES=true
+
+
