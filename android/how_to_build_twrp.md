@@ -200,3 +200,43 @@ make -j# bootimage
 export ALLOW_MISSING_DEPENDENCIES=true
 
 
+2. adb, mass_storage 不能识别问题
+
+[参考caffee解决方案](https://blog.cofface.com/archives/2647.html)
+
+在 init.qcom.usb.rc 中添加一个属性
+
+on property:sys.usb.config=diag,serial_smd,rmnet_bam,mass_storage,adb
+    stop adbd
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 19d2
+    write /sys/class/android_usb/android0/idProduct ffc1
+    write /sys/class/android_usb/android0/f_diag/clients diag
+    write /sys/class/android_usb/android0/f_serial/transports smd
+    write /sys/class/android_usb/android0/f_rmnet/transports smd,bam
+    write /sys/class/android_usb/android0/functions diag,serial,rmnet,mass_storage,adb
+    write /sys/class/android_usb/android0/enable 1
+    start adbd
+    setprop sys.usb.state ${sys.usb.config}
+
+在 system.prop 中添加
+
+```
+#Set composition for USB device                
+#persist.sys.usb.config=diag,serial_smd,rmnet_bam,adb
+persist.sys.usb.config=diag,serial_smd,rmnet_bam,mass_storage,adb
+#For frameworks compatible process between BCM & NXP — xiaoshengtao
+ro.config.nfc_chip_model=BCM                   
+#Set read only default composition for USB     
+#ro.sys.usb.default.config=diag,serial_smd,rmnet_bam,adb
+ro.sys.usb.default.config=diag,serial_smd,rmnet_bam,mass_storage,adb
+```
+
+当编译下载后发现usb，adb等都不支持了，只有一个充电。后来听说，MSM8916的
+USB的端点数不够引起的，无法在现有的端点上面支持过多的设备。据说其中的serial_tty
+就用到了6路的端点数。
+ 
+总结USB的配置必须要和属性事件完全一致，包括其中的功能的顺序。
+另外idProduct对固件download的影响是通过电脑端的驱动完成的。
+最后USB的功能不能超过芯片能支持的端点数。
+
