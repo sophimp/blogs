@@ -51,8 +51,9 @@ winpe是如此, recovery 是如此, gentoo 的最简单U盘镜像也是如此.
 
 chroot, rootfs, nvme驱动, grub, efi, 就那么多知识点, 一样样来, 并没有浪费多少时间, 顶多花一个月撑死了. 
 
-一个人做一个人的事, 一代人做一代人的事, 一个国家做一个国家的事. 
+重编译内核, 一直被卡住, 新内核并没有应用起来, 是因为没有引导起来, 使用了genkernel all 命令后, 现在连 内核的make install就不成功了. 再生成 initramfs, grub-mkconfig 后, 依然启动不起来. 
 
+是因为genkernel all 的原因, 还是因为改了 make.conf 的原因? 修改makeconf, 还要重新更新一下portage 才可以生效? 
 
 ## abstract
 
@@ -80,4 +81,10 @@ systemd 是一种现代的 SysV 风格的 init 和 rc 替代 Linux 系统。它�
 systemd 比openrc 还要先进一些, 流行一些? 那为何gentoo默认的是openrc呢? 
 
 gnome 是依赖 openrc 的, 有了一定的技术基础, 再学起操作系统, 那种感觉是爽的. 可以根据已有的知识, 主动思考去解决问题, 而不是一遇到问题就google. 所以有一种跟随着前人再创造的氛围. 
+
+## 杂思
+
+不管在做什么事, 思想总会跑神, 有时候跑神的还很兴奋, 因此记录之, 暂不管有多大的价值.
+
+一个人做一个人的事, 一代人做一代人的事, 一个国家做一个国家的事. 
 
