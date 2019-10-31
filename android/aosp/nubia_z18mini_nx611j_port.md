@@ -1,7 +1,7 @@
 
 ## 努比亚 z18mini 移植过程
 
-	主要是内核， vendor,  device 数据的获取
+	主要是内核代码， vendor,  device 下个文件夹下的工作. 
 
 	vendor 数据，可以在 /vendor, /system/vendor 下获取到
 	kernel 的源码应该也不是问题，剩下的就是devices下的工作
@@ -511,11 +511,5 @@ device, kernel, 还是vendor
 rm -rf /*  # 同样不起作用
 ```
 
-我只是一个打字员
-
-像gentoo 一样, 将磁盘里所有的数据都重刷一遍, 然后再从OK的手机里拷贝数据, 是否可以修复? 
-
-recovery 的移植
-
-
-
+上述问题是借外勤的手机, 不知操作了什么, 同一个rom 的情况下, 外勤的手机 camera 和 短信发送都有问题, 而新借一台手机就没这个问题. 
+现已解决, 应该是通过 rm -rf /* 或四清的操作, 改动了 /persist, /firmware 下的文件. 最后通过替换 /persist, /firmware, /dsp, /bt_firmware,的文件解决的. 具体过程放在当前目录下, busybox_install.md 中. 
