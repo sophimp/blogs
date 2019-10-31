@@ -113,7 +113,7 @@ dup 和 dup2
 
 	是复制函数, dup 返回当前进程未使用的最小文件描述符,  dup2 可以指定新描述符的值, 如果fd2已经打开, 可以先将其关闭, FD_CLOEXEC 文件描述符标志将被清除. 如果 fd == fd2, 则dup2 返回fd2, 不关闭它. 
 
-	dup2 是一个原子操作. 
+	dup2 是一个原子操作. fd2 是新描述符, 如果新描述符已被打开, 需要先关闭
 
 sync, fsync, fdatasync
 
@@ -181,7 +181,17 @@ ioctl
 
 	使用dup 功能? dup2 是原子操作, 且可指定新 fd 描述符
 
-	示例见 apue/chapter03.c 中 
+	示例见 apue/chapter03.c 中 my_dup2();
+	
+	使用dup 如何保证原子性? 
+
+	出错处理:
+	判断oldfd, newfd 的范围合法性, 使用getdtablesize()得到最新N
+	检查oldfd 合法性是否打开, -1 与 EBADF 作为标志判断
+	检查oldfd == newfd, 相等则返回oldfd即可. 
+	检查新fd是否已打开, 新的已打开, 需要先关闭
+	使用dup进行复制, 一直到返回的fd 与newfd相等
+	
 
 3. 假设一个进程执行下面3个函数调用:
 	
@@ -221,7 +231,18 @@ ioctl
 	答案: fd=1, 执行 dup2(fd, 1) 返回1, 没有关闭描述符1, 调用3次dup2后, 3个描述符指向相同的文件表项, 所以不需要关闭描述符
 	fd=3, 调用3次dup2后, 有4个描述符指指向相同的文件表项, 这种情况下就需要关闭描述符3. 
 
-	为何4个描述符指向同一个描述符, 就要关闭掉一个呢? 
+	为何4个描述符指向同一个描述符, 就要关闭掉一个呢? 是有限制一个文件表项最多有3个指针同时指向? 
+	查到的理解, 有一个还说得通, 0, 1, 2是标准I/O描述符, 不可以关闭, 那么不管是dup2(fd,0) 或是dup2(0,fd) 都是将I/O重定向? 
+	再次, 虽然理论上文件表项不受指针限制, 但是文件表项的大小是有限资源, 原fd>3的描述符用不到了, 所以该关闭.
+
+	关于dup2(fd, STDOUT_FILENO) 与 dup2(STDOUT_FILENO, fd)的验证程序见 apue/chapter03.c 中 dup2_test()
+	结论:
+		使用dup2(fd, STDOUT_FILENO) 确实会将 STDOUT_FILENO 重定向到fd中, 然后可以通过STDOUT_FILENO 操作 文件fd, 所有的printf也都会打印到文件中去, 此时若想将 STDOUT_FILENO 重定向回终端该如何做呢? 可以先复制一次标准输出. 
+		使用dup2(STDOUT_FILENO, fd) 仅仅是复制标准输出, 接下来可以通过STDOUT_FILENO, fd 来write 操作输出到shell. 与printf 同样的效果. 
+
+	验证0, 1, 2为何不可关闭? 
+	直接关闭 STDOUT_FILENO, 没见报错, 但是printf 也不能输出到终端了. 即然作为文件, 肯定可以被关闭, 只不过是, 这三个文件系统函数,内核也都会用到, 所以不建议关闭, 而不是不可以关闭. 
+
 
 5. 在Boune shell, Bourne-again shell 和 Korn shell中, digit1>&digit2 表示要将描述符digit1重定向至描述符digit2的同一文件. 请说明下面两条命令的区别. (shell命令是从左向右解析的)
 
