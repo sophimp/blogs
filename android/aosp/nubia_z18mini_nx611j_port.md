@@ -92,7 +92,7 @@ lunch mk_nx611j-userdebug 过不去，之前已经遇到过的问题， 又有�
 	mokee也修改了build 下的脚本，查找 device/nubia/nx611j/ 下的 mokee.mk 或者mokee_nx611j.mk 来编译, 所以此问题得解，衔接处找到了.
 
 接下来，按此方法，打印调试信息, 按编译日志修改脚本配置， 使编译通过应该不成问题了! 
-
+ 
 nx589j 分为了两个文件夹 msm8976 和 nx589j， 那么 nx611j 就将这device, vendor 下对应的这两个文件夹的mk 合二为一，
 	看相关配置，还是可以看出一些眉目来的
 

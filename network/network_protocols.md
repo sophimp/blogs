@@ -50,7 +50,7 @@
     * It is not only way to the netbar,  the more senarios is talked in the next chapters.
 - the ip address exhaustion problem
     * The number of networks on the internet has been approximately doubling annually for a number of years.
-    * I don`t understand how to solve this problem yet.
+    * I don't understand how to solve this problem yet.
     * Class A,B,C,D network, only has 255*255*255*255 ip, these are less than 6 billion people, so there the subnet tecnology share one ip.
         every class network has limit subnets, this also is not the permanant solution.
         这样的话, A类网络会不会将线路爆
@@ -178,3 +178,23 @@
     * 每章每小节, 按标题分析, 分析不到的, 就从是什么, 能解决什么, 应用场景来泛读
     * 根据应用场景与兴趣, 再进一步精读是怎么做到的
     
+## review
+
+再次设置网络还是有些迷, 子网掩码如何设置? 两台电脑是如何通信的? 路由是如何转发数据的? 这些还是不明白. 
+
+设置一个路由, 使两个设备能通信, 还是现实中很重要的一个场影, 一旦可以找到目的电脑, 那么应用就可以用了. 
+
+两台主机直连, 点对点通信, 即在同一个IP局域网内或令牌环网内. 这个时候可以直接被本机的路由列表感知到? 
+
+现在主要是攻破, 不在同一个局域网内的通信, 路由如何选路, 数据如何到达目的地的. 
+
+	首先不要网线的转输能力不用置疑, 在一个子网下肯定可以满足. 
+
+	不管是主机还是路由都有路由表
+
+网络层, 是对通信过程的抽象. 每一个路由理论上是对每一层协议都要感知的. 每一层管每一层的事, 每一层大都不只一个协议实现. 
+这样想, 一下子就明了了, 关键还是要理解业务. 
+
+
+	
+
