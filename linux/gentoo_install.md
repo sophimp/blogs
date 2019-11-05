@@ -55,6 +55,13 @@ chroot, rootfs, nvme驱动, grub, efi, 就那么多知识点, 一样样来, 并�
 
 是因为genkernel all 的原因, 还是因为改了 make.conf 的原因? 修改makeconf, 还要重新更新一下portage 才可以生效? 
 
+不是genkernel 原因, 还是因为挂载 /boot分区错误, 所以没有真正挂载/dev/sda2. 
+
+通过近两个月的时间, gentoo 的环境终于算是搞定了, 目前可以正常使用nvidia 进入图形界面, 可以打开浏览器正常上网. 仍存在的问题, 没有声音, 没有输入法. 还不能直接在当前系统环境下编译内核, 直接替换内核, 这是由于在 stock system 中不能正常挂载vfat 磁盘. 
+
+通过这段时间的折腾, 内核编译不存在问题, 手动配置内核驱动, 还需要时间积累. grub2配置 bios, uefi, initramfs, xorg的配置, de, wm, 后续的kde, gnome, 如果能满足开发, 并不想再安装de, 只需安装库文件即可. 
+
+
 ## abstract
 
 portage 
@@ -66,6 +73,8 @@ ebuild 脚本, portage 可执行脚本， 用来安装软件包
 USE 配置, portage 安装软件的配配置
 
 stage3
+
+基本库环境, 不同的架构, 不同的平台, 大小不一样. 
 
 OpenRC, systemd
 [OpenRC](https://wiki.gentoo.org/wiki/OpenRC)
@@ -121,5 +130,7 @@ gentoo 的开发与使用环境, 很有必要搞一搞, 并记录下来, 打一�
 
 不管在做什么事, 思想总会跑神, 有时候跑神的还很兴奋, 因此记录之, 暂不管有多大的价值.
 
-一个人做一个人的事, 一代人做一代人的事, 一个国家做一个国家的事. 
+一个人做一个人的事, 一代人做一代人的事
+
+
 
