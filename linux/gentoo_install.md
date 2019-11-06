@@ -61,35 +61,53 @@ chroot, rootfs, nvme驱动, grub, efi, 就那么多知识点, 一样样来, 并�
 
 通过这段时间的折腾, 内核编译不存在问题, 手动配置内核驱动, 还需要时间积累. grub2配置 bios, uefi, initramfs, xorg的配置, de, wm, 后续的kde, gnome, 如果能满足开发, 并不想再安装de, 只需安装库文件即可. 
 
+打通了fcitx, 需要安装3个库才可用, fcitx, fcitx-rime, fcitx-large-table 然后使用gtk3 支持的fcitx-configtool来改变输入法. 
+
+接下来就是挂载/boot的问题, 在/boot下, 本来就有一些文件, 但这只是initramfs创建的一些挂载点而己. 在挂载点下挂载什么, 接下来就操作磁盘上对应的block. 
+
+必须得解决 /boot挂载的问题, 因为, 想完美打造一个好的操作系统, 必须得编译内核, 每次都要修改bios, 显然是在额外增加工作量. 
+
+每次滚动更新, 具体每个命令, 步骤的逻辑需要搞明白. gentoo 就先用起来, 尽管这两次 emerge -e @world 每次都要一天的时间. 后续chromium等不需要源码编译的版本都换成预编译的, cmake, chromium 这些编译都太耗时了. 所以, gentoo 相对来说, 比arch 更加灵活一些? 感觉还是要安装一下kde, 或者自己打造一个kde出来, 将kde集成的每个软件都安装了, 理论上是可以的, 那么选择 kde profile又是做了什么工作呢? 
+
+
+还有很多知识不懂, 
+内核编译的其他方面,如在android上还要改 dtsi 什么的, 系统的日志, 如何替换prebuild binary install version. 切换profile 安装 dm, 与我现在的配置有何冲突; 卸载安装包, 如何清除残留依赖. 
+
+网络配置中的域名, 用处也很大. 没有还就不让上网
 
 ## abstract
 
 portage 
 
-并不是移植的意思， 是一个软件包管理系统, 使用 emerge software-name 安装
+	并不是移植的意思， 是一个软件包管理系统, 使用 emerge software-name 安装
 
-ebuild 脚本, portage 可执行脚本， 用来安装软件包
+	ebuild 脚本, portage 可执行脚本， 用来安装软件包
 
-USE 配置, portage 安装软件的配配置
+	USE 配置, portage 安装软件的配配置
 
 stage3
 
-基本库环境, 不同的架构, 不同的平台, 大小不一样. 
+	基本库环境, 不同的架构, 不同的平台, 大小不一样. 
 
 OpenRC, systemd
-[OpenRC](https://wiki.gentoo.org/wiki/OpenRC)
 
-OpenRC 是一个基于依赖项的 init 系统，它维护与提供系统兼容的init 程序，通常位于 /sbin/init 中。它不作为 /sbin/init 文件的替换。OpenRC 与 Gentoo init 脚本 100% 兼容，这意味着可以找到一种解决方案来运行主 Gentoo 存储库中的数十个守护进程。然而，OpenRC 并非设计为由 Gentoo Linux 专用使用，可用于其他发行版和 BSD 系统。
+	[OpenRC](https://wiki.gentoo.org/wiki/OpenRC)
 
-cgroups 支持, 进程管理, 并行启动服务, 硬件启动脚本运行. 
+	OpenRC 是一个基于依赖项的 init 系统，它维护与提供系统兼容的init 程序，通常位于 /sbin/init 中。它不作为 /sbin/init 文件的替换。OpenRC 与 Gentoo init 脚本 100% 兼容，这意味着可以找到一种解决方案来运行主 Gentoo 存储库中的数十个守护进程。然而，OpenRC 并非设计为由 Gentoo Linux 专用使用，可用于其他发行版和 BSD 系统。
 
-[systemd](https://wiki.gentoo.org/wiki/Systemd)
+	cgroups 支持, 进程管理, 并行启动服务, 硬件启动脚本运行. 
 
-systemd 是一种现代的 SysV 风格的 init 和 rc 替代 Linux 系统。它在 Gentoo 中作为替代 init 系统支持。
+	[systemd](https://wiki.gentoo.org/wiki/Systemd)
 
-systemd 比openrc 还要先进一些, 流行一些? 那为何gentoo默认的是openrc呢? 
+	systemd 是一种现代的 SysV 风格的 init 和 rc 替代 Linux 系统。它在 Gentoo 中作为替代 init 系统支持。
 
-gnome 是依赖 openrc 的, 有了一定的技术基础, 再学起操作系统, 那种感觉是爽的. 可以根据已有的知识, 主动思考去解决问题, 而不是一遇到问题就google. 所以有一种跟随着前人再创造的氛围. 
+	systemd 比openrc 还要先进一些, 流行一些? 那为何gentoo默认的是openrc呢? 
+
+	gnome 是依赖 openrc 的, 有了一定的技术基础, 再学起操作系统, 那种感觉是爽的. 可以根据已有的知识, 主动思考去解决问题, 而不是一遇到问题就google. 所以有一种跟随着前人再创造的氛围. 
+
+profile
+
+	换profile需要做哪些工作, 代价大不大?
 
 ## 复盘
 
@@ -122,9 +140,8 @@ gentoo 的开发与使用环境, 很有必要搞一搞, 并记录下来, 打一�
 基本软件安装
 	
 	中文环境, 五笔输入法, emerge 使用, portage 使用. 
+	至此, 后续的问题才方便记录, 主要是在家里的网络太慢了, windows上的wsl环境, 也并没有那么麻烦, 所以, 这本也是记录问题的一个方式,在家里主要还是懒得原因.  
 
-	解决问题的记录. 
-	
 
 ## 杂思
 
@@ -132,5 +149,10 @@ gentoo 的开发与使用环境, 很有必要搞一搞, 并记录下来, 打一�
 
 一个人做一个人的事, 一代人做一代人的事
 
+折腾gentoo的过程, 是一个成长的过程, 看着手中的系统, 逐步地完善, 心里还是有成就感的, 虽然现在还有很多知识不懂. 
 
+在家里打字,还是有一些限制, 现在系统可以记录一些想法了. 先将开发环境搭起来, 至少要可以正常工作. 要做的事情还很多. 系统只是最根本的. 搞定了正常的开发环境, 后续的系统学习就是在使用过程中解决问题. 
 
+家里的进度已经耽搁了一个多月, 但是搞定了gentoo的感觉还是很好的. 有些时候, 看日志很重要, 关键日志搜索不到解决方案, 那就看完整的日志自己思考去解决. 
+
+wsl 现在还不能进行网络连接. 不用每次都保存的, vim 本就做了缓存, 所以不用每次都保存, 这样除了增加打字频率, 并不会带来多少好处, 反而会让手指更加得累了. 但是下意识地打字的冲动还是控制不了, 这样的打字效果也确实爽. 
