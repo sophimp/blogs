@@ -85,6 +85,10 @@ vim的环境好好配置, 大神已经将工具写好了. 所以呀, 开源的�
 
 vfat 挂载OK了， codepage=437, iocharset=iso8859-1,utf8, 就可以挂载上了。 
 
+vlsa 声卡驱动不了, 怎么没有realtak, 声卡现在是 pch, nvidia的hdmi, 没有声音会不会是转接头的问题呢？ 官方文档得慢慢啃
+
+
+
 ## abstract
 
 portage 
