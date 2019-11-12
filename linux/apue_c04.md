@@ -5,12 +5,129 @@
 
 本章的"枯燥" 程度就有些高了, 看了两周, 都看不下去. 信息量也有些大. 但大多都是熟悉的, 看得时候不上心. 
 
+还是解决不了枯燥的本质, 本章是讲文件权限管理相关的函数. 同时也是工具使用. 代码里可用, 脚本中也可用. 
+
+没有必要一直在这上面耗着
+
+文件类型
+	
+	普通文件		S_ISREG()
+	目录			S_ISDIR()
+	块特殊文件		S_ISBLK()
+	字符特殊文件	S_ISCHR()
+	FIFO			S_ISFIFO()
+	套接字			S_ISSOCK()
+	符号链接		S_ISLINK()
+
+相关函数原型, 与shell命令工具的参数还是有所差别, 但是功能是一样的
+
+```
+#include <sys/stat.h>
+
+// restrict 关键字么? 确实是c99中的关键字, 被修饰的指针变量所指的内存区域只能通过该指针来修改, 其他指针都是无效的. 
+int stat(const char *restrict pathname, struct stat *restrict buf);
+int fstat(int fd, struct stat *buf);
+int lstat(const char *restrict pathname, struct stat *restrict buf);
+int fstatat(int fd, const char *restrict pathname, struct stat *restrict buf, int flag);
+
+#include <unistd.h>
+int access(const char *pathname, int mode);
+int faccessat(int fd, const char *pathname, int mode, int flag);
+
+#include <sys/stat.h>
+mode_t umask(mode_t cmask);
+
+#include <sys/stat.h>
+int chmod(const char *pathname, mode_t mode);
+int fchmod(int fd, mode_t mode);
+int fchmodat(int fd, const char *pathname, mode_t mode, int flag);
+
+#include <unistd.h>
+int chown(const char *pathname, uid_t owner, gid_t group);
+int fchown(int fd, uid_t owner, gid_t group);
+int fchownat(int fd, const char *pathname, uid_t owner, gid_t group, int flag);
+int lchown(const char *pathname, uid_t owner, gid_t group);
+
+#include <unistd.h>
+int truncate(const char *pathname, off_t length);
+int ftruncate(int fd, offt_t length);
+
+#include <unistd.h>
+int link(const char *existingpath, const char *newpath);
+int linkat(int fd, const char *existingpath, const char *newpath, int flag);
+int unlink(const char *pathname);
+int unlinkat(int fd, const char *pathname, int flag);
+
+#include <stdio.h>
+int remove(const char *pathname);
+int rename(const char *pathname, const char *newname);
+int renameat(int oldfd, const char *pathname, int newfd, const char *newname);
+
+// 创建符号链接不要求actualpath已经存在
+#include <unistd.h>
+int symlink(const char *actualpath, const char *sympath);
+int symlinkat(const char *actualpath, int fd, const char *sympath);
+ssize_t readlink(const char* restrict pathname, char *restrict buf, size_t bufsize);
+ssize_t readlinkat(int fd, const char* restrict pathname, char *restrict buf, size_t bufsize);
+
+#include <sys/time.h>
+int utimes(const char *pathname, const struct timeval times[2]);
+
+#include <sys/stat.h>
+int mkdir(const char *pathname, mode_t mode);
+int mkdirat(int fd, const char *pathname, mode_t mode);
+
+#include <unistd.h>
+int rmdir(const char *pathname);
+
+#include <dirent.h>
+DIR *opendir(const char *pathname);
+DIR *fdopendir(int fd);
+struct dirent *readdir(DIR *dp);
+void rewinddir(DIR *dp);
+int closedir(DIR *dp);
+long telldir(DIR *dp);
+int seekdir(DIR *dp, long loc);
+
+#include <unistd.h>
+int chdir(const char *pathname);
+int fchdir(int fd);
+char *getcwd(char *buf, size_t size);
+
+```
+S_IRWXU = S_IRUSR | S_IWUSR | S_IXUSR
+S_IRWXG = S_IRGRP | S_IWGRP | S_IXGRP
+S_IRWXO = S_IROTH | S_IWOTH | S_IXOTH
+
+
 ### 总结
+
+本章围绕stat 函数, 介绍了stat 结构中的每一个成员. 
+
+```
+struct stat{
+	mode_t			st_mode;	/* 文件类型 & 模式(权限) */
+	ino_t			st_ino;		/* i-node number (序列号) */
+	dev_t			st_dev;		/* 设备号(文件系统) */
+	dev_t			st_rdev;	/* 特殊文件设备号 */
+	nlink_t			st_nlink;	/* 链接数 */
+	uid_t			st_uid;		/* 用户id */
+	gid_t			st_gid;		/* 用户组id */
+	off_t			st_size;	/* 普通文件字节数 */
+	struct timespec st_atim;	/* 最后访问时间 */
+	struct timespec st_mtim;	/* 最后修改时间 */
+	struct timespec st_ctim;	/* 最后状态更新时间 */
+	blksize_t		st_blksize;	/* 最大的 i/o 块大小 */
+	blkcnt_t		st_blocks;	/* 磁盘块分配大小 */
+};
+```
 
 ### 习题与问题
 1. 用stat函数替换图4-3程序中的lstat函数, 如若命令行参数之一是符号链接, 会发生什么变化? 
 
 2. 如果文件模式创建屏蔽字是777(八进制), 结果会怎样? 用shell的umask命令验证该结果. 
+
+	该文件除了root用户可以删除, 任何人不得访问
 
 3. 关闭一个你所拥有的用户读权限, 将导致拒绝访问自己的文件, 对此进行验证.
 
