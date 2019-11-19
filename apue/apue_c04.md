@@ -21,7 +21,7 @@
 
 相关函数原型, 与shell命令工具的参数还是有所差别, 但是功能是一样的
 
-```
+```c
 #include <sys/stat.h>
 
 // restrict 关键字么? 确实是c99中的关键字, 被修饰的指针变量所指的内存区域只能通过该指针来修改, 其他指针都是无效的. 
@@ -93,7 +93,6 @@ int seekdir(DIR *dp, long loc);
 int chdir(const char *pathname);
 int fchdir(int fd);
 char *getcwd(char *buf, size_t size);
-
 ```
 S_IRWXU = S_IRUSR | S_IWUSR | S_IXUSR
 S_IRWXG = S_IRGRP | S_IWGRP | S_IXGRP
@@ -104,7 +103,7 @@ S_IRWXO = S_IROTH | S_IWOTH | S_IXOTH
 
 本章围绕stat 函数, 介绍了stat 结构中的每一个成员. 
 
-```
+```c
 struct stat{
 	mode_t			st_mode;	/* 文件类型 & 模式(权限) */
 	ino_t			st_ino;		/* i-node number (序列号) */
@@ -122,9 +121,10 @@ struct stat{
 };
 ```
 
-	本章实在是看得没什么头绪, 函数的使用目的性缺失, 知道是操作文件相关的, 待后续有需求的时候, 再回过头来看. 
+本章实在是看得没什么头绪, 函数的使用目的性缺失, 知道是操作文件相关的, 待后续有需求的时候, 再回过头来看. 
 
 ### 习题与问题
+
 1. 用stat函数替换图4-3程序中的lstat函数, 如若命令行参数之一是符号链接, 会发生什么变化? 
 
 	stat 函数是跟随符号链接, 返回的是符号指向的文件信息
@@ -178,11 +178,18 @@ struct stat{
 
 13. 如何只设置两个时间值中的一个来使用 utimes 函数. 
 
+	先使用stat 获取到文件的3个时间值, 再调用utimes设置时间, 将不改变的设置为stat读到地值. 
+
 14. 有些版本的finger(1)命令输出"New mail received.." 和 "unread since..", 其中..表示相应的日期和时间. 程序是如何决定这些日期和时间的? 
 
 15. 用cpio(1) 和 tar(1)命令检查档案文件的格式(请参阅<Unix程序员手册>第55部分中的说明). 3个可𩢺的时间值中哪几个是为每一个文件保存的? 你认为文件复原时, 文件的访问时间是什么? 为什么?
 
+	cpio 和 tar 只归档文件的修改时间(st_mtim). 
+
 16. Unix 系统对目录树的深度有限制吗? 编写一个程序循环, 在每次循环中, 创建目录, 并将该目录更改为工作目录. 确保叶节点的绝对路径长度大于系统的 PATH_MAX 限制. 可以调用getcwd 得到目录的路径名吗? 标准unix 系统工具是如何处理长度路径名的? 对目录可以使用tar 或 cpio命令归档吗? 
+	
+	超过PATH_MAX, Mac OS X 调用getcwd 会出错, 文件名太长了. 在FreeBSD, Linux, Solaris中可以获得文件名, 但是需要多次调用realloc得到一个足够大的缓冲区.
+	cpio 不可以归档此目录, tar 可以归档. 
 
 17. 3.16 节中描述的 /dev/fd 特征. 如果每个用户都可以访问这些文件, 则其访问权限必须为rw-rw-rw-. 有些程序创建输出文件时,先删除该文件以确保该文件名不存在, 忽略返回码. 
 ```
@@ -192,6 +199,8 @@ struct stat{
 ```
 如果path是/dev/fd/1, 会出现什么情况? 
 
+	/dev 目录关闭了一般用户的写访问权限, 以防止普通用户删除目录中的文件名. 这就意味着 unlink 失败. 
+
 18. 文件的属性, 操作命令
 
-
+	stat, file, 
