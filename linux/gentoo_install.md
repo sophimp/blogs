@@ -103,6 +103,26 @@ vim8.1 的python3 python2 支持, 在gentoo里安装， 配置文件主要是在
 
 整个portage都是使用python3的, 所以， portage的一切细节都是公开的。 
 
+
+## 滚动更新命令
+
+```shell
+# 更新软件仓库
+emerge --sync # 调用 rsync 增量更新
+
+emerge-webrsync # 使用web请求方式更新， 针对防火墙阻止了rsync更新的方式
+
+# 更新 portage树
+emerge --update --deep --with-bdeps=y --newuse --ask @world
+
+```
+
+同步更新 ebuild
+
+更新portage
+
+
+
 ## abstract
 
 portage 
