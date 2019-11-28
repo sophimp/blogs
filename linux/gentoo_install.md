@@ -129,7 +129,6 @@ emerge --update --deep --with-bdeps=y --newuse --ask @world
 更新portage
 
 
-
 ## abstract
 
 portage 
