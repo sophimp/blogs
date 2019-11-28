@@ -1,2 +1,2 @@
-git config user.email songfangxi2012@163.com
+git push gitee master
 git push origin master
