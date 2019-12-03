@@ -56,3 +56,5 @@ Soc (System on a Chip),
 
 android 框加是如何启动的
 
+hidl, binder, aidl 是如何通信
+

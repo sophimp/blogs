@@ -91,6 +91,48 @@ com.android.internal.telephony.SMSDispatcher.java  调用接口sendText(...) 具
 
 由上一步的GsmSMSDispatcher/CdmaSMSDispatcher 中的mCi.sendImsGsmIms 调用到 com.android.internal.telephony.RIL.java 中的 sendImsGsmSms()
 
+最终是通过AIDL, 访问android.hardware.radio.V1_1.IRadio, 再通过hidl方问硬件so库, 具体调用链如下:
+com.android.internal.telephony.RIL.java::sendImsGsmSms() -> 
+	android.hardware.radio.V1_1.IRadio.java::sendImsSms() -> 
+		android.os.HwParcel -> android.os.IHwBinder::transact(104/*sendImsSms*/, _hidl_request, _hidl_reply, android.os.IHwBinder.FLAG_ONEWAY);
+	com.android.internal.telephony.metrics.TelephonyMetrics.java::writeRilSendSms() /* 添加回调 */
+	com.android.internal.telephony.metrics.InProgressSmsSession.java -> 
+	com.android.internal.telephony.nano.TelephonyProto.SmsSession.Event
+		
+解析串口数据, 通过 com.android.internal.telephony.nano.TelephonyProto::writeTo() 回调上一部注册的 SmsSession.Event
+Event里的信息有: TelephonySettings, TelephonyServiceState, ImsConnectionsState, RilDataCall[], errorCode 是我们要关心的, 开关机检测主要关心ImsConnectionState.
+ImsConnectionState 中有状态 STATE_UNKONWN, CONNECTED, PROGRESSING, RESUMED, SUSPENDED.
+结合以上的at指令终端交互流程可知, ImsConnectionState, errorCode, 即为短信发送后可获取的具体状态. 
+
+接下来, 继续确定, framework层抛出的短信broadcast 是否依ImsConnectionState 状态决定的. 
+
+注册调用链:
+
+com.android.internal.telephony.SMSDispatcher.java::sendText(.., deliveryIntent, mSenderCallback) ->
+	com.android.internal.telephony.SMSDispatcher.MultiparSmsSender::onServiceReady() -> 
+		android.service.carrier.ICarrierMessagingService.aidl::sendMultipartTextSms(...,deliveryIntent, mSenderCallback) ->
+		com.android.internal.telephony.SMSDispatcher.SmsSenderCallback::onSendSmsComplete() -> 
+			com.android.internal.telephony.CommandsInterface, 
+			在CommandsInterface::setOnSmsStatus 回调中, 调用注册deliveryIntent, 向上层应用发送消息状态. 
+
+调用 mSenderCallback的流程:
+
+SMSDispatcher 即为一个Handler, 处理短信发送相关的几个状态为: 
+	EVENT_SEND_SMS_COMPLETE, EVENT_SEND_RETRY, EVENT_SEND_CONFIRMED_SMS, EVENT_STOP_SENDING, EVENT_HANDLE_STATUS_REPORT, 
+	EVENT_SEND_LIMIT_REACHED_CONFIRMATION, EVENT_CONFIRM_SEND_TO_POSSIBLE_PREMIUM_SHORT_CODE
+初始化SMSDISPATCHER的类为
+com.android.internal.telephony.IccSmsInerfaceManager, 
+初始化的实类为 ImsSmsDispatcher, 在其handleMessage中 处理的消息为 EVENT_IMS_STATE_DONE, EVENT_IMS_STATE_CHANGED
+触发这个消息的的类为 
+在CommandsInterface::registerForImsNetworkStateChanged(this, EVENT_IMS_STATE_CHANGED, null);
+CommandsInterface 的实例 mCi 为 com.android.internal.telephony.Phone.java 中的单例
+Phone的实例为 GsmCdmaPhone.java 
+
+
+com.android.internal.telephony.imsphone.ImsPhoneCallTracker.java::startListeningForCalls() // 上层注册回调
+
+
+所以, 可以证明, 当前的短信开关机检测是与at命令的效果一致的. 可视为准确的. 
 
 附录:
 
