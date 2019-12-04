@@ -126,13 +126,36 @@ com.android.internal.telephony.IccSmsInerfaceManager,
 触发这个消息的的类为 
 在CommandsInterface::registerForImsNetworkStateChanged(this, EVENT_IMS_STATE_CHANGED, null);
 CommandsInterface 的实例 mCi 为 com.android.internal.telephony.Phone.java 中的单例
-Phone的实例为 GsmCdmaPhone.java 
+Phone的实例为 GsmCdmaPhone.java , 通过 TelephonyComponentFactory::makeIccSmsInterfaceManager(this) 传入
+GsmCdmaPhone::initOnce() 中通过 TelephonyComponentFactory::makeGsmCdmaCallTracker() 初始化 
+在Phone系的构造函数中会构造TelephoneComponentFactory.makeAppSmsManager 初始化 AppSmsmanager 监听短信状态. 
+在IccSmsInterfaceManager 构造函数中初始化 ImsSMSDispatcher 会传递 phone.smsUsageMonitor, 初始化InBoundSmsHandler, SmsBroadcastUndelivered 
+在InboundSmsHandler::dispatchSmsDeliveryIntent 中会调用 mAppSmsManager.handleSmsReceiverdIntent
+InboundSmsHandler::processMessage 调用 dispatchSmsDeliveryIntent, 在初始化 StartupState 中由消息 EVENT_BROADECAST_SMS 处理短信发送状态. 
 
+由InboundSmsHandler.StartupState 中的注释可知, 最终通知回调的类为SmsBroadcastUndevlivered, 其中亦有 EVENT_BROADECAST_SMS 消息事件处理, 逻辑为开一个线程轮询查询RawTable, 通过 ContentProvider 查询 PDU_PENDING_MESSAGE_PROJECTION, 通过 Telephony.Sms.CONTENT_URI ("content://sms/sent")找到 SMS Provider 查询rawpdudata 
 
-com.android.internal.telephony.imsphone.ImsPhoneCallTracker.java::startListeningForCalls() // 上层注册回调
+那么表里的信息是何时写的呢? 在 InboundSmsHandler::writeInboxMessage 由 InboundSmsHandler::dispatchSmsDeliveryIntent 由SmsManager::getAutoPersisting()为true时触发
 
+继续跟踪 InboundSmsHandler::dispatchSmsDeliveryIntent 的触发时机
+由 android.telephony.CarrierMessagingServiceConnection.CarrierMessagingServiceConnection::onServiceConnected -> 
+	android.telephony.CarrierMessagingServiceConnection::onServiceReady(在android.internal.telephony.CarrierServiceSmsFilter中实现) ->
+	android.internal.telephony.CarrierServiceSmsFilter::filterSms ->
+	InboundSmsHandler.CarrierServiceSmsFilterCallback::onFilterComplete ->
+	InboundSmsHandler::dispatchSmsDeliveryIntent
 
-所以, 可以证明, 当前的短信开关机检测是与at命令的效果一致的. 可视为准确的. 
+接下来 分析 CarrierMessagingServiceConnection 中的 ICarrierMessagingService::filterSms() 逻辑, 
+ICarrierMessagingService 由 CarrierMessagingSerivce 中的 ICarrierMessagingWrapper 作为service 端来实现具体业务
+			
+结合短信发送流程: 接收端收到一条短信, 会向SMS center 发送一条是否成功的报文, SMS center 再将这些信息返回给发送者(可参考附录10), 这时发送端相当于接收了一条pdu, android 作为接收端就是遍历这些pdu, 通过filterSms 来达确认是否成功送达或是一条新短信. 
+
+CarrierMessagingSerivce 编历的pdu, 是怎么获取的? 这里仍旧没有探索到. 
+
+分析至此, 已可知当前的短信开关机检测是与at命令的效果一致的. 
+
+因此当前的开关机检测可视为准确的. 
+
+PS: 时间有限, 关于此次分析相关的UML图, 流程图就先不画了, 直接采用文字描述. 有纰漏之处或者疑问, 欢迎指出, 进行进一步计论.  
 
 附录:
 
@@ -145,3 +168,4 @@ com.android.internal.telephony.imsphone.ImsPhoneCallTracker.java::startListening
 7. [Send SMS using AT commands](https://www.smssolutions.net/tutorials/gsm/sendsmsat/)
 8. [gsm-at-commands-set](https://www.engineersgarage.com/tutorials/at-commands-gsm-at-command-set/)
 9. [sms-pdu-mode](http://www.gsm-modem.de/sms-pdu-mode.html)
+10. [Message Delivery Reports](http://www.developershome.com/sms/sms_tutorial.asp?page=basicConcepts#5.4)
