@@ -34,5 +34,12 @@ emerge --update --deep --with-bdeps=y --newuse --ask @world
 
 5. 安装 binary 版本
 
+6. 日志查看
 
+7. 进程查看
+
+
+8. 网络查看
+
+9. 
 
