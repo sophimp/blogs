@@ -456,9 +456,12 @@ revoery.img 是正常的, 可以说明, 进入不了系统, 和system source 源
 
 最终是恢复官方的recovery 解决了此问题, 但是原理性的东西还是不清楚. 待移植recovery 时再研究
 
+后续补充: 主要还是recovery的格式化命令不正确, mkfs.f2fs -l f2fs /dev/block/mmcblk0p58
+
 解决此问题, mokee 也得以正式进入了系统UI, 接下来查看他们的提交记录, 修复问题. 
 
 屏幕亮度问题, wifi, 蓝牙, 通话, camera保证不崩溃就行. 剩下的就是验证系统级诱发问题. 
+
 
 屏幕亮度问题
 ------------
