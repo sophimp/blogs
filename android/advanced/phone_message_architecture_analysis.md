@@ -157,6 +157,15 @@ CarrierMessagingSerivce 编历的pdu, 是怎么获取的? 这里仍旧没有探�
 
 PS: 时间有限, 关于此次分析相关的UML图, 流程图就先不画了, 直接采用文字描述. 有纰漏之处或者疑问, 欢迎指出, 进行进一步计论.  
 
+
+### 查看radio 日志
+
+修改 system/core/liblog/logger_write.c 中 __android_log_buf_write() 方法, 将RIL, IMS, AT log都打开, 合并到radio buffer 中
+
+adb logcat -b radio 查看 radio buffer 中的日志信息.  
+
+查看pdu, 在deliveringIntent 中的 pdu 中存储的. 只有联通给联通电信发, 电信给电信发, 移动给移动发才有. 
+
 附录:
 
 1. [Everything You Need to Know About SMS & MMS on the iPhone](lifewire.com/what-is-sms-mms-iphone-2000247)
