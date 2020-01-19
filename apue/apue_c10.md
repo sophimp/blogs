@@ -16,17 +16,65 @@
 	信号就是软件中断.
 	linux支持31种信号, 每个系统支持的不一样, posix 实时扩展.  
 	每个信号都有一个名字, 以SIG开头
+	说细介绍了产生这些信号的场景
+	其中 kill 函数 可以号将状态码传给要终止的进程
 
 函数signal
+	
+	用来捕捉信号并处理的函数, 推荐使用 sigaction 函数, 因为signal 函数的语义与实现有关
+
 不可靠信号
+	
+	历史原因, 系统对信号处理不可靠, 有的进程感知不到, 有的想处理却被永远阻塞. 
+
 中断的系统调用
+	
+	信号中断的调用是内核中执行的系统调用
+
 可重入函数
+
+	调用标准I/O函数, 使用静态数据结构, 调用了malloc,free的函数, 都是不可重入函数. 
+	在信号处理中调用不可重入函数, 结果是未知的. 
+	
 SIGCLD语义
+
+	子进程状态变化时, 会发出此信号, 父进程需调用wait族函数用以捕捉
+
+	对于SIGCLD 信号, 不同系统的处理不同, 对于SIGCHLD 信号, 子进程状态发生改变时会发
+	如果SIGCHLD 信号被忽略, 则会产生僵死进程. 
+
 可靠信号术语和语义
+
+	信号屏蔽字
+	信号产生, 信号递送, 未决的
+
 函数 kill 和 raise
+
+	kill 函数将信号发送给进程或进程组
+	raise 函数允许进程向自身发送信号
+
 函数alarm 和 pause
+
+	alarm 函数可以设置一个定时器, 将来的某个时刻, 定时器会超时, 超时的时候会产生 SIGALRM 信号
+
+	pause 函数休眠当前进程, 直到接收到一个信号. 
+
+	alarm 和 pause 结合起来, 可以实现 sleep 函数的效果. 
+
+	alarm 多次会相互影响, 与第一次alarm的状态比较. 
+
 信号集
+
+	表示多个信号的数据类型
+
+	int sigemptyset(sigset_t *set);
+	int sigfillset(sigset_t *set);
+	int sigaddset(sigset_t *set, int signo);
+	int sigdelset(sigset_t *set, int signo);
+	int sigismember(const sigset_t *set, int signo);
+	
 函数sigprocmask
+
 函数sigpending
 函数sigsetjmp和siglongjmp
 函数sigsuspend
