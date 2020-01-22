@@ -75,8 +75,60 @@ SIGCLD语义
 	
 函数sigprocmask
 
+	信号屏蔽字, 规定了当前阻塞而不能递送给该进程的信号集. 
+	int sigprocmask(int how, const sigset_t *restrict set, sigset_t *restrict oset);
+	SIG_BLOCK		该进程新的信号屏蔽字是其当前信号屏蔽字和set指向信号集的并集. set包含了希望阻塞的附加信号. 
+	SIG_UNBLOCK		该进程新的信号屏蔽字是其当前信号屏蔽字和set指向信号集补集的交集. set包含了希望解除阻塞的信号. 
+	SIG_SETMASK		该进程新的信号屏蔽是set指向的值. 
+	不能阻塞 SIGKILL 和 SIGSTOP 信号
+
+	sigprocmask 函数可以检测或更改, 或同时进行检测或更改进程的信号屏蔽字. 
+
 函数sigpending
+
+	int sigpending(sigset_t *set);
+
+	通过set 参数返回信号集, 其中的信号是阻塞不能递送的, 因而也一定是当前未决的. 
+	信号没有被排队, 重复产生的信号, 后面的会覆盖前面的. 
+
+函数sigaction
+
+	int sigaction(int signo, const struct sigaction *restrict act, struct sigaction *restrict oact);
+	检查或(/并)修改与指定信号相关联的处理动作. 
+```c
+	struct sigaction{
+		voic (*sa_handler)(int); /* addr of signal handler, or SIG_IGN, or SIG_DFL*/
+		sigset_t sa_mask;		 /* additional signals to block */
+		int		sa_flags;		 /* signal options, Figure 10.16 */
+		void	(*sa_sigaction)(int, siginfo_t *, void *); /* alternate handler */
+	 };
+	struct siginfo{
+		int si_signo;	/* signal number */
+		int	si_errno;	/* if nonzero, errono value from <errno.h> */
+		int si_code;	/* additional info (depends on signal) */
+		pid_t si_pid;	/* sending process ID */
+		uid_t si_uid;	/* sending process real user ID */
+		void *si_addr;  /* address that caused the fault  */
+		int si_status;	/* exit value or signal number */
+		union sigval si_value; /* application-specifica value */
+		/* possibly other fields also */
+	}
+	union sigval{
+		int sival_int;
+		void *sival_ptr;
+	}
+```
+
 函数sigsetjmp和siglongjmp
+
+	#include <setjmp.h>
+	int sigsetjmp(sigjmp_buf env, int savemask);
+	void siglongjmp(sigjmp_buf env, int val);
+
+	setjmp 和 longjmp, 非局部转移的函数, 在信号处理程序中经常调用longjmp函数以返回到程序的主循环中, 而不是从该处理程序返回. 
+
+	sigsetjmp 多了一个savemask 参数, 非零表示,在env中保存进程的当前信号屏蔽字. 
+
 函数sigsuspend
 函数abort
 函数system
