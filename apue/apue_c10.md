@@ -27,6 +27,8 @@
 	
 	历史原因, 系统对信号处理不可靠, 有的进程感知不到, 有的想处理却被永远阻塞. 
 
+	不可靠信号指的是, 信号可能会丢失; 一个信号发生了, 但是进程却可能一直不知道这一点.  同时, 进程对信号的控制能力也很差. 
+
 中断的系统调用
 	
 	信号中断的调用是内核中执行的系统调用
@@ -144,12 +146,62 @@ SIGCLD语义
 
 	调用abort将向主机环境递送一个未成功终止的通知, 其方法是调用raise(SIGABRT)函数
 
-
 函数system
+
+	打开一个shell进程, 执行 cmd 命令. 处理相关的信号, 调用system函数, 一定要正确地解释其返回值. 
+	这个函数, 同样也没有深入理解, 待用到时再钻吧. 第一遍就是知其然. 
+
 函数sleep, nanosleep 和 clock_nanosleep
+
+	从名字上看, 精度不同, 秒, 纳秒, 时钟纳秒.
+
+```c
+	#include <unistd.h>
+	unsigned int sleep(unsigned int seconds);
+
+	#include <time.h>
+	int nanosleep(const struct timespec *reqtp, struct timespec *remtp);
+
+	int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec *reqtp, sturct timespec *remtp);
+```
+
+
+	sleep与alarm函数, 更具体的应用, 还是到应用中再发现吧. 现在看了一遍, 印象不深. 
+	还有某些具体的函数类型, 都得搞明折, siginfo, sigaction
+
+
 函数 sigqueue
+
+```c
+	#include <signal.h>
+	int sigqueue(pid_t pid, int signo, const union sigval value);
+```
+
+	在POSIX.1 增加信号排队的扩展支持, 在SUSv4中, 排队信号功能已从实时扩展中移至基础说明部分. 
+	sigqueue 函数只能把信号发送给单个进程, 可以使用value 参数向信号处理程序传递整数和指针值. 除此之外, sigqueue 与 kill 功能类似. 
 作业控制信号
+
+	SIGCHLD 子进程已停止或终止. 
+	SIGCONT 如果进程已停止, 则使其继续运行.
+	SIGSTOP 停止信号(不能被捕捉或忽略)
+	SIGTSTP 交互式停止信号
+	SIGTTIN 后台进程组成员读控制终端
+	SIGTTOU 后台进程组成员写控制终端
+
+	除了sigchld 信号,大多数应用并不处理这些信号, 交互式shell则通常会处理这些信号的所有工作. 
+
 信号名和编号
+
+```c
+	extern char *sys_siglist[];
+
+	#include <signal.h>
+	void psignal(int signo, const char *msg);
+
+	#include <signal.h>
+	int sig2str(int signo, char *str);
+	int str2sig(const char *str, int *signop);
+```
 
 ### 总结
 
@@ -160,6 +212,10 @@ SIGCLD语义
 为何要有pending状态? suspend 又是何许人也? 
 
 信号制的阻塞与解除, 为了解决什么问题? 保护不希望由信号中断的代码临界区. 
+
+信号用于大多数复杂的应用程序中. 
+
+本单介绍了可靠信号概念以及所有相关函数, 在此基础上提供abort, system, sleep 函数的 POSIX.1实现, 最后以观察分析作业控制信号以及信号名和信号编号之间的转换结束. 
 
 ### 习题与问题
 1. 删除图 10-2 程序中的for(;;) 语句, 结果会怎样? 为什么?
