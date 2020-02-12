@@ -167,10 +167,8 @@ SIGCLD语义
 	int clock_nanosleep(clockid_t clock_id, int flags, const struct timespec *reqtp, sturct timespec *remtp);
 ```
 
-
 	sleep与alarm函数, 更具体的应用, 还是到应用中再发现吧. 现在看了一遍, 印象不深. 
 	还有某些具体的函数类型, 都得搞明折, siginfo, sigaction
-
 
 函数 sigqueue
 
@@ -224,8 +222,10 @@ SIGCLD语义
 	处理信号屏蔽字 sigprocmask
 	监听信号	signal
 	发送信号	kill, raise, sigqueue
-	非局部跳转  sigsetjmp, siglongjmp
+	非局部跳转  sigsetjmp, siglongjmp, 只能在同一进程内跳转, 不可以跨进
 	结合 fork 函数, 多进程编程, 也是并发编程的一种. 
+
+	注册信号监听, 将信号屏蔽, 然后放开, 给另一个进程发送信号, 进程由sigsuspend函数挂起, 进入下一个循环. 另一个进程同理
 	
 ### 习题与问题
 1. 删除图 10-2 程序中的for(;;) 语句, 结果会怎样? 为什么?
