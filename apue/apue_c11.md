@@ -49,6 +49,19 @@ Thread Synchronization
 
 	Mutexes
 
+		每个线程都得遵守互斥加锁的机制, 同步才有作用
+		往往是将共同操作的部分抽取成一个方法, 每个线程都调用此方法, 但是如果每个线程操作数据的方式不一样, 还是要分开加锁. 
+
+```c
+	#include <pthread.h>
+	int pthread_mutex_init(pthread_mutex_t *restrict mutex, const pthread_mutexattr_t *restrict attr);
+	int pthread_mutex_destory(pthread_mutex_t *mutex);
+
+	int pthread_mutex_lock(pthread_mutex_t *mutex);
+	int pthread_mutex_trylock(pthread_mutex_t *mutex);
+	int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+
 	Deadlock Avoidance
 
 	pthread_mutext_timelock Function
