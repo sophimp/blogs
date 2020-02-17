@@ -1,4 +1,9 @@
 
+## bash
+
+[Bash Reference Manual](https://tiswww.case.edu/php/chet/bash/bashref.html)
+
+
 ## linux shell script study
 
     脚本语言, 所见即所得, 所以环境更容易搭, 比较容易上手练习
