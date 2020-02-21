@@ -87,7 +87,8 @@ dw 使用
 
 	窗口跳转 
 		win+e/u
-	不退出重启dwm
+	不退出刷新dww
+		这个是编译生成新，能实现不关闭已打开的窗口，应用新的dwm吗？ 
 	修改当前tab的布局 
 		不支持， 所有的都是
 	将当前应用移到其他桌面 
@@ -95,6 +96,7 @@ dw 使用
 	焦点窗口放大，缩小
 		win + space
 	主窗口与栈窗口互换
+		没找到此功能， 只找到向master 加减窗口的
 
 	快速启动 
 
@@ -106,6 +108,40 @@ st 使用
 
 壁纸
 
+添加同步源
+
+/etc/pacman.conf
+	pacman的主同步源， 可以添定自定义的server, 本地server
+
+```cfg
+[archlinuxcn]
+SigLevel = Optional TrustAll
+Server = http or ftp
+```
+
+/etc/pacman.d/mirrors
+
+	core, extra, community 同步源的配置文件, 选择China下的镜像，取消注释, 
+	一般选 清华(tuna.tsinghua), 中科大(ustc), 上海交大(sjtug.sjtu), 浙大(zju)
+	网易(163) 阿里(aliyun) 的都是http的， 现在已经不建议使用了
+
+/etc/makepkg.conf
+
+	makepkg 的配置文件， 使用makepkg 进行源码安装， 替代make, 安装完的包可同步到 pacman 统一管理
+
+yay
+
+	yay 替代了 yaourt
+	安装yay, 先得在/etc/pacman.conf 中配置 archlinuxcn源， 否则还找不到
+
+```cfg
+[archlinuxcn]
+SigLevel = Optional TrustAll
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+```
+
+	添加 aur 源
+	yay --aururl "https://aur.tuna.tsinghua.edu.cn"
 
 pacman 常用命令及技巧
 
@@ -132,4 +168,6 @@ pacman 常用命令及技巧
 这个事情还是得折腾，就不能完全交给dm来搞定， 亲力亲为达到心中有数，后面再拿来开箱即用. 
 时区，locale, 语言， 网络， 软件管理，自动小脚本， 这些不是一朝一夕完成的， 是这两天我太心急了，在工作时间搞这些，搞不定就要耽误工作， 耽误计划了。 
 目前目的基本达到了， 先回到正轨，系统再慢慢调教，必须得调教。 各方面都调教， 达到心意合一。 
+
+将家里的gentoo也换arch了， 后面换了配置高点的主机， 再折腾gentoo, 网络慢， 编译慢， 搞gentoo是有些伤不起，其实这样看来，arch已经能满足目前的需求了， 看源码嘛，再另下 载关联起来也不是多大个事。没有必要， 也没有精力还去研究每个工具。大多数工具， 开箱即使， 操作系统， 本来也就是个工具。 
 
