@@ -106,7 +106,43 @@ st 使用
 	背景, 暂时先使用theiceboy的
 	快捷键,
 
-壁纸
+kde桌面使用
+
+	没心思折腾dwm, st 了， 电脑的性能有， 桌面环境也省心， 主要是连续折腾， 工作进度受影响了。 
+	所以， 还是换一个kde, 省点心吧。 但是发现， 安装kde也并不省心。  
+	
+```sh
+	sudo pacman -S plasma kdebase  # 只包含kde 的基础包
+	sudo pacman -S xf86-input-libinput xf86-input-synaptics xf86-video-intel xf86-video-vesa  #这些也必须安，驱动键盘鼠标， 触摸板， 否则进入桌面驱动不了
+	sudo pacman -S lightdm lightdm-gte-greeter # 加一个启动登陆， 不用每次都startx
+```
+	网络连接也出问题了， 在arhcwiki 上学一学 iw, wpa_supplicant 的使用，解决无线网络连接的问题, 无线要选扫描， 使用root用户连接。 
+
+	输入法怎么也不能切换了呢？ 重新安装fcitx, fcitx-im, kcm-fcitx, 重启系统， 输入法可用。  可以通过fcitx-dignose 诊断当前环境哪里出错了，所有的包，配置都安装好， 工作还不能正常， 重启系统试试 。 或重启KDE, 
+
+	![打造五笔单字词库](../linux/fcitx-wubi-setting.md)。 输入环境终于打造好了。 
+
+	konsole 配置, 也是摸索了一翻。 
+	
+	lightdm 的配置, 要配置 greeter-seession 和 session-wrapper， 再加入开机启动
+
+网络连接
+
+	路由有线连接， 只需开机启动dhcpcd即可
+
+	无线连接， 需学会使用 ip iw， wpa 工具
+
+```sh
+
+	wpa_passphrase <MYSSID> <passphrase> > wpa_supplication.conf
+	wpa_supplicant -B -i <interface(wlan0)> -C wpa_supplication.conf
+
+	ip link
+	ip address show
+	ip address add <address/prefix_len> <broadcast> dev <interface>
+	ip address del <address/prefix_len> dev <interface>
+
+```
 
 添加同步源
 
@@ -146,6 +182,12 @@ Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
 pacman 常用命令及技巧
 
 	设计理念
+
+```sh
+	pacman -Qs fuzzy-package-name #查找已安装
+
+	pacman -Ss fuzzy-package-name #查找软件包
+```
 
 	
 ## 总结
