@@ -138,6 +138,7 @@ kde桌面使用
 	wpa_supplicant -B -i <interface(wlan0)> -C wpa_supplication.conf
 
 	ip link
+	ip link set <interface> up|down
 	ip address show
 	ip address add <address/prefix_len> <broadcast> dev <interface>
 	ip address del <address/prefix_len> dev <interface>
