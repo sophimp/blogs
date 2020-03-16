@@ -240,12 +240,32 @@ Thread and Signals
 
 Thread and Fork
 
+	在线程里调用fork, 同样会copy整个进程, 因此子线程已经和原来的进程是不同的进程. 除了拷贝了地址空间，也同样从父进程中继承了 mutex, reader-writer lock, condition variable， 因此， 问题就来了， 子进程继承了所有的锁， 但是在子进程中, 并不会复制持有锁的线程， 所以， 子进程就不清楚，哪些线程持有了锁以及如何释放锁。
+
+```c
+	#include <pthread.h>
+	int pthread_atfork(void (*prepare)(void), void (*parent)(void), void(*child)(void));
+```
+
+	嵌套加锁， 先加锁的后解锁， 后加锁的程序， 
+
 Thread and I/O
+
+	pread, pwrite, lseek
+
+	进程中所有线程共享相同的文件描述符
 
 ### 总结
 
+	线程提供了分解并发任务的另一种模型。 
+	如何调整线程和它们的同步原语
+	线程的可重入性
+	线程如何与其他面向进程的系统调用进行交互。  
+
 ### 习题与问题
 1. Run the program in Figure 12.17 on the linux system, but redirect the output into a file.
+
+	
 
 2. Implement putenv_r, a reentrant version of putevn. Make sure that your implementation is async-signal safe as well as thread-safe.
 
