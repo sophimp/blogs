@@ -98,7 +98,7 @@ Answer: Blobs are vendor files and prebuilt libs which are found in system, impo
 Common Errors:
 
 All these erros I mention are faced by me and solution which I did is written along.
-#1:
+- 1:
 libwpa_qmi_eap_proxy_
 intermediates/export_includes', needed by '/home/vibhoothiiaanand/nuclea/out/target/product/oneplus2/obj/EXECUTABLE
 S/wpa_supplicant_intermediates/import_includes', missing and no known rule to make it
@@ -107,12 +107,12 @@ Solution:
 First check wheather your vendor repo is broken or not or is it included or not if not clone it from correct source.
 Clone wpa supplicant ,wpa_supplicant8 from lineageos and retry it
 
-#2:Build is successful but its not booting what to do?
+- 2:Build is successful but its not booting what to do?
 
 Solution: Make another build with permissive by adding
 "androidboot.selinux=permissive" to BoardConfig.mk it should work.
 
-#3:I have synced device tree but device is not showing in breakfast nor lunch menu
+-  3:I have synced device tree but device is not showing in breakfast nor lunch menu
 
 Solution:
 1.first change romname.mk file to your rom name ,for e.g. you synced Du tree and trying to make nitrogen rom so mv du.mk nitrogen.mk.
@@ -125,7 +125,7 @@ Oneplus2 device tree modded for supporting Candy Rom :Candify
 there will be so much commits like this just git search then your good to go.
 This must be general case for most of the rom and devices just refer this.
 
-#4:
+- 4:
 
 ninja: error: '/home/vibhoothiiaanand/nitrogen/out/target/product/oneplus2/obj/SHARED_LIBRARIES/libqdutils_intermediates/export_includes', needed by '/home/vibhoo
 thiiaanand/nitrogen/out/target/product/oneplus2/obj/SHARED_LIBRARIES/libsurfaceflinger_intermediates/import_includes', missing and no known rule to make it
@@ -153,14 +153,14 @@ git clone https://github.com/LineageOS/android...qcom_audio.git -b cm-14.1 hardw
 git clone https://github.com/LineageOS/android...qcom_media.git -b cm-14.1 hardware/qcom/media/msm8994 git clone https://github.com/LineageOS/android...om_display.git -b cm-14.1-caf-8994 hardware/qcom/display-caf/msm8994
 git clone https://github.com/LineageOS/android...qcom_audio.git -b cm-14.1-caf-8994 hardware/qcom/audio-caf/msm8994
 git clone https://github.com/LineageOS/android...qcom_media.git -b cm-14.1-caf-8994 hardware/qcom/media-caf/msm8994
-#5
+- 5
 device/generic/goldfish/data/etc/apns-conf.xml', needed by '/home/vibhoothiiaanand/nitrogen/out/target/product/oneplus2/system/etc/apns-conf.xml',
 missing and no known rule to make it.
 Solution:
 just clone generic/goldfish from google since its old AF in lineage source
 git clone https://android.googlesource.com/dev...neric/goldfish device/generic/goldfish
 
-#6
+- 6
 frameworks/native/build/phone-xxxhdpi-4096-dalvik-heap.mk" does not exist. Stop.
 
 Solution:
@@ -168,7 +168,7 @@ Fix is just cherry-pick this commit
 https://github.com/CyanogenMod/andro...4987ad7bfcb4ab
 Done it must be fixed
 
-#7
+- 7
 ERROR: couldn't find ro.product.model in build.prop
 
 Solution:
@@ -176,13 +176,13 @@ This is not that common but this happens while compiling
 fix is cherry-pick this commit
 https://github.com/AICP/build/commit...e6772503ca0f65
 
-#8
+- 8
 Model number unknown.
 
 Solution:
 Go to device tree and open init/init*.cpp make device name and instead of std::string device = property_get("ro..device"); change to std::string device = property_get("ro.product.device");
 
-#9
+- 9
 Deleting obsolete path /home/vibhoothiiaanand/vertex/device/oneplus/oneplus2
 Deleting obsolete path /home/vibhoothiiaanand/vertex/device/oppo/common
 Deleting obsolete path /home/vibhoothiiaanand/vertex/kernel/oneplus/msm8894
@@ -191,22 +191,22 @@ Deleting obsolete path /home/vibhoothiiaanand/vertex/vendor/oneplus
 Solution:
 this is due to not declaring repos in local manifest
 
-#10 Broken gestures
+- 10 Broken gestures
 for this two things must be noted kernel and device common must match the node names in case of oneplus2
 in kernel: drivers/input/touchscreen/synaptics_driver_s3320.c and configpanel/src/com/cyanogenmod/settings/device/utils/Constants.java should match node declaration values
 
-#11 Dex2oated errors
+- 11 Dex2oated errors
 it usually look like this
 
 
 For this easy fix is disabling dexpreopt
 
-#12 ninja: error: '/home/vibhoothiiaanand/vertex/out/target/common/obj/JAVA_LIBRARIES/rcscommon_intermediates/javalib.jar', needed by '/home/vibhoothiiaanand/vertex/out/target/product/oneplus2/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
+- 12 ninja: error: '/home/vibhoothiiaanand/vertex/out/target/common/obj/JAVA_LIBRARIES/rcscommon_intermediates/javalib.jar', needed by '/home/vibhoothiiaanand/vertex/out/target/product/oneplus2/dex_bootjars/system/framework/arm64/boot.art', missing and no known rule to make it
 make: *** [ninja_wrapper] Error 1
 make: Leaving directory `/home/vibhoothiiaanand/vertex'
 For me this happened while building vertex for that I removed telephony entry from android_vendor_vertex/config/common.mk
 
-#13 /out/target/product/oneplus2/obj/SHARED_LIBRARIES/libdhcpcd_intermediates/export_includes', needed by '/home/coolmohammad98/cr/out/target/product/oneplus2/obj/EXECUTABLES/ipacm_intermediates/
+- 13 /out/target/product/oneplus2/obj/SHARED_LIBRARIES/libdhcpcd_intermediates/export_includes', needed by '/home/coolmohammad98/cr/out/target/product/oneplus2/obj/EXECUTABLES/ipacm_intermediates/
 
 Solution
 For this clone https://github.com/lineageos/android...l_libnfnetlink and then your good to go

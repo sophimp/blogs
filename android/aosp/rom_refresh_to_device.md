@@ -144,7 +144,11 @@ rules.d 文件重新生效命令
 
 按说目前的adb, fastboot都是最新的
 
-3. 
+3. 刷recovery失败， fastboot Failed remote no such partition
+
+	先使用 fastboot getvar current-slot 得到一个字符
+	然后 fastboot boot_字符 recovery.img 
+	就可以将recovery刷进去了
 
 ## 参考资源
 

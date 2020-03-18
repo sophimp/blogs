@@ -30,6 +30,8 @@ JRI
 
 ### Design Overview
 
+[官方文档](https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/intro.html)
+
 ### JNI Types and Data Structures
 
 ### JNI Functions
