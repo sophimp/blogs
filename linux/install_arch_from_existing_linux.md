@@ -132,13 +132,65 @@ kde桌面使用
 
 	无线连接， 需学会使用 ip iw， wpa 工具
 
+	搜索wifi, 连接wifi，修改静态ip, mask
+
+	端口转发
+	开启wifi热点
+
+	官方教程是使用 networkmanager, 先按这个走一遍
+	nm-connection-editor, 图形界面
+	network-manager-applet, 提供系统拖盘
+
 ```sh
+
+	# 安装 networkmanager, nm-connection-editor, network-manager-applet
+
+	# 添加daemon, 启动NetworkManager
+	systemctl enable NetworkManager
+	systemctl start NetworkManager
+
+	# 显示附近的 wifi:
+	nmcli device wifi list
+
+	# 连接 wifi:
+	nmcli device wifi connect SSID password password
+
+	#连接到隐藏的 wifi:
+	nmcli device wifi connect SSID password password hidden yes
+
+	#通过 wlan1 wifi 网卡(interface)连接 wifi:
+	nmcli device wifi connect SSID password password ifname wlan1 profile_name
+
+	#断开一个网卡(interface)上的连接:
+	nmcli device disconnect ifname eth0
+
+	#重新连接一个被标记为“已断开”的网卡：
+	nmcli connection up uuid UUID
+
+	#显示一个所有连接过的网络的UUID的列表:
+	nmcli connection show
+
+	# 查看所有网络设备及其状态:
+	nmcli device
+
+	#关掉 wifi:
+	nmcli radio wifi off
+
+```
+
+使用 iw, iwconfig, wpa_supplicant 来管理，连接wifi
+
+```sh
+	# 查看当前服务状态
 
 	wpa_passphrase <MYSSID> <passphrase> > wpa_supplication.conf
 	wpa_supplicant -B -i <interface(wlan0)> -C wpa_supplication.conf
 
 	ip link
 	ip link set <interface> up|down
+
+	iw dev wlan0 scan
+
 	ip address show
 	ip address add <address/prefix_len> <broadcast> dev <interface>
 	ip address del <address/prefix_len> dev <interface>
