@@ -150,6 +150,15 @@ rules.d 文件重新生效命令
 	然后 fastboot boot_字符 recovery.img 
 	就可以将recovery刷进去了
 
+4. FFDM 模式的退出
+
+[使用QFIL](https://www.cnblogs.com/we-hjb/p/9769467.html) 
+
+[高通方案的几种开机模式](https://www.cnblogs.com/we-hjb/archive/2018/10/13/9784659.html)
+
+总算有了突破， 进入了ffbm模式后， 一直进入不了fastboot 模式了， 网上有一个说的是先感受到震动， 松开power键， 看到画面， 再松开音量键
+但是我遇到的情况是, 震动和画面一起的， 突然间发现， 在震动之前， 还有一个lte灯闪，这个时候，松开power键， 看到画面再松开音量键， 就成功进入了fastboot模式。 
+
 ## 参考资源
 
 [源码编译, 模块编译，sdk 编译](https://www.jianshu.com/p/9605f895d153)
