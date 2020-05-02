@@ -8,13 +8,13 @@ do
 	sleep 5
 	for (( i=0; i<6; i++))
 	do
-		sleep 6
+		sleep 7
 		adb shell input tap 300 1900
-		sleep 6
+		sleep 7
 		adb shell input tap 525 1900
-		sleep 6
+		sleep 7
 		adb shell input tap 700 1900
-		sleep 6
+		sleep 7
 		adb shell input tap 880 1900
 	done
 
