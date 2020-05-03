@@ -21,3 +21,6 @@ aosp.tuna.tsinghua.edu.cn 一直没同步下来
 
 bp 与 mk 互换， 已经有工具可以将 mk 转成 bp, 但是还没有见到将bp转成mk的
 
+### lineage 
+
+为何好多人都是先移植lineage OS 呢？ 

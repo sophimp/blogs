@@ -39,7 +39,8 @@ Record Locking
 I/O Multiplexing
 
 	I/O 多路复用， 与 select , poll 又是什么关系？ 
-	为什么要多路I/O转接, 
+	为什么要多路I/O转接,
+	学习一项新的技术， 要了解这个技术产生的背景， 为了解决什么问题， 有哪些可能的实现。
 
 select and pselect Functions
 
