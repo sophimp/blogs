@@ -23,4 +23,6 @@ bp 与 mk 互换， 已经有工具可以将 mk 转成 bp, 但是还没有见到
 
 ### lineage 
 
-为何好多人都是先移植lineage OS 呢？ 
+为何好多人都是先移植lineage OS 呢？ Lineage OS 相对于 Mokee 更加纯粹一些, 为了技术和便利。 Mokee 就涉及到利益了， 且是依托于LineageOS的。
+
+
