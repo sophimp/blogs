@@ -23,6 +23,16 @@ bp 与 mk 互换， 已经有工具可以将 mk 转成 bp, 但是还没有见到
 
 ### lineage 
 
-为何好多人都是先移植lineage OS 呢？ Lineage OS 相对于 Mokee 更加纯粹一些, 为了技术和便利。 Mokee 就涉及到利益了， 且是依托于LineageOS的。
+为何好多人都是先移植lineage OS 呢？ 
 
+Lineage OS 相对于 Mokee 更加纯粹一些, 为了技术和便利。 Mokee 就涉及到利益了， 且是依托于LineageOS的。
+
+
+### red mi k30
+
+Q: biso, flex path tool is not allowed to be used
+
+A: export TEMPRORARY_DISABLE_PATH_RESTRICTIONS=true
+
+进展比较顺利, soong编译链工具的问题， 竟然都给了链接, 虽然没有细看具体是为什么， 但是不妨碍解决了问题
 
