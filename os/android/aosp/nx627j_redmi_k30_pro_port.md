@@ -128,3 +128,33 @@ ShivamKumarJha/android_tools, ROM开发者的工具, 都有工具了， ROM移�
 	[动态分区 Dynamic Partitions](https://source.android.com/devices/tech/ota/dynamic_partitions/implement)
 
 
+## Sat 09 May 2020 04:20:15 PM CST
+
+**KeyErro: "partition size"**
+
+找到对应的image ，补全相应的 image_partition_size, 如 board_bootimage_partition_size := 
+
+**动态分区**
+
+	android 10.0 的动态分区特性， 搞得recovery 刷不了机？
+
+	redmi k30 pro 上， system分区没有了， boot.img 刷进去启动不了， fastboot -w 将userdata 清了之后， 连data 分区也找不到了， 挂载是按动态分区来的。
+
+	先刷回官方的boot.img， 可以启动， 得先摸清楚k30 pro 的各个挂载点对应的物理分区在哪里, 不然格式化了， 不知道如何再分区了。 
+
+redmi k30 pro 分区
+
+/dev/block/sda18         11.5M    112.0K     10.9M   1% /metadata
+/dev/block/dm-0           2.8G      2.8G         0 100% /system_root
+/dev/block/dm-0           2.8G      2.8G         0 100% /system
+/dev/block/dm-2           1.7G      1.7G         0 100% /vendor
+/dev/block/dm-1         434.3M    433.0M         0 100% /product
+/dev/block/dm-3         118.0M    872.0K    114.6M   1% /odm
+/dev/block/sde51        447.9M    202.0M    245.8M  45% /firmware
+/dev/block/sda22         58.0M      2.9M     53.2M   5% /persist
+/dev/block/sde35         64.0M    352.0K     63.6M   1% /bt_firmware
+/dev/block/sde49         59.0M     28.2M     29.6M  49% /dsp
+/dev/block/sda31        975.9M    763.0M    186.6M  80% /cust
+/dev/block/sda13          5.0M    160.0K      4.8M   3% /logfs
+/dev/block/sde43         64.0M     32.0K     63.9M   0% /spunvm
+
