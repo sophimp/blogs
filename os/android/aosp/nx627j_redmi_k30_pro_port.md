@@ -128,7 +128,7 @@ ShivamKumarJha/android_tools, ROM开发者的工具, 都有工具了， ROM移�
 	[动态分区 Dynamic Partitions](https://source.android.com/devices/tech/ota/dynamic_partitions/implement)
 
 
-## Sat 09 May 2020 04:20:15 PM CST
+### Sat 09 May 2020 04:20:15 PM CST
 
 **KeyErro: "partition size"**
 
@@ -144,17 +144,95 @@ ShivamKumarJha/android_tools, ROM开发者的工具, 都有工具了， ROM移�
 
 redmi k30 pro 分区
 
-/dev/block/sda18         11.5M    112.0K     10.9M   1% /metadata
-/dev/block/dm-0           2.8G      2.8G         0 100% /system_root
-/dev/block/dm-0           2.8G      2.8G         0 100% /system
-/dev/block/dm-2           1.7G      1.7G         0 100% /vendor
-/dev/block/dm-1         434.3M    433.0M         0 100% /product
-/dev/block/dm-3         118.0M    872.0K    114.6M   1% /odm
-/dev/block/sde51        447.9M    202.0M    245.8M  45% /firmware
-/dev/block/sda22         58.0M      2.9M     53.2M   5% /persist
-/dev/block/sde35         64.0M    352.0K     63.6M   1% /bt_firmware
-/dev/block/sde49         59.0M     28.2M     29.6M  49% /dsp
-/dev/block/sda31        975.9M    763.0M    186.6M  80% /cust
-/dev/block/sda13          5.0M    160.0K      4.8M   3% /logfs
-/dev/block/sde43         64.0M     32.0K     63.9M   0% /spunvm
+Filesystem                      Size  Used Avail Use% Mounted on
+tmpfs                           2.7G  1.0M  2.7G   1% /dev
+tmpfs                           2.7G     0  2.7G   0% /mnt
+tmpfs                           2.7G     0  2.7G   0% /apex
+/dev/block/dm-7                 118M  876K  117M   1% /odm
+tmpfs                           2.7G  7.5M  2.7G   1% /sbin
+/sbin/.magisk/block/system_root 3.0G  3.0G  9.3M 100% /sbin/.magisk/mirror/system_root
+none                            2.7G     0  2.7G   0% /sys/fs/cgroup
+/dev/block/sda18                 11M  112K   11M   1% /metadata
+/dev/block/sda22                 58M  2.9M   55M   6% /mnt/vendor/persist
+/dev/block/sde43                 64M   32K   64M   1% /mnt/vendor/spunvm
+/dev/block/sde51                448M  204M  244M  46% /vendor/firmware_mnt
+/dev/block/sde49                 59M   28M   31M  48% /vendor/dsp
+/dev/block/sde35                 64M  352K   64M   1% /vendor/bt_firmware
+/dev/block/sda13                4.9M  160K  4.8M   4% /dev/logfs
+/dev/block/sda31                976M  763M  213M  79% /cust
+/dev/block/loop2                 21M   21M   32K 100% /apex/com.android.media.swcodec@290000000
+/dev/block/loop3                1.6M  1.6M   28K  99% /apex/com.android.resolv@290000000
+/dev/block/loop4                5.0M  5.0M   32K 100% /apex/com.android.conscrypt@290000000
+/dev/block/loop5                 96M   96M   36K 100% /apex/com.android.runtime@1
+/dev/block/loop6                5.4M  5.3M   28K 100% /apex/com.android.media@290000000
+/dev/block/loop7                232K   36K  196K  16% /apex/com.android.apex.cts.shim@1
+/dev/block/loop8                836K  808K   28K  97% /apex/com.android.tzdata@290000000
+/sbin/.magisk/block/product     435M  434M  1.3M 100% /sbin/.magisk/mirror/product
+/sbin/.magisk/block/vendor      1.7G  1.7G  5.3M 100% /sbin/.magisk/mirror/vendor
+/sbin/.magisk/block/data        107G  7.5G   99G   8% /sbin/.magisk/mirror/data
+/data/media                     107G  7.5G   99G   8% /mnt/runtime/default/emulated
+
+
+/dev/block/by-name
+
+ metadata -> /dev/block/sda18
+ secdata -> /dev/block/sde11
+ super -> /dev/block/sda32
+ userdata -> /dev/block/sda34
+ vbmeta_odm -> /dev/block/sde27
+ vbmeta_product -> /dev/block/sde26
+ vbmeta_system -> /dev/block/sde17
+
+
+### Sun 10 May 2020 10:53:06 AM CST
+
+为何编译出来的包不能刷机？
+
+	对比发现少了 odm, product, dynamic_partition_op_list, 相关的文件, exaid.img 是什么不用管吧。 vendor 与 firmware 按说也不用管的。 
+
+	对比了oneplus 的包， 编译成payload.bin 文件来刷机？ 
+
+	nx611j 的包是有vendor 和 file_contexts.bin 的
+
+	可能关键还是在dynmaic partition 上 
+
+[动态分区](https://source.android.google.cn/devices/tech/ota/dynamic_partitions/implement?hl=zh-cn#upgrading-devices)
+
+	动态分区要使用 android 启动时验证(AVB), 不能与AVB1.0搭配使用
+
+avb 验证 2.0
+	
+	启动时验证， 先搞明白在device中是怎么配置的
+	avb 的验证是一样的吗？ 如果用官方的 boot.img, 使用自编的system.img, 能通过吗？ 如果用到加密的key, 那定然是不能通过的了。 
+	所以， 能否不开始avb验证呢？ 
+
+selinux 如何配置
+
+	/dev/block/platform/soc/10000\.ufshc/by-name/system   u:object_r:system_block_device:s0
+	/dev/block/platform/soc/10000\.ufshc/by-name/vendor   u:object_r:system_block_device:s0
+
+	放在哪个文件里 放在 te 后缀的文件中, selinux 也得学一学
+
+redmi k30 pro 不是A/B分区的设备， 但是支持动态分区, 教程里没有关于 非a/b分区的动态分区, a/b分区，无非是增加了个保险机制， 双缓冲的思想。去掉A/B即可
+
+fastbootd
+
+	fastboot(非用户空间的刷写工具) 无法理解动态分区， 因此无法对其刷写， 因此使用用户空间实现的 fastbootd 来刷写
+
+	新adb 命令
+
+```sh
+adb reboot fastboot # 在system下， 重启进入fastbootd模式， 在 recovery 下， 不重启直接进入fastbootd 模式
+```
+	fastbootd命令
+```sh
+	fastboot reboot recovery
+	fastboot reboot fastboot
+	getvar is-userspace
+	getvar is-logical:<partition>
+	getvar super-partition-name
+	create-logical-partition <partition> <size>
+	resize-logical-partition <partition> <size>
+```
+	没想象中那么简单， 解决了system.img 的刷入问题， 同样不能启动.
 
