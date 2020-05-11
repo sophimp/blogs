@@ -172,6 +172,8 @@ none                            2.7G     0  2.7G   0% /sys/fs/cgroup
 /sbin/.magisk/block/data        107G  7.5G   99G   8% /sbin/.magisk/mirror/data
 /data/media                     107G  7.5G   99G   8% /mnt/runtime/default/emulated
 
+dtbo image: /dev/block/sde47
+
 
 /dev/block/by-name
 
@@ -235,4 +237,70 @@ adb reboot fastboot # 在system下， 重启进入fastbootd模式， 在 recover
 	resize-logical-partition <partition> <size>
 ```
 	没想象中那么简单， 解决了system.img 的刷入问题， 同样不能启动.
+
+	添加动态分区， 编译不过去, 在releasescripts 下的脚本会出错. 
+
+
+## Mon 11 May 2020 10:07:49 AM CST
+
+**android 10.0 启动的过程:**
+
+	先从bootloader 启动， 这里还有一个fastboot 和 fastbootd 之分, 
+
+	加载内核, 这里还有一个ramdisk.img, 是放在boot.img 还是 system.img, 以BOARD_SYSTEM_AS_ROOT 
+
+
+**avb 2.0启动验证**
+
+	接着昨天的继续， 之所以不放在昨天， 就先使用流水帐的方式记录，看看效果。 
+
+	avb 启动验证，从固件的只读部分启动。
+
+	VBMeta, 包含很多描述符(boot payload, system payload hashtree, vendor..., userdata, other partitions), 都以加密方式签名。 
+
+	这些签名需保证同一个, 否则会验证不通过， 所以， 要么所有分区都替换， 要么不使用avb签名? 还是每个分区可以使用不同的签名， VBMeta 带有签名吗？ 
+
+	VBMeta分区要不要变呢?
+
+	dm-verity
+
+	内核命令 -> 设备树/设备树叠加层 -> 验证启动
+
+**ramdisk**
+
+	ramdisk 就是内存中的root文件压缩后生成的文件，其中有一个init.rc 命令文件，用于启动初始化创建好文件目录， 然后再根据 fstab 挂载相应的目录？ 
+
+
+使用缓存的miui 开发版，也不能在recovery里安装，且zip 还不能解压
+
+**apex 文件格式**
+
+	也是 android 10.0 带来的一种容器格式， 编译需要内核支持 
+	用来帮助更新不适用于标准 Android 应用模型的系统组件。 暂时先不管， 不影系统的移植
+
+**dto/dtbo**
+
+	dtbo.img, 在哪里去拿, 是因为我的dtbo不全吗导致的编译错误？ 明显是找不到recovery.img
+
+	官方的boot.img 解压出来的只有initrd.img, 没有dtbo.img, 但是在redmi_lmi_dumps 里有dtbo.img, dtbo.img 为只读文件， 不可写。 
+	
+	这说明官方编译走的还是 system_as_root = false, ramdisk.img 放在了boot.img里  
+
+	解压出来的 boot.cfg 可以补充修正 kernel 的配置
+	
+**[recovery img](https://source.android.google.cn/devices/bootloader/recovery-image?hl=zh-cn)**
+
+	非a/b设备的recovery.img
+	acpio 与 dtbo, 两种架构来描述无法检测到的设备。 
+	android 9.0+ 的recovery.img 格式如下:
+		启动头文件	(1页)
+		内核		(l页)
+		Ramdisk		(m页)
+		第二阶段	(n页)
+		恢复DTBO	(o页)
+		后面的lmno只是变量吗？ dtbo.img 要放在第二阶段 
+
+	现在小米的boot.img 中就没有放 dtbo. 只有 前面三个, 后面两个本来也就是放在recovery.img 中的, 那么刚才编译recovery生成不了， 是不是因为dtbo.img的问题呢？ 
+
+	
 
