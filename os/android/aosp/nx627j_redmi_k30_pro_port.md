@@ -302,5 +302,30 @@ adb reboot fastboot # 在system下， 重启进入fastbootd模式， 在 recover
 
 	现在小米的boot.img 中就没有放 dtbo. 只有 前面三个, 后面两个本来也就是放在recovery.img 中的, 那么刚才编译recovery生成不了， 是不是因为dtbo.img的问题呢？ 
 
-	
+###	Tue 12 May 2020 09:48:23 AM CST
+
+recovery 添加了配置， 编译不过去
+
+odm, product 添加了配置， 编译不过去
+
+	can not make seperate image
+
+boot 因为dtb, dtbo的问题， 也编不过去， 这个添加预编译， 或者在 Image.gz 后面加一个-dtb,  能解决问题， Image.gz-dtb
+
+[liblp] Block device system size must be a multiple of its block size.
+
+	这个错误搞半天， 还是因为英语水平的问题。 明明说的就是， system 的size 一定要是 block size 的倍数。 
+
+[update 升级原理分析](https://blog.csdn.net/u013306216/article/details/102570202)
+
+动态分区 一直影响编译过不去
+
+	vendor is in target super_qti_dynamic_partitions_partition_list but no BlockDifference object is provided.
+
+	先将qti_dynamic_partition 里只留system试一试， 其他的要怎么加? 
+
+	只留system 确实可以刷机了， 但是product, vendor, odm 分区挂载不上， 刷了一半机，当然还是启动不了
+
+	在test_common.py 中发现了蛛丝蚂迹，官方的教程是我没看明白？ 为何与代码中的不一样呢？ 
+	事情同样没有那么顺利， 继续看源码吧， 不要一味地期待这一次就能过， 试验加看源码. 
 
