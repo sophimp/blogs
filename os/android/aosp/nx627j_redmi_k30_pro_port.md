@@ -329,3 +329,74 @@ boot 因为dtb, dtbo的问题， 也编不过去， 这个添加预编译， 或
 	在test_common.py 中发现了蛛丝蚂迹，官方的教程是我没看明白？ 为何与代码中的不一样呢？ 
 	事情同样没有那么顺利， 继续看源码吧， 不要一味地期待这一次就能过， 试验加看源码. 
 
+### Wed 13 May 2020 09:20:23 AM CST
+
+当前编译，动态分区不带 vendor, product, odm 可以编译成功， 但是刷机完， 不能正常挂载 vendor, product, odm 分区。
+带上这些动态分区， 又编译不通过， 这个问题需要继续搞。 
+
+直接将编译出来的system.img, boot.img, recovery.img 刷机都不能正常工作。 今天先搞一搞内核编译，将boot.img 这一块搞定。
+这里应该也能搞明白加密的方式？ 
+
+**lmi 内核编译**
+
+	小米官方并不是没有出怎么编译内核的脚本， 只是我自己没找到。 MiCode的仓库， 还待再挖掘.
+
+	envsetup.sh 补充配置编译环境
+	build.sh
+	buildkernel.sh
+
+	初步从名字上看， 调用先后顺序是 envsetup.sh -> buildKernel.sh / build.sh
+
+	buildkernel.sh 和 build.sh 为何要有两个， build.sh 是否包括了buildkernel的功能
+
+添加dts
+
+	在已有dts的情况下
+	enable interfaces, 打开dts 所描术的接口， 这一步移植时候是否需要再做?
+	copy hardware components, 复制对应芯片/设备的硬件组件
+	添加自定义的hardware, 检查硬件的驱动是否已经存在， 
+		检查 Documentation/devicetree/bindings, 小米的kernel中没有这个文件, 但是开源的device tree 中有这个文件夹， 要放在哪里呢？ 
+		直接在dtsi 下创建一个vendor 文件夹，然后直接copy过去。。。在dts 下的makefile 已经有检查vendor
+	编译platform device tree, 将device tree file 添加到makefile中
+
+	但是在device 的配置下要如何编译, 这也是一个问题
+
+添加driver
+
+	仓库名已经说明了要添加在哪里 vendor_qcom_opensource_data-kernel, 自建一个data-kernel
+
+Non-symlink out/target/product/lmi/system/product detected!
+You cannot install files to out/target/product/lmi/system/product while building a separate product.img!
+
+	TARGET_COPY_OUT_VENDOR := system/vendor
+	TARGET_COPY_OUT_PRODUCT := system/product
+	TARGET_COPY_OUT_ODM := system/odm
+
+	但是这样， 又不能使用vendor.img, 导致后面的 dynamic时， product, odm, vendor 都没有了。
+
+	既然是没有 symlink, 那就手动创建一个symlink, 这也是可以的。。。
+
+AssertionError: product is in target super_qti_dynamic_partitions_partition_list but no BlockDifference object is provided.
+
+	又回到这个问题了
+	最后看来 TARGET_COPY_OUT_VENDOR,  TARGET_COPY_OUT_PRODUCT, TARGET_COPY_OUT_ODM 这几个变量配合 
+	BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE... 这几个变量, 再修改脚本(后续官方应该会修复吧， 或者我直接gerrit 修复一下？)
+	build/make/tools/releasetools/ota_from_target_files.py 中只检测了 system 和 vendor的
+	redmi k30 pro 的qti_dynamic_partitions 分组里包括四个的, 所以，不能迷信官方，官方也是在不断增加新的特性的， 这里的特性应该就属于没有来得及添加吧。
+	遇到问题 还是要这样一个个的解决， 不然， 一天两天还是陷在原地，有了源码的情况下，从源码着手解决问题，虽然可能慢点， 但是靠谱的
+	
+avbtool add_hash_footer: error: argument --partition_size: expected one argument
+
+	先给avb_enable关掉, 试试可否正常刷机, 不能正常启动的时候
+
+TypeError: unsupported operand type(s) for *: 'NoneType' and 'float'
+
+	这里要看具体的源码， 某个字段是非整型，然后查看对应的BoardConfig.mk 里是否有相关字段未设置
+	还是要设置cache_size大小, 对应BoardConfig.mk 中BOARD_CACHEIMAGE_PARTITION_SIZE
+
+fatal: No names found, cannot describe anything.
+FAILED: ninja: 'out/target/product/lmi/system/system/vendor', needed by 'out/target/product/lmi/obj/NOTICE.html', missing and no known rule to make it
+	
+	是因为删掉 system/vendor 的缘故？  为何vendor.img 不能编译出来了， 感觉应该是添加修改了 device/../Android.mk 的创建symlink的原因
+	所以就先手动删除掉 system/vendor， 然后再创建一个链接， 发现不行了。 
+
