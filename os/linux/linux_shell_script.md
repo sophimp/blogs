@@ -81,6 +81,17 @@ sed 命令配合正则, 使用得挺多
 	${variable##pattern}, variable是否以pattern结尾, 是则去掉variable左边最长的pattern匹配部分
 	这四种模式都不会改变variable的值
 
-4. 
 
-- 练习
+### 调试
+
+[Shell 脚本调试技术](https://www.ibm.com/developerworks/cn/linux/l-cn-shell-debug/index.html)
+
+1. trap 命令
+2. tee 命令
+3. 调试钩子
+4. set 
+
+	-n 只读取shell脚本，但不实际执行
+	-x 进入跟踪方式，显示所执行的每一条命令
+	-c "string" 从strings中读取命令
+	$PS4 $LINENO $FUNCNAME

@@ -384,10 +384,6 @@ AssertionError: product is in target super_qti_dynamic_partitions_partition_list
 	build/make/tools/releasetools/ota_from_target_files.py 中只检测了 system 和 vendor的
 	redmi k30 pro 的qti_dynamic_partitions 分组里包括四个的, 所以，不能迷信官方，官方也是在不断增加新的特性的， 这里的特性应该就属于没有来得及添加吧。
 	遇到问题 还是要这样一个个的解决， 不然， 一天两天还是陷在原地，有了源码的情况下，从源码着手解决问题，虽然可能慢点， 但是靠谱的
-	
-avbtool add_hash_footer: error: argument --partition_size: expected one argument
-
-	先给avb_enable关掉, 试试可否正常刷机, 不能正常启动的时候
 
 TypeError: unsupported operand type(s) for *: 'NoneType' and 'float'
 
@@ -400,3 +396,35 @@ FAILED: ninja: 'out/target/product/lmi/system/system/vendor', needed by 'out/tar
 	是因为删掉 system/vendor 的缘故？  为何vendor.img 不能编译出来了， 感觉应该是添加修改了 device/../Android.mk 的创建symlink的原因
 	所以就先手动删除掉 system/vendor， 然后再创建一个链接， 发现不行了。 
 
+	就是 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE 的问题， 之前是将字段写错了, 这也是没有提示的一个大问题。 
+
+### Thu 14 May 2020 09:33:32 AM CST
+
+编译是一个流程， 最后打包的脚本是另一个流程，所谓的打包脚本就是将所有的资源集中在一起生成更新脚本， 大部分更新脚本也就是设置环境变量， copy操作
+应用管理软件呢？ 多一个卸载与清理的工作。 
+
+ROM移植所涉及的语言
+
+	c/c++, java, makefile, shell, python, go, perl, xml, vim script
+
+ROM移植所涉及的工具
+
+	prebuilts toolchain,  shell cmd, vim 一个代码查看神器, 
+
+avbtool add_hash_footer: error: argument --partition_size: expected one argument
+
+	先给avb_enable关掉, 试试可否正常刷机, 不能正常启动的时候
+	关掉确实不可以正常刷机， 如何配置？  
+[build-system-integration](https://android.googlesource.com/platform/external/avb#Build-System-Integration)
+	需要配置 bootimage, dtbo, recovery的partition size, 如 BOARD_BOOTIMAGE_PARTITION_SIZE
+
+/home/hrst/aosp/lineage-17_0_1/out/host/linux-x86/bin/avbtool: Error getting public key: unable to load Public Key
+
+	avb 的pubkey 要怎么配置， pubkey 与 x509.pem 是保持致的吗？ 
+
+
+[avb2.0 README](https://android.googlesource.com/platform/external/avb/+/master/README.MD)
+
+avb 的启动流程怎么关闭？ 为何关掉了也还是进入不了boot
+
+avb 验证是fastboot 负责？ 
