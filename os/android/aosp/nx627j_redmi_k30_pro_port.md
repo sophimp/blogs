@@ -181,9 +181,11 @@ dtbo image: /dev/block/sde47
  secdata -> /dev/block/sde11
  super -> /dev/block/sda32
  userdata -> /dev/block/sda34
+ vbmeta -> /dev/block/sde16
  vbmeta_odm -> /dev/block/sde27
  vbmeta_product -> /dev/block/sde26
  vbmeta_system -> /dev/block/sde17
+ vbmeta_vendor -> /dev/block/sde25
 
 
 ### Sun 10 May 2020 10:53:06 AM CST
@@ -425,6 +427,55 @@ avbtool add_hash_footer: error: argument --partition_size: expected one argument
 
 [avb2.0 README](https://android.googlesource.com/platform/external/avb/+/master/README.MD)
 
-avb 的启动流程怎么关闭？ 为何关掉了也还是进入不了boot
+### Fri 15 May 2020 10:50:03 AM CST
 
-avb 验证是fastboot 负责？ 
+avb 的启动流程怎么关闭？ 为何在recovery关掉了也还是进入不了boot? avb 验证是fastboot 负责？ 
+
+```sh
+	fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
+```
+	果然是有一步这样的操作的， 原来还要刷掉vbmeta.img
+
+	[如何刷入android Q gsi 到treble设备](https://www.androidjungles.com/how-to-install-android-q-gsi-on-project-treble-devices/)
+
+```sh
+	# 检查是否支持 treble : 
+	adb shell getprop ro.treble.enabled
+	# 检查是否兼容 Andoird Q GSI, 
+	adb shell 
+	cat /system/etc/ld.config.29.txt | grep default.isolated 
+	# 看 namespace.defualt.isolated=true 说明该设备兼容 Android Q GSI
+
+	# 待尝试
+	adb disable-verity
+	adb enable-verity
+```
+
+刷了vbmeta.img 不管是关不关 验证， 都进入不了开机动画， 看来kernel与system 的编译还是都有问题, 哪里出了问题呢？ 
+
+system_as_root 到底是true 还是不设置呢？ 
+
+换一个内核源码编译试试， 打的补丁好像更多一些.
+
+	缺少一些文件 .S, .i 文件， 感觉这个内核也有些不靠谱， 先给错误解决， 编着试一试吧。。。
+
+vbmeta.img 是否需要刷
+
+	刷了也不管用， 但是刷google 的GSI 貌似还有点用，至少可以进系统启动页了
+	这个还真不太好搞，关键是没啥头绪
+
+刷GSI的img
+
+	在fastbootd模式下
+```sh
+	fastboot -u flash system name_of_system.img
+```
+
+avb 2.0 
+
+	刷机启动不了， 最有可能的还是这里的问题, 
+
+	vbmeta 记录了所有待验证分区的元数据, hash，sha512_r4096
+
+SEAndroid
+	
