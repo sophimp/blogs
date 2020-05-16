@@ -186,7 +186,9 @@ dtbo image: /dev/block/sde47
  vbmeta_product -> /dev/block/sde26
  vbmeta_system -> /dev/block/sde17
  vbmeta_vendor -> /dev/block/sde25
-
+dev/block/sda18 on /metadata type ext4 (rw,seclabel,relatime)
+/dev/block/sda34 on /data type f2fs (rw,lazytime,seclabel,relatime,background_gc=on,discard,no_heap,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,extent_cache,mode=adaptive,active_logs=6,alloc_mode=default,fsync_mode=posix)
+/dev/block/sda34 on /sdcard type f2fs (rw,lazytime,seclabel,relatime,background_gc=on,discard,no_heap,user_xattr,inline_xattr,acl,inline_data,inline_dentry,flush_merge,extent_cache,mode=adaptive,active_logs=6,alloc_mode=default,fsync_mode=posix)
 
 ### Sun 10 May 2020 10:53:06 AM CST
 
@@ -432,6 +434,7 @@ avbtool add_hash_footer: error: argument --partition_size: expected one argument
 avb 的启动流程怎么关闭？ 为何在recovery关掉了也还是进入不了boot? avb 验证是fastboot 负责？ 
 
 ```sh
+	# 只能在userdebug编译的 ROM 下使用
 	fastboot --disable-verity --disable-verification flash vbmeta vbmeta.img
 ```
 	果然是有一步这样的操作的， 原来还要刷掉vbmeta.img
@@ -479,3 +482,104 @@ avb 2.0
 
 SEAndroid
 	
+### Sat 16 May 2020 09:16:38 AM CST
+
+avb 原理
+	
+	avb 是用来起启动验证各个分区的一套机制, 根据需要验证想验证的分区， 待验证的分区信息都记录在vbmeta分区，但是android不同的分区好像还有vbmeta_partition? 
+	
+	使用什么来验证呢？ 有加密算法， 还有hash值, 还有hashtree, 加密签名。 
+
+	vbmeta 分区， boot的哈希值， system, vendor...的hashtree，为何还会有hashtree? 保存每个文件的hash值，所以这个原则就是每个文件都得验证.
+	这样一来， 如果还想共用其他分区， vbmeta 分区还不能统一刷？ 为了兼容GSI， 所以才会有vbmeta_system, vbmeta_vendor? 那为何google 的GSI刷进去也同样启动不了呢？ 
+	vbmeta 本身也是被签名的, 签名会有加密功能吗？ 还是说也只是验证当前apk
+
+	刷完vbmeta, boot.img 还能进去， 说明什么呢？ boot.img 的hash值没有放在vbmeta? 那为何我的系统又启动不了呢？ 为何关掉avb 还是进不去呢？ 
+	是没有关成功，还是我编译的系统和boot.img 有问题，大概率可能是后者。 
+
+	如何去查看每个分区的构成, 允许单独更新一个分区， 前提是更新的分区签名保持不变。 不然还是不能验证。 
+
+	链式分区的结构是什么， 只会记录分区名字 和 签名公钥？ 
+
+	vbmeta 不存在加密， 只负责验证每个分区文件的完整性。 所以，如果能查看vbmeta 并手动修改， 也可以达到启动的目的， 
+	查看vbmeta
+
+	回滚保护, 如果只是一个index验证, 有什么用呢？ 能防止正常升级，降级的问题， 但是假如强制刷一个低的index, 是不是意味着也可以降级？ 
+	是跟version 一样的， 已存在的apk, 只能安装 >= version 的apk升级而不能降级。 
+
+	vbmeta 还有一个digest, 这么多验证？ 目的为何？ 
+
+	avbtool 主是要用来生成vbmeta.img， 用来验证boot分区， system分区，及其他分区， vbmeta 分区中还可以包含其他分区的公钥， 间接性授权。 
+
+	有公钥，没有私钥， 也不能保证相同的加密， 所以更新vbmeta 分区可以取消这种验证， 这又回到了查看与修改vbmeta 数据。
+
+	可以直接刷system.img 以及 vbmeta_system 分区， 这意味着， 可以直接更新system.img 而不管其他分区？ 先刷回原系统看一看是否还会重新启动... 
+
+	如何编译得到system 的vbmeta呢？ 
+
+	dm-verity 是第一代avb吗？ 
+		如何确认dm-verity关闭 adb shell mount , 可看到 vendor, system 分区挂载上了
+
+	需要vbmeta 分区和vbsystem 分区同时关掉验证才可以, 看来刷机有望了。 但愿其他分区没有再验证。 所以这是小米手机为第三方ROM留了一点希望？ 
+	
+	HLOS 是什么
+
+	Persistent Digest 
+		需要放到内核 cmdline 中更新？ 
+
+	内核版本大于4.9 必须要开始avb2.0, recovery, system 默认为chain, 其他的默认为hash
+
+**dm-verity**	
+
+	device mapper, 是一个虚拟块设备，专门用于文件系统的校验. 
+	
+	dm-verity, 与 avb 同时验证， dm-verity 验证的块有 /， /product, /vendor, /odm, /data, 看来product 与vendor 
+
+	内核不要编译dm-verity, boot.img， 与vbmeta 分区都不开始 dm-verity, 与 avb, 会可行吗？ 到底是系统不行还是验证不通过？ 
+
+	1. 创建 ext4 类型的system.img 
+	2. 为system.img 创建hashtree
+	3. 为hashtree 再创建一个 dm-verity table
+	4. 为 dm-verity table 再签名
+	5. 将dm-verity table 与其签名打包到 verity metadata
+	6. 将system.img, dm-verity metadata, hashtree 组合在一起
+
+	可以不管dm-verity 吗？ 合部替换掉dm-verity所在的分区， 是不是也可以达到目标？dm-verity 相关的验证信息都放在对应的img中， 那也不应该会影响验证啊
+	所以， 启动不了不是dm-verity验证的原因。
+
+	android 7.0 以前， dm-verity验证不通过， 还会提示是否继续，android 7.0 以后， 不通过直接重启到fastboot
+
+	dm-verity 是集成内核的驱动程序, 用于大分区的验证。 
+
+**android 验证启动流程**
+
+[验证启动](https://source.android.google.cn/security/verifiedboot?hl=zh-cn)
+
+	确保所有已执行代码均来自可信来源, 以防止遭受攻击扣损坏。 
+
+	从受硬件保护的信任根到引导加载程序，再到启动分区和其他已验证分区(system, vendor, oem) 的完整信任链。 
+
+	必须得先从这里突破了， 验证越来越多， 还真不知道是哪种原因导致启动不了. 
+
+	受硬件保护的信任根应该不用管，可修改吗？ 可以自定义。 
+	加密算法还是有些迷， 信任根密钥放在手机上，不可以读到吗？ 受硬件保护是硬件加密？ 既然在验证的时候还要读取信任根， 那么应该也能在读的时候dump下来啊？ 不读取信任根， 怎么保证计算的hash值一样呢? 公钥吗? 即然公钥算的hash值能一样， 为何不能用公钥来加密呢?然后将值写回去呢？
+	信任根只能硬件厂商的程序来读， 剩下的交给fastboot 来验证? 那这样的话，其他分区的加密又是如何与信任根联系的呢？
+
+	引导加载程序 到启动分区， 这里一盘先经过dm-verity 验证， 再经过avb 验证. 
+
+	boot, dtbo等小分区，是直接加载到内存， 实时计算hash值来校验 
+	预期的hash值是放在vbmeta分区或者分区的末尾或开头， 或同时以上两个位置. 
+	最重要的是这些什是由信任根以直接或间接的方式签名的。 所以，自定义的ROM必须得关掉这个验证？ 或者走自己设置信任根的验证？ 
+
+	从这里看， 还是要全面禁掉验证才行。
+
+	启动状态传达给用户： 怎么在小米上就没看到这一屏， 是没有进入到这一步？
+
+	黄色： 设有自定义信任根的已锁定的设备屏幕警告。 
+	橙色： 针对未锁定设备的警各屏幕。
+	红色(EIO)： 针对dm-verity损坏的警告屏幕。
+	红色(未找到操作系统): 未找到有效的操作系统
+
+	引导加载程序通过内核命令androidboot.verifiedstate 将启动时验证状态传达给Android. 设置为 greend, yellow, oragne. 
+	这应该是在开发时使用，如何获取到这个值呢？ 
+
