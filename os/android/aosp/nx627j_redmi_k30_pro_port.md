@@ -379,6 +379,13 @@ You cannot install files to out/target/product/lmi/system/product while building
 	但是这样， 又不能使用vendor.img, 导致后面的 dynamic时， product, odm, vendor 都没有了。
 
 	既然是没有 symlink, 那就手动创建一个symlink, 这也是可以的。。。
+	最终的解决办法是 去掉 PRODUCT_BUILD_PRODUCT_IMAGE := true 的配置
+	然后再设置
+	TARGET_COPY_OUT_VENDOR := vendor
+	TARGET_COPY_OUT_PRODUCT := product
+	TARGET_COPY_OUT_ODM := odm
+
+	如果还是会出现，至对应的文件夹下查看是否已存在同名的文件夹， 若出现, 删险即可。 
 
 AssertionError: product is in target super_qti_dynamic_partitions_partition_list but no BlockDifference object is provided.
 
@@ -583,3 +590,45 @@ avb 原理
 	引导加载程序通过内核命令androidboot.verifiedstate 将启动时验证状态传达给Android. 设置为 greend, yellow, oragne. 
 	这应该是在开发时使用，如何获取到这个值呢？ 
 
+## Mon 18 May 2020 03:01:39 PM CST
+
+** DTB/DTBO **
+
+	也是有可能造成设备不启动的原因。
+
+	先使用official rom dump 下来的 dt.img kernel 和 dtbo.img 但愿能工作吧。
+
+	真要是工作了, 说明问题还是出在kernel编译上
+
+ld.lld: error: out/target/product/lmi/obj/STATIC_LIBRARIES/libc++_static_intermediates/libc++_static.a(locale.o): invalid sh_type for string table, expected SHT_STRTAB
+
+	很大可能是之前做的尝试的库，链接来了， 缓存没清掉。 清理 .soong 和 out/target/product/ 下对应 locale.o, 和 libc++_static.a 的缓存
+	
+prodcut 分区必须得要么？ lineage 要为product分区填了什么?
+
+	先不带product试一试，/vendor, /product, /odm 这些还是会存在分区挂载不上的问题。 
+
+	不带分区， 升级包太小了， 带分区， 一下子多了46000+的源码加入编译，看来product是必须要编译的
+
+product, vendor, odm system
+
+	system, product 是必须要编译的， vendor 虽然内容不多， 但是为了凑分区， 也还是要带, odm 基本上也没啥东西， 同样带上. 
+	但是如果还是不能刷机，那也得每个组合都试一试
+	对比官方脚本， dynamic partition 里四个分区都带了. 
+	但是最后刷vbmeta 分区的时候， 只更新了 system, vbmeta_system, 因此， 我也不必再去编译 vbmeta_product, vbmeta_odm, vbmeta_vendor分区
+
+	mkbootimg 工具里有 --dtb 选项， 这里使用dt.img 不行， 那就先换成里面的dtb试一试, 里面有4个dtb, 其中三个是不同的版本， 另一个名字还乱码了。
+	四个一起加入dtb, 搞得recovery.img 过大， 编译不过去，那么就先使用最高版本与最高版本和乱码名字组合来编译试一试。 
+
+avbtool make_vbmeta_image: error: argument --include_descriptors_from_image: expected one argument
+
+	这个错误， 是动态分区里的image没有编译全, 如
+	BOARD_QTI_DYNAMIC_PARTITIONS_PARTITION_LIST := system product vendor odm
+	就需要将该四个分区的image都得编译出来。 
+	编译分区image需配置
+	BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+	BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+	BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
+	TARGET_COPY_OUT_VENDOR := vendor
+	TARGET_COPY_OUT_PRODUCT := product
+	TARGET_COPY_OUT_ODM := odm	
