@@ -632,3 +632,29 @@ avbtool make_vbmeta_image: error: argument --include_descriptors_from_image: exp
 	TARGET_COPY_OUT_VENDOR := vendor
 	TARGET_COPY_OUT_PRODUCT := product
 	TARGET_COPY_OUT_ODM := odm	
+
+### Tue 19 May 2020 10:05:06 AM CST
+
+**dtc dtb dts**
+
+	如何将多个dtb集成一个呢？ dtc 可以将  dtb -> dts,  那么如何将多个dts集成一个呢？
+	dtc 使用方法查看 dtc -h 即可
+
+	目前dtc都是一对一的转换。合并的话，只能通过diff, 相同的节点以最新的为主，不同的节点都手动加进来. 
+
+	dtc 还可以直接从运行的系统中dump下来dts.
+
+** boot.img**
+	
+	使用预编译dtb, dtbo.img 可以启动， 但还是有很多驱动找不到， 打不开应用, 只能呆在桌面。 
+
+	看官方公布的dtsi 也都是全的， 为何源码编译的就不行呢？ 至少应该dtbo 是OK 的, 先将预编译的搞定， 再接着搞源码
+
+make: O=/home/hrst/aosp/lineage-17_0_1/out/soong/.temp/sbox144823481: No such file or directory.  Stop.
+	
+	这个问题是因为 device.mk 下的 PRODUCT_PACKAGES 里有的库依赖不全， 去掉或者添加完整依赖即可。 
+
+**系统启动**
+
+	boot.img 是正常的， recovery是正常的， 现在系统卡在欢迎界面的前一个步骤。 所以，验让的问题应该是过了， 问题出在系统启动. 
+	至于
