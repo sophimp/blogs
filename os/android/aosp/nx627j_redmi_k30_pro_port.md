@@ -657,4 +657,30 @@ make: O=/home/hrst/aosp/lineage-17_0_1/out/soong/.temp/sbox144823481: No such fi
 **系统启动**
 
 	boot.img 是正常的， recovery是正常的， 现在系统卡在欢迎界面的前一个步骤。 所以，验让的问题应该是过了， 问题出在系统启动. 
-	至于
+
+
+### Wed 20 May 2020 12:03:44 PM CST
+
+**卡在boot logo**
+
+	卡在boot logo 这里
+
+	/proc/last_kmsg 手机里并没有，但是有last_mcrash
+	/cache/recovery/last_log
+	/proc/kmsg
+	/dev/log
+	
+	并没有看到什么有效的信息。 
+	补充system,vendor lib, lib64, bin 也没有个标准， 难不成几千个库都要一个个校对么。 关键因素还不在这里。 卡在boot logo 也可能是userdata 分区格式不对。是因为recovery 刷机格式命令不对？ 这条路也暂时只能放弃，一时间怎么去搞通recovery.
+	
+	基本可以确定，是新编的系统userdata分区的原因, 每次卡在boot logo, 再进入recvoery, 就看不到data分区了. 重新格式化就能看到了
+
+	加入了BOARD_DYNAMIC_PARTITION_RETROFIT := true, 挂载/odm 不行，不懂的选项， 宁愿不加，格式化一下 data 分区就可以了，看来odm, 不仅仅是动态分区里的。与data分区也有关系。 
+
+	fstab 的修改并没有起作用， 但是可以确定就是userdata分区不能正确格式化的问题
+
+build/make/core/Makefile:28: error: overriding commands for target out/target/product/lmi/vendor/lib/libgui_vendor.so', previously defined at build/make/core/base_rules.mk:480
+
+	这里是base_rules.mk 里本地编译的module(Android.mk, Android.bp) 与 proprietary-file.txt 或 device.mk 中的库重复了，删除掉任意一方中重复的部分即可
+	问题是如何拿到 本地编译的模块呢？
+	根据日志中的行数， 将本地模块打印出来是否可行, 可行， 但是本地编译的库太多了， 人工校对是不可行的
