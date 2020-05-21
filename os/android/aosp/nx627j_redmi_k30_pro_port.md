@@ -653,6 +653,7 @@ avbtool make_vbmeta_image: error: argument --include_descriptors_from_image: exp
 make: O=/home/hrst/aosp/lineage-17_0_1/out/soong/.temp/sbox144823481: No such file or directory.  Stop.
 	
 	这个问题是因为 device.mk 下的 PRODUCT_PACKAGES 里有的库依赖不全， 去掉或者添加完整依赖即可。 
+	我这里是因为 BoardConfig 中关于wifi的配置导置的
 
 **系统启动**
 
@@ -684,3 +685,22 @@ build/make/core/Makefile:28: error: overriding commands for target out/target/pr
 	这里是base_rules.mk 里本地编译的module(Android.mk, Android.bp) 与 proprietary-file.txt 或 device.mk 中的库重复了，删除掉任意一方中重复的部分即可
 	问题是如何拿到 本地编译的模块呢？
 	根据日志中的行数， 将本地模块打印出来是否可行, 可行， 但是本地编译的库太多了， 人工校对是不可行的
+
+### Thu 21 May 2020 09:11:52 AM CST
+
+**userdata 分区的格式化**
+
+	fstab 起没起作用
+	rc 文件入手
+	gerrit 搜索
+
+	是否是userdata 分区的原因？ 修改了fstab, 还是会卡在boot logo，再重启到recovery, data 分区也是好好的。 但是还是进不去系统
+	将miui相关的rc 拷贝过去？ 感觉应该不是这个问题吧。
+
+	修改fstab 是一个错误的方向？ 挂载不应该是, bootdevice, 与 platform/soc/ 下的具体芯片型号有何不同？
+	
+host_init_verifier: device/xiaomi/lmi/rootdir/etc/init.qcom.rc: 577: Unable to find UID for 'vendor_qrtr': getpwnam failed: No such file or directory
+host_init_verifier: device/xiaomi/lmi/rootdir/etc/init.qcom.rc: 578: Unable to decode GID for 'vendor_qrtr': getpwnam failed: No such file or directo
+
+	rc 文件缺少group 怎么办, 在 config.fs 里配置
+
