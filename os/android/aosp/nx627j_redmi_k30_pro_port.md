@@ -30,9 +30,14 @@ Lineage OS 相对于 Mokee 更加纯粹一些, 为了技术和便利。 Mokee �
 
 ### red mi k30 pro
 
-Q: biso, flex path tool is not allowed to be used
+Disallowed PATH tool "ld" used: 
+"bison" is not allowed to be used. See https://android.googlesource.com/platform/build/+/master/Changes.md#PATH_Tools for more information.
+"flex" is not allowed to be used. See https://android.googlesource.com/platform/build/+/master/Changes.md#PATH_Tools for more information.
 
-A: export TEMPRORARY_DISABLE_PATH_RESTRICTIONS=true
+	export TEMPRORARY_DISABLE_PATH_RESTRICTIONS=true
+
+	还不能简单报就直拉disable, 看日志涉及到dtc 的编译， 所以，为何内核的源码编译不过， 可能是这里的问题
+	[内网可访问链接](https://github.com/aosp-mirror/platform_build/blob/master/Changes.md)
 
 进展比较顺利, soong编译链工具的问题， 竟然都给了链接, 虽然没有细看具体是为什么， 但是不妨碍解决了问题
 
@@ -654,6 +659,9 @@ make: O=/home/hrst/aosp/lineage-17_0_1/out/soong/.temp/sbox144823481: No such fi
 	
 	这个问题是因为 device.mk 下的 PRODUCT_PACKAGES 里有的库依赖不全， 去掉或者添加完整依赖即可。 
 	我这里是因为 BoardConfig 中关于wifi的配置导置的
+	主要还是因为编译了wlan, 但是使用的是预编译的kernel, 没有kernel_include导致的, 加入内核源码编译就没有此问题
+	
+	然而目前使用lmi的源码，编译出来的boot.img 不能用. 大概率是dtb的问题， dtb又跟path_tool 有关。所以，得继续解决bison, flex等path_tool问题
 
 **系统启动**
 
@@ -697,10 +705,55 @@ build/make/core/Makefile:28: error: overriding commands for target out/target/pr
 	是否是userdata 分区的原因？ 修改了fstab, 还是会卡在boot logo，再重启到recovery, data 分区也是好好的。 但是还是进不去系统
 	将miui相关的rc 拷贝过去？ 感觉应该不是这个问题吧。
 
-	修改fstab 是一个错误的方向？ 挂载不应该是, bootdevice, 与 platform/soc/ 下的具体芯片型号有何不同？
+	修改fstab 是一个错误的方向？ bootdevice, 与 platform/soc/ 下的具体芯片型号有何不同？
 	
 host_init_verifier: device/xiaomi/lmi/rootdir/etc/init.qcom.rc: 577: Unable to find UID for 'vendor_qrtr': getpwnam failed: No such file or directory
 host_init_verifier: device/xiaomi/lmi/rootdir/etc/init.qcom.rc: 578: Unable to decode GID for 'vendor_qrtr': getpwnam failed: No such file or directo
 
 	rc 文件缺少group 怎么办, 在 config.fs 里配置
 
+### Fri 22 May 2020 10:11:53 AM CST
+
+**系统的启动流程**
+
+	还是得从整个流程分析一下， 到里是为何卡住
+	bootloader |-> system 
+				|->boot: kernel -> ramdisk 
+				|- > init -> init.rc -> zygote
+					|-> services: bootanimation
+
+	充电流程OK了， 说明vbmeta_system := system product, vendor, odm 这个思路是正确的，接下来补充lib, 与 lib64 这个思路应该也是正确的。
+	fstab 能在recovery启动好， 说明也是正确的, init.rc 不是我来定制的，大概率也是OK的
+
+	init.qcom.rc 什么时候加载呢，是这个文件的问题么？ 直接在stock rom 里dump下来的， 按说也没什么问题,  
+
+	根据vbmeta_system 的设置，chain_parition应该是包含 vendor 与 product 预编译库如何补全，是不是因为这的问题呢?
+
+	qcom, qcom-caf 下的包， 也可能是这个原因，目前只有sm8150, 找到8250的包试一试
+
+	还是没有启动起来， 明天只有继续比对boardconfig.mk device.mk proprietary-file.txt 来解决问题了，应该就是这里面哪个没有配好
+
+**sm8250 qcom-caf 打包**
+
+	看来很有可能是这个问题， 得打个包试一试
+	如何打包呢？ 先得找到发布的相关路径，之前google 上也搜索到过， 然后都是tag, 不会check 然后就放弃了
+	搜索一下如何得到tag的代码就好了. 自己动手， 丰衣足食。
+	
+```sh
+	# 查看tag
+	git tag 
+	# check tag 需要创建一个分支
+	git checkout -b <branch name> <tag name>
+```
+	感觉很有可能是这个问题， 
+	并不是这个问题，添加了sm8250 的qcom-caf 的库， 与使用预编译好的 so库效果一样。 so为不需重新链接。
+
+	卡在系统启动不了，至底是因为什么呢？display相关的库， 按说也在qcom-caf里编译了
+
+**kernel**
+	
+	官方开源的kernel没有问题，主要还是dtb与dtbo的问题。 
+	ramdisk也没有问题，说明 fstab.qcom 也没有问题
+	
+	dtb的问题， 很可能就是path_tools 的问题， 需要使用clang? 不能使用 ld, bison, flex, gcc, 如何替换编译工具。
+	
