@@ -660,7 +660,7 @@ make: O=/home/hrst/aosp/lineage-17_0_1/out/soong/.temp/sbox144823481: No such fi
 	这个问题是因为 device.mk 下的 PRODUCT_PACKAGES 里有的库依赖不全， 去掉或者添加完整依赖即可。 
 	我这里是因为 BoardConfig 中关于wifi的配置导置的
 	主要还是因为编译了wlan, 但是使用的是预编译的kernel, 没有kernel_include导致的, 加入内核源码编译就没有此问题
-	
+
 	然而目前使用lmi的源码，编译出来的boot.img 不能用. 大概率是dtb的问题， dtb又跟path_tool 有关。所以，得继续解决bison, flex等path_tool问题
 
 **系统启动**
@@ -757,3 +757,285 @@ host_init_verifier: device/xiaomi/lmi/rootdir/etc/init.qcom.rc: 578: Unable to d
 	
 	dtb的问题， 很可能就是path_tools 的问题， 需要使用clang? 不能使用 ld, bison, flex, gcc, 如何替换编译工具。
 	
+### Sat 23 May 2020 09:31:00 AM CST
+
+**sm8150相关的移植**
+
+	卡着进不了系统，关机状态下可充电，问题出在了selinux
+
+	这里的问题太多了， avb, encryption, keymaster, gatekeepr, selinux, 哪个环节都可能出问题而导至卡在开机界面。
+
+	selinux 一时半会还看不明白， avb的问题应该也是解决了的， 不然连boot.img 就进不了才对。 
+	vbmeta_system 的逻辑分区就是 system, product.
+	keymaster, gatekeepr 会影响开机么, 这应该是开机后才会影响
+
+	dynamic partition, 现在的分区方式应该是没什么问题了。 可以充电， 启动多了一下震动了， 说明还是有一点进步？ 
+
+	sepolicy 还待再继续研究, te, file_contex, 大概率也是这里的问题
+	
+	fstab 应该也是没什么问题的, recovery 可以正常加载
+
+	recovery 现在又回到了/cache 挂载不了, 这个问题可能也是加密的原因. 
+
+	qcom-caf 突然又编译不过去了， 屏蔽了， 会影响吗？ 与其他BoardConfig的差别最大的就是在这里。
+
+	还是继续比对已成功的移植，动态分区的问题先不用管了， 就算没有vendor 与 odm， 应该也能正常启动的， 所以，vendor 与 odm 的库可能更多的是基于系统的应用用得到， 在启动的时候应该不用。 
+	现在的问题是先点亮， recovery, 与 关机状态下充电都可以正常。 难不成是light库? 今晚再加班验证一下？ 
+
+	
+### Mon 25 May 2020 09:35:29 AM CST
+
+**开机启动**
+	
+	rom 移植， vendor, product, 不应该是启动流程所必须的，保证了boot.img 正常， ROM自身应该保证自身的运行顺畅.
+
+	product, vendor, 是针对自身的硬件发挥完全的功能， 有些功能不是必须有的。 
+
+	所以这样一想， 移植就变得简单多了。 至少点亮起来，应该简单多了。 
+	并没有那么简单， 按说现在的rc 与 te文件没什么问题了， 还是一样启动不了。 去掉vendor库， 系统直接启动不了了, 所以，vendor库还是有作用的。
+	现在也只剩下补一补vendor, 如何dump stock rom 呢？ 
+
+**keymaster**
+
+	修改了系统版本，安全补丁等重要信息， 就会进入keymaster 锁定页。 这个时候，只能进入recovery双清。
+
+**init.rc 的加载**
+
+	里面是有包含  /vendor/etc/init/hw/init.qcom.rc
+
+	vold.decrypt=trigger_restart_framework, 才会触发 start bootanim
+
+	如何才能将属性变成 trigger_restart_framework
+
+**metadata**
+
+	擦除了metadata分区， 装官方的ROM也启动不了了, 会直接进入recovery， 但是充电流程还可以， 说明充电流程是不用验证的。 
+	一直启动不了可能也是这个原因。 
+	格式化一下data分区就可以了，看来metadata分区也是系统启动的时候才会刷写的
+	那么，清除metadata分区再格式化， 是否可以进入呢？
+
+ld.lld: error: undefined symbol: HMI
+referenced by BootControl.cpp:107 (hardware/interfaces/boot/1.0/default/BootControl.cpp:107)
+	
+	这个问题可能也需要解决，定义 PRODUCT_STATIC_BOOT_CONTROL_HAL :=  就会出现这个错误
+
+### Tue 26 May 2020 09:20:27 AM CST
+
+** init.rc 加载源码**
+
+
+	这一步是走到了
+	init.cpp -> ro.bootmode -> trigger charger
+							-> trigger late_init
+
+	init.rc -> late_init -> 
+				 early_fs
+				 fs
+				 post_fs
+				 late_fs
+				 post_fs_data
+				 load_persist_props_action
+				 zygote-start
+				 firmware_mounts_complete
+				 early-boot
+				 boot
+
+	
+	early_fs -> start vold 
+		需要先挂载metadata, 然后用vold 来处理userdata 的 checkpointing, 看来这里很可能有问题。 vold_decrypt 的属性更改应该就在vold代码里。 
+
+		start void 但是没看见vold 的services 注册，应该是加入了环境变量
+
+		如何处理userdata的checkpoint?
+
+	post_fs -> 
+		exec - system system -- /system/bin/vdc checkpoint markBootAttempt
+		...
+		restorecon_recursive /cache
+		...
+		restorecon_recursive /metadata
+
+		restorecon_recursive 作用, 与 restorecon 有何不一样
+
+	late_fs ->
+		class_start early_hal ->
+			init.qcom.rc -> vendor.sensors 走得通
+
+	post_fs_data
+		mark_post_data
+		start vold 为何又要再次检查checkpoint
+		exec - system system -- /system/bin/vdc checkpoint prepareCheckpoint
+		...
+		restorecon /data	
+		installkey /data	没有installkey, 只有vendor/bin 下的 KmInstallKeyBox, 是否需要替换, 在init.qcom.rc 是否可以替换
+		bootchar start		哪里都没有找到bootchart, 这里可能就是第二屏？ 
+		exec -- /system/bin/fsverity_init	在apex前执行, 这里的验证应该也还没有走到, 验证就需要key, 这里的key需要依赖信任根么, 打包有此elf
+		enter_default_mount_ns
+		start apexd			不标注的就直接看源码注释,下同
+		...
+		parse_apex_configs
+
+		init_user0
+
+		restore --recuresive --skip-ce /data , 设置 selinux context
+
+mkuserimg_mke2fs.py ERROR: Failed to run e2fsdroid_cmd: set_selinux_xattr: No such file or directory searching for label "/existing_folders"
+e2fsdroid: No such file or directory while configuring the file system
+
+	更新sepolicy下的 file.te, file_contexts
+
+** 找到触发 trigger_restart_framework时机**
+
+	一个好的编程环境真得很重要， 接下来还要将vim 的环境再好好整一整， 熟悉起来。 
+	system/core/fs_mgr/fs_mgr_vendor_overlay.cpp 
+	system/vold/crypfs.cpp	
+
+	hardware/qcom-caf/sdm/
+	hardware/qcom/		这两个路径下也发现了不一样的地方
+
+### Wed 27 May 2020 09:38:30 AM CST
+
+**启动流程**
+
+	见到启动动画就是胜利
+	见到画面太难了， 打了一天的qcom的补丁.
+
+	一个启动流程太多验证了 avb2.0, dm-verity, SELinux, dynamic partition, keymaster, cryptfshw(hardware disk encryption), ab分区
+	其中avb2.0 涉及到的分区又多了几种组合， avb2.0 + ab/非ab分区 + 动态/非动态分区. 
+
+	boot rom -> bootloader -> kernel -> init -> zygote -> dalvik vm -> system servers -> managers
+
+	现在肯定是卡在init 这里了, 分析init.cpp
+
+### Thu 28 May 2020 09:21:02 AM CST
+
+**SELinux**
+
+	这个也可能是启动不了的原因。今天将所有的selinux加上，错误修改出来，再编译出来看看。
+
+	先将正常启动的系统内核日志拿出来. 
+	adb shell su -c dmesg > dmesg.log
+	[还有什么日志？](https://zybuluo.com/guhuizaifeiyang/note/886803)
+	系统日志, init日志, bootchart日志，
+	除了内核日志， 在bootstrap 界面， 其他的日志都拿不到。 难道就没有办法了吗？
+	
+	通过比对官方系统启动与lineage recovery启动的dmesg日志， 并未发现问题
+
+	sepolicy 应该不成问题了， 问题出在哪里呢？ 
+	
+	init.cpp 也没看出什么门道， 在init.rc中只有在vold.decrypt=triggerrestart_framewrok时才会触发， 而上面说的是在a/b update verifier才可以
+	这要是闹哪样？ redmi k30 pro 是非A/B动态分区的. 官方教程里恰恰没有这个说法. 
+	
+**init.cpp**
+
+	
+build_image.py - ERROR   : Failed to build out/target/product/lmi/obj/PACKAGING/systemimage_intermediates/system.img from out/target/product/lmi/system
+Out of space? Out of inodes? The tree size of /home/hrst/aosp/lineage-17_0_1/out/soong/.temp/tmpVLn8BF is 974251008 bytes (929 MB), with reserved space of 0 bytes (0 MB).
+The max image size for filesystem files is 2113515520 bytes (2015 MB), out of a total partition size of 2147483648 bytes (2048 MB).
+common.ExternalError: Failed to run command '['mkuserimg_mke2fs', '-s', '/home/hrst/aosp/lineage-17_0_1/out/soong/.temp/tmpKLMoyj', 'out/target/product/lmi/obj/PACKAGING/systemimage_intermediates/system.img', 'ext4', '/', '991031296', '-j', '0', '-D', 'out/target/product/lmi/system', '-L', '/', '-i', '16384', '-M', '0', '-c', '--inode_size', '256', 'out/target/product/lmi/obj/ETC/file_contexts.bin_intermediates/file_contexts.bin']' (exit code 4):
+
+	什么是innode count
+	这个问题怎么突然出现了， 不应该啊
+	BOARD_ROOT_EXTRA_FOLDERS := existing_folders persist metada firmware
+	exsiting_folders 是个什么鬼， 为何会检测这个文件
+
+### Fri 29 May 2020 10:10:15 AM CST
+vendor/qcom/opensource/fm-commonsys/jni/Android.mk: error: "libqcomfm_jni (SHARED_LIBRARIES android-arm64) missing libbtconfigstore (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/fm-commonsys/jni/Android.mk: error: "libqcomfm_jni (SHARED_LIBRARIES android-arm) missing libbtconfigstore (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/fm-commonsys/fm_hci/Android.mk: error: "libfm-hci (SHARED_LIBRARIES android-arm64) missing android.hidl.base@1.0 (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/fm-commonsys/fm_hci/Android.mk: error: "libfm-hci (SHARED_LIBRARIES android-arm64) missing vendor.qti.hardware.fm@1.0 (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/fm-commonsys/fm_hci/Android.mk: error: "libfm-hci (SHARED_LIBRARIES android-arm) missing android.hidl.base@1.0 (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/fm-commonsys/fm_hci/Android.mk: error: "libfm-hci (SHARED_LIBRARIES android-arm) missing vendor.qti.hardware.fm@1.0 (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/gnsspps/Android.mk: error: "libgnsspps (SHARED_LIBRARIES android-arm64) missing libgps.utils (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/gnsspps/Android.mk: error: "libgnsspps (SHARED_LIBRARIES android-arm) missing libgps.utils (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm64) missing libqmi_cci (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm64) missing libqmi_common_so (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm64) missing libloc_core (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm64) missing libgps.utils (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm) missing libqmi_cci (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problms until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm) missing libqmi_common_so (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm) missing libloc_core (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/loc_api/loc_api_v02/Android.mk: error: "libloc_api_v02 (SHARED_LIBRARIES android-arm) missing libgps.utils (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm64) missing libqmi_cci (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm64) missing libqmi_common_so (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm64) missing libloc_core (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm64) missing libgps.utils (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm) missing libqmi_cci (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm) missing libqmi_common_so (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm) missing libloc_core (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/synergy_loc_api/Android.mk: error: "libsynergy_loc_api (SHARED_LIBRARIES android-arm) missing libgps.utils (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/utils/loc_socket/Android.mk: error: "libloc_socket (SHARED_LIBRARIES android-arm64) missing libgps.utils (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/utils/loc_socket/Android.mk: error: "libloc_socket (SHARED_LIBRARIES android-arm64) missing libqsocket (SHARED_LIBRARIES android-arm64)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/utils/loc_socket/Android.mk: error: "libloc_socket (SHARED_LIBRARIES android-arm) missing libgps.utils (SHARED_LIBRARIES android-arm)" 
+You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is intentional, but that may defer real problems until later in the build.
+vendor/qcom/opensource/location/utils/loc_socket/Android.mk: error: "libloc_socket (SHARED_LIBRARIES android-arm) missing libqsocket (SHARED_LIBRARIES android-arm)" 
+e
+
+	待补全的库
+
+** dtb编译 **
+
+	有可能是dtb的问题，boot.img unpack出来的dtb只有4个， 而dump中dtbo下有13个dtb, 肯定是不对等的。
+	而我现在使用的预编译dtb 和刷进去的dtbo.img 肯定也是不对等的， recovery可以理解为first stage 没有加载dtbo, 
+	那为何替换到原有的系统是可以的呢？ 原有的系统虽然可以启动， 但是第一次启动明显有问题， 所有的应用都打不开, 而放到移植的ROM中就有可能是致命的
+	所以，再次使用开源的dtb试一试.  
+
+	很大可能是dtb的问题， 虽然现在编译还没有过， 但是可以通过unpacking boot.img 来查看是否编译成功。 
+	还是脚本的设置 
+	BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb 后面跟-dtb 是加在内核后面，还是放在boot.img里
+
+	BOARD_INCLUDE_DTB_IN_BOOTIMG := true  这个设置为true了， 但是boot.img里还是没有dtb
+
+	BOARD_KERNEL_SETPERATED_DTBO := true 这个在编译源码的时候， 设置为true, 是为了单独编译出dtbo.img
+
+
+** boot.img **
+	
+	kernel, 编译出来相关30M
+	dtb,  编译出来相差2M
+	ramdisk, 编译出来相差 fstab.qcom, verity_key
+
+	如果不指定BOARD_MKBOOTIMG_ARGS 还编不进去dtb， 
+	要编译dtb, 需要设置 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+	相关逻辑是在vendor/lineage/build/tools/task/kernel.mk 中， 这时候不用指定BOARD_MKBOOTIMG_ARGS的-dtb参数。 
+
+	但是编译出来的boot.img 还是启动不了， 是内核的原因？
+
+	dtb.img 与 dtbo.img还不能同时生成， 这肯定是脚本有问题
+
+	有几种试验方法:
+
+		1. lmi-defconfig 中取消 CONFIG_BUILD_ARM64_DT_OVERLY=y 的设置， 但是这样，又不能包含 lmi,cmi,umi 的配置了。可能dtb里就是只有kona的设置吧。因为dump下来的也是这样
+		2. ramdisk 中如何添加上verity_key 与 fstab.qcom
+		3. 将所有的都替换成stock, kernel要如何替换, 编译错误一时半会还不好解决
+		4. 先生成dtbo.img 再以预编译dtbo 与dtb配合
+		
+	使用预编译的 dtb, dtbo.img 源码编译内核， 还是启动不了， 但是手动刷入stock boot.img，竟然可以启动adbd服务，但是界面还是黑的， 依旧卡在boot logo
+	看来， dtb 与 dtbo 不对应的方向是正确的。 
+
