@@ -999,7 +999,7 @@ e
 
 	待补全的库
 
-** dtb编译 **
+**dtb编译**
 
 	有可能是dtb的问题，boot.img unpack出来的dtb只有4个， 而dump中dtbo下有13个dtb, 肯定是不对等的。
 	而我现在使用的预编译dtb 和刷进去的dtbo.img 肯定也是不对等的， recovery可以理解为first stage 没有加载dtbo, 
@@ -1015,7 +1015,7 @@ e
 	BOARD_KERNEL_SETPERATED_DTBO := true 这个在编译源码的时候， 设置为true, 是为了单独编译出dtbo.img
 
 
-** boot.img **
+**boot.img**
 	
 	kernel, 编译出来相关30M
 	dtb,  编译出来相差2M
@@ -1039,3 +1039,175 @@ e
 	使用预编译的 dtb, dtbo.img 源码编译内核， 还是启动不了， 但是手动刷入stock boot.img，竟然可以启动adbd服务，但是界面还是黑的， 依旧卡在boot logo
 	看来， dtb 与 dtbo 不对应的方向是正确的。 
 
+### Mon 01 Jun 2020 09:10:27 AM CST
+
+将stock的dtb反编译成dts, 看看是否可以.
+
+* 试一试配套版本的dtb,  与 dtbo
+	全部使用 BOARD_MKBOOTIMG_ARGS来编译boot.img
+
+	事实证明是不行的，但是这样还是不能确定boot.img 与 stock.img是配套的， boot.img 是从11.0.16版本拿的， dtbo.img 是从11.0.10版本dump下来的
+
+	使用booting 中的四4个dtb来编译呢？ 
+
+	同样不行， 看来这样样子是不行的
+
+* 内核源码的编译
+
+	[参考教程](https://github.com/MiCode/Xiaomi_Kernel_OpenSource/wiki/How-to-compile-kernel-standalone)
+
+	按说使用源码编译不应该连亮都点不起来
+
+	还是要参考已有的内核与device 配置
+
+	bindings有什么用
+
+	data-kernel, dlkm 用来动态加载内核模块，这个还是很有用的， 需要加进来
+
+	CONFIG_BUILD_ARM64_DT_OVERLAY=y
+
+	还是要配置在lmi_defconfig中, 这样也可以解释得通了，为何明明修改了，dtbo 却没有编译
+
+	设置环境变量与放在.config里有何不同？
+
+* ramdisk的定制， fstab, verity_key
+
+* 不使用dtbo.mk ，直接使用 makefile中的编译规则试一试。 
+	编译不过，脚本一时半会修改不了
+
+* 再次尝试源码编译
+
+	借荐了StorySea的源码，打上了audio-kernel, 与 data-kernel的代码， 但是依旧不能启动, 这样问题就大了
+
+WARNING: EXPORT symbol "gsi_write_channel_scratch" [vmlinux] version generation failed, symbol will not be versioned.
+kernel/time/time.o: In function `__do_sys_gettimeofday':
+/home/hrst/aosp/lineage-17_0_1/kernel/xiaomi/sm8250/kernel/time/time.c:148: undefined reference to `do_gettimeofday'
+
+	换成gcc编译， 没有此问题， 再切回clang, 因为有缓存的原因也没有问题，但是终究是个问题， 暂时以micode wiki的环境初始化，重新安装了一波
+
+[/home/hrst/aosp/lineage-17_0_1/kernel/xiaomi/sm8250/scripts/Makefile.headersinst:106: usr//audio/dsp/elliptic/.install] Error 1
+[/home/hrst/aosp/lineage-17_0_1/kernel/xiaomi/sm8250/scripts/Makefile.headersinst:32: elliptic] Error 2
+[/home/hrst/aosp/lineage-17_0_1/kernel/xiaomi/sm8250/scripts/Makefile.headersinst:32: dsp] Error 2
+
+	audio-kernel库编译不过
+
+
+### Tue 02 Jun 2020 09:11:47 AM CST
+
+**复盘**
+
+	到现在还是启动不了:
+	
+	内核编译阶段: 
+		MiCode的公布的源码都已经集成且编译通过， 使用预编译好歹还能卡着， 使用源码编译， 直接到bootloader
+		
+		qcom-caf 搜索到的 sm8250的源码也集成进去，可以编译通过了， 难不成还有什么打包问题么？ 这个应该在Android.mk里已经有了
+
+	验证阶段:
+		bootloader 负责验证 boot.img vbmeta.img , 加载 dtb ，传递内核命令启动内核 
+		boot.img 是avb1.0， 通过自带的verity_key 验证，这个验证方式是否可控， 还是说已经放到bootloader中了，不可改， 那为何使用预编译的dtb,dtbo就可以启动起来呢？ 
+		vbmeta 中负责对vbmeta_system进行校验， vbmeta_system中又存在对system的校验key, system,vendor先采用dm-verity进行校验。
+		dm-verity是由内核负责校验， 是如何校验的呢？ 
+		为何会卡住？ 为何会将adbd启动起来了，但是还是进入不了bootanim, 进入不了启动画面？ 
+
+		这里面任何一个环节都可能造成卡住， 所以， 每一个环节如何验证工作OK？ 如何去排除问题？ 
+
+		使用预编译的dtb, dtbo可以启动起来原系统， 说明boot.img 不存在verity_key验证问题。现在boot.img 启动不了， 还是说明dtb, dtbo本身的问题。 
+		既然如此， 单独编译dtb, 手动合成boot.img 验证是否可行。 
+
+		编译阶段与手动打包阶段是分开的， 打包阶段就是将所需要的文件与库放到一起， 然后写好刷机脚本。 
+
+	接下来的方向:
+		先搞定boot.img, 能启动原系统， 说明boot.img 是可以的。
+		
+		接下来就是dtbo.img 与 vbmeta.img vbmeta_system.img 这几个如何得知验证是否通过呢？ 
+
+		分析这些img, 比对整个结构， 这里无非就是key 与hash值. 
+
+		这一关搞定了还是启动不了， 才是rc文件或者库文件的问题。 
+
+		这个策略就是假定整个系统的编译脚本是OK的， 所以打包出来的系统应该也是OK的，
+		当然, avb1.0, 动态分区， 非A/B 更新这些都没有参考， 但是10.0 也不可能不支持非A/B启动吧
+		
+		boot.img 和 dtbo.img 是读入到内存通过hash值来验证的， 这个预期的hash值存在哪里呢？ 
+		通常存在每个经过验证的分区的末尾或开头，专用分区中, 或同时位于两个位置。
+
+		boot.img 应该是存在末尾， 因为替换可以验证成功。 
+
+		dtbo.img, 应该是存在vbmeta.img 中 
+
+		system, vendor, product, odm 应该是同时存在vbmeta_system, vbmeta分区中
+
+		为何要这样搞一套呢？ 生成这套key是根据信任根来生成的？ 那么移植其他系统也就拿不到这个信任根。
+
+		如果不是根据信任根生成的， 那么对安全保护有没有作用啊， 想要修改ROM的人整体替换一套就可以了。
+
+boot.img 替换工作, 验证boot.img 没有问题
+
+	还得使用手动集成的dtb ? 为何直接将反译的源码放进去就不行呢？ 
+
+	手动集成只有用一个kona_v2.1, 而代码编译的多出来了好多， 这些会有影响么？ 手动集成的也不行了
+
+	unpack_bootimg 解压出来的dtb并不能用， 而且mkbootimg 就不能正常启动了， 开始是因为校验的原因， 关了校验， 虽然可以启动，但是不正常，必须要重启一次才能正常。
+
+	那么正常的打包方式该是什么样的呢？ 原内核里通过unpack_bootimg 可以看到有dtb的存在。
+	但是使用abooting 就看不到，这个应该是工具的原因， 那么再下载几个其他的工具试一试。
+
+	换一种编译方式， 使用内核带dtb的形式， 看看booting 里是否还可以解析出来dtb的存在？ 
+
+boot.img dtbo.img vbmeta.img, vbmeta_system.img 分析验证, 是否需要手动打包，添加验证。 
+
+	mkbootimg 手动打包的boot.img 可以启动, 说明不用验证hashtree? 那么内核启动不了就是因为dtb与dtbo的原因？ 
+
+	使用mkbootimg 手动打包也启动不了了， 只能见到开机动画， 还是会无限重启， 说明， unpack下来的包里面的内容有问题， 或者 mkbootimg 有问题。
+
+	添国avbtool是一样的效果, 照我的理解，这应该是启动起来了， 但是data分区未能验证成功， 删除了data分区， 也同样启动不了。 是dtb的问题？ 
+	dtb确实很重要， 屏幕显示一样需要dtb.  
+
+	mkdtimg 不能读 boot.img unpack出来的dtb, 但是可以读 dtbo.img， 所以， unpack出来的dtb有损失
+	
+	avbtool 可以读 vbmeta.img vbmeta_system.img
+
+	exaid.img 竟然也是一个boot.img 只不过内容要大得多， 这个是为了什么呢?  擦除exaid分区也不影响启动，exaid是干什么的呢？ 
+
+root digest 是干什么的
+
+avb 校验
+
+	第一阶段挂载vendor 是通过device tree, 第二阶段再通过vendor 中的fstab 来挂载其他分区
+	
+	avb 与 dm-verity是绑定的， 所以第一阶段， 不仅要传ftb节点， 还要传vbmeta节点，目的是开始dm-verity功能。
+	device tree 中的vbmeta 的节点配置要与vbmeta.img 所包含的分区一致， 否则校验失败. 
+
+	fastboot --disable-verity --disable-verification flash 并不一定起作用, 除非不止验证分区， 还需要vbmeta 拿到启动分区？ 
+
+	刷完vbmeta 分区与 vbmeta_system分区，还得再重新刷一下boot.img 才行
+
+	vbmeta 的形式已经一样了， 除了root digest, salt
+
+加密验证的原理
+
+	要想加密，肯定还有一个私钥是不能暴露的， 那么意味着移植的ROM必须关掉验证？ 
+
+	如果只是像第三方下载给一个sha256值, 那也只是保证局部修改的安全, 如push一个系统分区的app, root, 
+	如果整体都修改了， 再重新生成对应分区就可以为所欲为了。如果全部替换了， 那安全就属于自己的责任， 不能怪到官方ROM了
+	官方本来就是只保证自己的系统安全性就行了， 所以， 这个验证应该不影响移植。 
+
+	verity_key 的分解替换优先级放到最后。 
+	
+	salt 是随机值
+	root digest, 是根所salt, private key, algorithm 计算出来的 
+	verity_key 是不是计算root digest的因素呢？ 到底有没有用到信任根。 还是只是某个分区使用了信任根。 
+
+	不管如何，在dts 中先关掉avb验证
+
+
+哪一个device tree 中有vbmeta节点
+
+	在kona.dtsi 中， 但是recvoery也确实在vbmeta.img 中有， 不用禁用， 只不过官方的recovery是chain partition, 自编的是 hash验证
+
+内核的补丁还打错了不成
+
+	打了 data-kernel, audio-kernel 补丁，反而不能正常启动了，先去掉试一试
+
+	
