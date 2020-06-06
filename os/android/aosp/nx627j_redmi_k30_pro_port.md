@@ -1211,3 +1211,211 @@ avb 校验
 	打了 data-kernel, audio-kernel 补丁，反而不能正常启动了，先去掉试一试
 
 	
+### Wed 03 Jun 2020 09:28:42 AM CST
+
+abooting 直接替换kernel试试, 还有没有其他解压booting 的工具， 小米的工具？ 
+	
+	abooting 替换过的kernel并不能正常启动，哪怕是替换成 unpack出来的kernel
+	abooting 有问题
+	fastboot --disable-verity --disable-verification 并不管用，还是会再校验boot.img 
+	unpacking出来的kernel有问题？ 
+	
+	unlock状态下， 不会去验证boot.img recovery.img 小米会校验吗？ 应该不会, 因为之前有替换自己的内核成功过，先假设其不验证。 
+	无论是解锁或锁定状态下，都支持avb, 锁定状态下， 难证不通过是致命的， 非锁定状态下
+	AVB_SLOT_VERIFY_RESULT_ERROR_PUBLIC_KEY_REJECTED
+	AVB_SLOT_VERIFY_RESULT_ERROR_VERIFICATION
+	AVB_SLOT_VERIFY_RESULT_ERROR_ROLLBACK_INDEX
+	这几种状态并不是致命
+
+	那么问题就集中在boot.img 上: kernel, ramdisk, dtb, dtbo上了
+	之前是有启动过原系统，但是第一次会crash重启，第二次就好了，但是同样的dtb, dtbo为何Lineage就启动不了？ 
+	unlock 只是不校验boot.img 与 recovery.img， 并没有说不校验dtbo.img, vbmeta, 所以还是要确定fastboot 验证的key是否是自定义的还是有一个信任根
+
+	先替换kernel能成功启动再说
+
+fastboot 验证是否用到信任根。sha256算法原理
+
+	可以替换自定义信任根
+```sh
+	# 得到公钥
+	avbtool extract_public_key --key key.pem --output pkmd.bin
+	# 刷入
+	fastboot flash avb_custom_key pkmd.bin
+	fastboot erase avb_custom_key
+```
+	但是这并不影响原有系统的启动, 到这里，暂且认为现有的系统vbmeta验证功能是OK的
+
+vbmeta, vbmeta.img 除了read的信息， 还有没有其他的手段再作比较？
+
+	信任链， 从信任根开始验证， 自定义信任根不知是否工作。
+
+dtb 的编译，dtbo是如何对应上
+
+	Image.gz-dtb 是直接使用 cat Image.gz dtb > Image.gz-dtb 中的
+	当前的内核编译， 是不带dtb 的， 但是用不用压缩呢？ 原系统的boot.img 应该是没有使用压缩. 
+	
+	使用dump下来的dtb, 修改脚本， 直接拼接dtb, 就是不知道会不会编译出dtbo, 
+
+devicetree还有哪里可以拿到, 只是kona的可以否？ 只能等小米开放？
+
+	先提个issue, 
+	只是kona的应该是不可以的，反编译出来的代码时面的fragment 还是挺多的
+
+### Thu 04 Jun 2020 09:21:55 AM CST
+
+dtb,dtbo
+
+	使用dump dtb ，修改脚本看看效果。
+
+		dtbo 就是直接使用mkdtimg create 来创建的
+
+		直接使用dump dtb 会报这个错误:
+		The file size and FDT size are not matched.
+		
+	dtb 与 dtbo有何区别
+		使用mkdtimg dump 都解析不出来 ftsize， 为何编译的dtbo就可以生成dtbo.img
+
+		一般 soc的设备节点作为 dtb, 其他设备作为dto, dto可以对dtb的节点进行引用和修改。 
+		dtb文件与dtbo的文件格式相同。但是还是建议将名字改为dtbo, 以区分主dt
+
+		内核的加载流程：
+			将dtb加载到内存, 将dtbo加载到内存，将dtbo叠加dtb合成dt
+
+		所以dtb是kona 的三个版本是对的
+
+	修复lmi-overlay-dtbo.dts 编译警告， 只是警告， 为何会有错误呢？ 
+		修复不了， 不是简单的include 几个dtsi就行的, 先假定lmi-sm8250-overlay.dts是正确的
+
+	源码dtb, dtbo 配合stock kernel
+
+		好歹现在编译的内核还会卡在那里，说明dtb, dtbo是OK的？ 
+		
+编译内核再次验证 Image.gz, Image, 为何就启动不了呢？
+
+	在源码中找到了unpack_bootimg.py, mkbootimg, 现在可以确定工具都是OK的， 将原boot.img 解包再封包可以正常启动
+
+	替换自编译的 kernel, ramdisk, dtb, 都会造成启动不起来。
+
+	ramdisk 里面就差了一个fstab.qcom, verity_key, 然而 --disable_verification vbmeta分区， 还是不能正常启动，fstab.qcom 和 verity_key都用到了没？
+		已验证， veirty_key可以没有， 但是fstab.qcom 一定得有。 编译的init也没有问题。 说明--disable_verification还是有用的
+
+	dtb 与 dtbo相信源码应该也对应上了， 那么问题主要还是kernel上
+
+	看业问题就是卡在内核上，并不是其他的什么验证。 
+
+	已确定编译的内核有问题， ramdisk 中缺少 fstab 
+
+编译的设备树验证
+
+	去掉 BUILD_WITHOUT_VENDOR, qcom-caf/kona库竟然编译不过了，display, media, audio 各种缺少库, 不编译vendor的时候，可以正常通过. 
+	这里面有什么关联？ PRODUCT_PACKAGES 里的库也会影响冲突
+
+	原来是kernel/../techpack/audio 下的补丁， 这两个地方打补丁有些冲突，还是直接打在内核中比较好， 改动的地方比较少。
+	但是这样又回去了， 打在内核里的补丁还是跑不起来
+
+	BUILD_WITHOUT_VENDOR := true 这个配置很神奇，去掉了， 各种冲突，主要是编译了 qcom-caf 里的选项
+	看来一直都没有编译里面的代码？
+	这个配置还是需要去掉, 
+
+
+	product_copy_files 一定程度上是可以避免再编译的，源码编译是为了打补丁， 现在我主要是为了跑起来。 
+
+
+内核继续验证
+
+	内核在之前记得是有编译成功过的。 现在恢复源码竟然也不能启动起来
+
+ramdisk 为何会缺少fstab
+
+	实现不行就先使用预编译的
+
+### Fri 05 Jun 2020 09:37:48 AM CST
+
+**qcom-caf/kona编译**
+
+	各种找不到头文件的， 是因为lineage将codeaurora 的代码都放在了 qcom-caf中， 而Android.mk 中的local_c_includes 路径还没有改
+	因此根据编译错误修改一下include路径
+
+	按步就班改完编译问题， 但是启动还是卡在boot logo, 而且连震都不震一下。 
+
+	这是什么逻辑？ 换boot.img, dtbo.img, vbmeta.img 都是一样的效果。 说明进入到哪一步了？ 系统起作用了？ 缺少库？ 
+
+	以前这几个任一个对不上都会重启到fastboot, 何种原因会卡住呢？ vbmeta 就没过？ 
+
+	自编的dtb 是可以了， 看来问题就出在kernel 和 lineage 的配置了。 
+	kernel也暂时先使用预译的， 那么着重来攻克 lineage 的配置了。 
+
+	问题是出在dtbo上，换了dtbo是同样卡在那不动了, 连震都不震一下。 
+
+**dtbo**
+
+	缺少的源码， 只能等小米公开了。
+
+	暂时也先使用预编译的dtbo， 这也说明了当初的思路是正确的？ 
+	至少recovery 和kernel可以启动起来。 但是不确定dtb是否正确。 
+	这折腾了7天， 就是为了确定dtb的问题。 kernel要怎么玩？ 为何不能启动原系统了？ 
+
+**lineage配置**
+
+	这不又相当于搞回来了, 最终device, vendor配置还是有问题的
+
+	能想到的就是初始化的时候， 需要初使化某些属性, 这里确实有一个init.cpp
+	或者在初始化的时候， vendor下的库不全 
+
+	vendor库为何一下子就变得那么小了, 开始还有800M
+
+	参考 k20 pro 的配置， 再加上一个 sdm660的配置， 综合看看缺少什么。 
+
+**kernel的问题**
+
+	现在启动不了了， 什么原因？ BoardConfig.mk, device.mk 的修改？ 这又能影响内核什么呢？ 
+	
+	Image, Image.gz 应该是不影响启动的。 
+
+	没办法， 对着 k20 pro 的内核与配置一点点抠。 sm8150 与 sm8250 肯定还是有很多共通的地方。 除了5G的差别。 
+
+techpack 补丁， audio 是放在vendor下还是放在 techpack下？ 
+
+	先放在vendor下，后面再看情况。 看来还是要放在kernel下， audio-kernel 与 techpack/audio 文件夹一样， 但是内容差别很大。 
+
+kbuild 对比
+
+	自动检测出techpack 下的module 逻辑验证， audio-kernel, data-kernel是否被打进去了。 
+	
+	这样一搞， 内核的问题解决了， 可以正常启动原系统
+
+### Sat 06 Jun 2020 01:51:26 PM CST
+
+FAILED: ninja: 'out/target/product/lmi/obj_arm/SHARED_LIBRARIES/libgps.utils_intermediates/export_includes', needed by 'out/target/product/lmi/obj_arm/SHARED_LIBRARIES/libgnsspps_intermediates/import_includes', missing and no known rule to make it
+
+	去掉device.mk中的 libgnsspps , 可能会影响gps的功能？ 
+
+kernel/xiaomi/sm8250/include/uapi/linux/types.h:10:2: error: "Attempt to use kernel headers from user space, see http://kernelnewbies.org/KernelHeaders" [-Werror,-W#warnings]
+
+	在camerate_motor 中Android.bp 加入 kernel/../include/uapi ，就会出现这个问题， 但是不加吧，msic/drv8846.h 又找不到。 
+
+	在sm8150 的代码里找到了文件， 对应的 patch打上去，可以编译通过， 但不确定功能正常。 
+	
+
+**复盘**
+	
+	内核的问题解决了， 基于atomsand 的代码，再结合raphael 内核的commit 打了几个补丁， 就可以正常启动原系统了。 
+
+	ramdisk 的问题还没有解决， 缺少fstab, 不会启动不了就是因为内核不知道加载这个fstab吧。 
+	文档上不是说先在dtsi中挂载vendor, 再从vendor里按fstab.qcom挂载其他的盘么, 怎么会还要从ramdisk 里挂载呢？ 
+
+	dtbo 的问题也是一样， 只能先使用prebuilt 的, 先以启动系统为目标， 后期再修复这些问题。
+
+	recovery 除了分辨率， 其他也运行完好.
+
+	终于看见为何启动不了了， 还是老问题， twrp-wzsx150 的recovery不显示这个信息, 之前的recovery 分辨率太低， 导致显示不全. 
+	
+	还是data corrupted 错误。 这几周折腾也是折腾的更明折一些，至少内核是更加完善了。 点亮的问题应该就是卡在分区加密上了。 
+
+	关机充电的流程不行了。看来不仅仅是换个boot.img那么简单。
+
+Can't load android system. Your data maybe corrupt. If you continue to get this message, you may need to perform a factory reset. 	
+
+	然而 factory reset 并不起作用。 
+	
+	
