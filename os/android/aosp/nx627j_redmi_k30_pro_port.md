@@ -1370,7 +1370,7 @@ ramdisk 为何会缺少fstab
 
 	现在启动不了了， 什么原因？ BoardConfig.mk, device.mk 的修改？ 这又能影响内核什么呢？ 
 	
-	Image, Image.gz 应该是不影响启动的。 
+	Image, Image.gz 应该是不影响启动的。 确实是不影响启动，只影响启动的时间。
 
 	没办法， 对着 k20 pro 的内核与配置一点点抠。 sm8150 与 sm8250 肯定还是有很多共通的地方。 除了5G的差别。 
 
@@ -1414,8 +1414,166 @@ kernel/xiaomi/sm8250/include/uapi/linux/types.h:10:2: error: "Attempt to use ker
 
 	关机充电的流程不行了。看来不仅仅是换个boot.img那么简单。
 
-Can't load android system. Your data maybe corrupt. If you continue to get this message, you may need to perform a factory reset. 	
+Can nott load android system. Your data maybe corrupt. If you continue to get this message, you may need to perform a factory reset. 	
 
 	然而 factory reset 并不起作用。 
 	
 	
+### Mon 08 Jun 2020 09:53:51 AM CST
+
+内核，启动，迫在眉捷
+
+	内核OK， 关机充电流程， data corrupt 问题
+	关机充电问题， 还是要换一个boot.img 才行， dtb 验证是OK的， 那只能说明是 ramdisk的问题。 
+
+	系统启动不了， 大概率还是因为 userdata 分区格式化问题, 系统的格式化不识别，如何查看到原系统的userdata分区是如何格式化的?
+	
+	从挂载结果上看，能看出什么?
+
+	挂载结果上看， 就是一个f2fs 分区， 还能有什么参数? 
+
+	分析源码要从哪里分析， 先按结果搜索
+
+	看到了一个格式化的方式， 必须使用最新fastboot, 最好使用编译出来的fastboot，是可行的
+
+```sh
+	fastboot format:f2fs userdata
+```
+	不过这样也证明了一个问题，启动不起来，并不是因为userdata格式化的问题
+
+	
+### Tue 09 Jun 2020 09:44:16 AM CST
+
+如何启动起来？ 之前不用刷boot.img就可以关机充电， 现在还必须重新刷boot.img， 是什么原因呢？ recovery.img 还是可以启动起来。 
+
+如何启动起来？ k30 的移植并没有多少参考， 研究init.rc， 那里也并没有init.rc 
+
+picasso 的刷机脚本， 少了 backuptool 的功能。 先去掉这个功能看看效果
+
+	目前是修改了makefile 中backup的设置，还未在device.mk, BoardConfig.mk 中找到相关配置。 
+	去掉backuptool， 刷机确实没有问题了。
+	
+ramdisk 中确实带有fstab.qcom, 要如何编进去
+
+	手动复制进去， 倒是也能解决问题， 但是编译出来的rom 刷机还是不能正常启动
+
+	这是vbmeta.img 的原因？ 解锁的bootloader不会再验证vbmeta? 
+
+	如果验证， 那就没法去搞了啊，拿不到私钥， 如何去移植。
+	 
+	但是红米k20, k20 pro, k30 都可以移植， 说明vbmeta应该不是问题的。 红米k30的刷机包也只有 system, product, 
+	现在刷机脚本保持了一致， 为何就是启动不了呢？ 连关机充电的动画也不显示了。 
+	
+### Wed 10 Jun 2020 09:31:54 AM CST
+
+	内核可确定没有问题, dtb, dtbo 也没有问题。 自编的boot.img 刷入可启动， 说明boot.img 验证也没有问题
+
+	vbmeta.img, vbmeta_system.img 这里的验证， 还需要确定，是否使用有信任根作为私钥。 如果使用公钥， 公钥是否有附带
+
+	system.img, product.img 出问题:
+
+		selinux 应该是没有问题了
+
+		hardware/qcom-caf 的源码无能力修改， 待确定是否正常编译进rom中
+
+		vendor/qcom 编译OK，暂时假定也没有问题，优先级最后
+		device/qcom sepolicy 也可以保证编译通过， 暂时假定也没有问题， 优先级放到最后。 
+
+	编译全部的分区， 需要确定vbmeta, vbmeta_system的正确定。
+	只编译system, product, 需要确定 hardware/qcom 的驱动库可以正常.  是否需要重签名? picasso 是如何解决这个问题的? 
+
+	不管vbmeta_system是否正常, 都是需要刷机的再看. 
+
+	全编译, 关机充电正常了, 且会卡在那里不动, 而不是直接重启. 
+
+	ramdisk 中 copy fstab.qcom 的问题解决了, 需要在Android.mk 中, 使用 TARGET_RAMDISK_OUT 这个变量
+
+	同时发现 TARGET_COPY_OUT_VENDOR, TARGET_COPY_OUT_PRODUCT这些变量都没有值, 再一查看out下的文件, 也确实都没有copy过去, 
+	怪不得vendor包怎么这么小. 
+	
+TARGET_COPY_OUT_VENDOR, TARGET_COPY_OUT_PRODUCT 的copy 问题
+
+	board_config.mk 解析的时候确实会替换相关的值, 为何没有copy 呢
+
+	PRODUCT_COPY_FILES 是在最后某个地方重新赋值了.
+
+### Thu 11 Jun 2020 10:14:13 AM CST
+
+	kona, vendor, kernel 目前应该是都正确了, 再开不了机, 那就只能是vbmeta的问题了. 
+
+proprietary-files.txt 有那么多与已有的库重复的规则怎么办? 
+
+	编译一次去掉一个无疑是最没有效率的办法.
+		先去掉所有PRODUCT_COPY_FILES 的规则(在最后的地方重新赋空即可) 
+		编译通过了, 再查找out目录下, system, vendor 中 rc, so, xml 所有已生成文件列表
+		再写一个小工具, 根据已生成文件列表, 去掉proprietary-files.txt 中已有那些已存在的行. 
+
+无限重启到recovery
+
+	关机可以正常充电, vendor的库也尽可能的多, boot.img 没有问题, hardware/qcom-caf/kona 的库也编译进来了. 能有什么问题呢? 
+	vendor 库不一样? 如何dump 11.0.16的库呢?
+
+	启动系统会重启到recovery, 无限重启到recovery
+
+	vbmeta 在没有私钥的情况下, 如何解决?  这具暂时没有好的思路, 看来 --disable-verification 对vbmeta_system 分区是有作用的
+	在vbmeta.img 一致的情况下, vbmeta_system 不一致也可以启动起来.
+
+	先从 vendor库配套上来解决, 增加了vendor库确实不会一直卡在那里了, 说明这个vendor 库还是有影响的. 
+
+编译尝试
+
+	kernel cmdline 增加 selinux, init_fatal_reboot_target
+
+	恢复system/core的修改
+
+	重新dump v11.0.16的库
+
+		恢复原system/core
+
+		补充android_tool/proprietary-files.sh 生成的库, 工作量太多, 暂时放弃, 因为vendor/bin 下有很多即使没有,也重复了编译规则. 
+	
+	只保留system product 分区, 不动vbmeta, dtbo, vbmeta_system分区
+		禁掉vbmeta的验证
+
+	组合打包 stock rom 的 system 与product, 看看刷机后能否正常启动. 
+		只使用zip 打包不能成功刷机, 看来还需要研究一下 ota_from_target_files.py
+		如果直接刷system.img, product.img呢
+
+system/core是否还有其他补丁? 
+
+	已经有在10.0上移植成功的机型, 按说system/core 出问题的机率也没那么大. 
+
+dump 11.0.16 库
+
+[Extracting proprietary blobs from LineageOS zip files](https://wiki.lineageos.org/extracting_blobs_from_zips.html)
+
+	直接从 stock system 的shell中copy, 这个方法有很多库没有权限
+	还可以使用dd, 直接将某个分区做成image, 然后再挂载image
+
+	从recovery 中dump, 应该可以dump system, product, vendor, odm 的库, 但是firmware, dtbo, boot.img 这些该如何dump呢
+
+	lineage 的脚本, 是否可以直接从升级包中dump? 肯定有工具可以dump
+	
+	从升级包中dump, 也是将xxx.transfer.list 转成 image, 再挂载image
+
+	dump的思想:
+		拿到对应分区的image, 然后直接将image挂载, 即可访问文件. 
+		升级包中, transfer.list 可以使用 brotli, sdat2img 转成image
+		运行的系统, 可以使用 dd 工具, 将分区做成image. 
+
+	dtbo, dt, boot 暂时只能从stock system中使用dd 来dump? 暂时未试验, 不影响移植, 主要还是 system, product, vendor, odm 这四个分区
+
+### Fri 12 Jun 2020 09:38:43 AM CST
+
+手机变砖了?
+
+	清除了 keymaster 分区, 手机就彻底黑屏了? 
+
+twrp 
+
+	ws-150 的 twrp 并不支持fastbootd 刷 system, product
+
+```bash
+	fastboot oem device-info 
+	fastboot getvar all
+```
