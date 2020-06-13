@@ -1577,3 +1577,17 @@ twrp
 	fastboot oem device-info 
 	fastboot getvar all
 ```
+
+### Sat 13 Jun 2020 02:48:18 PM CST
+
+**code aurora补丁** 
+
+	突然发现, 远远没有那么简单. 关于system, platform, external 这些包下面都有补丁需要打, 怪不得没有sm8250的支持, 但是 samsang 那些机型又是怎么支持的呢? 与这些有关系吗? 也得看一看代码, 验证一下. 
+
+	这一下子又有很多事情可做了. 整个团队都还没有开始搞 8250 的补丁?  如何确定当前的rom 需要打这个补丁呢? 
+
+	有没有codeauraro 的整体工程或者统一管理的工具? 应该不是每一个库都分开下载的吧? 
+	在platform/manifest 目录下, 同样使用 repo 管理, 但是还没发现如何操作. 
+
+	看源码验证, 这个工作量就不是一个人可以搞定的了. 先将我觉得可能有影响的几个库打一下补丁试一试. 
+	
