@@ -1591,3 +1591,95 @@ twrp
 
 	看源码验证, 这个工作量就不是一个人可以搞定的了. 先将我觉得可能有影响的几个库打一下补丁试一试. 
 	
+
+### Mon 15 Jun 2020 03:16:23 PM CST
+
+验证直接刷product.img, system.img 是否可以正常启动. 
+
+	官方的system.img, product.img 直接刷入是可以运行的,  自编译的system.img, product.img 刷入任意一个都启动不了. 
+	应该不是vbmeta的原因, 因为, 将vbmeta_system分区都擦除了, 原生的系统同样还是可以启动. 
+
+	所以, 最终应该是system.img , product.img 的原因. 
+
+替换system/core 为codeaurora 代码, 看看效果. 
+	
+	优先使用git 补丁的形式
+	真不行, 看看codeaurora库下的移植是否可行
+
+	应该不至于所有的代码都要打补丁, 先见到开机动画才是目的.
+	如果替了了system/core, 可以见到开机动画, 那整份代码都不靠谱, 可能工作量更大. 
+
+读源码, blog
+
+### Tue 16 Jun 2020 02:32:13 PM CST
+
+codeaurora/quic/la 源码checkout 下来了. 验证了repo 只是一个多git管理工具, 所以, 不用死板的非得下载 qcom-caf 的官方repo. 
+
+先对着device/qcom/kona 库改动一番
+
+FAILED: ninja: 'out/target/product/lmi/obj/SHARED_LIBRARIES/vendor.qti.hardware.audiohalext@1.0_intermediates/export_includes', needed by 'out/target/product/lmi/obj/SHARED_LIBRARIES/libaudiopolicymanager_intermediates/import_includes', missing and no known rule to make it
+14:28:19 ninja failed with: exit status 1
+
+	这个问题, 遇到过很多次, 原来是没有彻底解决. 如何在obj/下生成规则呢? 
+	$(call add-prebuilt-files) 这个函数也并不起作用. 
+
+	是由于引进了 kona-audio.mk , 里面有一个 USE_CUSTOM_AUDIO_POLICY := 1 变量, 导致 include 没有找到system/media/audio_utils/include
+
+	出现这样的问题, 还是得在 needed by 的编译规则下去找问题. 
+
+### Wed 17 Jun 2020 10:19:30 AM CST
+
+FAILED: out/soong/.intermediates/system/core/init/libinit/android_arm64_armv8-a_cortex-a75_recovery_static/libinit.a
+echo "module libinit missing dependencies: libinit_msm" && false
+module libinit missing dependencies: libinit_msm
+
+	出现这个问题是由于将 quic-la 中的 device/qcom/common/init 中的 libinit_msms 移植过来.
+	搜索确认是Android.mk 转成 Android.bp 出现的问题, 直接写成 Android.bp 就没有了问题, 具体是哪一块语法转错了, 也没深究. 
+
+libinit_kona
+
+	设置一些属性
+	这些也有用于验证吗? 或者是开始没有去加载 prop 文件? 
+	好像起了一些作用, 现在卡在无限重启上, 而不是直接就进入bootlaoder 了. 
+	去掉了return 的逻辑, 又回到了重启到recovery的场景中, 看来只设置几个property并不起作用. 
+
+	或者说是设置错了吗? 
+
+system/core 
+
+	libinit_kona 还不能解决问题, 就得给system/core打一打补丁了. 
+	如何打补丁? 先统一看下diff 的情况. 大致看看哪些可能影响启动
+	如何对比 commit 来打补丁? 
+
+	diff 的内容太多了, 以 init, vold 来搜索log, 也不得法. 
+
+	打了一个core的补丁, 就相当于全编译了, 但愿也只需打这个补丁吧. 能启动就行, 后面的事情再说. 
+
+android 10 GSI
+
+	刷入GSI 可以进入开机动画, 但是也进入不了系统 
+
+	GSI 与 官方的image 刷入的时候都会有一行 Invalid sparse file format at header magic
+
+	GSI 的大小是 1.3G, 而自编出来的只有 826M, 差别在哪里? gsapp?
+
+	这也说明了, --disable-verification 是有作用的, 我的系统启动不了是代码问题, 而不是验证问题. 
+
+	这样一来, 问题就大了, 代码的问题, 以哪个代码打包为准呢? 要打哪些包呢? 
+
+	先搜索他人研究的android 10 的启动流程, 大概率是没有想要的, 还是得自己看代码. 
+	然而这个代码量, 也是不小的. 
+
+### Thu 18 Jun 2020 09:30:03 AM CST
+
+将system下所有的库都打补丁
+
+	当然要写工具了, 找到第一个(最新)相同commit 的hash值, 再做hash值到最新提交的patch, 然后再打入到现有的代码中. 
+
+	core, chre, extras, libhidl, netd, sepolicy, 只有这几个库可以打补丁, 其他的库都更新到最新了. 
+	然而,虽然编译过了, 但是还是启动不起来. 
+	
+复盘
+
+	无修止的打补丁是没用的, 其他的机型有跑起来的, 说明系统应该是能正常跑起来的. 
+	现在

@@ -182,4 +182,3 @@ You can set ALLOW_MISSING_DEPENDENCIES=true in your environment if this is inten
 
 - 关键是刷机后, 黑屏, 这个过程要靠什么来查看缺少什么呢?
 
-
