@@ -1679,7 +1679,19 @@ android 10 GSI
 	core, chre, extras, libhidl, netd, sepolicy, 只有这几个库可以打补丁, 其他的库都更新到最新了. 
 	然而,虽然编译过了, 但是还是启动不起来. 
 	
+### Fri 19 Jun 2020 10:46:51 AM CST
+
 复盘
 
 	无修止的打补丁是没用的, 其他的机型有跑起来的, 说明系统应该是能正常跑起来的. 
-	现在
+	刷了odm.img, 没有影响启动. 说明确实是禁掉了avb验证. 但是不能确定是否禁掉了dm-verity的验证. 
+	说明问题不是出在验证上. 
+
+	刷system.img, product.img 都不可以正常启动. 
+
+	只vendor.img 会卡在那里, 内核禁掉了dm-verity, 还是会卡在那里, 说明什么呢? 卡在这里不是因为dm-verity? 
+	dm-verity 会给予提示, 并不会卡着启动不了. 
+	关闭了内核的dm-verity, 系统确实会提示非安全系统. 看来之前还是有验证的. 
+
+	vendor.img 确实可以不用刷, 因为自定义的rom 也不过是简单的复制, 并没有做额外处理. 
+
