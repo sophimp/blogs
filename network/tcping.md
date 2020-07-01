@@ -66,6 +66,30 @@ wifi, 移动, ipv6
 	
 直接使用java 的 socket 接口来验证:
 	可以大概验证是否可达， 但是具体信息比较模糊。 
+	使用tcpdump 可以验证wifi 网络, tcp 的三次握手确实发生了。 
 
 移植到Android平台, 验证移动网络下的功能:
+	LTE网络只能ping通LTE下的ipv6, 不能ping通wifi下的ipv6
+	在同时连接wifi和lte的情况下， 优先使用wifi网络， 也ping不通lte IPv6
+
+抓包
+
+	wifi网络下，走得是网卡, 使用 tcpdump + wireshark 来抓包分析
+	lte 网络下， 走得是基带， 使用 QCSuper + wireshark 来抓包分析
+
+	pip3 安装，会因为镜像的缘故， 导致网速太差，下载不下来， 办法是加一个 --default-timeout=100， 然后多下载几次， 或者换成国内的镜像。 
+	
+
+	[QCSuper 抓无线2G/3G/4G包](https://cloud.tencent.com/developer/article/1480752)
+
+```sh
+	# 强开usb diag 模式
+	setprop sys.usb.config  diag,adb
+```
+
+	magisk adb_root模块， 可以使用 adb root
+
+```sh
+	./qcsuper.py --adb --pcap-dump # 还是不可以使用, 总是会出现adb bridge closed, 问题应该还是出在 adb_bridge
+```
 
