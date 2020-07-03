@@ -93,3 +93,12 @@ wifi, 移动, ipv6
 	./qcsuper.py --adb --pcap-dump # 还是不可以使用, 总是会出现adb bridge closed, 问题应该还是出在 adb_bridge
 ```
 
+
+## Fri 03 Jul 2020 05:09:25 PM CST
+
+	还是要使用QXDM, 需要打开 diag 端口才可以抓数， 但是抓到了， 半天也分析不到？
+
+	QXDM 是否可以直接抓 tcpdump的包呢？ 
+
+	QCSuper 需要重新新编译， 也可以版本跟不上了， ioctl 应该是在读 /dev/diag 出错的
+
