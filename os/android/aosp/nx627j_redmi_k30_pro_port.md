@@ -1695,6 +1695,9 @@ android 10 GSI
 
 	vendor.img 确实可以不用刷, 因为自定义的rom 也不过是简单的复制, 并没有做额外处理. 
 
-### Thu 02 Jul 2020 09:10:12 AM CST
+### Thu 09 Jul 2020 02:32:21 PM CST
 
-build.prop 用来干什么
+接下来该从何学起？ 
+### Fri 10 Jul 2020 09:30:22 AM CST
+
+
