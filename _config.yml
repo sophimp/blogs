@@ -100,10 +100,7 @@ theme: next
 deploy:
 - type: git
   repo: git@github.com:sophimp/sophimp.github.io.git
-  branch: master
-  message: blog upload
-- type: git
-  repo: git@gitee.com:sophimp/sophimp.git
+  #repo: git@gitee.com:sophimp/sophimp.git
   branch: master
   message: blog upload
 
