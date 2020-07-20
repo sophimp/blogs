@@ -1,6 +1,6 @@
 ---
 title: {{ title }}
 tags:
-categries:
+categories:
 description:
 ---
