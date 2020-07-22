@@ -1,8 +1,10 @@
 ---
 title: archlinux-kde 使用日常记录(持续更新)
 date: 2020-07-21 20:57:28
-tags: linux
-categories: linux
+tags: 
+- linux
+categories: 
+- linux
 description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法， 思路
 ---
 
@@ -41,6 +43,13 @@ description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法
 
 有了桌面环境, 打开终端， 至少能正常使用系统办公了。 
 
+3. 包管理器
+
 ### 网络管理
 
 wifi, 有线管理， 网卡驱动
+
+### 权限管理
+
+使用 `chmod -R 4775 /usr` 改了usr 的权限，网络上搜索建议重装系统， 然而使用了一年多的系统， 重装个系统的代价挺大的，鉴于系统还能点亮, 那就还能用， 出了什么问题，修复即可。
+
