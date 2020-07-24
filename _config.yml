@@ -102,5 +102,5 @@ deploy:
   repo: git@github.com:sophimp/sophimp.github.io.git
   #repo: git@gitee.com:sophimp/sophimp.git
   branch: master
-  message: blog upload
+  message: thinking about blog
 
