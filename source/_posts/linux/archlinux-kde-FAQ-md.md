@@ -48,6 +48,7 @@ description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法
 ### 网络管理
 
 wifi, 有线管理， 网卡驱动
+安装 plasma-nm,  面板的选项 > 添加部件 > 网络 来把它添加到KDE的任务栏上
 
 ### 权限管理
 
