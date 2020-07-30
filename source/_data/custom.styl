@@ -1,0 +1,52 @@
+// Custom styles.
+// 整体背景设置
+body {
+ 	background:url(/images/bg_blog.jpg);// 设定背景图片,images同处于source文件夹下
+ 	background-repeat: no-repeat;// 设定背景图片非重复填充
+    background-attachment:fixed;// 设置背景图片不随页面滚动
+    background-position:50% 50%;// 设置背景图片位置
+	background-size: cover// 设置保持图像的纵横比并将图像缩放成将完全覆盖背景定位区域的最小大小
+}
+
+// 页面头样式属性
+.header-inner {
+   // 也可以同时定义背景色
+   // background: #cc00ff 
+   // 透明度
+    opacity: 0.8;
+}
+// sidebar侧边工具栏样式属性
+.sidebar{
+    // 动画过渡时间
+	transition-duration: 0.4s;
+    // 透明度
+	opacity: 1.0
+}
+// 标题样式
+.posts-expand .post-title-link {
+	// 设置字体颜色
+	color: #222;
+}
+
+// 文章版块样式
+.post-block {
+    background: var(--content-bg-color);
+	//background: #fff
+    border-radius: initial;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.06), 0 1px 5px 0 rgba(0,0,0,0.12);
+    padding: 40px;
+	opacity: 0.7;
+}
+
+//自定义回到顶部样式
+.back-to-top {
+  //background: var(--body-bg-color);
+  background: #000
+  right: 8px;
+  width: 70px;  //图片素材宽度
+  height: 70px;  //图片素材高度
+  
+  &.back-to-top-on {
+    text-align: center;
+  }
+}

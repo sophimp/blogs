@@ -62,6 +62,8 @@ Next 主题目前基本上满足了我的需求：
 1. 不要搞得太花哩胡哨的， 因为github 的在国内的访问速度毕竟还是慢一些。
 2. 整体的界面保持简洁， 保持影响阅读体验的良好。所以，够用，方便阅读, 查找，更新，管理文章即可。
 
+[个人的next定制仓库](https://gitee.com/sophimp/hexo-theme-next)
+
 ### 博客管理
 
 官方推荐的是博客原文与部署文件分两个仓库管理。 
@@ -96,6 +98,9 @@ hexo new <file name> # 默认是在 source/_post 文件夹下创建一个md 文�
 {% asset_img <图片相对路径> [图片名称]%}
 {% asset_link <资源相对路径> [资源的子标题]%}
 ```
+
+[设置背景图](https://blog.csdn.net/TomAndersen/article/details/104872852)
+
 
 ### 持续迭代
 

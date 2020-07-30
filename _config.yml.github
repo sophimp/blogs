@@ -13,7 +13,7 @@ timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://sophimp.gitee.io/
+url: https://sophimp.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -99,8 +99,8 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
 - type: git
-  #repo: git@github.com:sophimp/sophimp.github.io.git
-  repo: git@gitee.com:sophimp/sophimp.git
+  repo: git@github.com:sophimp/sophimp.github.io.git
+  #repo: git@gitee.com:sophimp/sophimp.git
   branch: master
   message: latest upload
 
