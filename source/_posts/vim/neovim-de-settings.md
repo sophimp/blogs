@@ -90,9 +90,42 @@ pack 原生包管理个人觉得没必要使用， vim-plugin 就很好用, 但�
 
 了解了vim 启动加载生命周期， 是主要是阅读他人的配置，这里我首先参考的是[theniceboy/nvim](https://github.com/theniceboy/nvim)和[skywind3000/vim](https://github.com/skywind3000/vim)的配置，学习并定制自己的配置， 做到每一行配置都知其作用。 定制符合自身习惯的配置。
 
-基础配置
+基本配置的思路:
 
-插件
+1. 默认变量
+
+	设置默认变量的变量通过 set 命令, `=` 号两边不能有空格
+	查看所有的默认变量通过 `:options`命令
+	查看每个变量的详细介绍通过 `:help <variant>` 命令
+
+2. 快捷键
+
+	快捷键的本质思想是将常用的，较复杂(超过3次按键)的操作简化成键程更短, 双手配合更方便的两键,三键或四键。
+	
+	快捷键涉及到的命令字有: 
+
+	|命令字|备注|
+	|--|--|
+	|map| 递归的映射|
+	|unmap|删除某个映射|
+	|mapclear| 清除映射 |
+	|noremap|no recursive map, 非递归的|
+	|inoremap| insert  模式下 |
+	|nnoremap| normal  模式下 |
+	|vnoremap| visual  模式下 |
+	|cnoremap| command 模式下 |
+	|snoremap|  |
+	|slient| |
+	|<tab> |
+	|<CR>  |
+
+
+
+3. 函数
+
+	这就涉及到更具体的开发技能了，脚本语言在nvim 更加开放。
+	函数的编写先不必强求，可以看懂个大概, 先将别人的用起来， 待互联网搜索满足不了需求的时候，再思考着去定制。 
+	vim 的插件也是定制函数的集合
 
 ### c/c++ 环境配置
 
