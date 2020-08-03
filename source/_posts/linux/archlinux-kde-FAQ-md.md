@@ -45,12 +45,15 @@ description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法
 
 3. 包管理器
 
-### 网络管理
-
-wifi, 有线管理， 网卡驱动
-安装 plasma-nm,  面板的选项 > 添加部件 > 网络 来把它添加到KDE的任务栏上
-
 ### 权限管理
 
 使用 `chmod -R 4775 /usr` 改了usr 的权限，网络上搜索建议重装系统， 然而使用了一年多的系统， 重装个系统的代价挺大的，鉴于系统还能点亮, 那就还能用， 出了什么问题，修复即可。
+
+### KDE 常用软件
+
+图片查看器 gwenview
+
+网络管理  plasma-nm, 开机启动 `systemctl enabled networimanager.service`
+
+
 

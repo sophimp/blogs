@@ -88,9 +88,11 @@ VIM是一个上古编辑器，然而它仍然是一个优秀的编辑器，优�
 
 pack 原生包管理个人觉得没必要使用， vim-plugin 就很好用, 但是了解一下有必要， 用于学习其他大神的配置文件。 
 
-了解了vim 启动加载生命周期， 是主要是阅读他人的配置，这里我首先参考的是[theniceboy/nvim](https://github.com/theniceboy/nvim)和[skywind3000/vim](https://github.com/skywind3000/vim)的配置，学习并定制自己的配置， 做到每一行配置都知其作用。 也定制符合自身习惯的配置。
+了解了vim 启动加载生命周期， 是主要是阅读他人的配置，这里我首先参考的是[theniceboy/nvim](https://github.com/theniceboy/nvim)和[skywind3000/vim](https://github.com/skywind3000/vim)的配置，学习并定制自己的配置， 做到每一行配置都知其作用。 定制符合自身习惯的配置。
 
-主题, 快捷键, 键盘，
+基础配置
+
+插件
 
 ### c/c++ 环境配置
 
