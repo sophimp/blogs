@@ -38,6 +38,6 @@ tclass=packet_socket permissive=1
 
 [SE-Linux 问题解决-untrusted_app_25](https://blog.csdn.net/su749520/article/details/80284543)
 
-更多Android SELinux 解析， 有必要单独分析分析，请看{% android/android-selinux-1 %}
+更多Android SELinux 解析， 有必要单独分析分析，请看{%post_link android/android-selinux-1 %}
 
 
