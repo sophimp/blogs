@@ -213,60 +213,114 @@ linux 下各种软件的手册，会有很多约定， 而这些约定不反应�
 
 ### c/c++ 环境配置
 
+代码跟踪
+	调用栈
+	语义跟踪
+	字段跟踪
+	函数列表
+	成员函数列表
+	跨依赖库的跟踪
+
+自动补全
+
+snippet
+
+文件搜索
+
+代码高亮
+
+文件树
+
+编译
+
 ### 插件介绍
 
 |插件名称|作用说明|
 |:--:|:--:|
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
-| <++> | <++> |
+| [junegunn/plug.vim](https://github.com/junegunn/vim-plug) | 用于插件管理 |
+| [easymotion/vim-easymotion](https://github.com/easymotion/vim-easymotion) | <++> |
+| [Raimondi/delimitMate](https://github.com/Raimondi/delimitMate) | <++> |
+| [justinmk/vim-dirvish](https://github.com/justinmk/vim-dirvish) | <++> |
+| [justinmk/vim-sneak](https://github.com/justinmk/vim-sneak) | <++> |
+| [tpope/vim-fugitive](https://github.com/tpope/vim-fugitive) | <++> |
+| [tpope/vim-unimpaired](https://github.com/tpope/vim-unimpaired) | <++> |
+| [godlygeek/tabular](https://github.com/godlygeek/tabular) | <++> |
+| [bootleq/vim-cycle](https://github.com/bootleq/vim-cycle) | <++> |
+| [tpope/vim-surround](https://github.com/tpope/vim-surround) | <++> |
+| [tpope/vim-rhubarb](https://github.com/tpope/vim-rhubarb) | <++> |
+| [mhinz/vim-startify](https://github.com/mhinz/vim-startify) | <++> |
+| [flazz/vim-colorschemes](https://github.com/flazz/vim-colorschemes) | <++> |
+| [xolox/vim-misc](https://github.com/xolox/vim-misc) | <++> |
+| [terryma/vim-expand-region](https://github.com/terryma/vim-expand-region) | <++> |
+| [pprovost/vim-ps1](https://github.com/pprovost/vim-ps1) | <++> |
+| [tbastos/vim-lua](https://github.com/tbastos/vim-lua) | <++> |
+| [octol/vim-cpp-enhanced-highlight](https://github.com/octol/vim-cpp-enhanced-highlight) | <++> |
+| [vim-python/python-syntax](https://github.com/vim-python/python-syntax) | <++> |
+| [pboettch/vim-cmake-syntax](https://github.com/pboettch/vim-cmake-syntax) | <++> |
+| [beyondmarc/hlsl.vim](https://github.com/beyondmarc/hlsl.vim) | <++> |
+| [tpope/vim-eunuch](https://github.com/tpope/vim-eunuch) | <++> |
+| [dag/vim-fish](https://github.com/dag/vim-fish) | <++> |
+| [skywind3000/vim-dict](https://github.com/skywind3000/vim-dict) | <++> |
+| [tamago324/LeaderF-filer](https://github.com/tamago324/LeaderF-filer) | <++> |
+| [Yggdroot/LeaderF](https://github.com/Yggdroot/LeaderF) | <++> |
+| [vim-scripts/L9](https://github.com/vim-scripts/L9) | <++> |
+| [honza/vim-snippets](https://github.com/honza/vim-snippets) | <++> |
+| [MarcWeber/vim-addon-mw-utils](https://github.com/MarcWeber/vim-addon-mw-utils) | <++> |
+| [tomtom/tlib_vim](https://github.com/tomtom/tlib_vim) | <++> |
+| [garbas/vim-snipmate](https://github.com/garbas/vim-snipmate) | <++> |
+| [xolox/vim-notes](https://github.com/xolox/vim-notes) | <++> |
+| [skywind3000/vimoutliner](https://github.com/skywind3000/vimoutliner) | <++> |
+| [mattn/webapi-vim](https://github.com/mattn/webapi-vim) | <++> |
+| [mattn/gist-vim](https://github.com/mattn/gist-vim) | <++> |
+| [lambdalisue/vim-gista](https://github.com/lambdalisue/vim-gista) | <++> |
+| [lifepillar/vim-cheat40](https://github.com/lifepillar/vim-cheat40) | <++> |
+| [kshenoy/vim-signature](https://github.com/kshenoy/vim-signature) | <++> |
+| [mhinz/vim-signify](https://github.com/mhinz/vim-signify) | <++> |
+| [t9md/vim-choosewin](https://github.com/t9md/vim-choosewin) | <++> |
+| [francoiscabrol/ranger.vim](https://github.com/francoiscabrol/ranger.vim) | <++> |
+| [kana/vim-textobj-user](https://github.com/kana/vim-textobj-user) | <++> |
+| [kana/vim-textobj-syntax](https://github.com/kana/vim-textobj-syntax) | <++> |
+| [kana/vim-textobj-function](https://github.com/kana/vim-textobj-function) | <++> |
+| [sgur/vim-textobj-parameter](https://github.com/sgur/vim-textobj-parameter) | <++> |
+| [bps/vim-textobj-python](https://github.com/bps/vim-textobj-python) | <++> |
+| [jceb/vim-textobj-uri](https://github.com/jceb/vim-textobj-uri) | <++> |
+| [junegunn/fzf](https://github.com/junegunn/fzf) | <++> |
+| [junegunn/fzf.vim](https://github.com/junegunn/fzf.vim) | <++> |
+| [mhartington/oceanic-next](https://github.com/mhartington/oceanic-next) | <++> |
+| [jceb/vim-orgmode](https://github.com/jceb/vim-orgmode) | <++> |
+| [soft-aesthetic/soft-era-vim](https://github.com/soft-aesthetic/soft-era-vim) | <++> |
+| [dyng/ctrlsf.vim](https://github.com/dyng/ctrlsf.vim) | <++> |
+| [itchyny/calendar.vim](https://github.com/itchyny/calendar.vim) | <++> |
+| [tpope/vim-speeddating](https://github.com/tpope/vim-speeddating) | <++> |
+| [chiel92/vim-autoformat](https://github.com/chiel92/vim-autoformat) | <++> |
+| [voldikss/vim-translator](https://github.com/voldikss/vim-translator) | <++> |
+| [benmills/vimux](https://github.com/benmills/vimux) | <++> |
+| [skywind3000/vim-gutentags](https://github.com/skywind3000/vim-gutentags) | <++> |
+| [Shougo/deoplete.nvim](https://github.com/Shougo/deoplete.nvim) | <++> |
+| [roxma/nvim-yarp](https://github.com/roxma/nvim-yarp) | <++> |
+| [roxma/vim-hug-neovim-rpc](https://github.com/roxma/vim-hug-neovim-rpc) | <++> |
+| [zchee/deoplete-jedi](https://github.com/zchee/deoplete-jedi) | <++> |
+| [vimwiki/vimwiki](https://github.com/vimwiki/vimwiki) | <++> |
+| [vim-airline/vim-airline](https://github.com/vim-airline/vim-airline) | <++> |
+| [vim-airline/vim-airline-themes](https://github.com/vim-airline/vim-airline-themes) | <++> |
+| [itchyny/lightline.vim](https://github.com/itchyny/lightline.vim) | <++> |
+| [neoclide/coc.nvim](https://github.com/neoclide/coc.nvim) | <++> |
+| [kkoomen/vim-doge](https://github.com/kkoomen/vim-doge) | <++> |
+| [scrooloose/nerdtree](https://github.com/scrooloose/nerdtree) | <++> |
+| [tiagofumo/vim-nerdtree-syntax-highlight](https://github.com/tiagofumo/vim-nerdtree-syntax-highlight) | <++> |
+| [rhysd/vim-grammarous](https://github.com/rhysd/vim-grammarous) | <++> |
+| [neomake/neomake](https://github.com/neomake/neomake) | <++> |
+| [liuchengxu/vista.vim](https://github.com/liuchengxu/vista.vim) | <++> |
+| [liuchengxu/vim-clap](https://github.com/liuchengxu/vim-clap) | <++> |
+| [sbdchd/neoformat](https://github.com/sbdchd/neoformat) | <++> |
+| [Shougo/neocomplete.vim](https://github.com/Shougo/neocomplete.vim) | <++> |
+| [vim-scripts/OmniCppComplete](https://github.com/vim-scripts/OmniCppComplete) | <++> |
+| [shawncplus/phpcomplete.vim](https://github.com/shawncplus/phpcomplete.vim) | <++> |
+| [othree/html5.vim](https://github.com/othree/html5.vim) | <++> |
+| [autozimu/LanguageClient-neovim](https://github.com/autozimu/LanguageClient-neovim) | <++> |
+| [skywind3000/vim-keysound](https://github.com/skywind3000/vim-keysound) | <++> |
+| [istepura/vim-toolbar-icons-silk](https://github.com/istepura/vim-toolbar-icons-silk) | <++> |
+| [voldikss/vim-floaterm](https://github.com/voldikss/vim-floaterm) | <++> |
 | <++> | <++> |
 
 ### 关于插件学习的思考
