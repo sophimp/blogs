@@ -213,6 +213,8 @@ linux 下各种软件的手册，会有很多约定， 而这些约定不反应�
 
 ### c/c++ 环境配置
 
+[ 参考知乎韦易笑 ](https://www.zhihu.com/question/47691414/answer/373700711)
+
 代码跟踪
 	调用栈
 	语义跟踪
@@ -220,6 +222,20 @@ linux 下各种软件的手册，会有很多约定， 而这些约定不反应�
 	函数列表
 	成员函数列表
 	跨依赖库的跟踪
+
+	有两种方式: 基于tags, 基于语义
+
+	tags 原理是按字符串来比较，所以可能会有一些不相干逻辑但命名相同的定义和调用会被搜出来
+	基于语义要准备一些， 但速度相对tags要慢一些， 因为要实时分析。 
+
+	小孩子才选择， 成年人我都要!
+
+	tags: 
+		ctags, 使用[universal-ctags](https://ctags.io/) 来生成, gutentags 需要提前安装生成ctags的工具
+		cscope, 
+	语义: 
+		YCM, 
+		coc, 
 
 自动补全
 
@@ -295,7 +311,7 @@ snippet
 | [chiel92/vim-autoformat](https://github.com/chiel92/vim-autoformat) | <++> |
 | [voldikss/vim-translator](https://github.com/voldikss/vim-translator) | <++> |
 | [benmills/vimux](https://github.com/benmills/vimux) | <++> |
-| [skywind3000/vim-gutentags](https://github.com/skywind3000/vim-gutentags) | <++> |
+| [skywind3000/vim-gutentags](https://github.com/skywind3000/vim-gutentags) | skywind 对[ludovicchabant/vim-gutentags](https://github.com/ludovicchabant/vim-gutentags) 做了一些定制, 主要是用来自动生成 ctags |
 | [Shougo/deoplete.nvim](https://github.com/Shougo/deoplete.nvim) | <++> |
 | [roxma/nvim-yarp](https://github.com/roxma/nvim-yarp) | <++> |
 | [roxma/vim-hug-neovim-rpc](https://github.com/roxma/vim-hug-neovim-rpc) | <++> |
