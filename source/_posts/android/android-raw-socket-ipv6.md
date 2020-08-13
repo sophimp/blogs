@@ -38,6 +38,15 @@ tclass=packet_socket permissive=1
 
 [SE-Linux 问题解决-untrusted_app_25](https://blog.csdn.net/su749520/article/details/80284543)
 
-更多Android SELinux 解析， 有必要单独分析分析，请看{%post_link android/android-selinux-1 %}
+更多SEAndroid 解析， 有必要单独分析分析，请看{%post_link android/android-selinux-1 %}
 
+修改 system/sepolicy/ 下的 untrusted_app_25.te， 编译都过不了,  编译内核时中断
+
+	neverallow untrusted_app_25 base_typeattr_9 (packet_socket (ioctl read write create getattr setattr lock relabelfrom relabelto append map bind connect listen accept getopt setopt shutdown recvfrom sendto name_bind))
+
+	neverallow check failed at .../built_plat_sepolicy:9633 from system/sepolicy/private/app_neverallows.te:72
+
+	Falied to build policydb
+
+	到这里，只搜索，也看不懂内容了， 系统学习SEAndroid
 

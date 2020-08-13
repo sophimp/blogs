@@ -11,4 +11,15 @@ description: 在ROM移植过程中, 卡在启动流程里，是最难受的事�
 
 ## Android SELinux 
 
-占坑
+[android seolicy 官方文档](https://source.android.com/security/selinux/customize)
+
+sepolicy.te 文件使用的是[M4语言](https://www.gnu.org/savannah-checkouts/gnu/m4/manual/m4-1.4.18/index.html)
+
+[SELinux 简析与修改](https://www.cnblogs.com/blogs-of-lxl/p/7515023.html)
+
+### 术语
+
+DAC:	Discretionary Access Control, 自主访问控制
+MAC:	Mandatory Access Control, 强制访问控制
+TE:		Type
+
