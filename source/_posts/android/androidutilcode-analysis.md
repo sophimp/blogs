@@ -5,8 +5,7 @@ tags:
 - 开源框架
 categories: 
 - Android
-description: 
-	AndroidUtilCode 作者对其框架公开的有三篇介绍， 但是gradle版本更新比较快, 当前版本的gradle(6.1.1) 并不能无缝使用，且当前代码与example 也有些出入。此文主要记录将这个框架应用到个人项目， 移植到android 4.0.1 的过程。
+description: AndroidUtilCode 作者对其框架公开的有三篇介绍， 但是gradle版本更新比较快, 当前版本的gradle(6.1.1) 并不能无缝使用，且当前代码与example 也有些出入。此文主要记录将这个框架应用到个人项目， 移植到android 4.0.1 的过程。
 ---
 
 ## 项目理解
