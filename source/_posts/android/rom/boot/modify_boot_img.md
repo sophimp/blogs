@@ -1,3 +1,13 @@
+---
+title: boot.img的定制
+date: 
+tags:
+- rom
+- Android
+categories:
+- Android
+description: ROM移植，首要步骤是先验证
+---
 
 ## 工具
 

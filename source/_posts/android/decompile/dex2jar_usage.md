@@ -1,3 +1,13 @@
+---
+title:  dex 反编译工具
+date:  2019-09-17 17:59:46
+tags:
+- Android逆向
+- Android
+categories:
+- Android
+description: 工作中需要telephony 下隐藏的类，因此需要重新制作android.jar，现整理以前blog, 环境又发生了变化，这里仅仅是记录一上小技巧，然而接下来要全面学习Android 逆向的知识。留坑。
+---
 
 ## linux dex2jar
 
