@@ -1,5 +1,13 @@
-
-## 如何打补丁升级linux内核
+---
+title: 如何打补丁升级linux内核
+date: 2019-10-11 17:54:00
+tags: 
+- kernel
+- 打补丁
+categories: 
+- Linux
+description: 打补丁， 是内核升级，Linux下的很多源码升级的传统。rom 移植的过程中， 点不亮手机，尝试给内核打补， 记录下打补丁的方法。
+---
 
 diff 工具
 patch 工具
@@ -36,5 +44,4 @@ patch -p0 -i patch.dir
 有 kernel/scripts/patch_kernel自动打包升级脚本. 
 
 脚本里用的同样是diff与patch工具, 将此过程自动化了, 但是需要先提供 patch文件. 应该还有更高级的应用, 后续再研究下一款机型的时候, 给内核打包再研究. 
-
 

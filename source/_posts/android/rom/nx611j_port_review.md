@@ -1,5 +1,15 @@
+---
+title: Nubia z18 mini 移植总结
+date: 2019-11-12 16:22:59
+tags: 
+- rom
+- mokee 
+- Nubia Z18 mini
+categories: 
+- Android
+description: 在BambooIV 的帮助下， Nubia Z18 mini 终究是点亮了，复盘总结一波。
+---
 
-## z18 mini 移植总结
 
 进展: 
 

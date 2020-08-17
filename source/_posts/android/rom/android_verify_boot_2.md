@@ -1,6 +1,12 @@
-
-
-## Android Verified Boot 2.0
+---
+title: (官方文档)Android Verified Boot 2.0
+date: 2019-08-26 22:02:41
+tags: 
+- AVB2.0
+categories: 
+- Android
+description: 官方文档需要翻墙，这里备份一下， 方便没有翻墙或者暂时不能翻墙的小伙伴们查阅，但是，搞开发， 还是需要一个梯子， 不然受限太多了。
+---
 
 [译文](https://blog.csdn.net/shangyexin/article/details/86649504)
 

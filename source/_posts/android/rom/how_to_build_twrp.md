@@ -1,5 +1,13 @@
-
-## `<译>` 如何编译 TWRP recovery
+---
+title: (译) 如何编译 TWRP recovery
+date: 2019-09-02 22:03:50
+tags: 
+- twrp
+- rom
+categories: 
+- Android
+description: 编译twrp 的步骤与aosp大同小异，在此基础上自定义recovery,便于刷机。 
+---
 
 [原文: How to compile TWRP touch recovery](https://forum.xda-developers.com/showthread.php?t=1943625)
 

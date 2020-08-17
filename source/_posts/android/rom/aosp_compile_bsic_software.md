@@ -1,5 +1,14 @@
+---
+title: AOSP源码同步与编译
+date: 2019-03-28 18:02:57
+tags: 
+- aosp
+- rom
+categories: 
+- Android
+description: 编译aosp源码的步骤, 编译不会很麻烦， 下载同步有国内的源， 编译有自动化脚本， 然后这是学习android系统，ROM移植的第一步。 
+---
 
-# aosp
 ## 源码下载
 
 [`国内镜像及教程: https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/`](https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/)
@@ -142,3 +151,28 @@ java.lang.IllegalArgumentException: Self-suppression not permitted
 ## 编译结果
 	
 直接 lunch mk_combo-userdebug, mka bacon 编译，没有问题
+
+## 生成系统签名脚本
+```sh
+#!/bin/sh
+
+rm shared.*
+rm *.keystore
+
+KEYSTORE_NAME=$1
+
+if [ ! -n "$1" ]
+then
+	KEYSTORE_NAME='mkp_enchilada_system_debug'
+fi
+
+# 把pkcs8格式的私钥转化成pkcs12格式：
+openssl pkcs8 -in platform.pk8 -inform DER -outform PEM -out shared.priv.pem -nocrypt
+
+# 把x509.pem公钥转换成pkcs12格式： alias: androiddebugkey 密码都是：android
+openssl pkcs12 -export -in platform.x509.pem -inkey shared.priv.pem -out shared.pk12 -name androiddebugkey -password pass:android
+
+# 生成platform.keystore
+keytool -importkeystore -deststorepass android -destkeypass android -destkeystore $KEYSTORE_NAME.keystore -srckeystore shared.pk12 -srcstoretype PKCS12 -srcstorepass android -alias androiddebugkey
+
+```

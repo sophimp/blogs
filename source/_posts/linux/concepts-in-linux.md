@@ -5,7 +5,7 @@ tags:
 - linux
 - os
 categories:
-- linux
+- Linux
 description: 关于系统中的一些工具，概念的理解(如gpio, cpio, i2c, dd, awk等)， 用简洁易懂的文字表术出来。
 ---
 

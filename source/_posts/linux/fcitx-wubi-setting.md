@@ -5,7 +5,7 @@ tags:
 - fcitx
 - 五笔
 categories: 
-- linux
+- Linux
 description: fcitx 五笔字库删减掉词组, 适合单一字上屏的习惯。 
 ---
 

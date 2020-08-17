@@ -1,3 +1,13 @@
+---
+title: shell script 学习
+date: 2019-05-22 17:53:56
+tags: 
+- shell script
+- linux
+categories: 
+- Linux
+description: 以linux作为主力系统, shell script是必须得学习的，结合aosp的学习，确实感受到了shell script的威力。 要学习的东西太多了， 东一榔头，西一棒槌，都是半瓢水的水平，慢慢来吧。 
+---
 
 ## bash
 

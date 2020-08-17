@@ -1,15 +1,17 @@
 ---
-title: Gerrit 文档(翻译)
-date: 2019-12-24 17:31:50
-tags:
-- Gerrit
+title: gerrit 的使用
+date: 2020-06-13 21:38:29
+tags: 
+- gerrit
+- rom
+categories: 
 - Android
-categories:
-- 工具
-description: Gerrit 使用文档翻译，想为mokee, lineage 做点贡献 
+description: 本想着将Redmi K30 pro 移植出来了，为LineageOS 和 Mokee 贡献一波，然而现实是ROM 并没有移植成功，gerrit也没机会使用，就当再开一坑， 后面有机会再填吧。 
 ---
 
-## Gerrit
+gerrit 项目管理工具, 方便于代码review, merge
+
+## Gerrit 文档
 
 This is a Gerrit guide that is dedicated to Gerrit end-users. It explains the standard Gerrit workflows and how a user can adapt Gerrit to personal preferences.
 

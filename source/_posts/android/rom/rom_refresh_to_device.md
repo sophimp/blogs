@@ -1,3 +1,14 @@
+---
+title: Android刷机
+date: 2018-12-03 22:06:17
+tags: 
+- 刷机
+- rom
+categories: 
+- Android
+description: rom 有很多种存在形式， 有线刷包，卡刷包， 还有system.img, 不同版本的系统，需要的fastboot也不一样，这里记录遇到的一些坑，后面根据学习进展再持续补充。 
+---
+
 ## 编译完后的rom 文件
 
     system.img, ramdisk.img, userdata.img, boot.img, recovery.img

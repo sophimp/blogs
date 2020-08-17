@@ -1,12 +1,12 @@
 ---
 title: (译)Ninja 编译系统
-date: 2019-08-12 21:05:59
+date: 
 tags: 
 - ninja
 - rom
 categories: 
 - Android
-description: 编译aosp, 有现成的脚本，别人适配好的机型，是很简单的事情，但是对于没有的机型，但可以找到相关的移植源码，如何编译呢？这时候就需要研究aosp的编译系统，看编译脚本，然后定制自己的脚本，编译过程中，各种错误，大多数情况通过编译日志也是可以找到解决办法的。 
+description: aosp 的编译系统, 编译aosp, 有现成的
 ---
 
 原文请点击[Ninja 编译系统](https://ninja-build.org/manual.html)

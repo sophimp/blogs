@@ -1,3 +1,12 @@
+---
+title: (转)定制ROM: 常见问题及编译错误
+date: 2019-08-15 22:29:37
+tags: 
+- rom
+categories: 
+- android
+description: 编译aosp rom 时， 常见的一些问题与错误积累。
+---
 
 ## [FAQs and Common errors whille building custom roms (转)](https://forum.xda-developers.com/android/help/faqs-common-error-building-custom-roms-t3617238#post80074544)
 

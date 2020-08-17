@@ -1,5 +1,13 @@
-
-## 如何移植 CyanogenOS/LineageOS 到您自己的手机(译)
+---
+title: (译)如何移植 CyanogenOS/LineageOS 到您自己的手机
+date: 2019-08-02 18:31:29
+tags: 
+- ROM移植
+- LineageOS
+categories: 
+- Android
+description: 此教程有一定的参考性， 相对于一个新手来说, 不够全面，这与每个人的知识积累有关, 但ROM移植的教程本来就少，权且看之。 
+---
 
 原文见 [How To Port Cyanogen/LineageOS Android To Your Own Device](https://fat-tire.github.io/porting-intro.html#Prerequisites)
 

@@ -2,12 +2,12 @@
 title: Android raw socket in ipv6
 date: 2020-07-29 13:42:43
 tags: 
-- Android 
+- tcp 
 - raw socket
 - ipv6
 categories:
 - Android
-description: 使用raw socket 实现 IPv6 的 tcp 通信
+description: 使用raw socket 实现 IPv6 的 tcp 通信, 验证可否使用raw socket 直接使用 volte 的ipv6呢？ 
 ---
 
 ## 背景

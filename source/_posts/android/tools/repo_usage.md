@@ -11,6 +11,18 @@ description:  repo 是为管理aosp项目而开发的工具, 使用的python语�
 
 ## repo
 
+repo 是一个多git项目管理工具, 所以, 理论上不同repo版本所维护的版本, 都可以使用最新版本的repo. 
+repo里的差别是 默认的 REPO_URL, MAINTAINER_KEY
+
+如何去同步一个项目? 还是要去和项目的官网或论坛上去找.
+比如 codeaurora 的代码, 在[浏览器](https://source.codeaurora.org)上看是一回事
+但是整体的项目 clone 下来, 还要是从[codeaurora wiki上去找](https://wiki.codeaurora.org/xwiki/bin/QAEP/)
+
+[aosp](https://source.android.com) 
+[mokee](https://mokeedev.review) 
+[lineage](https://review.lineageos.org) 
+
+
 Repo is a tool built on top of Git. Repo helps manage many Git repositories, does the uploads to revision control systems, and automates parts of the development workflow. Repo is not meant to replace Git, only to make it easier to work with Git. The repo command is an executable Python script that you can put anywhere in your path.
 
 Homepage: https://gerrit.googlesource.com/git-repo/
@@ -45,6 +57,23 @@ $ chmod a+rx ~/.bin/repo
 ```
 
 ## Repo 命令参考文档
+repo 的使用方法 可以通过 repo help 来学习, 常用的记录如下:
+
+```sh
+	# 初始化,同步
+	repo init -u <src_url> -b <branch_name> [-m <manifest_name>]
+	repo sync [--force-sync]
+
+	# 创建各个库的tag
+	repo forall -c git tag <tag_name>
+	repo forall -c git push origin --tags
+	# 下载tag 代码
+	repo init -u <src_url>  -b refs/tags/<tag_name>
+	repo sync
+	# 从清单中指定的修订版开始,创建一个新的分支进行开发
+	repo start <tag_name>
+	
+```
 
 Repo 简化了跨多个代码库运行的流程，与 Git 相辅相成。请参阅源代码控制工具，了解有关 Repo 和 Git 之间关系的说明。如需详细了解 Repo，请参阅 Repo README。
 
@@ -461,8 +490,6 @@ rm -rf WORKING_DIRECTORY
 ```
 
 删除客户端将永久删除您尚未上传以供审核的任何更改。
-
-git 和 repo 快速参考表
 
 ![git-repo参考表](git-repo-1.png)
 
