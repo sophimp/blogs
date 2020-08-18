@@ -1,5 +1,5 @@
 ---
-title: 如何打补丁升级linux内核
+title: 打补丁升级linux内核
 date: 2019-10-11 17:54:00
 tags: 
 - kernel
@@ -9,8 +9,7 @@ categories:
 description: 打补丁， 是内核升级，Linux下的很多源码升级的传统。rom 移植的过程中， 点不亮手机，尝试给内核打补， 记录下打补丁的方法。
 ---
 
-diff 工具
-patch 工具
+### diff, patch 工具
 
 diff 是对两个集合的差运算, patch 是对两个集合的和运算,
 每一行为集合中的元素, 所以空行并不影响结果
@@ -45,3 +44,59 @@ patch -p0 -i patch.dir
 
 脚本里用的同样是diff与patch工具, 将此过程自动化了, 但是需要先提供 patch文件. 应该还有更高级的应用, 后续再研究下一款机型的时候, 给内核打包再研究. 
 
+
+### git 打补丁
+
+linux 内核, android 系统, 被这些项目逼迫不得不学打补丁, 因为手动去对比, 那是一件无比庞大的工作量. 
+早就该学一学了, 不仅是git path, 还有 linux下的diff, patch. 
+
+- 应用场景
+
+不同的git tree, 能否打补丁, 是否可靠?
+
+	随着主线的更新, 以前的补丁打进去可能会有冲突, 这个时候需要解决冲突. 
+
+	只需要文件名与路径相同, 应该是都可以
+
+diff, patch, 与 git format patch
+
+	unix标准补丁 .diff 
+	git format-patch 𥫣在的专用 .patch
+
+创建 git .patch补丁
+```sh
+	# 某次提交之前的 n 次提交
+	git format-patch <commit sha1 id > -n
+
+	# 某次提交的patch
+	git format-patch <commit sha1 id> -1
+
+	# 某两次提交的patch
+	git format-patch <commit sha1 id>..<commit sha1 id> 
+```
+创建 diff 
+``` sh
+	git diff <commit sha1 id> <commit sha1 id> > <diff file name>
+```
+
+应用补丁
+``` sh
+	# 检查patch/diff 是否可正常打入
+	git apply --check <xxx.diff>
+	git apply --check <xxx.patch>
+
+	# 打入 patch/diff
+	git apply <xxx.diff>
+	git apply <xxx.patch>
+	git am <xxx.patch>
+```
+
+解决冲突
+
+```sh
+	# 自动合入未冲突部分, 同时保留冲突部分, 同时生成 .rej 文件
+	git apply --reject <xxx.patch>
+	# 参考 .rej 文件手动解决冲突, 然后删除.rej文件, 然后标记冲突解决
+	git am --resolved
+	# 提交所解决的冲突
+```
