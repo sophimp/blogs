@@ -324,12 +324,12 @@ snippet
 | [chiel92/vim-autoformat](https://github.com/chiel92/vim-autoformat) | <++> |
 | [voldikss/vim-translator](https://github.com/voldikss/vim-translator) | <++> |
 | [benmills/vimux](https://github.com/benmills/vimux) | <++> |
-| [skywind3000/vim-gutentags](https://github.com/skywind3000/vim-gutentags) | skywind 对[ludovicchabant/vim-gutentags](https://github.com/ludovicchabant/vim-gutentags) 做了一些定制, 主要是用来自动生成 ctags |
+| [skywind3000/vim-gutentags](https://github.com/skywind3000/vim-gutentags) | skywind 对[ludovicchabant/vim-gutentags](https://github.com/ludovicchabant/vim-gutentags) 做了一些提升, 不用提前进行搜索，自动切换到cscope数据库, 依赖于cscope, universal-ctags工具 |
 | [Shougo/deoplete.nvim](https://github.com/Shougo/deoplete.nvim) | <++> |
 | [roxma/nvim-yarp](https://github.com/roxma/nvim-yarp) | <++> |
 | [roxma/vim-hug-neovim-rpc](https://github.com/roxma/vim-hug-neovim-rpc) | <++> |
 | [zchee/deoplete-jedi](https://github.com/zchee/deoplete-jedi) | <++> |
-| [vimwiki/vimwiki](https://github.com/vimwiki/vimwiki) | <++> |
+| [vimwiki/vimwiki](https://github.com/vimwiki/vimwiki) | 制作wiki的插件，并不是vim使用手册的wiki, 类似于markdown的语法，暂时没有必要，其功能可以用 hexo + markdown 来替代|
 | [vim-airline/vim-airline](https://github.com/vim-airline/vim-airline) | <++> |
 | [vim-airline/vim-airline-themes](https://github.com/vim-airline/vim-airline-themes) | <++> |
 | [itchyny/lightline.vim](https://github.com/itchyny/lightline.vim) | <++> |
@@ -354,4 +354,7 @@ snippet
 
 ### 关于插件学习的思考
 
-### 关于
+将所有的插件都安装，除了加载会慢， 使用会不会冲突呢？ 
+
+	大多数不会，因为大多数插件都提供的是命令方式，将命令映射成快捷键是用户的事情，而少部分插件会默认一些快捷键可能会引起冲突，但那也仅仅是不触发而已。 
+

@@ -45,6 +45,11 @@ description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法
 
 3. 包管理器
 
+完全移除某一个软件， 如从dke 换到 gnome
+```sh
+	sudo pacman -Rns plasma-meta kde-applications-meta
+```
+
 ### 权限管理
 
 使用 `chmod -R 4775 /usr` 改了usr 的权限，网络上搜索建议重装系统， 然而使用了一年多的系统， 重装个系统的代价挺大的，鉴于系统还能点亮, 那就还能用， 出了什么问题，修复即可。
