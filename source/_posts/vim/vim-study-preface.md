@@ -1,12 +1,13 @@
 ---
-title: neovim 开发环境配置
+title: vim 学习系列之(1) -- vim学习历程回顾
 date: 2020-07-27 20:43:31
 tags: 
 - vim
 - nvim
 categories: 
 - vim
-description: neovim 是源自vim的，那么，为何不能vim与neovim共用一套呢？ 本文主要以分析skywind3000/vim 来学习搭建c/c++ 开发环境，学习vim 配置，然后同时应用于vim 与nvim，记录此思考过程，总结vim 学习更合适的路线。 skywind3000/vim 的配置就是跨平台的，vim, nvim, linux, windows, FreeBSD, 真得是很牛逼了。 
+description: 使用vim也有好几年了, 然而现在还是一个半吊子水平, 这严重地打击了我的自信心。随着学习面越来越广，对vim强大的感受越来越强烈。因此我觉得有必要复盘总结一下我学习vim已走过的弯路，并规划接下来学习vim的计划，力求写出一份不过时的vim教程系列。
+neovim 是源自vim的，那么，为何不能vim与neovim共用一套呢？ 本文主要以分析skywind3000/vim 来学习搭建c/c++ 开发环境，学习vim 配置，然后同时应用于vim 与nvim，记录此思考过程，总结vim 学习更合适的路线。 skywind3000/vim 的配置就是跨平台的，vim, nvim, linux, windows, FreeBSD, 真得是很牛逼了。 
 ---
 
 ## 背景
