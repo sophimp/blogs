@@ -48,11 +48,18 @@ VIM虽然是一个上古编辑器，然而它仍然是一个优秀的编辑器�
 
 闲话少谈，更多关于软件开发的想法，记录在{% post_link thought/thinking-about-programming %} 里
 
-### 基本配置
+### vim 与 neovim
 
 > nvim 是 fork vim 的项目，去掉了gui的代码与历史积累的代码，更加遵重开源的开发方式。 除了配置路径改变了， 绝大多数的配置是通用的, 因此资料可以互相参考。
 
-网上的vim 配置教程大都只是配置一些插件，注释说明选项什么意思， 这样的教程就落了下乘，因为我按那些大神的vim配置用了这么多年，还是个半吊子水平， 当然，这跟我自己的学习态度也有关系。直接`:help` 看 vim文档，英文能力也有限，经常效率不高，就睡着了(提升英文能力很重要, 这是后话，另作他表)。 对于一个没有编程经验的小白来说，一个好的本土语言的教程，确实能帮助期少走很多变路。 
+neovim 是完全兼容vim的, 后续neovim 能不能完全取代vim呢？ 虽然现在neovim 在windows上的表现还不是很好，但长久看来neovim 注定是比vim发展快的， 毕竟个人的能力是有限的。
+
+既然neovim 完全兼容vim, 那么基本上同一份配置稍加改动是可以同时适应两个平台的，但是有些后期的插件是基于neovim特有的特性开发的, 并未考虑vim的兼容，这就有些蛋疼了, 由于我目前对windows平台不那么苛求， 所以我的配置对跨平台配置也不强求，依然是以neovim为主。
+
+
+### 基本配置
+
+网上的vim 配置教程大都只是配置一些插件，注释说明选项什么意思， 这样的教程就落了下乘，因为我按那些大神的vim配置用了这么多年，还是个半吊子水平， 当然，这跟我自己的学习态度也有关系。直接`:help` 看 vim文档，英文能力也有限，经常效率不高，看着看着就睡着了(提升英文能力很重要, 这是后话，另作他表)。 对于一个没有编程经验的小白来说，一个好的本土语言的教程，确实能帮助期少走很多变路。 
 
 现在有了一些开发经验后，再学习vim, 就相对容易一些。 
 一个系统(提供了插件扩展能力的应用都可以以称作一个系统)必然会提供一个上下文环境，上下文环境又是与生命周期概念， 所以，学习vim配置，最好还是从生命周期，上下文环境(运行时环境)，插件的加载层次这些信息来入手，更加能抓住主干核心， 对于学习新插件，自己开发插件， 也是必不可少的。 
@@ -326,10 +333,10 @@ snippet
 | [voldikss/vim-translator](https://github.com/voldikss/vim-translator) | <++> |
 | [benmills/vimux](https://github.com/benmills/vimux) | <++> |
 | [skywind3000/vim-gutentags](https://github.com/skywind3000/vim-gutentags) | skywind 对[ludovicchabant/vim-gutentags](https://github.com/ludovicchabant/vim-gutentags) 做了一些提升, 不用提前进行搜索，自动切换到cscope数据库, 依赖于cscope, universal-ctags工具 |
-| [Shougo/deoplete.nvim](https://github.com/Shougo/deoplete.nvim) | <++> |
+| [Shougo/deoplete.nvim](https://github.com/Shougo/deoplete.nvim) | 补全工具, 对deoplete-jedi基于vim8/neovim 异步特性的扩展，根源还是基于jedi 插件, 需要vim/neovim 支持python, 在neovim 下coc 是个趋势，还有一个ycm 老大哥，优先学coc,和ycm, deoplete 暂弃之，|
 | [roxma/nvim-yarp](https://github.com/roxma/nvim-yarp) | <++> |
 | [roxma/vim-hug-neovim-rpc](https://github.com/roxma/vim-hug-neovim-rpc) | <++> |
-| [zchee/deoplete-jedi](https://github.com/zchee/deoplete-jedi) | <++> |
+| [zchee/deoplete-jedi](https://github.com/zchee/deoplete-jedi) | deoplete 的python补全源 |
 | [vimwiki/vimwiki](https://github.com/vimwiki/vimwiki) | 制作wiki的插件，并不是vim使用手册的wiki, 类似于markdown的语法，暂时没有必要，其功能可以用 hexo + markdown 来替代|
 | [vim-airline/vim-airline](https://github.com/vim-airline/vim-airline) | <++> |
 | [vim-airline/vim-airline-themes](https://github.com/vim-airline/vim-airline-themes) | <++> |
