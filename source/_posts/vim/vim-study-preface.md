@@ -7,7 +7,6 @@ tags:
 categories: 
 - vim
 description: 使用vim也有好几年了, 然而现在还是一个半吊子水平, 这严重地打击了我的自信心。随着学习面越来越广，对vim强大的感受越来越强烈。因此我觉得有必要复盘总结一下我学习vim已走过的弯路，并规划接下来学习vim的计划，力求写出一份不过时的vim教程系列。
-neovim 是源自vim的，那么，为何不能vim与neovim共用一套呢？ 本文主要以分析skywind3000/vim 来学习搭建c/c++ 开发环境，学习vim 配置，然后同时应用于vim 与nvim，记录此思考过程，总结vim 学习更合适的路线。 skywind3000/vim 的配置就是跨平台的，vim, nvim, linux, windows, FreeBSD, 真得是很牛逼了。 
 ---
 
 ## 背景
@@ -56,3 +55,4 @@ neovim 是完全兼容vim的, 后续neovim 能不能完全取代vim呢？ 虽然
 
 既然neovim 完全兼容vim, 那么基本上同一份配置稍加改动是可以同时适应两个平台的，但是有些后期的插件是基于neovim特有的特性开发的, 并未考虑vim的兼容，这就有些蛋疼了, 由于我目前对windows平台不那么苛求， 所以我的配置对跨平台配置也不强求，依然是以neovim为主。
 
+neovim 是源自vim的，那么，为何不能vim与neovim共用一套呢？ 本文主要以分析skywind3000/vim 来学习搭建c/c++ 开发环境，学习vim 配置，然后同时应用于vim 与nvim，记录此思考过程，总结vim 学习更合适的路线。 skywind3000/vim 的配置就是跨平台的，vim, nvim, linux, windows, FreeBSD, 真得是很牛逼了。 
