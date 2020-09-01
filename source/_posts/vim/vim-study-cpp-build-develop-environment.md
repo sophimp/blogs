@@ -73,8 +73,10 @@ coc 插件, 是一个插件平台，这一点与vim-plug又有何不同呢？
 在[register-custom-language-server](https://github.com/neoclide/coc.nvim/wiki/Language-servers#register-custom-language-servers)中查看支持LSP的各种语言配置.
 
 LSP的server大都是编译引擎或者各语言的命令行程序/库
-LSP的client是coc插件
+LSP的client是coc插件, 与 server 是通过 jsonRPC协议进程间通信
 coc统一提供了server和client的配置，不用分开配置.
+
+大型项目还是不能使用LSP的查找定义或者引用, 内存爆炸, 而且默认是以.git为一个项目模块来分析，这样各模块间必须解耦, 模块间的通信或者进程间的通信代码跟踪还是需要全局的tags来定位。 coc与ctags并不冲突，可以相互补充。
 
 c/c++
 
@@ -83,34 +85,55 @@ c/c++
 	
 	client: coc-clangd
 
+	ccls 被遗弃了？ 
 	可以补全了，如何修改popwindow的背景色
 
 python 
 	server: jedi
 	client: coc-python
+
 lua
 	lua-lsp 目前只支持到lua5.1-5.3
 	
 java
-kotlin
-
+	server: 
+	client: coc-java
 
 3. 代码搜索
 
+在 coc 的LSP插件中已经包含了单个项目间的定义与搜索
+
 4. 文件搜索
+
+coc-explorer, 文件窗口管理器, 以.git, .root, .project
+
+fzf,
+
+LeaderF
 
 5. 代码高亮
 
+coc-highlight
+
 6. 文件树
+
+coc-explorer
 
 7. snippet
 
+coc-snippets
+
 8. 代码格式化
 
-9. 编译
+coc-prettier
+
+9. gutentags插件的学习
+
+自动添加tag, 添加其他的tag, 系统层源码
 
 ### 总结
 
-一番配置下来， 对编译原理， 项目的组织，都有一定的实践。
+coc 基本上可以满足目前的开发需求，但是插件还是不能安装多了， 不懂的就不要安装，有需求再安装。 插件安装多了，内存直接爆掉了
 
-都说计算机的三大浪漫: 操作系统，编译原理，图形学。 在这一番配置中都有所体现, 
+开发环境就这样配置好了？ 显然还不够，更多的配置在后续持续学习补充吧, 现在时间并不允许耗在这个环境上面。。。
+
