@@ -3,7 +3,7 @@ title: mokee 系统研究
 date: 2019-05-20 18:23:40
 tags: 
 - Mokee
-- rom
+- ROM
 categories: 
 - Android
 description: 工作需要开始研究mokee, 老规矩，先制定一个计划。

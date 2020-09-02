@@ -2,7 +2,7 @@
 title: AOSP源码同步与编译
 date: 2019-03-28 18:02:57
 tags: 
-- aosp
+- AOSP
 - ROM
 categories: 
 - Android

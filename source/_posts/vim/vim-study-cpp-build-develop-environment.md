@@ -121,15 +121,18 @@ coc-explorer
 
 7. snippet
 
-coc-snippets
+coc-snippets, 
 
 8. 代码格式化
 
 coc-prettier
 
+> coc插件可以从其github的readme中找到 coc-settins.json中的参数配置选项和说明, 安装coc-json, 可以在配置文件中自动提示
+> 或者什么都不输入， 直接调用自动补全，会显示当前插件允许的所有配置
+
 9. gutentags插件的学习
 
-自动添加tag, 添加其他的tag, 系统层源码
+10. 自动添加tag, 添加其他的tag, 系统层源码
 
 ### 总结
 

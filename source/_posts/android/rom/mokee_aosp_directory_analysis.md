@@ -3,7 +3,7 @@ title: Mokee 与 aosp 工程文件的分析
 date: 2019-05-22 17:53:56
 tags: 
 - Mokee
-- rom
+- Rom
 categories: 
 - Android
 description: aosp支持的机型还是比较少，mokee 是基于LineageOS 的国内汉化版，支持更多的机型，本文开始研究mokee, 首先还是弄清楚每个文件夹的作用。 

@@ -2,7 +2,7 @@
 title: init.rc 语法解析
 date: 2019-06-19 18:42:00
 tags: 
-- INITRC
+- initrc
 - ROM
 categories: 
 - Android
