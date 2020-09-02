@@ -2,7 +2,7 @@
 title: 打补丁升级linux内核
 date: 2019-10-11 17:54:00
 tags: 
-- kernel
+- Kernel
 - 打补丁
 categories: 
 - Linux

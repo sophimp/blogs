@@ -2,7 +2,7 @@
 title: TCP/IP - 已有知识复盘
 date: 2018-08-01 09:50:30
 tags: 
-- tcp-ip
+- TCP-IP
 categories: 
 - TCP-IP
 description: 开始读一读 tcp/ip, 先总结已有的知识， 规划一下学习的方向, 不能仅仅知道三次握手，四次挥手吧。

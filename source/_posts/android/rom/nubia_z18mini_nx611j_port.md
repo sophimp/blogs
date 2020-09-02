@@ -2,11 +2,11 @@
 title: 努比亚 z18mini 移植过程
 date: 2019-07-24 10:05:32
 tags: 
-- aosp
-- rom移植
-- android
+- AOSP
+- ROM
+- Android
 categories: 
-- android
+- Android
 description: 整理努比亚z18mini 移植的过程, 文章就是个流水帐的形，暂时也没能力纵观全局写关于ROM移植相关的逻辑性好的文章， 姑且当作工具手册查一查， 后续会持续系统相关的研究。
 ---
 

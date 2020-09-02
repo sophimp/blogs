@@ -2,8 +2,8 @@
 title: gentoo 安装
 date: 2019-09-10 23:47:26
 tags: 
-- gentoo
-- linux
+- Gentoo
+- Linux
 categories: 
 - Linux
 description: 慕名而玩，在archliux 与 gentoo里，优先选择了gentoo 的安装，使用了一段时间，确实对linux 有更深的理解，但是对于网速不好，机器不好的用户来说，gentoo还是过于耗时， 而且多出来的那点定制，对于我现在的能力还用不到， 使用archlinux， 感觉更香。这仅代表现阶段看法, 我用不到不代表它不优秀。

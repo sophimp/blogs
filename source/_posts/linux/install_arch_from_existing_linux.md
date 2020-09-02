@@ -2,7 +2,7 @@
 title: 安装Archlinux
 date: 2020-02-19 01:56:22
 tags: 
-- archlinux
+- Archlinux
 categories: 
 - Linux
 description: 使用了一段时间gentoo, 太考验机器性能和网速了，移动，铁通，长城这些网络对开发来说是真得不友好， 访问国外的网站速度太慢了，且不稳定，因此，再折腾一下archlinux，有了gentoo的安装基础，archlinux的安装并未起多少波折, 对于所谓的安装启动盘环境理解的更深了。 

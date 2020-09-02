@@ -2,7 +2,7 @@
 title: kotlin 初体验
 date: 2019-04-29 20:38:30
 tags: 
-- kotlin
+- Kotlin
 categories: 
 - Kotlin
 description: kotlin 成为官宣的语言已经很久了，尝鲜体验，相对于java, 多了很多语法糖，形式上简化的编码，然而学起来还是不得章法，像anko的布局更是不适应，就像学习gradle一样，为何要那样写？ 要从哪里去查找？ 没有说细的文档，靠猜来学习的体验是真得难受。

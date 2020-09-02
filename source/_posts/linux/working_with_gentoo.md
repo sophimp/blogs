@@ -2,8 +2,8 @@
 title: gentoo使用记录
 date: 2019-11-29 07:19:45
 tags: 
-- gentoo
-- linux
+- Gentoo
+- Linux
 categories: 
 - Linux
 description: gentoo使用了2个多月， 更新再编译实在等不了，不过这一折腾过程是有收益的，以后有机会肯定会再玩一玩， 然后现在更重要的是提升生存技能。 

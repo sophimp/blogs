@@ -4,7 +4,7 @@ date: 2020-04-30 21:30:50
 tags: 
 - Nubia z20
 - Redmi K30 pro
-- rom
+- ROM
 - LineageOS
 categories: 
 - Android

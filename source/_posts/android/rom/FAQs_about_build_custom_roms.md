@@ -4,7 +4,7 @@ date: 2019-08-15 22:29:37
 tags: 
 - rom
 categories: 
-- android
+- Android
 description: 编译aosp rom 时， 常见的一些问题与错误积累。
 ---
 

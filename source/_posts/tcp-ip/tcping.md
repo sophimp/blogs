@@ -2,7 +2,7 @@
 title: TCPing 工具
 date: 2020-06-20 16:03:33
 tags: 
-- tcping
+- TCPing
 categories: 
 - TCP-IP
 description: 传统的ping是基于ICMP来实现的，而有些路由会禁掉icmp协议，因此用tcp 来实现ping 或者检查某些端口是否开放，是一种可行的方式。通过测试发现，在手机上，有些运营商会连tcp也给禁了，因此需要尝试使用raw socket, 简单的root并不能调用raw socket的API，接下来的方向还要是研究SEAndroid, 定制ROM。

@@ -2,10 +2,10 @@
 title: vim 学习系列之(5) -- vim 脚本
 date: 2020-08-26 14:36:41
 tags:
-- vim
-- neovim
+- Vim
+- Neovim
 categories:
-- vim
+- Vim
 description:
 ---
 

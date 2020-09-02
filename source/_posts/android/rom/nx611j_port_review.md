@@ -2,7 +2,7 @@
 title: Nubia z18 mini 移植总结
 date: 2019-11-12 16:22:59
 tags: 
-- rom
+- ROM
 - mokee 
 - Nubia Z18 mini
 categories: 

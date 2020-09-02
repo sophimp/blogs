@@ -2,10 +2,10 @@
 title: vim 学习系列之(1) -- vim学习历程回顾
 date: 2020-07-27 20:43:31
 tags: 
-- vim
-- neovim
+- Vim
+- Neovim
 categories: 
-- vim
+- Vim
 description: 使用vim也有好几年了, 然而现在还是一个半吊子水平, 这严重地打击了我的自信心。随着学习面越来越广，对vim强大的感受越来越强烈。因此我觉得有必要复盘总结一下我学习vim已走过的弯路，并规划接下来学习vim的计划，力求写出一份不过时的vim教程系列。
 ---
 

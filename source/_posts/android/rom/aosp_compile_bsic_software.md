@@ -3,7 +3,7 @@ title: AOSP源码同步与编译
 date: 2019-03-28 18:02:57
 tags: 
 - aosp
-- rom
+- ROM
 categories: 
 - Android
 description: 编译aosp源码的步骤, 编译不会很麻烦， 下载同步有国内的源， 编译有自动化脚本， 然后这是学习android系统，ROM移植的第一步。 

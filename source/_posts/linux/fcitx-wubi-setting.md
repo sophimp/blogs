@@ -2,7 +2,7 @@
 title: fcitx 五笔字库单字上屏
 date: 2020-02-19 21:46:01
 tags: 
-- fcitx
+- Fcitx
 - 五笔
 categories: 
 - Linux

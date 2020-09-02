@@ -2,8 +2,8 @@
 title: init.rc 语法解析
 date: 2019-06-19 18:42:00
 tags: 
-- initrc
-- rom
+- INITRC
+- ROM
 categories: 
 - Android
 description: rom 移植最怕的就是启动不了， 拿不到启动日志，只能从各个可能的环节去分析， init.rc 是内核启动init加载的脚本，控制了系统启动过程中加载的服务。 

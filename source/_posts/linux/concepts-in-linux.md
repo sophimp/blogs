@@ -2,7 +2,7 @@
 title: linux 系统中的概念
 date: 2020-08-13 14:39:30
 tags:
-- linux
+- Linux
 - os
 categories:
 - Linux

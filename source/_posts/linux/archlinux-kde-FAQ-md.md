@@ -2,7 +2,7 @@
 title: archlinux-kde 使用日常记录(持续更新)
 date: 2020-07-21 20:57:28
 tags: 
-- linux
+- Linux
 categories: 
 - Linux
 description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法， 思路

@@ -2,7 +2,7 @@
 title: TCP/IP - 第一章 架构，历史，标准和趋势
 date: 2018-08-01 10:50:57
 tags: 
-- tcp-ip
+- TCP-IP
 categories: 
 - TCP-IP
 description: TCP/IP 第八版, 第一章 架构，历史，标准和趋势，读书笔记。
