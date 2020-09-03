@@ -1,34 +1,51 @@
 ---
-title: AndroidUtilCode 框架分析
+title: Android插件化与组件化
 date: 2020-07-22 20:41:05
-tags: 
-- 开源框架
-categories: 
+tags:
+- 插件化
+- 组件化
 - Android
-description: AndroidUtilCode 作者对其框架公开的有三篇介绍， 但是gradle版本更新比较快, 当前版本的gradle(6.1.1) 并不能无缝使用，且当前代码与example 也有些出入。此文主要记录将这个框架应用到个人项目， 移植到android 4.0.1 的过程。
+categories:
+- Android
+description: 插件化与组件化已经成为了Android 开发的标配技术, 
+
 ---
 
-## 项目理解
+## 技术背景
 
-根据原作者的三篇文档介绍, 
+### 插件化开发
+
+是什么，为什么，怎么做
+
+### 组件化开发
+
+## AUC 项目分析
+
+[AUC项目源码](https://github.com/Blankj/AndroidUtilCode)
+
+原作者对此框架相关的文章:
 [AucFrame 之简介](https://blankj.com/2019/07/22/auc-frame/)
 [AucFrame 之让你的Gradle 更智能](https://blankj.com/2019/07/23/auc-frame-smart-gradle/)
 [AucFrame 之统一管理Gradle](https://blankj.com/2019/07/24/auc-frame-manage-gradle/)
-大概知道AucFrame 的架构原理, 然而这些应用到实际项目还是需要一定的学习的。 
+[比EventBus 更高效的事件总线](https://blankj.com/2019/07/22/busutils/)
+[一学就会的模块间通信](https://blankj.com/2019/07/22/busutils/)
 
-AucFrame 的架构核心点在比较齐全的工具类， gradle 开发定制, BusUtil与ApiUtil两个插件。
-gradle 更新较快， 我使用的版本说是支持到 gradle6.0， 然而在 gradle 6.1.1 上已经不能正常编译过, 某些接口已经发生了变化。 
-因此，需要继续阅读源码，将其应用到个人项目中。 
+为何还是要再分析一下呢？ 
+	主要原因是我看完上面几篇文章还是不能明白, 也无法顺利应用到AS4.1(Gradle6.1.1)版本. 
+	我看不明白原因， 一是对gradle插件开发技能不熟悉， 二是根据作者画的框架图，以我现有的能力不能实现出来。
+	因此，我希望提供一个新手用户的角度分析一下这个框架的视角, 提升自己, 同时希望能帮助后来人。
 
-计划分几个步骤来解析源码:
+### 要解决什么问题
 
-1. gradle 的定制
-2. 如何应用到个人项目
-2. BusUtils 分析
-3. ApiUtil 的分析
+模块间通信
+模块内通信
 
-### Gradle 定制
+### 用什么技术实现
 
+通过整个编译过程来分析, 为何要有构建工具来管理项目呢？ 
+
+
+#### gradle插件开发
 1. 如何使用gradle 进行插件开发?
 
 gradle 开发相关的资料从哪里找？ 
@@ -56,7 +73,11 @@ gradle 开发相关的资料从哪里找？
 
 有一定的基础的同学如何去学。
 
-2. 定制的思想
+2. DSL语法原理
+
+[DSL语法原理与常用API介绍](https://www.jianshu.com/p/8250a5d2e109)
+
+3. 定制的思想
 
 版本统一管理
 
@@ -72,11 +93,17 @@ app 与 lib module 分开管理, 自由选择调试的包与模块
 
 多渠道，多版本
 
-### 应用到个人项目
+#### 模块间通信
+### 优点与缺点
 
-那么多静态方法， 好吗？
+静态工具类确实很方便, 使用那么多静态方法好吗？ 
 
+## 其他插件化框架
 
-## BusUtils 分析
+## 其他组件化框架
 
-## ApiUtil 的分析
+[美团开源WMRouter](https://github.com/meituan/WMRouter)
+[美团外卖Android开源路由框架](https://tech.meituan.com/2018/08/23/meituan-waimai-android-open-source-routing-framework.html)
+
+## 总结
+
