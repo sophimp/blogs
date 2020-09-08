@@ -109,8 +109,17 @@ app 与 lib module 分开管理, 自由选择调试的包与模块
 
 ### 优点与缺点
 
+优点:
+1. 做的很智能，只需配置config.json 即可完成组合
+2. 
+
 静态工具类确实很方便, 使用那么多静态方法好吗？ 
 
+缺点:
+1. Android Studio 中build.gradle相关的一些常用的插件功能不能正常使用
+2. 还不支持androidx, 也不能使用android studio中迁移的androidx工具
+
+[androidx 迁移库工件映射](https://developer.android.google.cn/jetpack/androidx/migrate/artifact-mappings)
 ## 其他插件化框架
 
 ## 其他组件化框架
