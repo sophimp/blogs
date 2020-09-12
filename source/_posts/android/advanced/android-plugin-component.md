@@ -179,6 +179,8 @@ gradle 开发相关的资料
 
 [DSL语法原理与常用API介绍](https://www.jianshu.com/p/8250a5d2e109)
 
+DSL的写法实际就是Project方法中的一个闭包参数， 这与很多脚本语言内嵌json或table一样，直接将文件加载到内存， 即时解释执行。
+
 3. 定制的思想
 
 build.gradle复用，

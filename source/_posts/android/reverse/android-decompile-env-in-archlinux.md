@@ -8,32 +8,41 @@ categories:
 description: Android 逆向技术学习，本文记录在archlinux 下进行android逆向的环境搭建过程, 及需要提前了解的一些概念知识，便于后续的心理模型构建。
 ---
 
-### 准备工具
+### 准备工具, 安装，使用
+
+1. 可能需要工具
 
 | 名称 | 作用 | 
 |:--:|:--:|
 | apktool | 用于查看, 解压, 再编译apk |
 | jadx | dex 反编译器 |
-| ida | 可交互式的反汇编器 |
 | dex2jar | <++> |
 | platform tools | <++> |
 | frida | <++> |
 | xposed | hook框架, 可用于hook系统,app的api |
 | ddms | <++> |
 | wireshark | 抓包分析工具 |
+| ida | 可交互式的反汇编器, 在linux, free版本不支持arm架构，正版比较贵, 使用ghidra替代 |
+| Ghidra | 开源的逆向工程分析工具，高度可扩展， 可替代IDA |
+| gdb | 很强大的调试器, 非常有必要学习 |
+| lldb | 新一代的高性能的调试器 |
 | <++> | <++> |
 | <++> | <++> |
 | <++> | <++> |
 | <++> | <++> |
 
-安装指令
+2. 安装指令
 
 ```sh
 # 请先安装
 yay -S android-apktool
 ```
 
-使用指令
+3. 使用指令
+
+4. 资源
+
+找到一个CTF竞赛入门指南
 
 ### apk 组成
 
@@ -56,4 +65,6 @@ oat 后缀的文件: 使用dex2oat翻译后的本地机器码文件
 3. art 对内存利用率做了优化
 
 所以， 不管是dalvik 还是 art, classes.dex 还是通用的字节码文件， 反译出来是 smalli 语言
+
+### 心理模型
 
