@@ -90,5 +90,3 @@ description: 开篇立意，为什么要写博客， 如何提升写博客的能
 markdown 的语法终究是有些单一，各种方言又难以统一标准
 html语法，会影响源码阅读，
 而asciidoc 对于一般的文档够用了, vim/nvim也都原生支持，hexo也有渲染插件, 所以，接下来将markdown 都转成asciidoc来写
-
-[asciidoc 语法](https://meniny.cn/docs/asciidoc/#golas)

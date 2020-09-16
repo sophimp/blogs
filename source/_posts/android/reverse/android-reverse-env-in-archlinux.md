@@ -5,7 +5,7 @@ tags:
 - Android逆向
 - 逆向工程
 categories:
-- Android
+- 逆向工程
 description: Android 逆向技术学习，本文记录在archlinux 下进行android逆向的环境搭建过程, 及需要提前了解的一些概念知识，便于后续的心理模型构建。
 ---
 
@@ -30,6 +30,7 @@ description: Android 逆向技术学习，本文记录在archlinux 下进行andr
 | qemu | 虚拟环境模拟 |
 | platform tools | android平台工具 logcat, adb, fastboot, linux下的一些工具 |
 | 其他工具 | 更多的工具随着后面更深入的学习再进行统计, 以上的工具学会使用, 便可以开始初步的逆向学习了。 |
+| uiautomatorview | android sdk tools下的工具，可以查看当前UI页面的UI层级 |
 | <++> | <++> |
 | <++> | <++> |
 | <++> | <++> |
