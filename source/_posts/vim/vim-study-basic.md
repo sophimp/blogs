@@ -6,7 +6,7 @@ tags:
 - Neovim
 categories:
 - Vim
-description:
+description: vim 的基础操作是难度的开始，与大多数图形界面的编辑器都不一样，因此，首先习惯使用vim编辑日常文档， 是学习vim的第一步。
 ---
 
 ### 基本配置
