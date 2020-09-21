@@ -38,7 +38,9 @@ frida-core 使用C语言编写的, 并在目标进程中注入了 google v8引�
 
 #### Frida 是如何注入到进程的呢？ 
 
-进程必须要有调试权限，否则不可被注入, 
+进程必须要有调试权限，否则不可被注入
+
+注入库相关的逻辑是 frida-core, frida-gum, 通过调用attach方法，具体的实现还是得看源码， 在网上还没搜索到相关的原理(源码剖析)。
 
 ### 环境搭建
 
@@ -95,7 +97,7 @@ sudo sysctl kernel.yama.ptrace_scope=0
 python example_frida.py
 ```
 看到类似如下输出即环境可用
-```
+```sh
 [u'cat', …, u'ld-2.15.so']
 ```
 
@@ -141,9 +143,100 @@ frida-gadget 是一个共享库，在注入模式不可用的时候，由需要�
 
 ### Hacking
 
+介绍了使用frida Hacking系统的架构
+
+![hack_architecture](/images/frida_hack_architecture.png)
+
+详情请看[frida-hacing](https://frida.re/docs/hacking/)
+
 ### Stalker
 
 Stalker 是一个代码跟踪引擎。
 更说细的介绍请查看 {% post_link android/reverse/android-reverse-tools-for-frida-stalker %}
+
+### frida 使用
+
+Functions 和 Messages
+
+```python
+# python 代码，导入 frida库
+import frida
+import sys
+
+# hook代码
+session = frida.attach("client")
+script = session.create_script(""" javascript 绑定库脚本 """)
+
+# 可以通过javascript 中绑定的send(), error() 来发送消息， 这个方法会被回调
+def on_message(message, data):
+    if message['type'] == 'error':
+        print("[!] " + message['stack'])
+    elif message['type'] == 'send':
+        print("[i] " + message['payload'])
+    else:
+        print(message)
+
+# 注册回调监听
+script.on('message', on_message)
+# 加载脚本
+script.load()
+sys.stdin.read()
+```
+
+frida 可以attach 设备进程，使用脚本交互调查
+```sh
+# attch 目标进程
+frida -U <process_name>  # process_name 可以通过 frida-ps -U 查
+frida -h 查看详情
+```
+
+frida-ps 查看远程设备所以正在运行的进程
+```sh
+firda-ps -Uai # 列出远程设备所有运行的进程
+frida-ps -h 查看详情
+```
+
+frida-trace 可以跟踪方法调用
+```sh
+# function_name 支持正则
+frida-trace -U -i <function_name> <process-name>
+
+frida-trace -h 查看详情
+```
+
+frida-discover 查看程序内部的方法，然后可以通过frida-trace来跟踪
+```sh
+frida-discover -n <process_name>
+frida-discover -p <pid>
+frida-discover -h 
+```
+
+frida-ls-devices 查看当前设备
+frida-kill 可以杀死远程设备进程
+```sh
+frida-ps -D <device_id> -a # 查看进程
+frida-kill -D <device_id> <pid>
+```
+
+### Javascript APIs
+1. Runtime Information
+
+2. Process, Thread, Module and Memory
+
+3. Data Types, Function and Callback
+
+4. Network
+
+5. File and Stream
+
+6. Database
+
+7. Instrumentation
+
+8. CPU instruction
+
+9. Other
 ### 资料
+
 [官方文档](https://frida.re/docs/home/)
+
