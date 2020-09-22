@@ -60,5 +60,8 @@ description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法
 
 网络管理  plasma-nm, 开机启动 `systemctl enabled networimanager.service`
 
+截图工具 flameshot
 
+终端 st
+	konsole 实在是用得不爽了，我要配置自己的st
 
