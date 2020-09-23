@@ -53,13 +53,24 @@ sudo make clean install
 
 st-copyout 使用
 
-内窜滚动
+内容滚动
+
+	打 [mouse scroll patch](https://st.suckless.org/patches/scrollback/)
 
 ### tmux
+
 [tmux是什么](https://www.ruanyifeng.com/blog/2019/10/tmux.html)
 
-tmux是会话与窗口实现解绑的工具，需要运行在终端里, 因此也必须先有窗口管理器。 tmux与dwm分离窗口的功能相近，但是其他功能还是差别挺大的。 
+tmux是会话与终端窗口实现解绑的工具，tmux 是用来管理终端窗口的，从终端窗口里启动, 而 dwm 是用来管理整个系统应用窗口的，它们动态窗口管理的理念是一样的， 但是作用的对象不一样。
 
-安装KDE, GNOM或其他桌面环境，再安装一个st, 可以满足我的需求， 虽然性能和内存占用会多一些， 但是前期可以少一些折腾不必要的东西，将精力集中在做更需要做的事情上。打造自己的工作流， 本就是一个长期的工程。所以， 也没必要着急。
+如果使用vim的话，那么在linux下，基本上使用终端的时间在80%. 所以，tmux 是一个很常用的工具， 也很有必要将终端再管理起来。 
 
+因此我的方案是使用 DE(KDE/GNOME/Manjaro) + st + tmux, 日常工作流在窗口切换上基本上就很效率了。
 
+打造自己的工作流， 是一个长期的工程, 着急不来。前期能依附现有的工具最好，先将精力集中在更重要的事情上， 但是时间战线拉长的话，操作系统是绕不开的一座山。因此，有空就爬一点，慢慢的就征服了这座山。
+
+tmux 的配置在 ~/.tmux.conf
+使用 tmux 打开vim, ESC键回到normal模式有延时， 需要在 .tmux.conf 添加
+```conf
+set -g escape-time 20
+```

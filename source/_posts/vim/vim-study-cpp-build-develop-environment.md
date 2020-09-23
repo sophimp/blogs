@@ -134,6 +134,14 @@ coc-prettier
 
 10. 自动添加tag, 添加其他的tag, 系统层源码
 
+11. 内嵌终端
+[skywind3000/vim-terminal-help](https://github.com/skywind3000/vim-terminal-help)
+`alt + '=' ` 打开/隐藏终端
+`alt + 'q'` 终端退出到 Normal模式
+`alt + shift + 'h/j/k/l'` 窗口跳转
+
+drop 命令安装， 可以默认使用vim打开一个文件
+
 ### 总结
 
 coc 基本上可以满足目前的开发需求，但是插件还是不能安装多了， 不懂的就不要安装，有需求再安装。 插件安装多了，内存直接爆掉了
