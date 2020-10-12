@@ -74,3 +74,9 @@ tmux 的配置在 ~/.tmux.conf
 ```conf
 set -g escape-time 20
 ```
+
+启动鼠标混轮:
+`ctrl+b : ` 进入命令模式
+```sh
+set -g mouse on
+```

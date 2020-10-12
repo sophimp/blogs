@@ -19,7 +19,18 @@ sepolicy.te 文件使用的是[M4语言](https://www.gnu.org/savannah-checkouts/
 
 ### 术语
 
-DAC:	Discretionary Access Control, 自主访问控制
-MAC:	Mandatory Access Control, 强制访问控制
-TE:		Type
+DAC:			Discretionary Access Control, 自主访问控制
+MAC:			Mandatory Access Control, 强制访问控制
+TE文件:			安全策略配置文件, Type Enforcement Access Control
+LSM:			Linux Security Module, linux安全模块
+audit2allow:	查看有哪些地方违返权限的地方
 
+### 安全策略配置文件
+
+安全策略配置文件 是通过m4, checkpolicy等工具来编译的
+
+file_context:	记载了不同目录初始化的SContext， 和object_r有关
+seapp_context:	和应用程序打标签有关
+property_contexts:	和属性服务(property_service)有关, 为不同的属性打标签 
+
+编译流程是怎么样的，为何要打标签?
