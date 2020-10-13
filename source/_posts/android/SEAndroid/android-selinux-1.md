@@ -1,5 +1,5 @@
 ---
-title: Android SELinux 系列(一)
+title: Android SELinux 系列(一) 背景，作用，原理
 date: 2020-07-31 17:03:08
 tags:
 - SELinux
@@ -17,7 +17,13 @@ sepolicy.te 文件使用的是[M4语言](https://www.gnu.org/savannah-checkouts/
 
 [SELinux 简析与修改](https://www.cnblogs.com/blogs-of-lxl/p/7515023.html)
 
-### 术语
+### 是什么
+
+### 为什么
+
+### 怎么做
+
+### 相关术语
 
 DAC:			Discretionary Access Control, 自主访问控制
 MAC:			Mandatory Access Control, 强制访问控制
@@ -34,3 +40,7 @@ seapp_context:	和应用程序打标签有关
 property_contexts:	和属性服务(property_service)有关, 为不同的属性打标签 
 
 编译流程是怎么样的，为何要打标签?
+
+作用范围 
+
+	文件操作，接口调用， 功能特性
