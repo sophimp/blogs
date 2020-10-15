@@ -19,9 +19,8 @@ sepolicy.te 文件使用的是[M4语言](https://www.gnu.org/savannah-checkouts/
 
 ### 是什么
 
-SELinux
-	Linux下的强制控制访问(MAC), 强制使用管理员定义的安全策略，覆盖所有的进程，对象和操作, 基于安全上下文或标签。 
-	可以限制服务和应用
+SELinux, 是为了加强系统安全
+	强制控制访问(MAC), 强制使用管理员定义的安全策略，基于安全上下文或标签, 鉴权所有的进程，对象和操作。用来校验服务和应用的权限。
 
 SEAndroid 
 	SELinux for Android
@@ -40,6 +39,7 @@ SEAndroid
 宏在哪里找? 
 
 ### 怎么做
+
 
 ### 术语
 |术语| 描述| 
@@ -74,3 +74,8 @@ property_contexts:	和属性服务(property_service)有关, 为不同的属性�
 作用范围 
 
 	文件操作，接口调用， 功能特性
+
+### 文档
+
+[Object Class 和 Permissions](http://selinuxproject.org/page/ObjectClassesPerms)
+
