@@ -36,10 +36,25 @@ SEAndroid
 	省空间吗？ 字符串使用ascii编码不是一样吗？
 	不仅仅是字符串，是可执行指令？ 使用m4宏解释器执行？ 
 
+	二进制文件空间占用小， 解析速度快。主要是二进制文件必须得设计格式(协议)，然后只保留有用信息，然后直接按格式（协议)解析即可
+	编译成二进制的过程类似于网络通信的协议， 将接口数据序列化成二进制流，反序列化就是再还原协议数据的过程。 
+
+	R.java文件id格式`0XPPTTEEEE`, PP为package_id, 即ResTable_package数据结构中的id, TT为type_id, 即ResTable_typeSpec数据结构中的id, EEEE 为entry_id, 按先后顺序自动排列。
+
 宏在哪里找? 
+
+	m4宏一般用作文本替换工具。 
+
+	[GNU M4 官方文档](https://www.gnu.org/savannah-checkouts/gnu/m4/manual/m4-1.4.18/m4.html#Names)
+	将宏编译成二进制文件也是与资源文件类似的思想, 省空间, 便于解析。 
 
 ### 怎么做
 
+如何新增一个进程的权限访问
+
+如何开放系统的api调用
+
+Android又是如何检测到api调用的
 
 ### 术语
 |术语| 描述| 
