@@ -30,7 +30,7 @@ SEAndroid
 
 所有的进程，对象，操作，如何统一强制控制访问的? 
 
-	`user:role:type:level`
+	`user:role:type:level`, 定义此类标签，linux下一切皆文件操作
 
 为何要编译成二进制文件? 
 	省空间吗？ 字符串使用ascii编码不是一样吗？

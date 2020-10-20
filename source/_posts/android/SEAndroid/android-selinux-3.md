@@ -8,3 +8,23 @@ categories:
 - Android
 description:
 ---
+
+## raw socket ipv6 的demo示便
+
+## 错误解决
+
+> type=1400 audit(0.0:1237): avc: denied { create } for scontext=u:r:untrusted_app_25:s0:c512,c768 tcontext=u:r:untrusted_app_25:s0:c512,c768 tclass=packet_socket permissive=1
+
+在system/sepolicy 下搜索 untrusted_app_25.te， 然后添加
+```te
+allow untrusted_app_25 untrusted_app_25:packet_socket { create };
+```
+
+编译会出现以下问题
+
+> bsepol.report_failure: neverallow on line 72 of system/sepolicy/private/app_neverallows.te (or line 22629 of policy.conf) violated by allow untrusted_app_25 untrusted_app_25:packet_socket { create };
+libsepol.check_assertions: 1 neverallow failures occurred
+Error while expanding policy
+
+在 system/sepolicy/private/app_neverallows.te 文件的72行，去掉packet_socket的限制
+这样的错误， 根据报错的日志来修改， 好像问题也不大
