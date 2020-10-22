@@ -69,3 +69,32 @@ tclass=packet_socket permissive=1
 
 更多SEAndroid 解析， 有必要单独分析分析，单独写一篇或一个系列吧{%post_link android/android-selinux-1 %}
 
+解决了 raw socket 权限的问题, 接下来socket()打开失败，程序可以正常编译， 但是socket打不开是何原因？ 
+
+## raw socket 
+
+socket 创建不成功
+
+android 使用4G上网， 走的是基带吗？ 基带有网卡功能吗？
+
+支不支持wifi下的socket通信? 
+
+ip电话是如何实现的?
+
+ping通ping不通是因为有限制的NAT技术吗？ 
+
+打电话与发短信又走的是哪个通道? 能否利用这个通道? 
+
+	协议不一样，NAT搞的也是端口绑定，电话和短信应该是没有端口之说的, 使用的是号码。
+
+Voip电话
+	
+	网络电话是如何实现的, 电话网系统(PSTN)
+
+volte 漏洞
+
+	IP_VoLTE, IP_Data, 确实可以使用两个地址互相访问，现在漏洞已经修复了吗？
+	如何使用这两个ip, 在/proc/下并没有看到rmnet0, rmnet1, 但是可以在/proc/net/route 下看到rmnet0_data, rmnet1_ims
+
+	努比亚8.1还不支持ipv6, 先移植一个9.0, 为volte做准备
+
