@@ -83,9 +83,16 @@ ip电话是如何实现的?
 
 ping通ping不通是因为有限制的NAT技术吗？ 
 
+	NAT是一方面， 没有active也是一方面, 禁ping也是有可能的
+
 打电话与发短信又走的是哪个通道? 能否利用这个通道? 
 
-	协议不一样，NAT搞的也是端口绑定，电话和短信应该是没有端口之说的, 使用的是号码。
+	打电话与发短信使用的是Lte ipv6地址， 但都是经过ip协议来传输的
+	NAT搞的也是端口绑定，电话和短信应该是没有端口之说的, 使用的是号码。
+
+	使用NetworkInterface 可以查看网口， 可以使用
+
+	socket的bind方法可以选择网口。 
 
 Voip电话
 	
@@ -96,5 +103,42 @@ volte 漏洞
 	IP_VoLTE, IP_Data, 确实可以使用两个地址互相访问，现在漏洞已经修复了吗？
 	如何使用这两个ip, 在/proc/下并没有看到rmnet0, rmnet1, 但是可以在/proc/net/route 下看到rmnet0_data, rmnet1_ims
 
-	努比亚8.1还不支持ipv6, 先移植一个9.0, 为volte做准备
+	mokee8.1还不支持ipv6, 先移植一个9.0
+
+Android 如何指定网口发送数据? 
+	貌似从Java层面可以做到？ Socket 有bind接口， 绑定本地网卡ip 发送。
+
+如何向sip服务器发送数据？ 
+
+	volte的ipv6 可以从 /proc/net/if_inet6 中查看
+	sip服务器地址可以从 /proc/net/ipv6_route 中查看
+
+	通过路由列表可以发送到任何ip
+
+	然而如何区分哪个是sip服务器呢？ 哪个又是volte的ipv6呢？ 人眼可以通过系统的显示来差异化区分，程序如何判断？ 
+
+	发送sip包如何继续通信? 
+
+
+如何拿到signaling bearer
+
+	先打一个电话或者发一条短信可行吗？ 
+	初步尝试，并不可行，
+
+	使用Data网口，可以同时ping通 目标的两个ip
+	使用VoLTE网口， 同时ping不通 目标的两个ip
+	但是TCP包只有同时为Data网口ip才有响应
+	移动作为目标两个ip都ping不通，
+
+	华为手机没有root权限查不到VoLTE网口IP
+	
+
+## 有用的链接
+
+[Android 使用指定网口收发数据](https://zhuanlan.zhihu.com/p/26864594)
+[VoLTE Log 分析与主要SIP消息介绍](https://www.it619.net/index.php?edition-view-318-1.html)
+[破解并修复VoLTE: 利用隐藏的数据通道和错误的实现方式](http://drops.xmd5.com/static/drops/papers-10259.html)
+[How to : Raw Socket in IPv6](https://blog.apnic.net/2017/10/24/raw-sockets-ipv6/)
+[VoLTE注册流程详解](https://www.it619.com/forum.php?mod=viewthread&tid=429)
+[解决VoLTE IPv6 ping显示unreachable的问题](http://www.suoniao.com/article/43496)
 
