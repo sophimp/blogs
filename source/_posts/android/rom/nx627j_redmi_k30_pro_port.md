@@ -1709,4 +1709,10 @@ android 10 GSI
 接下来该从何学起？ 
 ### Fri 10 Jul 2020 09:30:22 AM CST
 
+卡在开机动画，adb已经起动， 可以直接查看adb log, 否则需要抓串口日志。在adb之前， 还可以查看sdk卡是否已经mount, 如果有mount, 可以直接从sd卡中拿手机log
+
+使用minicom 抓串口日志, 需要专用的串口线
+
+内核配置文件需要添加`CONFIG_USB_SERIAL; CONFIG_USB_SERIAL_CH341`
+
 
