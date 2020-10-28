@@ -41,7 +41,7 @@ SEAndroid
 
 	R.java文件id格式`0XPPTTEEEE`, PP为package_id, 即ResTable_package数据结构中的id, TT为type_id, 即ResTable_typeSpec数据结构中的id, EEEE 为entry_id, 按先后顺序自动排列。
 
-宏在哪里找? 
+宏命令/方法在哪里找? 
 
 	m4宏一般用作文本替换工具。 
 
@@ -52,9 +52,13 @@ SEAndroid
 
 如何新增一个进程的权限访问
 
-如何开放系统的api调用
+	根据avc报错日志，在对应的te文件中添加相应的规则
 
 Android又是如何检测到api调用的
+	
+	修改了te文件, 再编译，如果系统对某些api做了限制，同样会有avc报错， 再根据日志去到相应的文件去掉限制即可。 
+
+	所以无论是系统移植， 还是开发，日志很有用，耐下心看日志， 可以解决大部分的问题
 
 ### 术语
 |术语| 描述| 

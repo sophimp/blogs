@@ -1,33 +1,70 @@
 ---
-title: Android逆向(2) - 小试牛刀，
+title: Android逆向(2) - 加固，脱壳技术
 date: 2020-09-14 20:46:32
 tags:
 - Android逆向
 - 逆向工程
 categories:
 - 逆向工程
-description: 逆向初步尝试，绕过某讯视频的vip验证，尝试观看vip视频。 主要是用来熟悉工具的使用, 验证修正心理模型。 
+description: 要逆向分析一个app，得先搞到可反编译的dex, 因此，脱壳是必须的。
 ---
 
 ## 目标
 
-非vip用户观看vip视频
-或者做到下载视频，批量下载视频, 
+了解常用的加密技术，手段，及脱壳技术
 
-## 思路
+1. 加壳技术
 
-1. 脱壳
+加壳的目的
+	防止逆向分析: 防止核心代码被反编译
+	防止二次打包: 校验完整性，签名， 防止盗版
+	防止调试和注入: 动态调试，注入获取关键数据
+	防止应用数据获取: 加密敏感数据
+	防止协议直接被盗刷: 加密协议通信
 
-如何知道是什么壳?
+常见的加固厂商
+	360/娜迦/梆梆
+	爱加密/阿里
+	百度/腾讯/网秦/通付盾
 
-如何脱壳?
+常见的加固方式
+	类加载技术 
+	方法替换技术
+	vmp 虚拟机技术
 
-2. 反编译
+加固厂商特征
+	娜迦 libddog.so,libfdog.so
+	通付盾 libegis.so
+	网秦 libnqshield.so
+	盛大 libapssec.so
+	瑞星 librsprotect.so
+	网易 libnesec.so
+	几维 asset/dex.dat, kdpdata.so, libkdp.so, libkwscmm.so
+
+脱壳手法
+	修改系统源码, 这个应该破解一切？ 
+	通过hook方式对关键函数进行脱壳
+	开源工具zjdroid, dexhunter 脱壳
+	利用IDA或者GDB动态调试进行脱壳
+
+加固技术的发展历程
+	第一代 DEX加密
+		proguard 混淆， 其他弱加密
+		对抗反编译(添加垃圾代码)
+		DEX字符串加密
+		静态DEX整体加解密
+		自定义DexClassLoader
+
+	第二代 dex抽取与so库加密
+
+2. 静态分析
+
+	静态分析主要就是指在不运行程序的前提下进行程序的逆向分析。
+	涉及到的工具: android killer, jeb, jadx
+
+	o1eidtor, dex分析工具
 
 3. 混合开发，内部是webview容器
 
 4. 抓包, 协议分析
-
-5. 
-
 

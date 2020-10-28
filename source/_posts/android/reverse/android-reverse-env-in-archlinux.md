@@ -31,7 +31,7 @@ description: Android 逆向技术学习，本文记录在archlinux 下进行andr
 | platform tools | android平台工具 logcat, adb, fastboot, linux下的一些工具 |
 | 其他工具 | 更多的工具随着后面更深入的学习再进行统计, 以上的工具学会使用, 便可以开始初步的逆向学习了。 |
 | uiautomatorview | android sdk tools下的工具，可以查看当前UI页面的UI层级 |
-| <++> | <++> |
+| 010editor | 二进制查看，编辑工具|
 | <++> | <++> |
 | <++> | <++> |
 
@@ -65,21 +65,34 @@ apktool d <apkname> [-o <outpath>]
 
 ```
 
-4. 资源
+4. 前置知识
+
+Android开发技能
+smali 语法
+arm汇编指令
+
+5. 资源
 
 [CTF竞赛入门指南](https://www.bookstack.cn/read/CTF-All-In-One/doc-1.7_android_basic.md) 里有相对较全面的逆向安全方面的学习知识。
 
 ### apk 组成
 
-资源文件
+lib目录：主要存放用C/C++编写的native部分。里面又根据不同的cpu架构存放着不同的so文件，分析so文件的时候就到这个目录里找。
 
-classes.dex
-	存放所有java 文件编译的字节码。 
+AndroidManifest.xml文件：资源配置文件，和开发中一样，只不过进行了加密打开全是乱码。
+
+res目录：和开发时一样，存放着程序会使用到的布局、图片等等资源。
+
+META-INF目录：保存应用的签名信息，对apk的完整性进行校验，我们逆向对程序进行修改之后都要删掉这个文件重新签名。
+
+assets目录：存放静态资源，通过AssetsManager类访问，一下加壳的apk会把加密之后的源apk存放在这里。
+
+resources.arsc文件：用来记录资源文件和资源ID之间的映射关系，用来根据资源ID寻找资源。
+
+classes.dex文件：开发时所编写的Java部分编译之后就存放在这里。传统的Java编译生成.class文件并运行在JVM上。有可能是谷歌为了规避版权上的纠纷，也有可能是手机的资源有限，谷歌专门设计了Dalvik虚拟机来运行.dex文件。而.dex文件就是经过dx工具对.class文件的常量池进行整合所生成。相比于.class文件，.dex文件体积更小，执行速度更快。并且Java虚拟机基于堆栈，但Dalvik虚拟机基于寄存。
 
 oat 后缀的文件: 使用dex2oat翻译后的本地机器码文件
 
-签名
-	
 ### dalvik 和 art 虚拟机
 
 首先， 不管是 dalvik 还是 art, apk 中所有的代码还是放在 classes.dex 中. 
