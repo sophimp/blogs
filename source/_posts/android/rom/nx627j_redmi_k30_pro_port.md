@@ -1570,6 +1570,10 @@ dump 11.0.16 库
 		升级包中, transfer.list 可以使用 brotli, sdat2img 转成image
 		运行的系统, 可以使用 dd 工具, 将分区做成image. 
 
+```sh
+brotli --decompress --output=vendor.new.dat vendor.new.dat.br
+python sdat2img/sdat2img.py vendor.transfer.list vendor.new.dat vendor.img
+```
 	dtbo, dt, boot 暂时只能从stock system中使用dd 来dump? 暂时未试验, 不影响移植, 主要还是 system, product, vendor, odm 这四个分区
 
 ### Fri 12 Jun 2020 09:38:43 AM CST
