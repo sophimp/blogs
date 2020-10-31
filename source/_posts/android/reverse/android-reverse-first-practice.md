@@ -3,7 +3,7 @@ title: Android逆向(2) - 加固，脱壳技术
 date: 2020-09-14 20:46:32
 tags:
 - Android逆向
-- 逆向工程
+- SRE
 categories:
 - 逆向工程
 description: 要逆向分析一个app，得先搞到可反编译的dex, 因此，脱壳是必须的。
@@ -64,7 +64,9 @@ description: 要逆向分析一个app，得先搞到可反编译的dex, 因此�
 
 	o1eidtor, dex分析工具
 
-3. 混合开发，内部是webview容器
+3. 脱壳实例
 
-4. 抓包, 协议分析
+4. 抓包方式
+
+
 
