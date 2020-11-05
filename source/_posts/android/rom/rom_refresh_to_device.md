@@ -141,7 +141,7 @@ no permissions (user in plugdev group; are your udev rules wrong?); see [http://
 
 1. 不能识别
 
-重新添加一下/etc/udev/rules.d/***.rules 和adb.ini 就好了
+重新添加一下/etc/udev/rules.d/`***.rules` 和adb.ini 就好了
 [mi8-adb-linux](https://rachpt.cn/2018/07/06/adb-linux-and-mi8/)
 
 rules.d 文件重新生效命令
@@ -169,6 +169,14 @@ rules.d 文件重新生效命令
 
 总算有了突破， 进入了ffbm模式后， 一直进入不了fastboot 模式了， 网上有一个说的是先感受到震动， 松开power键， 看到画面， 再松开音量键
 但是我遇到的情况是, 震动和画面一起的， 突然间发现， 在震动之前， 还有一个lte灯闪，这个时候，松开power键， 看到画面再松开音量键， 就成功进入了fastboot模式。 
+
+### OnePlus 6T fajita 刷机
+
+刷入twrp 的recovery 导至wifi模块有问题， 但是官方的镜像是没有问题的，因此推断是内核有问题。
+
+还好twrp的recovery提供了刷入内核的功能， 那么直接将官言的OTA升级包解压出boot.img， 重新刷入内核即可。
+
+官言的ota 包解压出来是payload.bin, 需要使用工具[payload_dumper](https://github.com/vm03/payload_dumper)来解压出boot.img
 
 ## 参考资源
 
