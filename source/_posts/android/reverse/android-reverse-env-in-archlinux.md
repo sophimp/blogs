@@ -63,6 +63,9 @@ apktool d <apkname> [-o <outpath>]
 
 # ddms 调试
 
+# 查看当前activity
+adb shell dumpsys activity top | grep ACTIVITY
+
 ```
 
 4. 前置知识
