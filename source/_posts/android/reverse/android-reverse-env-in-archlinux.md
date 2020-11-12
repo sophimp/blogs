@@ -67,6 +67,8 @@ apktool d <apkname> [-o <outpath>]
 adb shell dumpsys activity top | grep ACTIVITY
 
 ```
+[dumpsys 指令使用](http://gityuan.com/2016/05/14/dumpsys-command/)
+[Android官方提供命令行工具](https://developer.android.com/studio/command-line?hl=zh-cn)
 
 4. 前置知识
 

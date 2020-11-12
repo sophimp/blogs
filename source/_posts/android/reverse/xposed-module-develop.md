@@ -11,6 +11,8 @@ description: xposed框架是安卓逆向领域里的一个标志性的工具了�
 
 ### xposed是什么
 
+xposed是注入Zygote进程而实现的hook框架。只可以hook java层不可以hook jni层。
+
 ### xposed现状 
 
 xposed原始库已停止了维护
@@ -79,6 +81,9 @@ dependencies {
     </application>
 </manifest>
 ```
+
+assets文件夹下的xposed_init得标明入口类的引用
+
 
 ### xposed框架定制
 

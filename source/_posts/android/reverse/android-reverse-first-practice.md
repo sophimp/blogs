@@ -67,6 +67,7 @@ description: 要逆向分析一个app，得先搞到可反编译的dex, 因此�
 3. 脱壳实例
 
 xposed 模块和frida
+[脱壳原理总结](https://bbs.pediy.com/thread-263290.htm)
 
 4. 抓包分析
 
