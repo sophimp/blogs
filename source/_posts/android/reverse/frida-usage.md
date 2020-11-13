@@ -23,14 +23,64 @@ npm install frida       # Node.js bindings
 unzx frida-server.xz
 ```
 
+3. 使用
+```
+# 使用这条命令经常会让程序重启挂死
+frida -U -f <process_name> -l <script>
 
+# 使用这条命令就很安全
+frida -U -F -l <script>
+```
+
+frida命令须带脚本执行，去掉-l, 所有的app都会黑屏。
 
 ### 框架
 
-1. 源码地址 https://github.com/frida
+源码地址 https://github.com/frida
 
-2. frida + python + javascript
+frida 核心还是 typescript, python脚本可以套一个壳子将 上述的命令操作代替了脚本
 
-3. 
-### 想法
+CMoudle 是javascript壳子里面套 C代码
 
+所以直接看JavaScript的API即可。 
+
+frida知道框架是咋回事了， 看看api提供了哪些能力， 也能对逆向的整体知识有个概念
+
+### JavaScript API
+0. Runtime information
+
+1. Process, Thread, Module and Memory
+
+Process
+
+Module
+
+ModuleMap
+
+Thread
+
+hexdump
+
+Memory
+
+MemoryAccessMonitor
+
+ApiResolver
+
+DebugSymbol
+
+Kernel
+
+2. Data Types, Function and Callback
+
+3. Network
+
+4. File and Stream
+
+5. Database
+
+6. Instrument
+
+7. CPU Instruction
+
+8. Other
