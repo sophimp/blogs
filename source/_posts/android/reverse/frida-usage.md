@@ -146,10 +146,10 @@ Java
 	Java.perform(fn), 当前线程附着于VM的时候回调此函数。在app classloader不可用时，会延迟回调。
 
 7. CPU Instruction
-对CPU操作的工具, 直接操作寄存器, 栈，缓存, 这一块暂时也不用太关注， 不管是应用还是研究,都还没到这个层次， 后面有需求或者技术追求的时候再回过头看吧。目前支持4个平台
+对CPU指令级操作的工具, 直接操作寄存器, 栈，缓存, 这一块暂时也不用太关注， 不管是应用还是研究,都还没到这个层次， 后面有需求或者技术追求的时候再回过头看吧。目前支持4个平台
 
 Instruction
-	通用工具
+	指令操作方法提供
 	Instruction.parse(target) 将一个NativePointer所代表的内存地址解析成一个对象， 包括address, next, size, mnemonic, opStr, operands, regsRead, regsWritten, groups, toString()
 
 X86Writer/X86Relocator/X86 enum types
