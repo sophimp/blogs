@@ -65,3 +65,8 @@ description: 基于 archlinux + KDE 使用日常, 记录常见问题解决办法
 终端 st
 	konsole 实在是用得不爽了，我要配置自己的st
 
+
+golang 代理设置
+```sh
+go env -w GOPROXY=https://goproxy.cn,direct
+```
