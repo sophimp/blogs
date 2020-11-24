@@ -46,6 +46,8 @@ yay -S otf-nerd-fonts-fira-code
 	199.232.68.133 avatars1.githubusercontent.com
 ```
 
+google登陆不上，connect cancel(101),  需要将 `*.googleapis.com` 使用代理
+
 编译安装
 ```sh
 sudo make clean install

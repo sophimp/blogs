@@ -178,6 +178,20 @@ rules.d 文件重新生效命令
 
 官言的ota 包解压出来是payload.bin, 需要使用工具[payload_dumper](https://github.com/vm03/payload_dumper)来解压出boot.img
 
+### 小米手机usb安装免登陆打开
+[使用root跳过小米USB安装应用确认](https://www.leadroyal.cn/?p=1189)
+
+编辑 `/data/data/com.miui.securitycenter/shared_prefs/remote_provider_preferences.xml`
+```xml
+<boolean name="security_adb_install_enable" value="true" />
+<boolean name="permcenter_install_intercept_enabled" value="false" />
+```
+
+```sh
+setprop presist.security.adbinput 1
+setprop presist.fastboot.enable 1
+```
+
 ## 参考资源
 
 [源码编译, 模块编译，sdk 编译](https://www.jianshu.com/p/9605f895d153)

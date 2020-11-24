@@ -1718,5 +1718,3 @@ android 10 GSI
 使用minicom 抓串口日志, 需要专用的串口线
 
 内核配置文件需要添加`CONFIG_USB_SERIAL; CONFIG_USB_SERIAL_CH341`
-
-
