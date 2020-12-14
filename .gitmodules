@@ -1,0 +1,3 @@
+[submodule "source/themes/next"]
+	path = source/themes/next
+	url = git@gitee.com:sophimp/hexo-theme-next.git
