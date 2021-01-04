@@ -10,10 +10,15 @@ description: openNMS是一个网管系统
 ### 背景
 
 在windows 上配置没搞定，需要 jrrd2.dll 工具，暂时未找到预编译的版本，编译rrdtool源码，需要手动下载很多依赖库。
-因此尝试在wsl2或 vmware虚拟中配置。
+
+不想在虚拟机中开发，因此采用windows下开发， wsl中编译部署方案。
 
 ### opennms
 [官方文档](https://qoswork.github.io/odoc/guide-install/index.html#_%E5%9C%A8_debian_%E4%B8%8A%E5%AE%89%E8%A3%85)
+
+[github库](https://github.com/OpenNMS/opennms)
+
+代码中的 readme 有相关源码编译布署的资料。
 
 ### postgresql
 
