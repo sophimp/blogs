@@ -33,7 +33,6 @@ web, android 开发的lib 都已经开发好了
 1. 编译环境
 plugin: kotlin-android, kotlin-kapt
 
-
 2. 运行环境
 在 jvm 中运行
 ### 基本语法

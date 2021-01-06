@@ -62,3 +62,10 @@ horizon, minion, sentinel 这三个库的关系。
 通过 8980, opennms 网页访问的是horizon 的界面，与 pgAdmin又是什么关系。 pgAdmin 又要怎么去配置?
 
 
+### 编译
+使用项目中的mvn, 安装perl
+按照源码中的readme, 编译可以通过。
+
+maven 编译每次都需要下载？ 可否分模块编译？ 
+
+编译时间太长，系统过于复杂，调试麻烦, 项目暂时不用。 改用另一个ctms。
