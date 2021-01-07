@@ -62,10 +62,33 @@ UI
 	layout
 	platte
 
+### jetpack库版本查询
+
+[jetpack releases](https://developer.android.com/jetpack/androidx/releases)
+
+在上面的库上查询， 到目前为止， 一直保持更新。
+
+### 学习计划
+
+1. 避开眼高手低的误区
+
+上来就给原理搞清楚，学完原理就完成一篇博客。 这个误区叫做眼高手低。
+先学会用，记录关键信息， 然后再深究原理, 整理成博客。
+
+2. 取舍
+废弃掉基于[blankj设计的AUC框架](https://github.com/Blankj/AndroidUtilCode)搭建的工程，至少对于我个人项目来说, 有些过渡设计。且新版本的AndroidStudio 4.1.1 + gradle 6.5， 需要做一些适配，而我对gradle不熟，暂时对于个人项目来说也没有这个需求。 
+
+Android 4.1.1 已经支持了创建模块使用 `:` 语法多路径创建，这个特性够个人项目的规划使用了。
+
+3. 从头开始
+基于Android Studio 4.1.1, gradle6.5, kotlin 1.4.21, jetpack, UI风格完全使用MaterialDesign。
+学习jetpack库，积累技术，造轮子，分享开源。
+
+4. 后续计划
+做一个视频sdk, 基于每一个比较大的Android发行版，持续维护, 保持技术学习。
 
 ### 总结
 
 Jetpack 是google基于各大优秀的开源框架的思想及百家争鸣的现状， 试图统一开发规范而将Android sdk 和 support库整理，删减，新增，优化， 统一重构到andoridx.*库包下, 
 整个Jetpack库贯穿整个应用开发, 可以从四大块方便学习记忆， Architecture, UI, Fundation, Behavior, 相当于新的support 库套件。
-
 
