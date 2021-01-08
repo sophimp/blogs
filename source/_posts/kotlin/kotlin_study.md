@@ -117,7 +117,7 @@ modifier keywords
     * operator 操作符重载
     * out 标记类型下限, 还是有些不明所以， 生产者， 消费者， 角色不一样， 定义不一样， 只能读的叫作生产者， 只能写的叫作消费者，这是从使用者的角度来说的，这里面还有什么协变性， 逆变性， 都有些不明所以
     * reified 标记内联函数中的参数类型在runtime可访问
-    * sealed 封装的类， 构造函数默认是私有的, 所有继承sealed类的子类必须放在同一个文件中， 有点枚举功能
+    * sealed 封装的类， 构造函数默认是私有的, 所有继承sealed类的子类必须放在同一个文件中， 枚举类的扩展
     * suspend 协程中使用， 标记函数或lambda表达式为suspending状态
     * tailrec 标记函数为尾递归， 允许编译器替换成迭代实现
     * vararg 允许一个参数传入可变数量参数
@@ -157,23 +157,51 @@ operators and special symbols
 	* * 可以将Array(out String) 转换成 String ...
 
 - 位操作
-	shl(bits)
-	shr(bits)
-	ushr(bits)
-	and(bits)
-	or(bits)
-	xor(bits)
-	inv()
+
+shl(bits)
+shr(bits)
+ushr(bits)
+and(bits)
+or(bits)
+xor(bits)
+inv()
 	
 - companion object
-	* 在jvm run time 还是一个实例对象, 可以实现接口
-	* 在使用形式上类似于static, 可以加上@JvmStatic 实现java 的 static 功能
-	* object 表达式 在通信类加载的时候就会初始化, 这个性质也跟static 一样
+ 在jvm run time 还是一个实例对象, 可以实现接口
+ 在使用形式上类似于static, 可以加上@JvmStatic 实现java 的 static 功能
+ object 表达式 在通信类加载的时候就会初始化, 这个性质也跟static 一样
 	
+- val 与 var
+var 表示申明一个普通变量， val 表示 var+final作用
+这是防御性编码思维, 也使逻辑推理更简单。
+
+- 可见性修饰符
+
+private, protected, internal, public
+默认是public, get与属性保持同样的可见性, java中默认是internal的
+
+- 模块
+一个模块是编译在一起的一套kotlin文件, 这个模块并不是包内可见，而是根据构建工具的一次任务来划分的。 
+一个idea模块
+一个maven项目
+一个gradle源集
+一次kotlinc/ant任务执行所编译的一套文件
+
+- 作用域函数
+|:--:|:--:|:--:|
+| 作用域函数 | Object reference | Return value |
+| let | it | Lambda result |
+| run | this | Lambda result |
+| with | this | Lambda result |
+| apply | this | 上下文对象 |
+| also | it | 上下文对象 |
+| <++>| <++>| <++> |
+
+![函数选择](https://user-gold-cdn.xitu.io/2019/9/6/16d049bbdb6f658d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+
 ### 感悟
 
-    得, 又一次高估了自己的能力, 只是记录上述的语法基础, (我)真得很难学会kotlin, 虽然有一定的基础, 但是那么多语法糖, 就出现了选择困难障碍
-
-    陌生的语法, 陌生的api, 让一切都变得无所适从, 该如何学习呢? 首要的就是先要学会Collection的使用
-
-    是的, 一开始就学错了, 只是将语法罗列在一起, 不经过练习, 记忆很难生效的, 根据实际的需求学习语言, 再作总结
+得, 又一次高估了自己的能力, 只是记录上述的语法基础, (我)真得很难学会kotlin, 虽然有一定的基础, 但是那么多语法糖, 就出现了选择困难障碍
+陌生的语法, 陌生的api, 让一切都变得无所适从, 该如何学习呢? 首要的就是先要学会Collection的使用
+是的, 一开始就学错了, 只是将语法罗列在一起, 不经过练习, 记忆很难生效的, 根据实际的需求学习语言, 再作总结

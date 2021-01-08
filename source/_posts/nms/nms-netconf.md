@@ -49,11 +49,15 @@ libnetconf2 如何使用, 看来主要是移植这个库就行了。
 [解决办法](https://github.com/microsoft/WSL/issues/3195)
 [improved wsl](https://devblogs.microsoft.com/commandline/chmod-chown-wsl-improvements/)
 ```sh
+# 将所有的/mnt 下的windws盘都重新挂载一下， 就可以正常启动了。
 sudo umount /mnt/c sudo mount -t drvfs C: /mnt/c -o metadata
 ```
+`nc ERROR: Unable to connect to localhost:830 (Connection refused).
+cmd_connect: Connecting to the localhost:830 as user "root" failed.`
+[解决办法](https://github.com/CESNET/netopeer2/issues/579)
+登陆失败， 检查服务端是不是因为登陆失败产生segmentation fault 挂掉了。
 
-
-
+用户认证看来还需要配置, 
 
 ### 资料文档
 [github-libnetconf2](https://github.com/CESNET/libnetconf2)
