@@ -56,8 +56,8 @@ sudo umount /mnt/c sudo mount -t drvfs C: /mnt/c -o metadata
 cmd_connect: Connecting to the localhost:830 as user "root" failed.`
 [解决办法](https://github.com/CESNET/netopeer2/issues/579)
 登陆失败， 检查服务端是不是因为登陆失败产生segmentation fault 挂掉了。
+这里并不是用户认证的问题， 而是服务端挂掉了， 导致ssh 通道关闭，如何拿到server端的具体的日志？
 
-用户认证看来还需要配置, 
 
 ### 资料文档
 [github-libnetconf2](https://github.com/CESNET/libnetconf2)
