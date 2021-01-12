@@ -14,6 +14,7 @@ Dagger2 是一个依赖注入框架, hilt 是为了简便dagger的使用， 省�
 现在使用一个框架默认最简的操作都是使用注解了么？
 
 [google Android 依赖注入文档](https://developer.android.com/training/dependency-injection/manual?hl=zh-cn)
+[官方user guide](https://dagger.dev/dev-guide/android)
 
 ### 为什么
 
@@ -40,6 +41,22 @@ findViewById, 实例化一个对象这些操作，都属于一些模板代码。
 Dagger 所做的事就是将这个依赖创建对象的模板方法自动化。通过@Component 注解的类作为与上层应用沟通的接口人，同时管理依赖图, 维护依赖的生命周期。
 那么简单的使用流程即时， @Inject 标注依赖注入的目标， @Module, @Provider 提供项目所不具备的类(系统或第三方框架), @Component 标注生成依赖图，上层应用通过调用此类的方法来获取具体对象。
 @Component 支持域注解，实现单例模式。
+多模块的注解使用
+
+hilt 使用
+
+@HiltAndroidApp
+@AndroidEntryPoint
+@Inject
+@Module
+@InstallIn
+@Component
+@Binds
+@Provide
 
 为什么
+### 改造模板LoginActivity
+
+使用hilt来改造模板Activity, 
+
 

@@ -17,6 +17,11 @@ yang model是一种数据模型语言，被netconf, netconf远程通信(rpc, rem
 ssh
 ssl
 
+[netconf call home介绍](https://tonydeng.github.io/2017/11/28/netconf-call-home/)
+
+
+为什么netconf是xml的，yang model要重新定义语言模型。
+yang model 是承载于neconf吗？ 
 
 ### 开源库
 先将netopeer2编译跑起来，看一看是什么工具
@@ -30,6 +35,11 @@ libssh安装最新的ppa
 ```sh
 sudo add-apt-repository ppa:kedazo/libssh-0.7.x
 sudo apt-get update
+```
+编译安装依赖库 
+```sh
+# 换清华或阿里源
+sudo apt install zlib1g zlib1g-dev libssh-gcrypt-dev build-essential cmake libssh-dev
 ```
 
 [netopeer2使用](https://blog.csdn.net/qq_27923047/article/details/108001624)
@@ -58,6 +68,7 @@ cmd_connect: Connecting to the localhost:830 as user "root" failed.`
 登陆失败， 检查服务端是不是因为登陆失败产生segmentation fault 挂掉了。
 这里并不是用户认证的问题， 而是服务端挂掉了， 导致ssh 通道关闭，如何拿到server端的具体的日志？
 
+`Failed to open "/sr_ietf-netconf-acm.running" (Permission denied).`
 
 ### 资料文档
 [github-libnetconf2](https://github.com/CESNET/libnetconf2)
@@ -65,3 +76,4 @@ cmd_connect: Connecting to the localhost:830 as user "root" failed.`
 [github-libNetpeer2](https://github.com/CESNET/Netopeer2)
 [github-sysrepo](https://github.com/sysrepo/sysrepo)
 [libssh](http://git.libssh.org/projects/libssh.git)
+[netopeer2 笔记](https://miaopei.github.io/2020/09/22/Netconf/sysrepo-netconf-node/)
