@@ -11,7 +11,8 @@ description: 公司项目需要做一个nms(Net Management System)网管系统, 
 
 ### 是什么, 为什么, 怎么做, 为什么
 [rfc 6241 netconf](https://tools.ietf.org/html/rfc6241#section-10.3) 
-netconf定义了一套机制, 用来安装，操作，删除网络设备的配置。使用xml来承载协议信息。netconf协议操作通过远程调用实现。
+netconf定义了一套机制, 用来安装，操作，删除网络设备的配置。使用xml来承载协议信息，为分层内容提供了灵活但完全指定的编码机制。
+[rfc 6241 netconf中文翻译](https://tonydeng.github.io/rfc6241-zh/)
 [rfc 6020 yang model](https://tools.ietf.org/html/rfc6020)
 yang model是一种数据模型语言，被netconf, netconf远程通信(rpc, remote procedure calls), netconfig 通知(notifications)用作配置和状态数据操作建模。
 ssh
@@ -19,9 +20,29 @@ ssl
 
 [netconf call home介绍](https://tonydeng.github.io/2017/11/28/netconf-call-home/)
 
+sysreop 一套存储yang文件的数据库框架
+netopeer 模拟的服务端， 客户端实验环境
 
-为什么netconf是xml的，yang model要重新定义语言模型。
+netconf 从概念上分为四层
+	content, 不在文本范转之内，被期望用于分别开展标准化netconf数据模型的工作。
+	operations, 定义了一套基本协议操作, 作为带有xml编码参数的RPC方法调用。
+	messages, 为编码RPC和Notifications提供一个简单的， 与传输无关的帧机制
+	secure transport, 提供客户端与服务端的通信路径。
+
+	yang 是为指定netconf数据模型和协议操作而开发的，涵盖了operations 和 content层。
+
+基于netconf的通信流程是什么？ 
+	先建立tcp连接， 再建立ssh连接，再建立netconf session, 然后发送`<hello>`信息，交换能力。
+
+netconf是xml的，为什么yang model要重新定义语言模型。
 yang model 是承载于neconf吗？ 
+netconf是如何基于ssh 通信的?
+需要移植哪几个库？
+放到ctms端，是使用文件数据库，还是使用数据库。 
+
+xml 与 model对应转换的库
+
+model 与 数据库对应转换的库
 
 ### 开源库
 先将netopeer2编译跑起来，看一看是什么工具
@@ -69,6 +90,63 @@ cmd_connect: Connecting to the localhost:830 as user "root" failed.`
 这里并不是用户认证的问题， 而是服务端挂掉了， 导致ssh 通道关闭，如何拿到server端的具体的日志？
 
 `Failed to open "/sr_ietf-netconf-acm.running" (Permission denied).`
+
+出错误的核心思想是看日志， 找不到啥库就下载。
+
+### rpc model
+`<rpc>` 用于封装从客户端发到服务端的netconf请求。 有一个强制属性 message-id
+```xml
+<rpc message-id="101"
+     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <my-own-method xmlns="http://example.net/me/my-own/1.0">
+    <my-first-parameter>14</my-first-parameter>
+    <another-parameter>fred</another-parameter>
+  </my-own-method>
+</rpc>
+```
+
+`<rpc-reply>` 响应`<rpc>`操作, 有一个强制属性 message-id, 还必须包含`<rpc>`中一切额外的属性。
+```xml
+<rpc message-id="101"
+     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     xmlns:ex="http://example.net/content/1.0"
+     ex:user-id="fred">
+  <get/>
+</rpc>
+
+<rpc-reply message-id="101"
+     xmlns="urn:ietf:params:xml:ns:netconf:base:1.0"
+     xmlns:ex="http://example.net/content/1.0"
+     ex:user-id="fred">
+  <data>
+    <!-- contents here... -->
+  </data>
+</rpc-reply>
+```
+
+`<rpc-error>` 放在 `<rpc-reply>`中发送
+
+`<ok>` 处理 `<rpc>`请求期间没有发生错误或警告, `<ok>` 元素将放在 `<rpc-reply>` 消息中发送。
+
+受管的设备必须按照请求的顺序发送响应。
+
+### 子树过滤
+
+子树过滤器
+	* 名字空间选择
+	* 属性匹配表达式
+	* 包含节点
+	* 选择节点
+	* 内容匹配节点
+
+### 能力
+
+`<hello>`信息中携带能力信息。 
+
+### 总结
+
+netconf 是使用xml 进行交互的可配置语言，提供了一些默认的操作，get-config, edit-config, replace-config, delete-config等等。 
+
 
 ### 资料文档
 [github-libnetconf2](https://github.com/CESNET/libnetconf2)
