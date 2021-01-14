@@ -14,7 +14,8 @@ description: 公司项目需要做一个nms(Net Management System)网管系统, 
 netconf定义了一套机制, 用来安装，操作，删除网络设备的配置。使用xml来承载协议信息，为分层内容提供了灵活但完全指定的编码机制。
 [rfc 6241 netconf中文翻译](https://tonydeng.github.io/rfc6241-zh/)
 [rfc 6020 yang model](https://tools.ietf.org/html/rfc6020)
-yang model是一种数据模型语言，被netconf, netconf远程通信(rpc, remote procedure calls), netconfig 通知(notifications)用作配置和状态数据操作建模。
+yang model是一种数据模型语言，被用来为netconf, netconf远程调用(rpc, remote procedure calls), Notifications操作的配置和状态数据进行建模。
+yang 包含了netconf 的xml rpc 的协议, 可以使用工具转换成相应的xml形式。 
 ssh
 ssl
 
@@ -146,7 +147,9 @@ cmd_connect: Connecting to the localhost:830 as user "root" failed.`
 ### 总结
 
 netconf 是使用xml 进行交互的可配置语言，提供了一些默认的操作，get-config, edit-config, replace-config, delete-config等等。 
+netconf 是一种协议标准，这种标准形式寄托于xml语言实现。 主要用于实现社备间的远程通信。 
 
+子树过滤， 能力， 选择器这些，是针对NMS系统与服务设备间通信业务必要性，可扩展性设计的。
 
 ### 资料文档
 [github-libnetconf2](https://github.com/CESNET/libnetconf2)
