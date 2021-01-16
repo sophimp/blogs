@@ -79,15 +79,80 @@ hilt 会生成 Dagger的Components依赖视图，并自动注入Android的类中
 5. 测试
 Hilt 会像生产模式中一样生成 Dagger components, 有专门的测试工具来帮助添加或者替换成测试绑定。
 
-### 使用
+6. 优点
+减少模板代码
+	hilt 鼓励使用一个全局的binding namespace, 可以简单地知道哪一个binding definition 被使用， 而不必去追溯从哪个activity或fragment注入
+解耦构建依赖
+	Dagger components 有所有安装的modules引用依赖。这会导致依赖臃肿，降低编译速度。解决这个问题自然会涉及接口和非安全的强制转换。
+	hilt 在底层自动生成所有的接口，类型转换，module/interface 列表，保证了module/entry点发现，使运行时的非安全类型转换变得安全。
+简化配置
+	应用开发会有不同的编译构建配置，如生产环境和开发环境。不同的功能特性意味着不同的modules, 在常规的Dagger构建中， 不同的modules集意味着不同的componenttree, 这会导致很多重复的配置部分。
+	因为hilt是自动生成这块代码，因此更加方便添加和移除那些依赖。
+改良测试
+	Dagger是难于测试的，是因为上面提到的配置问题。同理对于测试的依赖配置，hilt也有专门的工具来自动生成, 从而减少了tests中的模板代码的编写(由hilt自动生成), 通过与在生产环境中实例化方式一样实例化测试环境中的代码， 使测试更加健壮。
 
+标准化components
+	使components的层次结构标准化。
+
+7. 单一系统设计(monolithic system)
+
+单独的绑定空间 Single binding key space
+	保持bindings只为特有的代码使用，推荐使用限定注解(qulifier annotation)通过限制可见性来保护, 或者使用SPI插件强制分隔代码。
+
+简单的配置 Simplicity for Configuration
+更少的代码生成 Less generated code
+更快的lint检查， 延迟启动 fastlint and start up latency
+
+8. Dagger SPI
+hook Dagger's annotation processor, 访问同一个graph model
+
+SPI plugin 原理
+继承BindingGraphPlugin, @AutoService可以做到使用ServiceLoader加载, 
+当Dagger在classpath中检测到了 SPI plugin， 会调用 visitGraph(BindingGraph, DiagnosticReporter) 去遍历Dagger编译生成的合法的@Component, 
+如果所有的视图依赖检测通过, 都合法，Dagger 会继续使用visitGraph 去遍历所有的module, component, subcomponent 是否有错误。 在这种情况下，BindingGraph 可能包含有MissingBinding 节点。 
+
+BindingGraph 被实现成 com.google.common.graph.Network, Network 中节点表示components, bindings, missing bindings这些节点。边代表父-子component 的依赖关系。 具体的实现看[BindingGraph JavaDoc](https://dagger.dev/api/latest/dagger/model/BindingGraph.html)
+
+9. Hilt gradle插件
+	使用插件不必在@HiltAndroidApp注解后面带上Application要继承的类。
+
+### 使用
 @HiltAndroidApp
+	所有使用hilt的应用都有一个Application类加上@HiltAndroidApp 注解, 在需要依赖注入的变量前加上@Injected, 即可以调用super.onCreate()后使用
 @AndroidEntryPoint
+	Activity, Fragment, View, Service, BroadcastReceiver
+	ViewModel 使用@HiltViewModel
+	在 Fragment#onCreate 方法中调用 setRetainInstace(true) 会在configuration changes 时保持实例，而不是销毁再创建。
+	
+	Hilt Fragment 不能设计retained, 因为它持有Component引用， 而Component 持有 Activity引用, 这会造成内存泄漏。 另外， scope bindings 和 providers在Fragment retained的情况下也同样会造成内存泄漏。
+
+	BoradcastReceiver 不需要DaggerComponent, 共用SignletonComponent。
+
 @Inject
+	用于构建函数, 或字段 
 @Module
 @InstallIn
 @Component
-	注解一个interface, 会自动生成DaggerXXXComponent类， 提供create方法，可以调用 interface 中的方法。
+	注解一个interface, 会自动生成DaggerXXXComponent类， 提供create方法，可以调用 interface 中的方法。使用hilt gralde plugin, 这些都会自动生成。
+	生命周期,  绑定对象的 create 与 destory方法, 标示着成员变量什么时候可以用。 
+
+[component 层次结构](https://dagger.dev/hilt/component-hierarchy.svg)
+
+| Component | Scope | Created at | Destoryed at| Default Bindings|
+|:--:|:--:|:--:|:--:| :--: |
+| SingletonComponent | @Singleton | Application#oncreate() | Application#onDestroy() | Application | 
+| ActivityRetainedComponent | @ActivityRetainedScoped | Activity#onCreate() | Activity#onDestroy() | Application |
+| ViewModelComponent | @ViewModelScoped | ViewModel created | ViewModel destroyed | SavedStateHandle |
+| ActivityComponent |  @ActivityScoped | Activity#onCreate() | Activity#onDestroy() | Application, Activity |
+| FragmentComponent | @FragmentScoped | Fragment#onAttach() | Fragment#onDestroy() | Application, Activity, Fragment |
+| ViewComponent | @ViewScoped | View#super() | View destroyed | Application, Activity, View |
+| ViewWithFragmentComponent | @ViewScoped | View#super() | View destroyed | Application, Activity, Fragment, View |
+| ServiceComponent | @ServiceScoped | Service#onCreate() | Service#onDestroy() | Application, Service |
+
+注意，注解了@FragmentScoped 的Fragments 都有自己的FragmentComponent实例, @FragmentScoped 表示在其注入的Fragment中的相关依赖。
+
+Scope Annotation 是有花销的, 因此仅在代码正确性所需要情况下才使用。 如果仅仅是因为想提升性能, 首先确认当前应用性能是不是一个问题，其次优先考虑使用@Reusable来替代component scope。
+
 @Binds
 @Provide
 
