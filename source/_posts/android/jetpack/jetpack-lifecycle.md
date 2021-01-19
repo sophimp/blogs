@@ -72,7 +72,7 @@ Lifecycle那么多库，如何去分析整个框架, 为什么要去分那么多
 	LiveData 在 lifecycle-livedata-core 中， 
 	LifecyclerOwner由Fragment 和 FragmentActivity继承, 用来获取 Lifecycle 实例 LifeycycleRegistry。 LifecyclerRegistry 通过addObserver 来添加观察者LifecycleObserver。 LifecycleObserver 通过注解 OnLifecycleEvent 来监听事件，由 ClassesInfoCache 在addObserver时候缓存缓存监听方法。 addObserver 由上层应用选择调用, 如果使用LiveData框架， 由LiveData的observe方法来调用。 LiveData 也是一个观察者模式，在添加 Lifecycle的生命周期观察者的同时，也添加数据的观察者LifecycleBoundObserver。既然LiveData也是观察者模式， 添加方法是observe, 那么也必定有触发方法。LiveData 为abstract类， 由MutableLiveData暴露postValue, setValude 方法，MutableLiveData 实例由ViewModel实例（调用者自行继随实现), 通过setValue来触发数据发生变化。 LiveData 也会与Lifecycle结合，感知生命周期来决定是否通知Observer, 因此LiveData内部也拥有Lifecycle的观察者。 这里LiveData很巧妙, 使用了LifecycleBoundObserver 将 LifecycleObserver包装了一层，两个观察者合二为一，在LifecyclerBoundObserver中处理完自己的逻辑， 再转发出去。处理LifecyclerObserver的事件。 
 
-	这里需要一张图, 后面有需要再补吧
+	(这里需要一张图, 待补)
 
 	使用方式:
 	继承ViewModel, 实现在view与ui刷新的逻辑, viewModel 中监听生命周期方法

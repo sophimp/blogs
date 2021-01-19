@@ -18,8 +18,6 @@ yang 是数据建模语言， 主要还是承载数据信息的。
 yang model 为程序提供了一致的操作数据的接口， 解决了配置读写困难的问题。
 使用yang模型建模, 可以利用yang模型完成数据合法性的检查，保证风格一致性，不需要应用程序直接操作文件。
 
-怎么做
-
 ### 标识符
 
 ### 语法
@@ -29,4 +27,4 @@ yang model 为程序提供了一致的操作数据的接口， 解决了配置�
 ### 资料文档
 [yang rfc6020](https://tools.ietf.org/html/rfc6020#page-169)
 [yang rfc6020 中文机翻](https://blog.csdn.net/ohohoohoho/article/details/52129076)
-
+[yang 1.1 数据建模语言 翻译](https://www.bookstack.cn/read/rfc7950-zh/README.md)

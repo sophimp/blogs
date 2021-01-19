@@ -158,3 +158,5 @@ netconf 是一种协议标准，这种标准形式寄托于xml语言实现。 �
 [github-sysrepo](https://github.com/sysrepo/sysrepo)
 [libssh](http://git.libssh.org/projects/libssh.git)
 [netopeer2 笔记](https://miaopei.github.io/2020/09/22/Netconf/sysrepo-netconf-node/)
+[open config public yang models](https://github.com/openconfig/public/tree/master/release/models)
+[netconf 与 yang model 介绍](https://zhuanlan.zhihu.com/p/139500393) 
