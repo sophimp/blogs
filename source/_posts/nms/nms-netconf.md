@@ -160,3 +160,5 @@ netconf 是一种协议标准，这种标准形式寄托于xml语言实现。 �
 [netopeer2 笔记](https://miaopei.github.io/2020/09/22/Netconf/sysrepo-netconf-node/)
 [open config public yang models](https://github.com/openconfig/public/tree/master/release/models)
 [netconf 与 yang model 介绍](https://zhuanlan.zhihu.com/p/139500393) 
+[netconf call home ](https://tools.ietf.org/html/rfc8071#ref-NETCONF-MODELS)
+[SDN之netconf call home](https://tonydeng.github.io/2017/11/28/netconf-call-home/)
