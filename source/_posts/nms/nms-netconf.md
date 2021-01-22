@@ -144,6 +144,16 @@ cmd_connect: Connecting to the localhost:830 as user "root" failed.`
 
 `<hello>`信息中携带能力信息。 
 
+### 通道建立
+
+call home 过程
+
+tcp 连接 
+
+ssh 加密
+
+netconf会话
+
 ### 总结
 
 netconf 是使用xml 进行交互的可配置语言，提供了一些默认的操作，get-config, edit-config, replace-config, delete-config等等。 
