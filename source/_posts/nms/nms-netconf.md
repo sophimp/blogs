@@ -151,6 +151,9 @@ call home 过程
 tcp 连接 
 
 ssh 加密
+	ssh端口转发功能来实现tcp通信的加密 
+
+	vmware虚拟机 ssh 连接, 虚拟机的网络配置成 VMnet8(NAT)模式
 
 netconf会话
 
