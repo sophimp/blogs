@@ -74,3 +74,8 @@ android{
 }
 [viewbinding inclue](https://juejin.cn/post/6844904065655111693)
 ```
+
+- T extend Object, ? super Object
+
+extend 只能读取子类, super 只能写子类。 根本思想是只能向上转型。
+
