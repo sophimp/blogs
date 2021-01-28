@@ -54,6 +54,45 @@ yang model 为程序提供了一致的操作数据的接口， 解决了配置�
  | yang-version | 7.1.2   | 0..1        |
  +--------------+---------+-------------+
 
+argument
+
+notification
+	属于netconf协议的，是单独放在一个xml的吗？
+	如何去识别属于哪个接口呢？ 命名空间吗？ 
+
+	当notification定义为顶层节点时，编码为 Notification Event Notification, 通知名称的xml标签在最外层。
+	当notification定义为子节点时，notification 包含数据存储区中节点的节点层次结构。它必须包含从顶层到包含通知的列表或容器的所有容器和列表节点。最里面的容器或列表包含一个xml元素，名称为notification的名称
+
+identity
+	用于定义新的全局唯一，抽象和无类型的身份。 identity唯一目的是表示它的名字，语义和存在。
+
+extension
+	extension语句 允许定义语言中的新语句, 可被其他模块导入和使用
+	参数是一个标识符, 是扩展名的新关键字，后面必须眼着一个包含详细扩展信息的子语句块。
+	目的是定义一个关键字，使用可以被其他模块导入和使用
+
+	可选的argument 语句将一个字符串作为参数，该字符串是关键字参数的名称。如果不存在 argument语句，则关键字在使用是不需要参数。
+	这个参数在 YIN映射中使用， 取决于参数的 yin-element 语句，true 表示作为标签， false 表示作为属性。 默认为false
+
+feature
+	用于定义一个机制, 通过将schma的部分标记为条件, 能过 if-feature 来引用
+	除非netconf-server支持给定的特征方式，否则将忽略使用 if-feature 标记的节点。
+	if-feature 使其父语句有条件，参数是feature 名称的布尔表达式, 
+	deviate, 定义了目标节点的服务器实现如何偏离其原始定义。参数是 not-supported, add, replace, delete之一。
+
+config 
+	config 参数为字符串"true" 或 "false", 为true, 代表配置，表示配置的数据节点是配置数据存储的一部分。 为false, 代表状态数据，表示状态数据不是配置数据存储的一部分。
+	如果未指定config, 表示缺省值与父节点的config值相同， 如果父节点是一个case节点， 则该值与case节点的父节点选择节点相同。
+	如果顶层节点没有config, 默认为true。 如果一个节点的 config 为true, 那么其了节点都不能将 config设置为true。
+
+	status 声明，参数为字符串 "current", "deprecated", "obsolote" 之一。 默认为"current"
+	when 声明， 参数是一个 XPath表达式。
+	
+rpc
+
+action
+
+
 ### 语法
 
 built-in type 内置类型
@@ -82,6 +121,11 @@ built-in type 内置类型
 +---------------------+-------------------------------------+
 typedef 定义结构体类型
 
+- 引用
+
+在不带引号的字符串中，每个字符都被保留
+
+
 
 ### 总结
 
@@ -95,3 +139,4 @@ libyang 库暂时没有必要移植到c#端，根据yang model, 人工写出xml�
 [yang rfc6020 中文机翻](https://blog.csdn.net/ohohoohoho/article/details/52129076)
 [yang 1.1 数据建模语言 翻译](https://www.bookstack.cn/read/rfc7950-zh/README.md)
 [xml to c# class serial and deserial](https://www.cnblogs.com/guogangj/p/7489218.html)
+[netconf event notifications rfc5277](https://tools.ietf.org/html/rfc5277)

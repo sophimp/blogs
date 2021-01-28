@@ -153,7 +153,7 @@ tcp 连接
 ssh 加密
 	ssh端口转发功能来实现tcp通信的加密 
 
-	vmware虚拟机 ssh 连接, 虚拟机的网络配置成 VMnet8(NAT)模式
+	vmware虚拟机 ssh 连接, 虚拟机的网络配置成 VMnet8(NAT)模
 
 netconf会话
 
@@ -175,3 +175,4 @@ netconf 是一种协议标准，这种标准形式寄托于xml语言实现。 �
 [netconf 与 yang model 介绍](https://zhuanlan.zhihu.com/p/139500393) 
 [netconf call home ](https://tools.ietf.org/html/rfc8071#ref-NETCONF-MODELS)
 [SDN之netconf call home](https://tonydeng.github.io/2017/11/28/netconf-call-home/)
+[ssh 端口转发](https://www.ruanyifeng.com/blog/2011/12/ssh_port_forwarding.html)
