@@ -89,8 +89,15 @@ config
 	when 声明， 参数是一个 XPath表达式。
 	
 rpc
+	netconf的rpc定义, rpc, rpc-reply
 
 action
+
+choice
+	choice 和 case 节点在xml中都不可见。 
+
+when
+
 
 
 ### 语法
