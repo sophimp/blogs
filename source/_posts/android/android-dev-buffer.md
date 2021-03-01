@@ -5,17 +5,17 @@ tags:
 - Android
 categories:
 - Android
-description: Android 开发过程中， 一些小知识点的缓存，留着待整理， 后续整理成体系博文。
+description: 这两年主要玩Android系统与网络，对于应用层的开发有些陌生。然而现在终究是要靠应用技术吃饭，因此，借着重新学习Jetpack，做自己项目的机会，将Android应用层开发技术学习的过程记录下来, 后续再归纳整理成可读性更高的blog。
 ---
 
 ### 背景
 
-学习JetPack框架，使用Android Studio 4.1.1 建立的模板代码， 有很多的控件，类库都没接触过， 都得重头学习。
+这两年主要玩Android系统与网络，对于应用层的开发有些陌生。然而现在终究是要靠应用技术吃饭，因此，借着重新学习Jetpack，做自己项目的机会，将Android应用层开发技术学习的过程记录下来, 后续再归纳整理成可读性更高的blog。
 
-制定的方针是，首要先学会如何使用, 
+主要方针是，首要先学会如何使用, 初步理解原理，阶段性的整理成blog。
 
 ### 积累
-0.  AppCompatActivity
+-  AppCompatActivity
 
 使用ActionBar, 包括action items, navigation 节点, 更多的ToolBar设置的api
 内置 Dark 和 Light 主题
@@ -23,7 +23,7 @@ description: Android 开发过程中， 一些小知识点的缓存，留着待�
 
 继随自AppCompatActivity的Activity必须设置Theme.AppCompat 下的主题。
 
-1.  ActionBar, Toolbar
+-  ActionBar, Toolbar
 
 Toolbar 是ActionBar的类属， ActionBar是主要的具体实现，用来显示标题，Application级别的一致性的导航，和交互的条目。
 

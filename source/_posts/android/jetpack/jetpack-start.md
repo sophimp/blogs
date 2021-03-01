@@ -6,7 +6,7 @@ tags:
 - Jetpack
 categories:
 - Android
-description:Android Jetpack, 多个库组成的套件, 可以理解为重构后的 support 库
+description: Android Jetpack, 多个库组成的套件, 可以理解为重构后的 support 库
 ---
 
 ### 介绍
