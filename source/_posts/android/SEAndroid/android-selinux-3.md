@@ -6,7 +6,7 @@ tags:
 - Android
 categories:
 - Android
-description:
+description: 使用raw socket 实现 IPv6 的 tcp 通信, 验证可否使用raw socket 直接使用 volte 的ipv6呢？ 
 ---
 
 ## raw socket ipv6 的demo示便

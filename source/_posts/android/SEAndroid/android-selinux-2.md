@@ -6,7 +6,7 @@ tags:
 - Android
 categories:
 - Android
-description:
+description: te文件使用M4语言，关于m4语法的学习与记录。
 ---
 
 ### m4及其宏编译器
