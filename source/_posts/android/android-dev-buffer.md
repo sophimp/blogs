@@ -79,3 +79,20 @@ android{
 
 extend 只能读取子类, super 只能写子类。 根本思想是只能向上转型。
 
+- widget, launcher, Activity的关系
+
+manifest文件由PM描述，然后在aws中注册，通过launcher是跳转到入口Activity, 但是通过widget, notification, 可以跳转到app中任何一个Activity。
+aws是如何找到对应的Activity呢？直接按路径加载, 这样启动的Activity会不会开启进程, 走不走zygote
+
+- 依赖与关联，聚合与组合
+
+依赖与关联，是从代码角度，根据变量生命周期 划分
+
+聚合与组合，从业务角度，根据现实从属关系 划分, 从代码角度，封装性不同,
+
+依赖、关联、聚合、组合， 耦合度依次增加, 代码表现形式上都是关联的表现形式，作为局部变量或成员变量
+
+- classpath, apply 与 dependencies
+classpath 用来加载插件, apply 使用插件
+denpendencies 用来加载库
+
