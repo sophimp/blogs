@@ -1,0 +1,46 @@
+
+@startuml usage_seq
+
+RecyclerView -> Activity : 初始化
+LayoutManager -> Activity : 初始化
+RecyclerView.Adapter -> Activity : 初始化
+RecyclerView.ViewHolder -> RecyclerView.Adapter : onCreateViewHolder() 中初始化
+RecyclerView -> Activity : recyclerView.setLayoutManager()
+RecyclerView -> Activity : recyclerView.setAdapter()
+
+@enduml
+
+@startuml RecyclerView_Architecture
+
+class RecyclerView{
+
+}
+class ViewGroup{
+
+}
+class View{
+
+}
+
+class ViewHolder{
+
+}
+class LayoutManager{
+
+}
+class Adapter{
+
+}
+
+interface ScrollingView{
+
+}
+interface NestedScrollingChild2{
+
+}
+
+View <-- ViewGroup
+ViewGroup <-- RecyclerView
+
+
+@enduml
