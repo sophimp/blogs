@@ -61,7 +61,40 @@ Paging library
 如何算是学会了RecyclerView呢？
 1. 初步使用
 	使用LinearLayoutManager, GridLayoutManager, StaggerGridLayoutManager实现常见的布局。
+2. view绘制方法的生命周期
+![](/images/custom_view_lifecycle.png)
+
+	ViewGroup 的attachedToWindows()是何调调用的。这属于分支细节，现都假定是底层调用的。
+	在RecyclerView中
+	requestLayout 的实现 
+		通过mInterceptDepth 判断是否是当前view发起的。mLayoutSuppressed, 禁止layout和scroll的调用，综合决定是否可以requestLayout
+		通过后调用 View.requestLayout(), 里面会调用 mParent.requestLayout(), 实现在ViewGroup的子类中
+		如在ScrollView中会标记mIsLayoutDirty为true, 在RecyclerView中会标记mLayoutWasDefered=true, 重新绘制放在Adapter和LayoutManager中实现。
+		requestLayout()只是标记状态, 真正layout的时机是在刷新的时候。
+	如何触发刷新呢？ 
+		invalidate()
+			如果view可见，刷新整个view, 在未来的某个时机, 回调onDraw
+			invalidate 标记dirty Rect，刷新是底层UI循环周期性的回调
+		底层UI循环周期性的刷新回调, 对于自定义控件来说属于分支细节，暂假定是系统提供的UI循环。
+		这里没有跟踪到底层代码，有一个疑问，如果有UI循环，像游戏循环一样，那么是如何保证电量消耗的，跟据dirty状态，不绘制就能节约电量吗？
+		UI线程一直在循环中，同样是竞争CPU时间片, 触发UI线程的绘制可以是触摸，按键事件中断。
+		暂时这样假定，后续再验证。
+
+	RecyclerView 中的onDraw 只是用来画ItemDecoration
+
+	ViewGroup 是不是也是将所有的view在onDraw的时候统一画？
+		在onDispatchDraw 中调用了drawChild()
+		所以每一个view在measure的时候会记录自己的坐标，最后是画在同一个canvas
+		RecyclerView也是同理
+
+	Drawable 和 Bitmap 有什么区别?
+		Drawable是对“可以画的对象”的抽象
+		Bitmap 是一个简单的Drawable.
+
 2. RecyclerView, LayoutManger, Adapter, ViewHolder之间的关系及作用。
+	setLayoutManager, setAdapter是触发点, 具体是在何时使用的？
+	
+
 3. LayoutManger 抽象出来是如何layout的
 4. 为什么要抽象出来Adapter, ViewHolder
 	结合现实视角
@@ -93,3 +126,7 @@ RecyclerView, ViewHolder, RecyclerView.Adapter, LayoutManager, ItemTouchHelper, 
 
 ## 流程图
 
+
+## 参考
+1. [RecyclerView剖析](https://blog.csdn.net/qq_23012315/article/details/50807224)
+2. [RecyclerView与ListView对比](https://mp.weixin.qq.com/s?__biz=MzA3NTYzODYzMg==&mid=2653578065&idx=2&sn=25e64a8bb7b5934cf0ce2e49549a80d6&chksm=84b3b156b3c43840061c28869671da915a25cf3be54891f040a3532e1bb17f9d32e244b79e3f&scene=0&key=&ascene=7&uin=&devicetype=android-23&version=26031b31&nettype=WIFI)
