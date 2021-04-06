@@ -93,7 +93,8 @@ Paging library
 
 2. RecyclerView, LayoutManger, Adapter, ViewHolder之间的关系及作用。
 	setLayoutManager, setAdapter是触发点, 具体是在何时使用的？
-	
+
+	RecyclerView 的初始化逻辑是从构造函数开始. 
 
 3. LayoutManger 抽象出来是如何layout的
 4. 为什么要抽象出来Adapter, ViewHolder
