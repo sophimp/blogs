@@ -95,3 +95,9 @@ description: 记录关于编程学习过程中的一些想法，持续更新~
 task stack 保留
 
 [如何阅读开源代码](https://www.codedump.info/post/20200605-how-to-read-code-v2020/)
+
+### 产品化思维
+
+开发离开不产品设计思维，Android 的theme 就是统一设计风格，如何按照一个拙劣的设计来实现产品， 开发是没有动力的，而且技术上也是处处受限的。
+
+
