@@ -40,3 +40,7 @@ ubuntu2004 config --default-user Username
 ```cmd
 del d:\ubuntu20.04.tar
 ```
+
+### 光标配置
+
+windows terminal 配置同步在 [sophimp/vim](https://gitee.com/sophimp/vim) win_terminal_settings.json中
