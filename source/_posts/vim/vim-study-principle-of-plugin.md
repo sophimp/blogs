@@ -39,12 +39,12 @@ vim 与 neovim 插件的加载原理也是相同的。
 * bundles
 	vim-plug 插件安装的文件夹，下面每一个文件夹代表一个插件
 	每个插件内部的文件结构与 |-- vim 下的类似, 可以有autoload, start, after 生命周期文件夹， 也有 ftplugin, syntax等每个插件加载时检索的文件夹。 
-	
 
-* vim 下的 文件夹
+* vim runtimepath 下的 文件夹
 
 	plugin
-		“全局插件", 会自动加载的vim 脚本文件夹。 这个文夹件可以放置自己p定制的插件，如何仅仅是使用github上的插件，还是直接使用插件管理器依赖更好一些。 
+		“全局插件", 会自动加载的vim 脚本文件夹。 这个文夹件可以放置自己定制的插件，如何仅仅是使用github上的插件，还是直接使用插件管理器依赖更好一些。 
+		只会在vim启动时加载一次
 
 		start 文件夹是脚本加载
 
@@ -54,15 +54,20 @@ vim 与 neovim 插件的加载原理也是相同的。
 
 	ftdetect
 		可以自定义识别文件类型, 具体查看 :help ftdetect
+		还可以使用 filetype.vim 定义新文件类型, 
 
 	ftplugin
 		编辑已知文件类型时执行的脚本, 如添加smali语言的语法高亮支持，就需要同时在 ftplugin, syntax 下添加smali.vim 脚本
+		每打开一个类型文件，就会执行一次对应类型文件脚本，有些全局的，不需要多次执行的，可以使用did_filetype()来处理
 
 	syntax
-		定制每个语言的高亮显示
+		定制每种语言的高亮显示
 
-	color
+	colors
 		主题文件夹，可以定制不同的配色
+
+	indent
+		针对不同文件类型，配置不同的缩进
 
 * compiler
 	默认的时候不会创建, 定义如何运行各种编译工具或格式化工具，以及如何解析其输出。 可以在多个ftplugins间共享。且不会自动执行，必须通过 `:compiler`调用

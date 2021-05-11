@@ -8,8 +8,30 @@ categories:
 - Vim
 description:
 ---
+### 关键字，命令
+- autocmd	
 
-### vim 脚本
+autocmd! BufRead,BufNewFile *.sophimp setfile
+
+- augroup
+
+- finish
+
+vim 命令，可以终止此命令后的vim脚本执行
+
+- did_load_filetypes
+
+`did_load_filetypes` 并不是vim内置的函数，而是在全局的 filetype.vim 中设置的一个变量，可以通过 `:e $VIMRUNTIME/filetype.vim` 查看，在加载一次后被置 1
+
+- getline(1)
+	读取第一行
+
+- did_filetype()
+	内置函数, 如果一个file type相关的事件触发了至少一次，返回true, 可以用作guard, 防止重复触发 file type 事件
+
+### 语法
+
+### 技巧点 
 
 [Google Vimscript Style Guide](https://google.github.io/styleguide/vimscriptguide.xml)
 
@@ -41,4 +63,7 @@ description:
 	buffer 管理文件, `:buffers` 可查看所有缓冲区
 	register 管理 复制，剪切，删除等命令的内容, `:registers` 可以查看所有寄存器。
 	
+- runtimepath
 
+runtimepath下的脚本会执行几次？
+给的示例script.vim, 只有在加载不认识类型的文件时会执行。
