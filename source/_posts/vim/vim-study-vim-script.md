@@ -24,10 +24,33 @@ vim 命令，可以终止此命令后的vim脚本执行
 `did_load_filetypes` 并不是vim内置的函数，而是在全局的 filetype.vim 中设置的一个变量，可以通过 `:e $VIMRUNTIME/filetype.vim` 查看，在加载一次后被置 1
 
 - getline(1)
-	读取第一行
+
+读取第一行
 
 - did_filetype()
-	内置函数, 如果一个file type相关的事件触发了至少一次，返回true, 可以用作guard, 防止重复触发 file type 事件
+
+内置函数, 如果一个file type相关的事件触发了至少一次，返回true, 可以用作guard, 防止重复触发 file type 事件
+
+- silent
+	
+### Buffers, Windows, Tabs
+set hidden 禁止提示
+```vim
+:buffers
+:buffer + n 
+:buffer + <tab>
+:bdelete + n/<tab>
+```
+
+window 是buffer的显示区域
+tab 代表window的layout, 不代表一个文件，关闭tab只是关闭了window layout, 并没有关闭buffer, 一个buffer代表一个文件 
+
+```vim
+// 多个tab打开文件
+vim - p file1 file2 file3
+```
+
+
 
 ### 语法
 

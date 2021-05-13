@@ -51,6 +51,12 @@ vim 与 neovim 插件的加载原理也是相同的。
 	autoload
 		(与plugin 不一样) 此文件夹下的脚本只有在调用的时候才会加载, 通过# 来调用, # 相当于路径一样使用
 		[示例](https://www.w3cschool.cn/vim/xenarozt.html)
+		autoload下的函数定义为:
+```vim
+	function fileName#functionName()
+	...
+	endfunction
+```
 
 	ftdetect
 		可以自定义识别文件类型, 具体查看 :help ftdetect
@@ -69,6 +75,9 @@ vim 与 neovim 插件的加载原理也是相同的。
 	indent
 		针对不同文件类型，配置不同的缩进
 
+	`set rtp+=directory`
+		添加runtimepath，被设置的directory同样可以拥有默认的runtimepath目录结构，这就很爽啊
+
 * compiler
 	默认的时候不会创建, 定义如何运行各种编译工具或格式化工具，以及如何解析其输出。 可以在多个ftplugins间共享。且不会自动执行，必须通过 `:compiler`调用
 
@@ -76,6 +85,10 @@ vim 与 neovim 插件的加载原理也是相同的。
 	Vim8 原生软件包目录， 采用了 "Pathogen" 格式的包管理。 
 
 pack 原生包管理个人觉得没必要使用， vim-plugin 就很好用, 但是了解一下有必要， 主要是学习其他大神的配置文件时， 知道有这么一回事就行。
+
+* document
+
+doc放在`~/.vim/doc/`下, :helptags 生成文档，`*入口* 语法`
 
 ### vim 的启动流程
 
