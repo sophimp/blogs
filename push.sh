@@ -5,6 +5,6 @@ function obtain_git_branch {
 }
 br=`obtain_git_branch`
 echo Current git branch is $br
-git remote add github git@github.com:sophimp/vim.git
+git remote add github git@github.com:sophimp/blogs.git
 git push origin $br
 git push github $br
