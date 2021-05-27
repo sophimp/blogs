@@ -11,7 +11,7 @@ description:
 ### 关键字，命令
 - autocmd	
 
-autocmd! BufRead,BufNewFile *.sophimp setfile
+autocmd! BufRead,BufNewFile `*.sophimp` setfile
 
 - augroup
 
@@ -90,3 +90,13 @@ vim - p file1 file2 file3
 
 runtimepath下的脚本会执行几次？
 给的示例script.vim, 只有在加载不认识类型的文件时会执行。
+
+- 红色高亮
+红色高亮一般是错误，可以使用下面的函数查看报错信息
+```viml
+:echo synIDattr(synID(line("."),col("."),0),"name")
+```
+然后再根据报错信息，全局搜索, 定位到报错脚本。
+
+场景: 在md文件中，下划线一直红色高亮, 使用上述方法输出`markdownError`, `grep -r "markdownError" . ` 找到是theme_color中有报错，最后安装一个`plasticboy/vim-markdown`插件解决
+
