@@ -50,6 +50,12 @@ tab 代表window的layout, 不代表一个文件，关闭tab只是关闭了windo
 vim - p file1 file2 file3
 ```
 
+### global command
+
+`:h ex-cmd-index`
+
+`/g/pattern/command`
+
 
 
 ### 语法
