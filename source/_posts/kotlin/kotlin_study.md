@@ -71,7 +71,7 @@ hard keywords
     * typealias
         - declares a type alias
     * val
-        - 声明一个只读或局部变量
+        - 声明一个只读变量或局部变量
     * var
         - 声明一个可读写的变量或局部变量
     * when
@@ -199,9 +199,20 @@ private, protected, internal, public
 
 ![函数选择](https://user-gold-cdn.xitu.io/2019/9/6/16d049bbdb6f658d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
-
 ### 感悟
 
 得, 又一次高估了自己的能力, 只是记录上述的语法基础, (我)真得很难学会kotlin, 虽然有一定的基础, 但是那么多语法糖, 就出现了选择困难障碍
 陌生的语法, 陌生的api, 让一切都变得无所适从, 该如何学习呢? 首要的就是先要学会Collection的使用
 是的, 一开始就学错了, 只是将语法罗列在一起, 不经过练习, 记忆很难生效的, 根据实际的需求学习语言, 再作总结
+
+## Mon Jul 19 11:14:53 2021 Monday
+
+### 基于kotlin编写ARE
+
+1. 如何复写多个构造函数
+默认构造函数在init中初始化块中， 初始化块有多个， 按顺序执行，与属性初始化器交织在一起。
+初始化块代码会成为主构造函数的一部分， 
+
+2. 静态类
+object 修饰, 声明成单例模式
+companion object
