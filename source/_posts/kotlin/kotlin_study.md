@@ -213,6 +213,12 @@ private, protected, internal, public
 默认构造函数在init中初始化块中， 初始化块有多个， 按顺序执行，与属性初始化器交织在一起。
 初始化块代码会成为主构造函数的一部分， 
 
+主构造函数可直接声明成员变量, 并自动赋值
+
 2. 静态类
 object 修饰, 声明成单例模式
 companion object
+
+3. 接口中声明公共变量
+相当于在接口类中声明了抽象的getter setter方法
+在实现类仍旧需要引入相关变量，并来实现对应的 getter setter方未能
