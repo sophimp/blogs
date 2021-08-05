@@ -216,8 +216,8 @@ private, protected, internal, public
 主构造函数可直接声明成员变量, 并自动赋值
 
 2. 静态类
-object 修饰, 声明成单例模式
-companion object
+静态内部类 companion object
+其他的与java类似
 
 3. 接口中声明公共变量
 相当于在接口类中声明了抽象的getter setter方法
