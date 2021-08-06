@@ -8,12 +8,12 @@ subtitle: 'coding & thinking'
 description: 'A dream begin'
 keywords: Sophimp,Android,Computer,Programing
 author: Sophimp
-language: zh-Hans
+language: zh-CN
 timezone: 'Asia/Shanghai'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://sophimp.gitee.io/
+url: https://sophimp.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -42,7 +42,7 @@ external_link:
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
-relative_link: false
+relative_link: true
 future: true
 highlight:
   enable: true
@@ -99,8 +99,8 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
 - type: git
-  #repo: git@github.com:sophimp/sophimp.github.io.git
-  repo: git@gitee.com:sophimp/sophimp.git
+  repo: git@github.com:sophimp/sophimp.github.io.git
+  #repo: git@gitee.com:sophimp/sophimp.git
   branch: master
   message: latest upload
 
