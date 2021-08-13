@@ -28,8 +28,10 @@ description: 一直在积累自己的App, 但是一直纠结困惑于框架的�
 
 [YummyLau/ComponentCornerstone](https://github.com/YummyLau/ComponentCornerstone)
 
-这个控件目前是满足我的需求，借这个控件，研究gradle编译流程，搭建出自己的Android开发框架。
+此控件满足描述基本满足我想要的组件化, 组件化仍旧需要从业务和技术上双重保证。
 
 ### 具体的实施步骤
+1. 用起来
+2. 
 
 ### 总结
