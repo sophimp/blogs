@@ -28,10 +28,16 @@ description: 一直在积累自己的App, 但是一直纠结困惑于框架的�
 
 [YummyLau/ComponentCornerstone](https://github.com/YummyLau/ComponentCornerstone)
 
-此控件满足描述基本满足我想要的组件化, 组件化仍旧需要从业务和技术上双重保证。
+此控件满足描述基本满足我想要的组件化,
+不足的是组件化仍旧需要从业务和技术上双重保证, 硬件的解耦如果全部采用
 
 ### 具体的实施步骤
 1. 用起来
+- 单独调试每个库
+- 拆分sdk
+- 调用sdk
+- 资源库隔离
+
 2. 
 
 ### 总结
