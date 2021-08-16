@@ -87,6 +87,10 @@ web, python, gradle, cmake, 任何一种语言，都有Runtime Environment
 
 以问答的形式呈现, 没有目标，无差别地看blog, 效率是比较低的。
 
+以ComponentCornerstone 源码，来看文档。
+
+ExtensionContainer: 为一个对象添加DSL语法支持
+
 ## 资源
 1. [深入探索编译插桩技术（三、解密 JVM 字节码）](https://juejin.cn/post/6844904116603486222)
 2. [深度探索 Gradle 自动化构建技术（四、自定义 Gradle 插件）](https://juejin.cn/post/6844904135314128903)
