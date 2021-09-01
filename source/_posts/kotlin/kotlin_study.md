@@ -229,3 +229,11 @@ private, protected, internal, public
 3. 接口中声明公共变量
 相当于在接口类中声明了抽象的getter setter方法
 在实现类仍旧需要引入相关变量，并来实现对应的 getter setter方未能
+
+## Wed Sep  1 11:40:08 2021 Wednesday
+- lazy(initializer : ()->T)
+by 的用法实际也是调用函数，只是用了一个语法糖, 空参的lamda 写法可以省略()
+
+- actual
+- 
+
