@@ -237,3 +237,5 @@ by 的用法实际也是调用函数，只是用了一个语法糖, 空参的lam
 - actual
 - 
 
+## 链接
+[kotlin关键字查询](https://www.kotlincn.net/docs/reference/keyword-reference.html)
