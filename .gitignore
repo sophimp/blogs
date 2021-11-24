@@ -1,6 +1,7 @@
 .deploy_git
 .bin
 public
+themes/
 themes/next
 db.json
 node_modules

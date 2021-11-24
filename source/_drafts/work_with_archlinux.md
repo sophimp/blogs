@@ -41,4 +41,52 @@ CPIO: 复制文件工具，可以将
 
 # 日常使用工具
 
-### DE
+## 装完系统后
+只能进tty, 而且我的电脑，开机经常不能正常开机，非得按电源键多几次才能正确开机，是电源键的原因么？趁此换一个机箱试试, 也需要多盘位的机箱
+
+pacman 添加国内的源，网速要快很多
+
+添加非root用户，可以使用sudo 提权
+	useradd username
+	passwd username
+	usermode -aG wheel username
+	vim /etc/sudoers
+
+
+桌面 DE (desktop environment)
+
+	pacman -S xorg xfce4 xfce4-goodies
+	配置.xinitrc
+	startxfce4 就可以进入桌面`
+
+登陆管理dm(display manager), 开机启动
+
+	登陆管理器也是单独的软件，选择lightdm, 
+	systemctl enable lightdm.service
+	greeter
+	配置文件 .xprofile
+
+远程桌面控制
+
+
+raid磁盘阵列
+
+中文环境,输入法
+
+docker
+
+单网口软路由
+
+samba
+
+影音系统
+
+内网穿透，动态DNS解析
+
+zsh配置
+
+vim配置
+
+gitlab搭建
+
+下载工具
