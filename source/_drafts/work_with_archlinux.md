@@ -25,7 +25,7 @@ linux下的软件基本上都可以提供cli, 有了cli, 做自动化的事情�
 DE: Desktop Environment
 
 GPIO
-CPIO: 总线调用接口
+CPIO: 复制文件工具，可以将
 
 ## dd
 
