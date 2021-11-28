@@ -67,19 +67,26 @@ pacman 添加国内的源，网速要快很多
 	配置文件 .xprofile
 
 远程桌面控制
+	
+	xrdp, /usr/bin/dbus-launch
 
+	open ssh 9010
 
-raid磁盘阵列
-
-中文环境,输入法
+中文环境
+	先最简单地按装一款字体，后续再定制美化
+	输入法
+	旧有硬盘的挂载
 
 docker
 
 单网口软路由
 
+raid磁盘阵列
+
 samba
 
 影音系统
+
 
 内网穿透，动态DNS解析
 
