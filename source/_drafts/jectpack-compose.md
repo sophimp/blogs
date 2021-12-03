@@ -40,10 +40,17 @@ BaseText, BaseTextField, SelectionContainer
 ## 管理状态
 
 状态提升是一种将状态移至可组合的调用方法以使可组合项无状态的模式
-
 那么长的一个篇幅下来，肯定有很多干货，状态用来干什么，数据的刷新，与恢复
 
-肯定是要打电话啦，现在搞得怎么样了，小女子要我们自己来搞定了。
+remember 做了什么事情，如何处理生命周期
+	
+	Composables.kt 是扩展文件, 是对Composer接口的扩展
+	通过SlotTable缓存状态信息
+
+
+## Modifier
+
+如何使用Modifier, 嵌套布局Modifier 需不需要传递， 如何传递
 
 ## 附加效应(负面影响)
 

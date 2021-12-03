@@ -70,13 +70,24 @@ pacman 添加国内的源，网速要快很多
 	
 	xrdp, /usr/bin/dbus-launch
 
-<<<<<<< HEAD
 	open ssh 9010
 
 中文环境
 	先最简单地按装一款字体，后续再定制美化
 	输入法
 	旧有硬盘的挂载
+
+滚动升级
+	
+	使用 sudo pacman -Syy 启动不了了
+	升级了 linux 内核包，需要重新 grubmkconfig 生成一下
+	如果忘记了，只能重新U盘引导，chroot 再重新升级一下
+	需要将这个事情自动化, 不能每次滚动升级都检查一下有没有linux包吧。
+
+genfstab
+
+	这个需要将常挂载的盘都先挂载好，才会自动生成fstab
+	之前一直纠结为什么/boot不能自动添加上去
 
 raid磁盘阵列
 
