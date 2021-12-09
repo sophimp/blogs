@@ -48,6 +48,8 @@ NonConfigurationInstances, ComponentActivity静态内部内，持有ViewModelSto
 new ViewModelProvider(activity).get(ViewModelSub.class)
 ```
 
+ViewModelProvider.Factory
+
 
 ## LiveData
 
