@@ -89,6 +89,16 @@ genfstab
 	这个需要将常挂载的盘都先挂载好，才会自动生成fstab
 	之前一直纠结为什么/boot不能自动添加上去
 
+磁盘分区
+	
+	超过2T的分区需要使用 parted
+
+`warnning performance: 34s % 2048s !=0s`
+
+```sh
+parted [part_name] 2048s 100%
+```
+
 raid磁盘阵列
 
 内网穿透，动态DNS解析
