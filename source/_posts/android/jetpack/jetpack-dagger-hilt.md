@@ -6,7 +6,7 @@ tags:
 - Dagger2
 categories:
 - Android
-description: Dagger2 是一个依赖注入框架, 以前也是收square开发的项目， 现在由google维护， 集成到了Jetpack套件中，依赖注入框架，还是能节省不少模板代码的。 Dagger2的使用相对复杂，没有流行起来，因此又出了一个hilt框架， 基于dagger, 省去使用dagger创建模板代码的部分，使用注解代替。
+description: Dagger2 是一个依赖注入框架, 以前也是square开发的项目， 现在由google维护， 集成到了Jetpack套件中，依赖注入框架，还是能节省不少模板代码的。 Dagger2的使用相对复杂，没有流行起来，因此又出了一个hilt框架， 基于dagger, 省去使用dagger创建模板代码的部分，使用注解代替。
 ---
 
 ## dagger2
@@ -20,9 +20,10 @@ Dagger2 是一个依赖注入框架, hilt 是为了简便dagger的使用， 省�
 
 ### 为什么
 
-findViewById, 实例化一个对象这些操作，都属于一些模板代码。都可以优化成注解来简化使用, 减少出错的机率。
-
 dagger 哲学
+
+尽可能地将重复的事情自动化，这也是编程的本质
+减少模板代码地编写，专注于不同部分，也便于扩展和重构
 
 通常应用于Android代码的许多模式与其他Java代码的模式相反，即使有效的Java中的许多建议也被认为不适用于Android。 
 为了实现惯用代码和可移植代码的目标， Dagger 依靠ProGuard对已编译的字节码进行后处理， 
@@ -118,7 +119,7 @@ BindingGraph 被实现成 com.google.common.graph.Network, Network 中节点表�
 
 ### 使用
 @HiltAndroidApp
-	所有使用hilt的应用都有一个Application类加上@HiltAndroidApp 注解, 在需要依赖注入的变量前加上@Injected, 即可以调用super.onCreate()后使用
+	所有使用hilt的应用都有一个Application类加上@HiltAndroidApp 注解, 在需要依赖注入的变量前加上@Injected, 即可以在调用super.onCreate()后使用
 @AndroidEntryPoint
 	Activity, Fragment, View, Service, BroadcastReceiver
 	ViewModel 使用@HiltViewModel
@@ -156,8 +157,20 @@ Scope Annotation 是有花销的, 因此仅在代码正确性所需要情况下�
 @Binds
 @Provide
 
+总结一句话，标明构造方法，@Inject 注解 constructor, @provider 注解方法
+@Inject 注解 field 完成了 field 的赋值, 
+
+@Component 用来生成依赖图, @Module 可以作为第三方库的 @provider集合
+hilt有预定义的Component
+
+### 注意
+
+dagger.hilt.android.plugin, 不可以通过 引入gradle 来生效？
+
 ### 改造模板LoginActivity
 
 使用hilt来改造模板Activity, 
 
 
+## 参考文档
+[dagger & hilt](https://dagger.dev)
