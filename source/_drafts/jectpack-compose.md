@@ -1,5 +1,5 @@
 ---
-title: jectpack-compose.md
+title: jectpack compose
 date: 2021-09-09 17:28:33
 tags:
 categories:
@@ -47,6 +47,7 @@ remember 做了什么事情，如何处理生命周期
 	Composables.kt 是扩展文件, 是对Composer接口的扩展
 	通过SlotTable缓存状态信息
 
+	* 
 如何管理全局状态？必须要通过参数么
 
 	现在想封状一个BaseActivity, 动态设置标题Icon, 发现就有些问题
