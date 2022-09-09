@@ -37,6 +37,9 @@ BaseText, BaseTextField, SelectionContainer
 @Compoable 会改变被标注方法或lamda的属性，方法只能被 @Composable方法调用
 带有隐示参数 composable context, 在同一个逻辑树中，context 可以用来传递信息
 
+## 生命周期
+
+
 ## 管理状态
 
 状态提升是一种将状态移至可组合的调用方法以使可组合项无状态的模式

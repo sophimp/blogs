@@ -31,11 +31,22 @@ Surface 责任:
 	背景: background
 	内容颜色: contentColor 给Text, Icon提供默认颜色
 
-Surface 可以用与任何组件的父布局, 不限于页面的根布局使用
+Surface 可以用与任何组件的父布局, 不限于页面的根布局使用, 相当于CardView的作用
 
 Scaffold
 	类似于 CooridinateLayou的角色，用于 Child Component的协作
 	如 TopAppBar, FloatingActionButton
+	其他场景的 BackdropScaffold, BottomScaffold
+
+## Material Theme
+
+也是一个Composable, 
+
+直接套在组件外面? 
+可以单独套组件, 子组件不设置的话，默认使用父组件theme
+
+## 使用
 	
+就使用原生的，不使用 Dagger 和 Hilt, 后面再考虑自定义或者第三方库
 
 
