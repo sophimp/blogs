@@ -30,6 +30,15 @@ description: Kotlin 的学习也一直没有机会，项目中没有使用的机
 
 6. 实现排序算法
 
+### Sequence
+
+map 操作，是将结果映射成另一种对象，这个还是很有用的，中间层对象转换操作
+
+### Flow
+
+增加了异步操作
+
+
 ## 陌生语法
 1. init
     - inline class 不能有init{}块

@@ -1,5 +1,5 @@
 ---
-title: jetpac-study
+title: jetpack-study
 date: 2022-08-02 22:49:13
 tags:
 categories: Jetpack
