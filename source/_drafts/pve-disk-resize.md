@@ -32,4 +32,3 @@ resize2fs [vg name]
 
 1. [PVE虚拟机 – 如何扩容虚拟机磁盘空间？](https://yuerblog.cc/2020/02/09/)
 
-2. 
