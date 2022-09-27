@@ -2,7 +2,9 @@
 title: jetpack-study
 date: 2022-08-02 22:49:13
 tags:
-categories: Jetpack
+- Jetpack
+categories: 
+- Jetpack
 description: 从零开发一款app, 边学边记录
 ---
 
