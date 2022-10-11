@@ -36,6 +36,14 @@ Stream
 	java 中也有Stream, kotlin中有Flow
 	Stream的出发点是什么？不会爆内存，但是也会有缓存, 并发
 
+构造函数
+
+	有语法糖，可以手动赋值，可以结合final, this.field
+
+lambda
+
+	可以带 `=>` 也可以不带
+
 ## 环境配置
 
 直接打开flutter 工程，android 的相关应用都找不到，另外开一个窗口，直接打开Android工程即可
