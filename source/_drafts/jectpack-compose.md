@@ -5,7 +5,7 @@ tags:
 - Compose
 categories:
 - Compose
-description: 声明式UI，命令式UI，重组，幂等，各种新名词，不同以之前的View,ViewGroup架构, 完全重做了一套UI框架，我看好Compose
+description: 声明式UI的理念我很认可，kotlin 的编写体验也很爽，jvm的跨平台能力我也很挺认可，所以我希望Compose能发展起来，我也决定投入Compose的学习。
 ---
 
 ## 带着疑问
