@@ -95,6 +95,10 @@ remember 做了什么事情，如何处理生命周期
 
 如何使用Modifier, 嵌套布局Modifier 需不需要传递， 如何传递
 
+decorate or	add behavior to Compose UI element	
+
+自定义布局，如何知道父布局的高度
+
 ## 附加效应(负面影响)
 
 为什么负面影响叫作附国效应，名字取的我云里雾里，是我见识太少了， 还是我太笨了，领悟比较慢。
