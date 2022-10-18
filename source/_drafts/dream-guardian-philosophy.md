@@ -48,3 +48,7 @@ Do not repeat yourself
 
 这个事情真的是很需要说明情况
 
+7. 从属关系
+
+组合(link)，继承(父子)
+

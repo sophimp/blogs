@@ -75,6 +75,41 @@ Jetpack Compose框架帮忙做了很多显示与隐藏的逻辑
 
 ### 生命周期
 
+重组是修改组合的唯一方式，重组会发生多次，是性能瓶颈点
+
+可组合实例是通过`调用点`标识,
+	
+> 调用点: Composable 的源代码位置
+
+key 标识, 调用可组合项内保持唯一
+
+Side-Effect
+
+	一个函数执行完，除了返回值，也会有附加影响，如：修改全局变量或作用域外的参数。
+
+Composable 是可重入函数, 
+
+	幂等, 纯函数: 相同的输入，相同的输出，输出影响只有返回值
+
+Composable 合理的Side-Effect
+
+	执行时机是明确的
+	调用的次数是可控的, 不能随着重组反复执行
+	不会造成内存泄露
+
+	Compose 提供了方法来处理 Effect，生命周期函数, LaunchedEffect, DisposableEffect, SideEffect, remember
+	State本身就是一种 Effect
+
+	DisposableEffect: 可感知 onCommit, onDispose 生命周期回调
+	SideEffect: 不需要onCommit, onDispose, onEnter时只执行一次
+	remember: 用来包装一些成本较高计算逻辑或State数据，避免函数反复执行
+	LaunchedEffect: rememberCoroutineScope + launch 组合的简化，在onCommit是执行, 会进行 cancel/relaunch
+	produceState: 基于 LaunchedEffect 实现，进一步简化了State的的初始话和更新逻辑
+
+生命周期函数
+	onActive (or onEnter)
+	onCommit (or onUpdate)
+	onDispose (or onLeave)
 
 ### 管理状态
 
@@ -99,9 +134,22 @@ decorate or	add behavior to Compose UI element
 
 自定义布局，如何知道父布局的高度
 
-## 附加效应(负面影响)
+## 性能问题
 
-为什么负面影响叫作附国效应，名字取的我云里雾里，是我见识太少了， 还是我太笨了，领悟比较慢。
+对View全面扩展
+
+	对使用可组合函数，内存分配、状态跟踪、回调, 组合执行, 而View是指定类型的所有扩展都执行
+	智能重组: 没有更改的情况下，重放绘制结果
+
+多次布局传递
+
+	通过 API constract 强制测量一次
+	通过 Intrinsic measurements 测量多次
+
+View startup performence
+
+	不用加载xml布局
+	
 
 ## 复盘总结
 
@@ -128,3 +176,4 @@ decorate or	add behavior to Compose UI element
 
 [Understanding Jetpack Compose](https://medium.com/androiddevelopers/understanding-jetpack-compose-part-1-of-2-ca316fe39050)
 [Under the hook of Jetpack Compose](https://medium.com/androiddevelopers/under-the-hood-of-jetpack-compose-part-2-of-2-37b2c20c6cdd)
+[Side Effect](https://juejin.cn/post/6930785944580653070)
