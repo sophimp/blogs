@@ -1,32 +1,46 @@
 ---
-title: compose-BottomNavigation
+title: compose-Navigation
 date: 2022-09-09 17:00 
 tags:
 - Compose
-- BottomNavigation
+- Navigation
 categories:
-- JetpackCompose
-description: material compose BottomNavigation, 底部导航栏
+- Compose
+
+description: 导航库, 也是路由库，跨平台, 不能使用官方的库
 ---
 
-## BottomNavigation
+## Navigation
 
-底部页面导航栏
+路由功能，与底部导航功能还是有所区别
 
-我的需求：
+Router 需求：
+	
+	状态保存
+	栈操作
+	过场动画
+
+底部导航需求：
 
 	选中突出
 	动态布局
 	切换过渡动画
 	信息Badge
 
-官方库够用了
+技术选择
+
+	放弃Decompose, 使用PreCompose, Moelcule 更合口味
+
+	ViewModel 是如何保证作用域的？ 绑定作用域？
+
+
 
 ## 使用
 
 Compose 如何动态布局
 
 LiveData 里如何使用@Composable
+
 添加 runtime-livedata 库
 
 compose-compiler, 配置 composeOptions

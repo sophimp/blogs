@@ -14,10 +14,18 @@ description: flutter 学习
 
 标题栏，优先使用官方库, 官方库不满足再考虑定制
 
-Stateful, Stateless 主要区别是什么
+Stateful, Stateless Widget主要区别是什么
+	
+> The State is the information that can be read sycnchrously when the widget is built and might change during the life time of the widget.
+> In other words, the state of the widgets is the datas of the objects that its properproties(parameters) are sustaining at the time of its creation(when the widgets is painted on the screen).
+
+	StatefulWidget 和 StatelessWidget 都是不可变的
+	StatefulWidget 可变的是重写createState, State 中 提供 setState() 方法主动刷新, build方法会调用多次
+	StatelessWidget build 方法只会调用一次, 刷新只能靠外部的重刷
 
 virtualDOM 原理是什么，实现相关类有哪些
 	从dom这一点看，跟web端思路相近
+	React 中是 virtualDOM, Flutter 中也有吗？
 
 渲染流程，自定义控件原理
 
