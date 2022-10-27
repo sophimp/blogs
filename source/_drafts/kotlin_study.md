@@ -249,6 +249,8 @@ by 作为代理，干了些什么工作
 	属性代理, 
 
 - actual
+	
+	kmp 中的关键字，用于跨平台的实现
 
 ## 链接
 [kotlin关键字查询](https://www.kotlincn.net/docs/reference/keyword-reference.html)
