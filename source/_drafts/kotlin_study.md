@@ -209,6 +209,13 @@ private, protected, internal, public
 
 ![函数选择](https://user-gold-cdn.xitu.io/2019/9/6/16d049bbdb6f658d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
+- Coroutine
+	* contract，编译器到底做了什么？ 仅仅是为了解决歧义不报错的问题么
+
+## 语法糖香不香
+
+kotlin 天生具有dsl 语言特性，是实现了最后一个形参是无参函数的话，可省略括号，或者放在括号外面
+
 ### 感悟
 
 得, 又一次高估了自己的能力, 只是记录上述的语法基础, (我)真得很难学会kotlin, 虽然有一定的基础, 但是那么多语法糖, 就出现了选择困难障碍

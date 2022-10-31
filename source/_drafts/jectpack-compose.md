@@ -149,7 +149,9 @@ decorate or	add behavior to Compose UI element
 View startup performence
 
 	不用加载xml布局
-	
+
+remember 不是关键字，二是方法实现，by 是代理关键字, 语法糖用起来是真的香，
+
 
 ## 复盘总结
 
