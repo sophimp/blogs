@@ -1,0 +1,7 @@
+{
+  "attachmentFolderPath": "./",
+  "vimMode": true,
+  "promptDelete": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "source/obsidian"
+}

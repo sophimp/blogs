@@ -1,0 +1,191 @@
+{
+  "main": {
+    "id": "381acc9655526de4",
+    "type": "split",
+    "children": [
+      {
+        "id": "6d3fffcf5a00c424",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "069975b69bd09ded",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/obsidian/Obsidian 折腾.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "7dff7e39efe4e753",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/obsidian/linux_operation_and_maintenance.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "17836fe949adc1be",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/_posts/linux/install_arch_from_existing_linux.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "47b468fcfcb568e5",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "source/obsidian/linux-nginx.md",
+                "mode": "source",
+                "backlinks": true,
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7945bb9545d3518f",
+    "type": "split",
+    "children": [
+      {
+        "id": "c5c9fd58ea364b0d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "890254d4a5fca35b",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "b8f5521a9dd314a7",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "61a6f66aa22b5ef2",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "c7b48b41bc74afed",
+    "type": "split",
+    "children": [
+      {
+        "id": "5efb187fc22de1eb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "27c771cbcbe7eb55",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "source/obsidian/linux-nginx.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a37061df38fd2afd",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "source/obsidian/linux-nginx.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "9420925f68f7fe73",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "cfa12dc9f6c43a9f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "source/obsidian/linux-nginx.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "47b468fcfcb568e5",
+  "lastOpenFiles": [
+    "source/_posts/linux/install_arch_from_existing_linux.md",
+    "source/obsidian/linux_oam_safe.md",
+    "source/obsidian/linux_operation_and_maintenance.md",
+    "source/obsidian/compose-topbar 1.md",
+    "source/obsidian/flutter_study.md",
+    "source/obsidian/component-plugin 1.md",
+    "source/obsidian/homelab.md",
+    "source/obsidian/linux-安全.md",
+    "source/obsidian/android-11-storage-permission.md",
+    "source/obsidian/Obsidian 折腾.md"
+  ]
+}
