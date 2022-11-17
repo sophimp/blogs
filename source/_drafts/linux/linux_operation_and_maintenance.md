@@ -29,12 +29,25 @@ linux 相关的安全，比较热门的工具，服务配置，相关的肯定�
 
 - grub
 
-- 网络连接
+- 安全
 
-- 网络安全
+ssh 
+
+	日志查看 /var/log/auth.log
+	防止暴力破解, 屏蔽IP
+	禁止root登录
+	修改登录名
 
 - dm, wm 
 
 - terminal
 
+zsh 配置
+
+```sh
+	sudo apt-get install zsh-autosuggestions zsh-syntax-highlighting zsh-theme-powerlevel9k
+	source /usr/share/powerlevel9k/powerlevel9k.zsh-theme
+	source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+	source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+```
 
