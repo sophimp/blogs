@@ -39,6 +39,34 @@ socpe 继承 job, 也与job绑定，job有更细的控制api
 
 3. Flow
 
+operator
+
+	intermediate
+		transform:	map, filter, transform(定制，emit any value)
+		size-limiting : take
+		context: flowOn(changeContext)
+	terminal
+		collect, first, toSet, toList, single, reduce, fold
+	buffering
+		buffer
+	conflation
+		confilate, collectionLatest
+	composing multiple flows
+		zip, combine
+	flattening flows
+		flatMapConcat, flatMapMerge, flatMapLatest
+	exception
+		catch
+
+sequential
+
+exception
+
+	try/catch, 只能放在 block code 里try, 放在coroutine 外部 try, 捕获不到协程的异常
+	transparency, 
+
+	由内向外传递
+
 4. Channel
 
 Channel, Deffered,	传递值, 协程内外 scope 传值, 避免回调
