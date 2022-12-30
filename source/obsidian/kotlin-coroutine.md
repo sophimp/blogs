@@ -57,6 +57,9 @@ operator
 		flatMapConcat, flatMapMerge, flatMapLatest
 	exception
 		catch
+	completion
+		imperative: finally
+		declarative: onCompletion
 
 sequential
 
@@ -77,3 +80,9 @@ Channel, Deffered,	传递值, 协程内外 scope 传值, 避免回调
 
 解决问题引入的概念？
 高效，避免内存泄漏，所有子协程执行完，才结束，内部的异常错误不丢失。
+
+6. ExceptionHandler
+
+CoroutineExceptionHandler 类似于 Thread.uncaughtExceptionHandler
+
+
