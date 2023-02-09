@@ -111,40 +111,6 @@ genfstab
 parted [part_name] 2048s 100%
 ```
 
-raid磁盘阵列
-
-内网穿透，动态DNS解析
-交换机到了就可以尝试了
-
-samba服务，是否可以做到文件共享，自动备份
-
-图片管理
-docker 部署 单网口软路由
-
-影音系统
-
-温度监控
-
-日常工具配置
-zsh, vim配置
-
-gitlab搭建
-
-自动下载工具
-
-图书馆
-
-## manjaro
-还是装一个开箱即用的系统省事一些，manjaro 挺好的，节省了前期的折腾时间，后面遇到问题再折腾就是了，没有遇到问题不折腾
-
-- openvpn 
-client 设置
-
-[wiki openvpn](https://wiki.archlinux.org/title/OpenVPN_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%90%AF%E5%8A%A8_OpenVPN)
-
-首先，安装 networkmanager-openvpn。 
-然后，go to the Settings menu and choose Network. Click the plus sign to add a new connection and choose VPN. From there you can choose OpenVPN and manually enter the settings, or you can choose to import the client configuration file if you have already created one. If you followed the instructions in this article then it will be located at /etc/openvpn/client.conf. To connect to the VPN simply turn the connection on.
-
 ## FAQ
 1. 联想笔记本
 aspm 电池管理模块经常自动关闭wifi, 大概原因是省电或者平衡模式，有方法是从biso的kernel cmd里强行设置
