@@ -15,10 +15,12 @@
 
 在关联 compose multi platform 的代码时，遇到此种情景
 
+重启一次idea 又查不到了，定位的问题是Android 与 Desktop 不知道找哪个，目前还没有找到配置的地方。
+
 2. android 开发环境的配置
 
 在manjaro 上装完idea, 提示找到不AndroidSdk, 添加Android SDK 又提示找不到JDK, 可是明明Android sdk 和 jdk都安装了，也添加进来了
 
-这个问题我是通过 + 里的 download 新的sdk 解决了。
+这个问题我是通过 + 里的 download 新的sdk 解决了, 原因是安装的jdk版本太高，当前的IDE不支持。
 
 3. 
