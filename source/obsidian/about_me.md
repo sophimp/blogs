@@ -24,8 +24,8 @@
 
 # 网络信息
 
-[github](https://github.com/sophimp)
-[twitter](https://twitter.com/Sophimps)
-[公众号]()
+[email sophimp2018@gmail.com](sophimp2018@gmail.com)
+[github https://github.com/sophimp](https://github.com/sophimp)
+[twitter https://twitter.com/Sophimps](https://twitter.com/Sophimps)
 
 
