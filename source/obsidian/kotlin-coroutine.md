@@ -1,6 +1,10 @@
 
 ## 协程
 
+多线程编程，对我来说，一直卡在门口徘徊，平常项目里遇到的多线程bug大概就是ConcurrentModificationException
+进程，线程，协程
+进程，线程根系统比较挂钩的，协程是基于线程的。
+
 协程是通用理念吗？ c++/go中的协程理念是不是一样？
 
 就是为了提供更好的异步编程体验, 编译器支持，语言层面支持
@@ -25,6 +29,12 @@
 
 1. CoroutineScope
 
+CoroutineScope是如何控制生命周期的呢？
+
+CoroutineScope 只是提供一个接口，使用者需要根据实际情况，自行管理生命周期
+CoroutineScope 提供了几个扩展函数，便于创建与消毁
+使用的Activity, Fragment 的Scope 不过是有人已经针对封装好了
+
 ScopeBuilder
 runBlocing: 阻塞
 coroutineScope; suspended
@@ -34,6 +44,8 @@ coroutineScope; suspended
 避免不了要从代码入手, 看源码，编译后的代码。
 
 socpe 继承 job, 也与job绑定，job有更细的控制api
+
+CoroutineContext operator plus
 
 2. EffectSize
 
