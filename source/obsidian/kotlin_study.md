@@ -212,6 +212,13 @@ private, protected, internal, public
 - Coroutine
 	* contract，编译器到底做了什么？ 仅仅是为了解决歧义不报错的问题么
 
+6. 高阶函数 high-order-function
+
+普通函数 first-order-function
+
+返回值也可以是一个函数, 没想到更好的应用场景，递推？
+
+
 ## 语法糖香不香
 
 kotlin 天生具有dsl 语言特性，是实现了最后一个形参是无参函数的话，可省略括号，或者放在括号外面
