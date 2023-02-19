@@ -71,7 +71,7 @@
 + `pacman -Sc`：清理未安装的软件包文件 
 + `pacman -Scc`：清理所有的缓存文件
 
-- 开发工具
+- 常用工具
 
 git, vim, zsh 已经自带
 
@@ -82,11 +82,13 @@ idea ultimate 可用破解
 android-sdk, openjdk
 
 
-洛雪音乐软件
-好像这些也够开发用了
+洛雪音乐
+
+GoldenDict
 
 [wiki openvpn](https://wiki.archlinux.org/title/OpenVPN_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E5%90%AF%E5%8A%A8_OpenVPN)
 
 首先，安装 networkmanager-openvpn。 
 然后，go to the Settings menu and choose Network. Click the plus sign to add a new connection and choose VPN. From there you can choose OpenVPN and manually enter the settings, or you can choose to import the client configuration file if you have already created one. If you followed the instructions in this article then it will be located at /etc/openvpn/client.conf. To connect to the VPN simply turn the connection on.
+
 
