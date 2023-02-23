@@ -1,5 +1,7 @@
 ---
+uuid: 24
 title: 关于博客
+status: publish
 date: 2020-07-16 23:22:23
 categories:
 - 杂谈
