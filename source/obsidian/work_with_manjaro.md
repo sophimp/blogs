@@ -91,4 +91,5 @@ GoldenDict
 首先，安装 networkmanager-openvpn。 
 然后，go to the Settings menu and choose Network. Click the plus sign to add a new connection and choose VPN. From there you can choose OpenVPN and manually enter the settings, or you can choose to import the client configuration file if you have already created one. If you followed the instructions in this article then it will be located at /etc/openvpn/client.conf. To connect to the VPN simply turn the connection on.
 
+使用过程中的一些痛点及时记录下来，有时间有精力就解决掉，没有的话，还挖个坑，这些都是可行的。
 
