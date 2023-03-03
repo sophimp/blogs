@@ -9,10 +9,14 @@
 
 # 常用的Coroutine.builder扩展函数
 
-launch
-produce
-async
-broadcast
+scope 主要用来开启协程
+
+	launch
+	produce
+	async
+	broadcast
+context 也封装了几种开启协程的几种方式
+	withContext
 
 ```kotlin
 fun <E> CoroutineScope.broadcast(
