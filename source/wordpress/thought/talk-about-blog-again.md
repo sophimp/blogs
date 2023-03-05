@@ -1,10 +1,10 @@
 ---
+uuid: 146
 title: 写博客的曲折
+status: publish
 date: 2021-08-10 15:38:44
-tags:
-- 思考
-categories:
-- 杂谈
+categories: 杂谈
+tags: 思考
 description: 在写博客的路上，各种挣扎，纠结，迷茫到放纵，醒悟，坚定, 再次上路。这个过程反反复复，曲折前进。这里再聊聊与此相关的心路历程
 ---
 

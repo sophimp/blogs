@@ -3,11 +3,8 @@ uuid: 24
 title: 关于博客
 status: publish
 date: 2020-07-16 23:22:23
-categories:
-- 杂谈
-tags: 
-- 思考
-- 宗旨
+categories: 杂谈
+tags: 思考, 宗旨
 description: 开篇立意，为什么要写博客， 如何提升写博客的能力, 。
 ---
 

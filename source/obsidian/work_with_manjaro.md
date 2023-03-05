@@ -81,6 +81,12 @@ idea ultimate 可用破解
 
 android-sdk, openjdk
 
+图床工具
+    picgo
+
+网盘云
+    坚果云，基本上够用了
+    再加上阿里云
 
 洛雪音乐
 
