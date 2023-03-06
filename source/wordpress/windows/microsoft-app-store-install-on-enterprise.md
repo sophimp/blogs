@@ -3,8 +3,8 @@ title: 在window企业版本安装应用商店 microsoft app store
 uuid: 384
 status: publish
 date: 2020-03-16 15:16:00
-categories: Winodws
 tags: windows
+categories: Windows
 description: 记一次在企业版的windows 10 上安装应用商店的过程及感悟。
 ---
 

@@ -4,7 +4,7 @@ uuid: 387
 status: publish
 date: 2021-03-25 10:10:42
 tags: wsl, aosp
-categories: windows
+categories: Windows
 description: windows下有了wsl, 对于跨平台开发确实方便很多，然而wsl还不成熟，`/`下的文件系统是VolFs, 而/mnt下使用的是DrvFs, 且wsl的运行格式是x86而linux下运行格式是elf32, 本文是记录在wsl下配置aosp的编译环境问题。
 
 ---
