@@ -1,12 +1,10 @@
 ---
 title: archlinux/manjaro - 日常生活与工作使用记录
+uuid: 306
+status: publish
 date: 2020-08-13 14:39:30
-tags:
-- Linux
-- archlinux
-
-categories:
-- Linux
+tags: Linux, archlinux
+categories: Linux
 description: archlinux的使用日常，踩的坑，设计的想法，对linux系统里各种概念的学习，都记录于此，以便于后续的整理
 ---
 
