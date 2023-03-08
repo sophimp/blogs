@@ -1,4 +1,10 @@
-
+---
+title: 主机配置
+date: 2023-02-08 12:39
+tags: 
+categories: 
+description: 
+---
 ## windows 使用 tips
 
 用途:

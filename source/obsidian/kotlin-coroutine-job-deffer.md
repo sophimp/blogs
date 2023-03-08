@@ -1,4 +1,12 @@
 
+--- 
+title: Kotlin Coroutine: Context, Dispatcher
+date: 2023-02-19 09:15
+tags: 
+categories: 
+description: 
+---
+
 # Kotlin Coroutine: Job, Deffered
 
 Job 具有生命周期且可以取消, 还有层级关系。

@@ -1,4 +1,12 @@
 
+---
+title: 博客的折腾记录
+date: 2022-12-19 20:38
+tags: 
+categories: 
+description: 
+---
+
 # 博客的折腾记录
 
 文字是永不过时的表达方式，blog无疑是一个很好的窗口。
@@ -41,6 +49,9 @@ crontab -e
 restart docker
 ```
 
+## 访问统计监控
+
+umami
 
 ## 美化
 

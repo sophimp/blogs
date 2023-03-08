@@ -1,4 +1,16 @@
 
+---
+title: linux 运维 - 安全
+date: 2022-12-21 11:05
+tags: 
+categories: 
+description: 
+---
+
+# 需求
+
+搭建了blog, 基本的运维知识，安全防护还是需要的
+
 ## linux 运维 - 安全
 
 ### 如何防止被当做肉鸡

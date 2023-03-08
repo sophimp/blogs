@@ -1,4 +1,11 @@
 
+---
+title: obsidian 使用记录
+date: 2022-07-22 15:04
+tags: 
+categories: 
+description: 
+---
  
 - vim 的配置
 

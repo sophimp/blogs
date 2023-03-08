@@ -1,4 +1,12 @@
 
+--- 
+title: Kotlin Coroutine: CoroutineScope
+date: 2023-01-05 17:05
+tags: 
+categories: 
+description: 
+---
+
 # Kotlin Coroutine:  基本概念
 
 多线程编程，对我来说，一直卡在门口徘徊，平常项目里遇到的多线程bug大概就是ConcurrentModificationException

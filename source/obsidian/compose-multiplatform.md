@@ -1,4 +1,12 @@
 
+---
+title: compose 跨平台 - 调研
+date: 2023-03-08 12:23
+tags: 
+categories: 
+description: 
+---
+
 ## Compose 的跨平台
 
 compose ，跨平台，kotlin ，gradle.kts 每一样都是重新开始，有必要吗？

@@ -1,4 +1,12 @@
 
+---
+title: gradle catalog
+date: 2022-04-05 23:32
+tags: 
+categories: 
+description: 
+---
+
 ## homelab
 
 homelab 该怎么玩？

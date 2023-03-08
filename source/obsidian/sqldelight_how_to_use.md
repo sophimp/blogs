@@ -1,4 +1,11 @@
 
+---
+title: SQLDelight 使用
+date: 2022-10-23 10:01
+tags: 
+categories: 
+description: 
+---
 ## SQLDelight
 
 如何做到跨平台的？

@@ -1,4 +1,11 @@
 
+--- 
+title: Kotlin Coroutine: Context, Dispatcher
+date: 2023-02-18 09:15
+tags: 
+categories: 
+description: 
+---
 # Kotlin Coroutine: 异常处理
 
 异常会导致闪退，严重影响用户体验，特别是在线上的异常捕获及处理, 因此异常处理(Exception Handling)是一个很重要的概念。

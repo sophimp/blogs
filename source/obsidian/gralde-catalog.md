@@ -1,4 +1,11 @@
 
+---
+title: gradle catalog
+date: 2023-02-05 22:22
+tags: 
+categories: 
+description: 
+---
 # version catalog on android project
 
 有人已经写过了， 我还需要再写吗？

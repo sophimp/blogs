@@ -1,4 +1,12 @@
 
+--- 
+title: kotlin Coroutine: Channel
+date: 2023-02-15 10:23
+tags: 
+categories: 
+description: 
+---
+
 # Kotlin Coroutine: Channel
 
 Channel 类似于 BlockQueue

@@ -1,4 +1,12 @@
 
+---
+title: 主机配置
+date: 2023-02-12 12:39
+tags: 
+categories: 
+description: 
+---
+
 # 背景
 
 折腾了一圈系统，从archlinux 转到manjaro, 说是manjaro 基于arch, 但是现在已经跟arch 背离很远了。

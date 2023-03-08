@@ -1,6 +1,6 @@
 ---
 title: compose material design
-date: Tue 06 Sep 2022 06:00:39 PM CST Tuesday
+date: 2022-09-06 18:00 
 tags:
 - Material Design
 - Compose
