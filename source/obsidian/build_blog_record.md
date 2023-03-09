@@ -48,6 +48,21 @@ certbot
 crontab -e 
 restart docker
 ```
+泛域名: acme.sh [Letsencrypt 泛域名 SSL 证书免费申请](https://cloud.tencent.com/developer/article/2142931?from=15425&areaSource=102001.1&traceId=yoy4ZbewZHqjxBZrxbUgm)
+
+```sh
+acme.sh --install-cert -d "example.com" --key-file /home/ubuntu/ssl/example.com.key.pem --fullchain-file /home/ubuntu/ssl/example.com.cert.pem
+```
+
+自动刷新证书: 
+```crontab
+0 0 1 * * /home/ubuntu/.acme.sh/acme.sh --renew -d "example.com" -d "*.example.com" --yes-I-know-dns-manual-mode-enough-go-ahead-please --force
+```
+
+http 自动跳转 https:
+```conf
+	return      301 https://$server_name$request_uri;      # 这是nginx最新支持的写法
+```
 
 ## 访问统计监控
 
