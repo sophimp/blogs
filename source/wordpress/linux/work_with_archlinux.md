@@ -56,52 +56,56 @@ linux可真是太有意思了，有很多可玩的操作，或者，windows也�
 
 pacman 添加国内的源，网速要快很多
 
-添加非root用户，可以使用sudo 提权
-	useradd username
-	passwd username
-	usermode -aG wheel username
-	vim /etc/sudoers
+- 添加非root用户，可以使用sudo 提权
 
+```sh
+useradd username
+passwd username
+usermode -aG wheel username
+vim /etc/sudoers
+```
 
-桌面 DE (desktop environment)
+- 桌面 DE (desktop environment)
 
-	pacman -S xorg xfce4 xfce4-goodies
-	配置.xinitrc
-	startxfce4 就可以进入桌面`
+```sh
+pacman -S xorg xfce4 xfce4-goodies
+配置.xinitrc
+startxfce4 就可以进入桌面`
+```
 
-登陆管理dm(display manager), 开机启动
+- 登陆管理dm(display manager), 开机启动
 
-	登陆管理器也是单独的软件，选择lightdm, 
-	systemctl enable lightdm.service
-	greeter
-	配置文件 .xprofile
+登陆管理器也是单独的软件，选择lightdm, 
+systemctl enable lightdm.service
+greeter
+配置文件 .xprofile
 
-远程桌面控制
+- 远程桌面控制
 	
-	xrdp, /usr/bin/dbus-launch
+xrdp, /usr/bin/dbus-launch
+open ssh 9010
 
-	open ssh 9010
+- 中文环境
 
-中文环境
-	先最简单地按装一款字体，后续再定制美化
-	输入法
-	旧有硬盘的挂载
+先最简单地按装一款字体，后续再定制美化
+输入法
+旧有硬盘的挂载
 
-滚动升级
+- 滚动升级
 	
-	使用 sudo pacman -Syy 启动不了了
-	升级了 linux 内核包，需要重新 grubmkconfig 生成一下
-	如果忘记了，只能重新U盘引导，chroot 再重新升级一下
-	需要将这个事情自动化, 不能每次滚动升级都检查一下有没有linux包吧。
+使用 sudo pacman -Syy 启动不了了
+升级了 linux 内核包，需要重新 grubmkconfig 生成一下
+如果忘记了，只能重新U盘引导，chroot 再重新升级一下
+需要将这个事情自动化, 不能每次滚动升级都检查一下有没有linux包吧。
 
-genfstab
+- genfstab
 
-	这个需要将常挂载的盘都先挂载好，才会自动生成fstab
-	之前一直纠结为什么/boot不能自动添加上去
+这个需要将常挂载的盘都先挂载好，才会自动生成fstab
+之前一直纠结为什么/boot不能自动添加上去
 
-磁盘分区
+- 磁盘分区
 	
-	超过2T的分区需要使用 parted
+超过2T的分区需要使用 parted
 
 `warnning performance: 34s % 2048s !=0s`
 

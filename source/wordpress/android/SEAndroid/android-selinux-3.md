@@ -12,10 +12,10 @@ description: 使用raw socket 实现 IPv6 的 tcp 通信, 验证可否使用raw 
 
 ### 基本思路
 	
-	SEAndroid框架是AVC(Android Vector Cache)
+SEAndroid框架是AVC(Android Vector Cache)
 
-	使用SEAndroid修改权限， 主要就是查看调用api不成功系统的avc的日志， 定位相关的te文件， 或者添加新的te文件， 编译。
-	如果编译不通过， 再接着看编译的日志，定位到相应的文件，删除或屏蔽报错对应的代码即可。
+使用SEAndroid修改权限， 主要就是查看调用api不成功系统的avc的日志， 定位相关的te文件， 或者添加新的te文件， 编译。
+如果编译不通过， 再接着看编译的日志，定位到相应的文件，删除或屏蔽报错对应的代码即可。
 
 ### 错误解决
 

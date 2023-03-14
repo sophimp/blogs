@@ -19,12 +19,10 @@ windows 10 ltsc(企业版) 是纯净版本, 没有装应用商店。
 ### 过程
 
 网上搜索安装应用商店的方法, 筛选比较靠谱的方法如下：
-```cmd
 1. 从[github kkkgo/LTSC-Add-MicrosoftStore](https://github.com/kkkgo/LTSC-Add-MicrosoftStore)下载 [LTSC-Add-MicrosoftStore-2019.zip](https://codeload.github.com/kkkgo/LTSC-Add-MicrosoftStore/zip/2019)
 2. 解压LTSC-Add-MicrosoftStore-2019.zip
 3. 管理员运行Add-Store.cmd
 4. 重启
-```
 
 我在第三步的运行脚本的过程中 Get-AppxPackage 这个命令一直出错。说是无法启动服务
 ![](https://filestore.community.support.microsoft.com/api/images/6486a9fe-fe31-4a92-8edb-e5943eab63a5?upload=true)
