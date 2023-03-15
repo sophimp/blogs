@@ -55,19 +55,32 @@ description:
 
 ## 操作系统
 
-还是直接选 ubuntu? 用正版不香么，非得找 windows 盗版
-就是，直接换linux 吧，这样也直接拒绝了游戏
-还是先看看能否安装正版的windows, 然后再破解吧。
-其他的都是浮云，先给他们的衣服买了
+由于中美贸易战的原因，决定优先选linux, 啥软件都使用正版，不香么，以前折腾了gentoo, ubuntu, deepin, archlinux, 都有或多或少的痛点，于是这次决定装 manjaro 试试。
 
-现在还是没有必要配，真正的笔记本也够用了， 等第一个产品做出来再说吧o
+尝试了一段时间，还是习惯于Windows下的开发，再加上terminal, wsl2的性能提升，linux的操作需求也够用了，因此，又换上了windows + wsl2(archlinux)
 
+以前装windows都是从雨木林风，深度，风林火山，系统之家上找。这些个网站下载的windows, 夹带了很多私货。
+这次，直接从官网上装，选择[massgravel/Microsoft-Activation-Scripts](https://github.com/massgravel/Microsoft-Activation-Scripts)来激活。
+> 声明:在经济允许的情况下, 推荐使用正版!!!
+系统盘也抛弃老毛桃，使用Rufus
+具体装系统的细节都不细表了，傻瓜式安装
 
-## 日常常用
+## 日常使用
+
+在国内使用Windows, 得保持一个观念: 
+
+从官网上找下载，使用Google搜索，拒绝百度, 莫从什么华军软件园之类的网站下载。
+没钱，大多数软件也能找到开源替代方案。
+这样基本上能保证日常使用的安全性
 
 ### 搜索
 
+everything: 小巧，高效, 搜文件必备
+findstr: cmd 命令，类似于 grep
+
 ### 磁盘清理
+
+DiskGenius: 免费够用
 
 ### 图片处理
 ShareX 
@@ -84,6 +97,8 @@ ShareX
 ### 视频剪辑
 
 ### idea 系列工具
+
+Idea Intellij 一把梭, 不知道是不是因为
 
 ### 
 
