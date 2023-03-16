@@ -9,36 +9,7 @@ description: windows下有了wsl, 对于跨平台开发确实方便很多，然�
 
 ---
 
-### wsl 修改安装目录
-
-查看所有分发版本
-```cmd
-wsl -l --all  -v
-```
-导出分发版为tar文件到d盘
-```cmd
-wsl --export Ubuntu-20.04 d:\ubuntu20.04.tar
-```
-注销当前分发版
-```cmd
-wsl --unregister Ubuntu-20.04
-```
-
-重新导入并安装分发版在d:\ubuntu
-```cmd
-wsl --import Ubuntu-20.04 d:\ubuntu d:\ubuntu20.04.tar --version 2
-```
-
-设置默认登陆用户为安装时用户名
-```cmd
-ubuntu2004 config --default-user Username
-```
-删除tar文件(可选)
-```cmd
-del d:\ubuntu20.04.tar
-```
-
-### 光标配置
+## 光标配置
 
 windows terminal 配置同步在 [sophimp/vim](https://gitee.com/sophimp/vim) win_terminal_settings.json中
 
@@ -76,16 +47,67 @@ Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -NoRes
 wsl --set-default-version 2
 ```
 
-5. 安装linux发行版
+5. 安装Ubuntu发行版
 
 通过microsoft store 搜索喜欢的linux发行版安装。 
+
+或者在cmd通过命令查找在线的发行版
+```sh
+wsl --list --online
+wsl --install Ubuntu-20.04
+```
+
 如果是windows10 企业版, 可能没有装microsoft store, 安装可参考 {% post_link windows/microsoft-app-store-install-on-enterprise %}
 
 到此，可以正常使用wsl了
 
+## 安装archlinux
+
+也有很多渠道可以安装
+
+1. microsoft app store 搜索 archlinux安装
+
+这个途径安装的不是最新的，问题比较多
+
+2. 通过[yuk7/container-systemd-init-tool](https://github.com/yuk7/container-systemd-init-tool) 安装
+  这个安装的也是别人打包好的，好久没有维护了，但是网上有很多教程是依赖于这个的
+
+3. 通过[DDoSolitary/LxRunOffline](https://github.com/DDoSolitary/LxRunOffline/wiki) 安装
+
+虽然这个工具也好久没有维护了， 但是这个工具是离线安装工具，可以自行下载最新的 arhclinux。
+[在Wsl2 中安装 Archlinux](https://zhuanlan.zhihu.com/p/266585727)
+
 6. 将发行版由wsl1 转到 wsl2上来
 ```sh
 wsl.exe --set-version Ubuntu 2
+```
+### wsl 修改安装目录
+
+查看所有分发版本
+```cmd
+wsl -l --all  -v
+```
+导出分发版为tar文件到d盘
+```cmd
+wsl --export Ubuntu-20.04 d:\ubuntu20.04.tar
+```
+注销当前分发版
+```cmd
+wsl --unregister Ubuntu-20.04
+```
+
+重新导入并安装分发版在d:\ubuntu
+```cmd
+wsl --import Ubuntu-20.04 d:\ubuntu d:\ubuntu20.04.tar --version 2
+```
+
+设置默认登陆用户为安装时用户名
+```cmd
+ubuntu2004 config --default-user Username
+```
+删除tar文件(可选)
+```cmd
+del d:\ubuntu20.04.tar
 ```
 
 ## aosp的源码环境同步
