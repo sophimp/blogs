@@ -65,18 +65,23 @@ description:
 系统盘也抛弃老毛桃，使用Rufus
 具体装系统的细节都不细表了，傻瓜式安装
 
+系统下载从官网的工具下载，制作成ISO, 国内网还挺耗时
+
 ## 日常使用
 
-在国内使用Windows, 得保持一个观念: 
+在国内使用Windows, 得保持两个观念: 
 
-从官网上找下载，使用Google搜索，拒绝百度, 莫从什么华军软件园之类的网站下载。
-没钱，大多数软件也能找到开源替代方案。
+1. 从官网上找下载，使用Google搜索，拒绝百度, 莫从什么华军软件园之类的网站下载。
+2. 大多数软件也能找到开源替代方案，一般都够用，没必要在盗版上耗费太多时间
+
 这样基本上能保证日常使用的安全性
 
 ### 搜索
 
 everything: 小巧，高效, 搜文件必备
 findstr: cmd 命令，类似于 grep
+
+Chrome/Chromium, Edge, Firefox, 浏览器方面 Edge 是在有了ChatGPT 以后崛起了, 但是论兼容性还是 Chrome/Chromium, Firefox 更好一些。
 
 ### 磁盘清理
 
@@ -87,18 +92,59 @@ ShareX
 	截屏，简单地图片处理
 
 图床
-	PicGo, 图床管理工具
+
+	[PicGo](https://github.com/Molunerfinn/PicGo), 图床管理工具
 
 专业图片处理
 
 	付费: PhotoShop
 	开源: GIMP
 
+### 音乐
+
+[洛雪音乐](https://github.com/lyswhut/lx-music-desktop)
+
 ### 视频剪辑
 
-### idea 系列工具
+### 工作流工具
 
-Idea Intellij 一把梭, 不知道是不是因为
+Git, 源代码管理，基础工具
+VScode: 开源的编辑器，脚本语言开发体验良好。
+Vim: 现在大部分时间用来写文档，linux的一些配置编辑。
+Idea Intellij系列: 一把梭, 破解网站()[], 不用去关注什么一堆的公众号，国内的网真TM头疼
+> 声明：有能力了，一定要使用正版，为了更好的生态环境, 毕竟用爱发电很难持久！~
 
-### 
+SqliteStudio: Sqlite 查看工具
 
+词典:[GoldenDict](http://goldendict.org/), 欧陆
+
+目前使用体验还是这两款体验最好的, 自己搭配词典，无广告，词典除了传统的韦伯，牛津, 还有一款开源的 [skywind3000/EDICT](https://github.com/skywind3000/ECDICT) 很好用。
+
+通信：通信工具可就太多了
+
+	微信/QQ/钉钉，国内有合作是避免不了
+	Discord, 
+
+AIGC： ChatGPT, Statable Diffusion
+
+	现如今，AI是一个得力的助手，用好了跟不会用是两种不同的效率
+
+### 翻墙
+
+了解基本的翻墙相关的网络知识, 这个可以少交一些学费，同时也能提升解决问题的能力，提升网上冲浪体验
+
+客户端： 
+	Clash, Clash for Windows 开源，够用。
+	OpenVpn: 私有网络, 公司网络
+
+机场，我目前用的是[忍者云RenZheYun](https://renzhe.cloud/auth/register?code=a1gN), 怎么找机场，当初还困扰了我一番, 无非就是怕被坑，怕跑路，不晓得从哪里去找机场
+1. 自架了一个vps, 应急用，同时有一台公网的vps, 有更多玩法, 比如blog, 家里的NAS, 服务器内网穿透, 自己产品临时实验场等。
+2. 毒药频道或者其他广告，找到（价钱，流量, 节点）适合自己的，先按月付用着，用一段时间就有自己的心得了，没必要在这上面纠结太多，学费是避免不了的。
+
+### 终端
+
+windows terminal + Wsl2 + archlinux/ubuntu
+
+microsoft store 在国内使用，还是有很多限制
+windows terminal 下载
+Wsl2 + archlinux安装
