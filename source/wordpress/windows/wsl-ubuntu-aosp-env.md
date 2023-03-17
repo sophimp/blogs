@@ -68,6 +68,7 @@ wsl --install Ubuntu-20.04
 1. microsoft app store 搜索 archlinux安装
 
 这个途径安装的不是最新的，问题比较多
+有时间折腾的, 可以从这个安装，锻炼解决问题的能力, archlinux本身是滚动更新，搞定了环境后，相对也容易升级到最新版本。
 
 2. 通过[yuk7/container-systemd-init-tool](https://github.com/yuk7/container-systemd-init-tool) 安装
   这个安装的也是别人打包好的，好久没有维护了，但是网上有很多教程是依赖于这个的
@@ -75,9 +76,117 @@ wsl --install Ubuntu-20.04
 3. 通过[DDoSolitary/LxRunOffline](https://github.com/DDoSolitary/LxRunOffline/wiki) 安装
 
 虽然这个工具也好久没有维护了， 但是这个工具是离线安装工具，可以自行下载最新的 arhclinux。
-[在Wsl2 中安装 Archlinux](https://zhuanlan.zhihu.com/p/266585727)
+参考[在Wsl2 中安装 Archlinux](https://zhuanlan.zhihu.com/p/266585727)
+鉴于链接有可能失效，再加上实践的过程中有些出入，还是将记录总结如下： 
 
-6. 将发行版由wsl1 转到 wsl2上来
+1. 下载Archlinux [https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/latest/](https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/latest/)
+
+找到 archlinux-bootstrap-2023.03.01-x86_64.tar.gz， 注意时间找当前最新的，后缀是 tar.gz文件
+
+2. 安装archlinux到WSL
+
+```cmd
+LxRunOffline i -n (自定义名称) -f (Arch镜像位置) -d (安装系统的位置) -r root.x86_64
+# 比如：
+LxRunOffline i -n ArchLinux -f C:\Users\kainhuck\Downloads\archlinux-bootstrap-2020.10.01-x86_64.tar.gz -d C:\Users\kainhuck\Linux -r root.x86_64
+wsl --set-version ArchLinux 2
+```
+3. 进入系统
+
+```cmd
+# 这里的Archlinux是上一步安装的时候自己定义的名字
+wsl -d ArchLinux
+```
+在这里我们就进入了archlinux内部，然后以下操作在archlinux中进行
+这里可以先ping一下archlinux是不是有网络, 如果没有网络，检测/etc/resolv.conf 的DNS是否配置好, 或者删除，会再次自动生成
+执行命令
+
+```sh
+rm /etc/resolv.conf
+重新启动Archlinux
+exit
+```
+执行上述命令后会退出arch,回到powershell,然后在powershell中执行
+
+```cmd
+wsl --shutdown ArchLinux
+然后再次进入Arch
+wsl -d ArchLinux
+在Arch中执行
+cd /etc/
+explorer.exe .
+```
+注意后面的点，执行这条命令后会用windows的文件管理器打开/etc目录，
+
+> 这里只是为了方便使用windows下的编辑器来编辑archlinux下的配置文件 
+> 为什么不直接在archlinux里修改呢？ 是因为上面下载的archlinux只有一个默认编辑器nano, 也安装不了vim, 当然如果习惯使用nano编辑， 也可以直接在archlinux中编辑
+
+接下来就是配置archlinux的国内源，还是因为墙的原因
+找到pacman.conf，在这个文件最后加入
+```conf
+[archlinuxcn]
+Server = https://mirrors.tuna.tsinghua.edu.cn/archlinuxcn/$arch
+```
+然后进入下一级目录pacman.d,编辑里面的mirrolist文件，将China的源注释去掉（选择部分即可）
+
+然后回到Arch，执行
+
+```sh
+pacman -Syy
+pacman-key --init
+pacman-key --populate
+pacman -S archlinuxcn-keyring
+pacman -S base base-devel vim git wget curl
+```
+然后别忘了给当前的root设置密码
+
+```sh
+passwd
+```
+
+然后新建一个普通用户
+
+```sh
+useradd -m -G wheel -s /bin/bash (用户名)
+passwd (用户名)
+```
+
+将创建用户添加到sudoers 中，方便使用sudo
+
+```sh
+vim /etc/sudoers
+# 将文件`/etc/sudoers中的wheel ALL=(ALL)` ALL那一行前面的注释去掉
+```
+查看当前用户id, 后面配置打开Archlinux默认使用当前普通用户用得到
+
+```sh
+id -u (用户名, 上面添加的用户)
+
+```
+
+4. 设置使用普通用户登录Archlinux
+紧接上一步，退出Arch
+
+在powershell中执行
+
+```cmd
+exit
+lxrunoffline su -n (你的arch名字) -v (账户id)
+# 如：
+
+lxrunoffline su -n ArchLinux -v 1000
+
+```
+
+至此ArchLinux已经可以使用了
+
+5. 接下来可以配置windows terminal，可提升体验
+
+从microsoft app store 或 github [Windows Terminal](https://github.com/microsoft/terminal/releases)上下载安装即可
+具体的配置，自行查询，也比较简单
+
+## 将发行版由wsl1 转到 wsl2上来
+
 ```sh
 wsl.exe --set-version Ubuntu 2
 ```
