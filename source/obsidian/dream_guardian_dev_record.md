@@ -41,3 +41,7 @@ Toast 与 弹窗
 2. 开发架构的搭建，数据的同步, 后续再考虑
 
 3. 
+
+## FAQ
+- `.jdks\corretto-17.0.6\bin\java.exe'' finished with non-zero exit value 1`
+
