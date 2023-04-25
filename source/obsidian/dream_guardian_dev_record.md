@@ -40,7 +40,9 @@ Toast 与 弹窗
 
 2. 开发架构的搭建，数据的同步, 后续再考虑
 
-3. 
+2023-04-25 18:12
+
+3. 折腾来折腾去，还是在搞一个框架, 不想和其他人讨论什么，当然都随手修一些bug
 
 ## FAQ
 - `.jdks\corretto-17.0.6\bin\java.exe'' finished with non-zero exit value 1`

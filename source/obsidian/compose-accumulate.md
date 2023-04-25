@@ -83,3 +83,7 @@ remember 向 Composition 插入一个 State
 
 设计需要什么样的情况呢？
 
+## MaterialTheme
+
+遵循这套机制，换纯色的肤是方便的
+
