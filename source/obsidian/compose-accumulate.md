@@ -87,3 +87,8 @@ remember 向 Composition 插入一个 State
 
 遵循这套机制，换纯色的肤是方便的
 
+## 环境搭建
+
+版本匹配：android 这一块，升级的时候，比较烦人的便是版本问题，不同版本，兼容不好，那真是一个灾难
+[AGP 与 gradle 版本匹配](https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn)
+
