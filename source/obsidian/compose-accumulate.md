@@ -92,3 +92,10 @@ remember 向 Composition 插入一个 State
 版本匹配：android 这一块，升级的时候，比较烦人的便是版本问题，不同版本，兼容不好，那真是一个灾难
 [AGP 与 gradle 版本匹配](https://developer.android.com/studio/releases/gradle-plugin?hl=zh-cn)
 
+## FAQ
+
+1. `EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ff8b5ec28be`
+
+换了机器, 装得是官方系统, 一直报这个错误，最后发现是设置了 WindowsStyle 出了问题，
+期间尝试手段： 补装了VC++Redist各种库, CPU的各种配置也都打开了，GPU 是AMD的RX580 2480SP, 下载各版本的jdk
+
