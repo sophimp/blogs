@@ -79,6 +79,30 @@ remember 向 Composition 插入一个 State
 
 毫无疑问， compose与Android View 的体系关联不大，源码对于我来说，都是全新, 但是view的经验也有一定的指导意义。
 
+### Surface
+干嘛用的, 为什么页面的外面要套一层Surface
+如果不用MaterialDesign，是不是不是就不用Surface了？
+Compose 又是如何剪裁的, 写一篇blog不是轻松的事，特别是在自己还不会的情况下，
+Surface 的作用：
+Clipping, Borders, Background, Content Color
+每一个 组件都能套一个Surface么
+
+为什么要用contract包一下 
+
+NodeChain, Modifier.Node
+
+还是很有激情的， 大佬走在前面，我也只能按我的节奏来，跟着大佬的脚步走。
+
+边做边写，肯定是效率最高的，通过我这几十年的经历来看，为什么呢？ 这个效率是针对整体效率，而不是开发效率。
+一个产品，开发只占1/3，或许还不到，最终要的是变现，营销，哪怕是不变现，想图个名，也得营销。
+所以，大部分人的综合能力，还是有短板的，人之常情，精力有限，兴趣有偏向，做起事来，肯定是反人类的居多。
+不能卖惨，因为后面还得凹人设，还想走科技的路线。
+
+### 绘制原理
+compose 用路由这一套，放在一个Activity 中， 随着加载的层级越多， 会不会影响到计算效率。
+Navigation 会不会隔离, 测量的时候，会不会所有的LayoutNode 都会测量呢？
+多个Activity 会不会效率更高一些呢？
+
 ## kotlin
 
 设计需要什么样的情况呢？
