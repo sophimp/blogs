@@ -70,6 +70,10 @@ composition state
 
 ### composeLocalOf
 看完一遍，又忘记这个是干什么的了
+看完好像搞懂了， 但是又说不出个所以然
+实现 Provider接口，
+ContentProvider
+我还是需要先将chatGPT的内容copy下来，靠我自己去记录，没有必要
 
 ### compose, composer, composition, composable
 
