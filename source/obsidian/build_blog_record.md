@@ -50,7 +50,18 @@ restart docker
 ```
 泛域名: acme.sh [Letsencrypt 泛域名 SSL 证书免费申请](https://cloud.tencent.com/developer/article/2142931?from=15425&areaSource=102001.1&traceId=yoy4ZbewZHqjxBZrxbUgm)
 
+acme.sh 生成证书， 放到一个公共的目录
+nginx.conf 再引用配置
+
+acme.sh 存在sudo , --force
+不推荐使用sudo, root确实会有不少问题
+也没有自动添加crontab, 添加到非root用户上了
+泛域名的没有签名成功
+
 ```sh
+# 生成证书
+acme.sh --issue -d "example.com" --nginx --force
+# 安装证书
 acme.sh --install-cert -d "example.com" --key-file /home/ubuntu/ssl/example.com.key.pem --fullchain-file /home/ubuntu/ssl/example.com.cert.pem
 ```
 
