@@ -1,5 +1,5 @@
 ---
-title: 个人简介
+title: 关于
 date: 2023-07-18 18:50
 uuid: 456
 status: publish
@@ -21,6 +21,12 @@ categories: 关于
 输出，促进深度思考，锻炼表达能力, 满足表达欲。
 改变，坦然面对各个阶段的自己
 突破，进击聚光灯下的体验
+
+# 网络信息
+
+[email: sophimp2018@gmail.com](sophimp2018@gmail.com)
+[github: https://github.com/sophimp](https://github.com/sophimp)
+[twitter: https://twitter.com/Sophimps](https://twitter.com/Sophimps)
 
 # 向那些优秀的人学习
 
@@ -63,7 +69,7 @@ categories: 关于
 > 芝兰生于深谷，不以无人而不芳
 > 君子修身养德，不以贫困而改志
 
-	学makefile 的引路人，后续关注blog，也从中受益菲浅。也是没想到猝死, RIP
+	学makefile 的引路人，后续关注blog，受益菲浅。RIP
 
 Milo Yip(叶劲峰)
 
@@ -81,10 +87,4 @@ Milo Yip(叶劲峰)
 
 > 有志者，事竟成，百二秦关终属楚
 > 苦心人，天不负，三千越甲可吞吴
-
-# 网络信息
-
-[email: sophimp2018@gmail.com](sophimp2018@gmail.com)
-[github: https://github.com/sophimp](https://github.com/sophimp)
-[twitter: https://twitter.com/Sophimps](https://twitter.com/Sophimps)
 
