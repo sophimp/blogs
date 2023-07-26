@@ -1,11 +1,10 @@
-
 ---
 title: Composition Local
 date: 2023-07-22 18:23
-uuid: 
-status: draft
-tags: Compositionlocal
-categories: Compose
+uuid: 467
+status: publish
+tags: Compose, Compositionlocal
+categories: 编程，Compose, Android
 description: 
 ---
 
@@ -139,7 +138,8 @@ CompositionLocal 是通过组合隐式向下传递数据的工具。
 
 是如何做到 作用域内数据共享的呢？
 
-使用 SlotTable 来存储数据
+底部实现是使用 SlotTable, 来管理这些值。
+具体SlotTable 原理，留坑另写。
 
 # 其他替代 CompositionLocal的方式
 
