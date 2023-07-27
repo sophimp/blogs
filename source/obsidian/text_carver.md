@@ -24,3 +24,28 @@ markdown 编辑, 渲染
 
 # 需要解决的痛点
 
+所见即所得的效率问题
+
+图片
+音频
+视频
+只能使用html了
+
+表格实现
+
+移动端键盘适配问题
+
+# 看源码记录
+
+TextFieldValue:  编辑state
+	持有 selection, cursor, text, text composition
+
+AnnotatedString: 
+	toAttributedString
+	toComposeString
+
+input service: 
+	负责TextFieldValue
+
+TextRange
+
