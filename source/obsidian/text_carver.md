@@ -53,4 +53,7 @@ BasicTextField
 	这个才是基本的Text input 控件
 	为什么他们看源码就能那么快呢？是我太不用心了？ 
 
+TextLayoutInput
+TextLayoutResult
+
 
