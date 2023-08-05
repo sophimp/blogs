@@ -70,6 +70,10 @@ composition state
 
 ### composeLocalOf
 看完一遍，又忘记这个是干什么的了
+看完好像搞懂了， 但是又说不出个所以然
+实现 Provider接口，
+ContentProvider
+我还是需要先将chatGPT的内容copy下来，靠我自己去记录，没有必要
 
 ### compose, composer, composition, composable
 
@@ -79,9 +83,40 @@ remember 向 Composition 插入一个 State
 
 毫无疑问， compose与Android View 的体系关联不大，源码对于我来说，都是全新, 但是view的经验也有一定的指导意义。
 
+### Surface
+干嘛用的, 为什么页面的外面要套一层Surface
+如果不用MaterialDesign，是不是不是就不用Surface了？
+Compose 又是如何剪裁的, 写一篇blog不是轻松的事，特别是在自己还不会的情况下，
+Surface 的作用：
+Clipping, Borders, Background, Content Color
+每一个 组件都能套一个Surface么
+
+为什么要用contract包一下 
+
+NodeChain, Modifier.Node
+
+还是很有激情的， 大佬走在前面，我也只能按我的节奏来，跟着大佬的脚步走。
+
+边做边写，肯定是效率最高的，通过我这几十年的经历来看，为什么呢？ 这个效率是针对整体效率，而不是开发效率。
+一个产品，开发只占1/3，或许还不到，最终要的是变现，营销，哪怕是不变现，想图个名，也得营销。
+所以，大部分人的综合能力，还是有短板的，人之常情，精力有限，兴趣有偏向，做起事来，肯定是反人类的居多。
+不能卖惨，因为后面还得凹人设，还想走科技的路线。
+
+### 绘制原理
+compose 用路由这一套，放在一个Activity 中， 随着加载的层级越多， 会不会影响到计算效率。
+Navigation 会不会隔离, 测量的时候，会不会所有的LayoutNode 都会测量呢？
+多个Activity 会不会效率更高一些呢？
+
 ## kotlin
 
 设计需要什么样的情况呢？
+
+函数式编程，我都忘记要怎么去写代码了，top函数是都翻译成静态函数了吗？ top变量也成了静态变量，top变量过多会不会导致内存泄露呢？ 
+java是以类的方式带组合代码，习惯是文件名与类名相对应，但是kotlin 是以文件的形式来组织代码
+top函数/变量，扩展函数， data数据结构，大都是放同一个文件中。
+
+新的架构模式，mvi 是怎么操作的
+这里面涉及到的flow, state, LocalProvider 都是新概念，且都是前置条件，无形中提升了门槛
 
 ## MaterialTheme
 
