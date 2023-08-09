@@ -85,4 +85,31 @@ TextLayoutInput
 
 TextLayoutResult
 
+TextDelegate
+
+	将 texts 画到 canvas 上
+	为什么非得有一个delegate模式？有太多的角色，使用代理，方便扩展
+	
+	传入 AnnotatedString
+	调用 layout 布局，分段
+	调用 paint 画到canvas
+	
+Modifier 大有玄机
+
+	并不只是用来包装尺寸样式， 构建LayoutNode tree, 绘制，都是由Modifier来调度的？ 
+	尺寸与样式，这些是由 Modifier.Element 来承载
+	最后会合理地生成一系统 Modifier.Node
+
+	具体是怎么测量的，需要测量多少遍, 是在mergeLayoutNode过程中测试的么？
+	
+LayoutCoordinates
+
+	rootCoordinates
+	parentCoordinates
+	windowCoorodinates
+
+	knm 是 nativce代码反编译
+	看compose代码还是需要在纯Android平台看，在跨平台项目，只会定位到 common expect 函数, 各平台具体的实现就不清楚了
+
+	Offset, Size
 
