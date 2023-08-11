@@ -97,10 +97,13 @@ TextDelegate
 Modifier 大有玄机
 
 	并不只是用来包装尺寸样式， 构建LayoutNode tree, 绘制，都是由Modifier来调度的？ 
-	尺寸与样式，这些是由 Modifier.Element 来承载
+	尺寸与样式，这些是由 Modifier.Element 来承载, 装饰或者添加行为
 	最后会合理地生成一系统 Modifier.Node
 
 	具体是怎么测量的，需要测量多少遍, 是在mergeLayoutNode过程中测试的么？
+
+	Modifier 相当于一个中间层，这里面总得有一个中间层来负责连接各方的抽象
+	我想找的就是连接点在哪里
 	
 LayoutCoordinates
 
@@ -112,4 +115,10 @@ LayoutCoordinates
 	看compose代码还是需要在纯Android平台看，在跨平台项目，只会定位到 common expect 函数, 各平台具体的实现就不清楚了
 
 	Offset, Size
+
+Composer 
+
+	提到渲染， 还是脱离不了Compose运行时
+	为什么不学习跨端呢？ 跨端技术还是值得学习的
+	
 

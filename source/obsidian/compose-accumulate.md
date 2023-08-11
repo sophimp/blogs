@@ -83,7 +83,14 @@ remember 向 Composition 插入一个 State
 
 毫无疑问， compose与Android View 的体系关联不大，源码对于我来说，都是全新, 但是view的经验也有一定的指导意义。
 
+Composition 什么时候构建？
+什么时候会构建Compose NodeTree, 这些都是重大问题。
+
+这些都是可以慢慢写的文章，目前的文章有其可取之处，但是也不够清晰, 不能够解决我的问题。
+写不全，就写一个系列, 这些是在我学习的时候可以做到的。边学习，边输出，也主要是为了写作服务。
+
 ### Surface
+
 干嘛用的, 为什么页面的外面要套一层Surface
 如果不用MaterialDesign，是不是不是就不用Surface了？
 Compose 又是如何剪裁的, 写一篇blog不是轻松的事，特别是在自己还不会的情况下，
@@ -106,6 +113,7 @@ NodeChain, Modifier.Node
 compose 用路由这一套，放在一个Activity 中， 随着加载的层级越多， 会不会影响到计算效率。
 Navigation 会不会隔离, 测量的时候，会不会所有的LayoutNode 都会测量呢？
 多个Activity 会不会效率更高一些呢？
+
 
 ## kotlin
 
