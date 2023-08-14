@@ -104,6 +104,8 @@ Modifier 大有玄机
 
 	Modifier 相当于一个中间层，这里面总得有一个中间层来负责连接各方的抽象
 	我想找的就是连接点在哪里
+
+	SemanticModifier 
 	
 LayoutCoordinates
 
@@ -121,4 +123,12 @@ Composer
 	提到渲染， 还是脱离不了Compose运行时
 	为什么不学习跨端呢？ 跨端技术还是值得学习的
 	
+
+DrawerScope, LayoutNodeDrawScope
+
+Canvas, NativeCanvas
+
+
+Applier 最还是调用 root(LayoutNode)的能力
+
 
