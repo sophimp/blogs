@@ -3,8 +3,8 @@ title: 雕梦(TextCarver) - 富文本编辑器：设计思路
 date: 
 uuid: 
 status: draft
-tags: 创业
-categories: 杂谈, 随笔
+tags: 编辑器
+categories: 
 description: 
 ---
 # 雕梦 TextCarver
@@ -128,7 +128,13 @@ DrawerScope, LayoutNodeDrawScope
 
 Canvas, NativeCanvas
 
-
 Applier 最还是调用 root(LayoutNode)的能力
 
+# 疑问
+最主要的还是state的变化
+
+创建了那么多的 text copy, 在内存里会不会存在多份呢？ 这样的话，打开大文件，也是个笑话
+如果能满足5万字内的文章的话, 日常使用倒是也够，性能不存在问题的话，倒也可基于此做一个优秀的编辑器。
+但是如果用其来做编辑器，那就不一定好使了。
+所以，使用compose来做一款高性能的编辑器，有难度啊, 纯文本编辑器，那还是不一样的。
 
