@@ -130,6 +130,9 @@ Canvas, NativeCanvas
 
 Applier 最还是调用 root(LayoutNode)的能力
 
+BaseTextField2 
+	基于BasicText 开发的，暂时也用不上
+
 # 疑问
 最主要的还是state的变化
 
