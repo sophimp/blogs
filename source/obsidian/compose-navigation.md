@@ -66,6 +66,20 @@ Router 需求：
 	ViewModel 是如何保证作用域的？ 绑定作用域？
 
 
+2023-08-25 17:47
+突然将 Navigation 的源码看明白了
+NavHost, 
+
+用于提供root composable
+
+NavGraphBuilder, 构建所有的 composable 函数, 保存在一个list中
+
+改变 NavController 的 currentDestination 来触发重组, 选择不同的 composable, navigate 与 popBackStack 本质上就是模拟 Stack 入栈出栈操作
+
+可以做到更兼容的方式, 需要人来写的. 使用百分比的方式, 更方便一些? 
+
+SaveableStateHolder
+
 
 ## 使用
 
