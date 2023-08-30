@@ -42,6 +42,10 @@ push, pop 的实现看不到, knm是反编译生成的代码, 想看源码，需
 路由的核心能力：
 解耦UI跳转，降低系统依赖
 
+4. 页面切回来后, 如何保存状态?
+
+SlotTable, SaveableState, Composition
+
 ## Navigation
 
 路由功能，与底部导航功能还是有所区别
