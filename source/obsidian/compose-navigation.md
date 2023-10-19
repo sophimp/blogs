@@ -42,6 +42,10 @@ push, pop 的实现看不到, knm是反编译生成的代码, 想看源码，需
 路由的核心能力：
 解耦UI跳转，降低系统依赖
 
+4. 页面切回来后, 如何保存状态?
+
+SlotTable, SaveableState, Composition
+
 ## Navigation
 
 路由功能，与底部导航功能还是有所区别
@@ -66,6 +70,27 @@ Router 需求：
 	ViewModel 是如何保证作用域的？ 绑定作用域？
 
 
+2023-08-25 17:47
+突然将 Navigation 的源码看明白了
+NavHost, 
+
+用于提供root composable
+
+NavGraphBuilder, 构建所有的 composable 函数, 保存在一个list中
+
+改变 NavController 的 currentDestination 来触发重组, 选择不同的 composable, navigate 与 popBackStack 本质上就是模拟 Stack 入栈出栈操作
+
+可以做到更兼容的方式, 需要人来写的. 使用百分比的方式, 更方便一些? 
+
+Saver
+SaveableStateHolder
+
+	用来缓存状态，恢复状态， 横竖屏切换，popback, 的上一级页面数据恢复
+	当然需要学习一些东西，现在才是刚刚进入状态
+
+	只会躺在床上，怎么做呢？ 电脑者是生产力啊， 手机可以吗？ 也可以，但是挺麻烦的。 
+	会不会成为学习的机器？年收入千万，还是美元，那是真得牛逼了。 
+	搜狗将我打的字都传到云端，那是收集不到什么词库的。
 
 ## 使用
 
