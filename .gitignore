@@ -6,3 +6,4 @@ themes/next
 db.json
 node_modules
 ./push.sh
+.obsidian/
