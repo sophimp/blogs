@@ -66,7 +66,7 @@ acme.sh 不推荐使用root权限, 非要使用 可加上 `--force` 参数,
 
 > tips: 
 >	1. 泛域名的申请可以不必使用root权限
->	2. 主要步骤: 配置 DP_Id, DP_Key, 然后 带上 `--dns dns_dp` 即可
+>	2. 主要步骤: 通过export配置环境变量 DP_Id, DP_Key, 然后 带上 `--dns dns_dp` 即可
 >	3. zsh 写通配符域名要加上 引号, 不然识别不了
 >	4. acme.sh 识别不了命令，需要alias 到acme.sh 安装目录
 
